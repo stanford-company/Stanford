@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,11 +14,24 @@ class SplashPage extends StatefulWidget {
   _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () => {_loadScreen()});
+
+    // Start timer to load next screen
+    Timer(Duration(seconds: 3), () => _loadScreen());
+
+    // Start animation controller
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat();
+
+    _animation = Tween<double>(begin: 0, end: 2 * pi).animate(_controller);
   }
 
   _loadScreen() async {
@@ -31,68 +44,79 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         width: double.infinity,
-        color: kColorBlue,
+        height: double.infinity,
+        color: Colors.white,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Icon(
-                        Icons.add,
-                        color: kColorPink,
-                        size: 48,
-                      ),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: 'Med',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            TextSpan(
-                              text: 'APP',
-                              style: TextStyle(
-                                color: Colors.grey[400],
-                                fontSize: 32,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+            Image.asset(
+              'assets/images/launcher_ic.png',
+              height: 300,
+              width: 300,
+            ),
+            const SizedBox(height: 30),
+            AnimatedBuilder(
+              animation: _animation,
+              builder: (_, __) => CustomPaint(
+                painter: RingPainter(_animation.value),
+                child: SizedBox(width: 50, height: 50),
               ),
             ),
-            Container(
-              width: 150,
-              height: 2,
-              child: LinearProgressIndicator(
-                backgroundColor: kColorBlue,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            )
           ],
         ),
       ),
     );
   }
+}
+
+class RingPainter extends CustomPainter {
+  final double angle;
+
+  RingPainter(this.angle);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final strokeWidth = 6.0;
+    final radius = (size.width - strokeWidth) / 2;
+    final center = Offset(size.width / 2, size.height / 2);
+
+    // Light green circular background
+    final backgroundPaint = Paint()
+      ..color = Colors.lightGreen.withOpacity(0.3)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = strokeWidth;
+
+    // Teal rotating arc
+    final foregroundPaint = Paint()
+      ..color = Colors.teal
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = strokeWidth;
+
+    canvas.drawCircle(center, radius, backgroundPaint);
+
+    final sweepAngle = pi / 2.5; // Arc length
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      angle,
+      sweepAngle,
+      false,
+      foregroundPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant RingPainter oldDelegate) =>
+      oldDelegate.angle != angle;
 }
