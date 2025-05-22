@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.elevation = 0,
-    this.borderRadius = 4,
+    this.borderRadius = 12, // Rounded corners
     this.padding,
     this.textSize,
   }) : super(key: key);
@@ -25,7 +25,7 @@ class CustomButton extends StatelessWidget {
     return RawMaterialButton(
       onPressed: onPressed,
       elevation: elevation,
-      fillColor: kColorBlue,
+      fillColor: const Color(0xFF249372), // Updated color
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(borderRadius),
       ),
@@ -38,9 +38,10 @@ class CustomButton extends StatelessWidget {
             Text(
               text,
               style: Theme.of(context).textTheme.button!.copyWith(
-                  color: Colors.white,
-                  fontSize:
-                      textSize ?? Theme.of(context).textTheme.button!.fontSize),
+                color: Colors.white,
+                fontSize: textSize ??
+                    Theme.of(context).textTheme.button!.fontSize,
+              ),
               textAlign: TextAlign.center,
             ),
           ],
