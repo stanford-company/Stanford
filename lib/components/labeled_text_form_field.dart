@@ -8,7 +8,8 @@ class LabeledTextFormField extends StatelessWidget {
   final String? hintText;
   final double padding;
   final Widget? prefixIcon;
-  final Widget? suffixIcon; // Added prefix icon support
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;// Added prefix icon support
 
   const LabeledTextFormField(
       {required this.title,
@@ -18,7 +19,8 @@ class LabeledTextFormField extends StatelessWidget {
       this.hintText,
       this.padding = 16,
       this.prefixIcon,
-      this.suffixIcon // Included in constructor
+      this.suffixIcon,
+      this.onChanged,
       });
 
   @override
@@ -63,6 +65,7 @@ class LabeledTextFormField extends StatelessWidget {
               filled: true,
               fillColor: Colors.white,
             ),
+            onChanged: onChanged,
           ),
         ],
       ),

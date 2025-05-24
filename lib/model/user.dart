@@ -1,83 +1,34 @@
-import 'dart:convert';
+class UserModel {
+  final int id;
+  final String fullName;
+  final String email;
+  final String nationalId;
+  final String phone;
+  final String gender;
+  final String signUpStatus;
+  final int isActive;
 
-class User {
-  String? id;
-  String? firstName;
-  String? lastName;
-  String? email;
-  String? password;
-  int? gender;
-  String? phone;
-  String? birthDate;
-  String? bloodGroup;
-  String? maritalStatus;
-  double? height;
-  double? weight;
-  String? emeregencyContact;
-  String? avatar;
-  String? location;
-
-  User({
-    this.id,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.password,
-    this.gender,
-    this.phone,
-    this.birthDate,
-    this.bloodGroup,
-    this.maritalStatus,
-    this.height,
-    this.weight,
-    this.emeregencyContact,
-    this.avatar,
-    this.location,
+  UserModel({
+    required this.id,
+    required this.fullName,
+    required this.email,
+    required this.nationalId,
+    required this.phone,
+    required this.gender,
+    required this.signUpStatus,
+    required this.isActive,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
-      'email': email,
-      'password': password,
-      'gender': gender,
-      'phone': phone,
-      'birthDate': birthDate,
-      'bloodGroup': bloodGroup,
-      'maritalStatus': maritalStatus,
-      'height': height,
-      'weight': weight,
-      'emeregencyContact': emeregencyContact,
-      'avatar': avatar,
-      'location': location,
-    };
-  }
-
-  factory User.fromMap(Map<String, dynamic>? map) {
-    if (map == null) return User();
-
-    return User(
-      id: map['id'],
-      firstName: map['firstName'],
-      lastName: map['lastName'],
-      email: map['email'],
-      password: map['password'],
-      gender: map['gender'],
-      phone: map['phone'],
-      birthDate: map['birthDate'],
-      bloodGroup: map['bloodGroup'],
-      maritalStatus: map['maritalStatus'],
-      height: map['height'],
-      weight: map['weight'],
-      emeregencyContact: map['emeregencyContact'],
-      avatar: map['avatar'],
-      location: map['location'],
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'] as int? ?? 0,
+      fullName: json['full_name']?.toString() ?? '',
+      email: json['email']?.toString() ?? '',
+      nationalId: json['national_id']?.toString() ?? '',
+      phone: json['phone']?.toString() ?? '',
+      gender: json['gender']?.toString() ?? '',
+      signUpStatus: json['sign_up_status']?.toString().toLowerCase() ?? 'no',
+      isActive: json['is_active'] as int? ?? 0,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory User.fromJson(String source) => User.fromMap(json.decode(source));
 }
