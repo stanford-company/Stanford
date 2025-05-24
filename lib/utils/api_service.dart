@@ -26,6 +26,9 @@ class ApiService {
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
+      }else if(response.statusCode == 404){
+        print("tauowdhfeukfhhhhhhhhhhhhhhhhhhhhhuu");
+        return jsonDecode("ewwwwwwwwwwwwwwwwwwwwwwwww");
       } else {
         throw Exception('Server responded with status ${response.statusCode}');
       }

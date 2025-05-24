@@ -271,7 +271,7 @@ class _SignupPageState extends State<SignupPage> {
                                       ),
                                       GestureDetector(
                                         onTap: () =>
-                                            Navigator.of(context).pushNamed(Routes.login),
+                                            Navigator.of(context).pop(),
                                         child: Text(
                                           'Login',
                                           style: TextStyle(
