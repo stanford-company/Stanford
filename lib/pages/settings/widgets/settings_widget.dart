@@ -43,7 +43,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
             children: <Widget>[
               Text(
                 'health_tips_for_you'.tr(),
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 'get_information_tips'.tr(),
@@ -59,9 +62,15 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         ListTile(
           leading: Text(
             'notification_settings'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          trailing: Icon(Icons.chevron_right, color: Colors.grey),
+          trailing: Icon(
+            Icons.chevron_right,
+            color: Colors.grey,
+          ),
           onTap: () =>
               Navigator.of(context).pushNamed(Routes.notificationSettings),
         ),

@@ -1,50 +1,73 @@
 import 'package:flutter/material.dart';
 
-import '../../core/utils/constants.dart';
-import 'text_form_field.dart';
-
 class LabeledTextFormField extends StatelessWidget {
   final String title;
-  final double padding;
   final TextEditingController? controller;
-  final String hintText;
-  final bool obscureText;
-  final bool enabled;
-  final Widget? suffixIcon;
-  final String? error;
   final TextInputType? keyboardType;
-  final String? Function(String?)? validator;
+  final bool obscureText;
+  final String? hintText;
+  final double padding;
+  final Widget? prefixIcon;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged; // Added prefix icon support
 
   const LabeledTextFormField({
-    Key? key,
     required this.title,
-    this.padding = 20,
     this.controller,
-    this.hintText = '',
-    this.obscureText = false,
-    this.enabled = true,
-    this.suffixIcon,
-    this.error,
     this.keyboardType,
-    this.validator,
-  }) : super(key: key);
+    this.obscureText = false,
+    this.hintText,
+    this.padding = 16,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.onChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(bottom: padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(title, style: kInputTextStyle),
-          CustomTextFormField(
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xff6a717e),
+            ),
+          ),
+          SizedBox(height: 8),
+          TextFormField(
             controller: controller,
             keyboardType: keyboardType,
-            hintText: hintText,
-            enabled: enabled,
-            error: error,
             obscureText: obscureText,
-            suffixIcon: suffixIcon,
-            validator: validator,
+            decoration: InputDecoration(
+              hintText: hintText,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              // Support for prefix widget (icon/SVG)
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 14,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.grey[400]!),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Color(0xff98a2b3)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Colors.blue, width: 1.5),
+              ),
+              filled: true,
+              fillColor: Colors.white,
+            ),
+            onChanged: onChanged,
           ),
         ],
       ),

@@ -37,9 +37,14 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
           _patient
               ? '${'please_provide_following_information_about'.tr()} Tawfiq Bahri:'
               : 'please_provide_following_patient_details_dot'.tr(),
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        SizedBox(height: 35),
+        SizedBox(
+          height: 35,
+        ),
         Text(
           _patient ? '${'full_name'.tr()}*' : '${'patient_full_name'.tr()}*',
           style: kInputTextStyle,
@@ -48,15 +53,22 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
           controller: _nameController,
           hintText: _patient ? '' : 'Tawfiq Bahri',
         ),
-        SizedBox(height: 15),
-        Text('${'mobile'.tr()}*', style: kInputTextStyle),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          '${'mobile'.tr()}*',
+          style: kInputTextStyle,
+        ),
         CustomTextFormField(
           controller: _phoneController,
           hintText: '+213781348677',
           enabled: false,
         ),
         _patient ? Container() : _patientsMobile(),
-        SizedBox(height: 15),
+        SizedBox(
+          height: 15,
+        ),
         Text(
           _patient ? '${'your_email'.tr()}*' : '${'patient_email'.tr()}*',
           style: kInputTextStyle,
@@ -75,8 +87,13 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        SizedBox(height: 15),
-        Text('Patient\'s Mobile*', style: kInputTextStyle),
+        SizedBox(
+          height: 15,
+        ),
+        Text(
+          'Patient\'s Mobile*',
+          style: kInputTextStyle,
+        ),
         CustomTextFormField(
           controller: _patientPhoneController,
           hintText: 'Enter Patient\'s Mobile Number',
@@ -90,7 +107,11 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('patient_details'.tr())),
+      appBar: AppBar(
+        title: Text(
+          'patient_details'.tr(),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -104,7 +125,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                     children: <Widget>[
                       Container(
                         color: _isdark ? Colors.transparent : Colors.white,
-                        child: DoctorItem1(doctor: doctors[0]),
+                        child: DoctorItem1(
+                          doctor: doctors[0],
+                        ),
                       ),
                       Divider(
                         color: _isdark ? Colors.black : Colors.grey[300],
@@ -118,7 +141,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 15,
+                              ),
                               Text(
                                 'purpose_of_visit'.tr(),
                                 style: TextStyle(
@@ -133,7 +158,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 15,
+                              ),
                             ],
                           ),
                         ),
@@ -147,7 +174,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 15,
+                              ),
                               Text(
                                 'date_and_time'.tr(),
                                 style: TextStyle(
@@ -162,12 +191,16 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 5),
+                              SizedBox(
+                                height: 5,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Container(
                         width: double.infinity,
                         color: _color,
@@ -186,7 +219,9 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 15,
+                              ),
                               Material(
                                 color: _isdark
                                     ? Colors.white.withOpacity(0.12)
@@ -195,11 +230,10 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                 child: Container(
                                   decoration: BoxDecoration(
                                     border: Border.all(
-                                      color: _isdark
-                                          ? Colors.black
-                                          : Colors.grey,
-                                      width: 1,
-                                    ),
+                                        color: _isdark
+                                            ? Colors.black
+                                            : Colors.grey,
+                                        width: 1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Column(
@@ -239,17 +273,17 @@ class _PatientDetailsPageState extends State<PatientDetailsPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 15),
+                              SizedBox(
+                                height: 15,
+                              ),
                               _patientDetails(),
                             ],
                           ),
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 20,
-                          horizontal: 15,
-                        ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 20, horizontal: 15),
                         child: RichText(
                           text: TextSpan(
                             children: [

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../common/components/custom_navigation_bar.dart';
 import '../../data/pref_manager.dart';
 import '../../core/routes/routes.dart';
 import '../../../core/utils/constants.dart';
+import '../booking/step1/health_concern_page.dart';
 import '../drawer/drawer_page.dart';
 import '../messages/messages_page.dart';
 import '../profile/profile_page.dart';
@@ -35,8 +39,8 @@ class _HomeState extends State<Home> {
 
   @override
   void dispose() {
-    super.dispose();
     _pageController.dispose();
+    super.dispose();
   }
 
   _selectPage(int index) {
@@ -52,150 +56,196 @@ class _HomeState extends State<Home> {
     final _pages = [
       HomePage(),
       ProfilePage(),
-      Container(),
+      HealthConcernPage(),
       MessagesPage(),
       SettingsPage(),
     ];
-    return Stack(
-      children: <Widget>[
-        DrawerPage(
-          onTap: () {
-            setState(() {
-              xOffset = 0;
-              yOffset = 0;
-              scaleFactor = 1;
-              isDrawerOpen = false;
-            });
-          },
-        ),
-        AnimatedContainer(
-          transform: Matrix4.translationValues(xOffset, yOffset, 0)
-            ..scale(scaleFactor)
-            ..rotateY(isDrawerOpen ? -0.5 : 0),
-          duration: Duration(milliseconds: 250),
-          decoration: BoxDecoration(
-            color: Colors.grey[200],
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarColor: Colors.white,
+      ),
+      child: Stack(
+        children: <Widget>[
+          DrawerPage(
+            onTap: () {
+              setState(() {
+                xOffset = 0;
+                yOffset = 0;
+                scaleFactor = 1;
+                isDrawerOpen = false;
+              });
+            },
           ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(isDrawerOpen ? 40 : 0.0),
-            child: Scaffold(
-              appBar: AppBar(
-                leading: isDrawerOpen
-                    ? IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        onPressed: () {
-                          setState(() {
-                            xOffset = 0;
-                            yOffset = 0;
-                            scaleFactor = 1;
-                            isDrawerOpen = false;
-                          });
-                        },
-                      )
-                    : IconButton(
-                        icon: Icon(Icons.menu),
-                        onPressed: () {
-                          setState(() {
-                            xOffset = size.width - size.width / 3;
-                            yOffset = size.height * 0.1;
-                            scaleFactor = 0.8;
-                            isDrawerOpen = true;
-                          });
-                        },
-                      ),
-                title: AppBarTitleWidget(),
-                actions: <Widget>[
-                  _selectedIndex == 2
-                      ? IconButton(onPressed: () {}, icon: Icon(Icons.add))
-                      : IconButton(
-                          onPressed: () => Navigator.pushNamed(
-                            context,
-                            Routes.notifications,
+          AnimatedContainer(
+            transform: Matrix4.translationValues(xOffset, yOffset, 0)
+              ..scale(scaleFactor)
+              ..rotateY(isDrawerOpen ? -0.5 : 0),
+            duration: Duration(milliseconds: 250),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(isDrawerOpen ? 40.w : 0.0),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(isDrawerOpen ? 40.w : 0.0),
+              child: Scaffold(
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(92.h),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 12.w),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 32.h),
+                        AppBar(
+                          elevation: 0,
+                          automaticallyImplyLeading: false,
+                          toolbarHeight: 60.h,
+                          leading: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Container(
+                              alignment: Alignment.center,
+                              child: SvgPicture.asset(
+                                'assets/images/svg/drawer_icon.svg',
+                                width: isDrawerOpen ? 24.w : 45.w,
+                                height: isDrawerOpen ? 24.h : 45.h,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                if (isDrawerOpen) {
+                                  xOffset = 0;
+                                  yOffset = 0;
+                                  scaleFactor = 1;
+                                  isDrawerOpen = false;
+                                } else {
+                                  xOffset = size.width - size.width / 3;
+                                  yOffset = size.height * 0.1;
+                                  scaleFactor = 0.8;
+                                  isDrawerOpen = true;
+                                }
+                              });
+                            },
                           ),
-                          icon: Icon(Icons.notifications_none),
+                          title: AppBarTitleWidget(),
+                          actions: <Widget>[
+                            _selectedIndex == 2
+                                ? IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Container(
+                                      width: 60.w,
+                                      height: 60.h,
+                                      alignment: Alignment.center,
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        size: 24.sp,
+                                      ),
+                                    ),
+                                    onPressed: () {},
+                                  )
+                                : IconButton(
+                                    padding: EdgeInsets.zero,
+                                    icon: Container(
+                                      width: 60.w,
+                                      height: 60.h,
+                                      alignment: Alignment.center,
+                                      child: SvgPicture.asset(
+                                        'assets/images/svg/notifications_icon.svg',
+                                        width: 45.w,
+                                        height: 45.h,
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    onPressed: () => Navigator.pushNamed(
+                                      context,
+                                      Routes.notifications,
+                                    ),
+                                  ),
+                          ],
                         ),
-                ],
-              ),
-              body: PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                onPageChanged: (index) {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                },
-                children: _pages,
-              ),
-              floatingActionButton: Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0x202e83f8),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(15),
-                  child: GestureDetector(
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      Navigator.of(context).pushNamed(Routes.bookingStep1);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: kColorBlue,
-                      ),
-                      child: Icon(Icons.add, color: Colors.white),
+                body: PageView(
+                  controller: _pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  onPageChanged: (index) {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  children: _pages,
+                ),
+                bottomNavigationBar: Padding(
+                  padding: EdgeInsets.only(
+                    left: 12.w,
+                    right: 12.w,
+                    bottom: 12.h,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff113f4e),
+                      borderRadius: BorderRadius.circular(20.w),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.h,
+                      horizontal: 8.w,
+                    ),
+                    child: CustomNavigationBar(
+                      backgroundColor: Colors.transparent,
+                      strokeColor: Colors.transparent,
+                      items: [
+                        NavBarItemWidget(
+                          onTap: () => _selectPage(0),
+                          image: 'assets/images/svg/home-nav-bar.svg',
+                          label: 'Home',
+                          isSelected: _selectedIndex == 0,
+                        ),
+                        NavBarItemWidget(
+                          onTap: () => _selectPage(1),
+                          image: 'assets/images/svg/calendar-nav-bar.svg',
+                          label: 'Booked',
+                          isSelected: _selectedIndex == 1,
+                        ),
+                        NavBarItemWidget(
+                          onTap: () => _selectPage(2),
+                          image: 'assets/images/svg/appointment-nav-bar.svg',
+                          label: 'Book now',
+                          isSelected: _selectedIndex == 2,
+                        ),
+                        NavBarItemWidget(
+                          onTap: () => _selectPage(3),
+                          image: 'assets/images/svg/bag-nav-bar.svg',
+                          label: 'Store',
+                          isSelected: _selectedIndex == 3,
+                        ),
+                        NavBarItemWidget(
+                          onTap: () => _selectPage(4),
+                          image: 'assets/images/svg/menu-nav-bar.svg',
+                          label: 'Settings',
+                          isSelected: _selectedIndex == 4,
+                        ),
+                      ],
+                      currentIndex: _selectedIndex,
+                      elevation: 0,
                     ),
                   ),
                 ),
               ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              bottomNavigationBar: CustomNavigationBar(
-                backgroundColor: Prefs.isDark()
-                    ? Color(0xff121212)
-                    : Colors.white,
-                strokeColor: kColorPink,
-                items: [
-                  NavBarItemWidget(
-                    onTap: () {
-                      _selectPage(0);
-                    },
-                    image: 'icon_home',
-                    isSelected: _selectedIndex == 0,
-                  ),
-                  NavBarItemWidget(
-                    onTap: () {
-                      _selectPage(1);
-                    },
-                    image: 'icon_profile',
-                    isSelected: _selectedIndex == 1,
-                  ),
-                  NavBarItemWidget(onTap: () {}, image: '', isSelected: false),
-                  NavBarItemWidget(
-                    onTap: () {
-                      _selectPage(3);
-                    },
-                    image: 'icon_messages',
-                    isSelected: _selectedIndex == 3,
-                  ),
-                  NavBarItemWidget(
-                    onTap: () {
-                      _selectPage(4);
-                    },
-                    image: 'icon_settings',
-                    isSelected: _selectedIndex == 4,
-                  ),
-                ],
-                currentIndex: _selectedIndex,
-                elevation: 0,
-              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

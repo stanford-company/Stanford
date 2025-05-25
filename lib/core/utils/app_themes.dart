@@ -3,10 +3,7 @@ import 'package:flutter/services.dart';
 
 import 'constants.dart';
 
-enum AppTheme {
-  LightTheme,
-  DarkTheme,
-}
+enum AppTheme { LightTheme, DarkTheme }
 
 final appThemeData = {
   AppTheme.LightTheme: ThemeData(
@@ -14,9 +11,7 @@ final appThemeData = {
     brightness: Brightness.light,
     platform: TargetPlatform.iOS,
     scaffoldBackgroundColor: Colors.white,
-    colorScheme: const ColorScheme.light(
-      primary: kColorPrimary,
-    ),
+    colorScheme: const ColorScheme.light(primary: kColorPrimary),
     appBarTheme: const AppBarTheme(
       elevation: 0,
       color: Colors.white,
@@ -25,12 +20,8 @@ final appThemeData = {
         statusBarIconBrightness: Brightness.dark,
         statusBarBrightness: Brightness.light,
       ),
-      iconTheme: IconThemeData(
-        color: kColorPrimary,
-      ),
-      actionsIconTheme: IconThemeData(
-        color: kColorPrimary,
-      ),
+      iconTheme: IconThemeData(color: kColorPrimary),
+      actionsIconTheme: IconThemeData(color: kColorPrimary),
       titleTextStyle: TextStyle(
         color: kColorDarkBlue,
         fontFamily: 'NunitoSans',
@@ -52,23 +43,15 @@ final appThemeData = {
       bodyMedium: kTextStyleBody2.copyWith(color: kColorPrimaryDark),
       titleLarge: kTextStyleHeadline6.copyWith(color: kColorPrimaryDark),
     ),
-    iconTheme: const IconThemeData(
-      color: kColorPrimary,
-    ),
+    iconTheme: const IconThemeData(color: kColorPrimary),
     fontFamily: 'NunitoSans',
     cardTheme: CardThemeData(
       elevation: 0,
       color: Color(0xffEBF2F5),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(4),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     ),
     inputDecorationTheme: const InputDecorationTheme(
-      border: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.grey,
-        ),
-      ),
+      border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.grey)),
     ),
   ),
   AppTheme.DarkTheme: ThemeData(
@@ -76,9 +59,7 @@ final appThemeData = {
     brightness: Brightness.dark,
     platform: TargetPlatform.iOS,
     scaffoldBackgroundColor: Colors.black,
-    colorScheme: const ColorScheme.dark(
-      primary: kColorPrimary,
-    ),
+    colorScheme: const ColorScheme.dark(primary: kColorPrimary),
     appBarTheme: const AppBarTheme(
       color: Color(0xff121212),
       elevation: 0,
@@ -87,12 +68,8 @@ final appThemeData = {
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
-      iconTheme: IconThemeData(
-        color: kColorPrimary,
-      ),
-      actionsIconTheme: IconThemeData(
-        color: kColorPrimary,
-      ),
+      iconTheme: IconThemeData(color: kColorPrimary),
+      actionsIconTheme: IconThemeData(color: kColorPrimary),
       titleTextStyle: TextStyle(
         color: Colors.white,
         fontFamily: 'NunitoSans',
@@ -109,18 +86,20 @@ final appThemeData = {
     ),
     textTheme: TextTheme(
       labelLarge: kTextStyleButton,
-      titleMedium:
-          kTextStyleSubtitle1.copyWith(color: Colors.white.withOpacity(0.87)),
-      titleSmall:
-          kTextStyleSubtitle2.copyWith(color: Colors.white.withOpacity(0.87)),
-      bodyMedium:
-          kTextStyleBody2.copyWith(color: Colors.white.withOpacity(0.87)),
-      titleLarge:
-          kTextStyleHeadline6.copyWith(color: Colors.white.withOpacity(0.87)),
+      titleMedium: kTextStyleSubtitle1.copyWith(
+        color: Colors.white.withOpacity(0.87),
+      ),
+      titleSmall: kTextStyleSubtitle2.copyWith(
+        color: Colors.white.withOpacity(0.87),
+      ),
+      bodyMedium: kTextStyleBody2.copyWith(
+        color: Colors.white.withOpacity(0.87),
+      ),
+      titleLarge: kTextStyleHeadline6.copyWith(
+        color: Colors.white.withOpacity(0.87),
+      ),
     ),
-    iconTheme: IconThemeData(
-      color: Colors.white.withOpacity(0.87),
-    ),
+    iconTheme: IconThemeData(color: Colors.white.withOpacity(0.87)),
     fontFamily: 'NunitoSans',
     cardTheme: CardThemeData(
       elevation: 0,
@@ -132,9 +111,7 @@ final appThemeData = {
     ),
     inputDecorationTheme: InputDecorationTheme(
       border: UnderlineInputBorder(
-        borderSide: BorderSide(
-          color: Colors.white.withOpacity(0.87),
-        ),
+        borderSide: BorderSide(color: Colors.white.withOpacity(0.87)),
       ),
     ),
   ),

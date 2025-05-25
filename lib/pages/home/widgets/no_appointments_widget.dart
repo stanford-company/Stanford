@@ -9,9 +9,13 @@ class NoAppointmentsWidget extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          SizedBox(height: 20),
+          SizedBox(
+            height: 20,
+          ),
           Image.asset('assets/images/icon_no_appointments.png'),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 10,
+          ),
           Text(
             'there_is_no_appontments'.tr(),
             style: TextStyle(
@@ -21,7 +25,9 @@ class NoAppointmentsWidget extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(
+            height: 10,
+          ),
           Text(
             'create_new_appointment'.tr(),
             style: TextStyle(
@@ -32,10 +38,15 @@ class NoAppointmentsWidget extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 20),
+          SizedBox(
+            height: 20,
+          ),
           SizedBox(
             height: 100,
-            child: Icon(Icons.arrow_downward, color: kColorBlue),
+            child: Icon(
+              Icons.arrow_downward,
+              color: kColorBlue,
+            ),
           ),
         ],
       ),

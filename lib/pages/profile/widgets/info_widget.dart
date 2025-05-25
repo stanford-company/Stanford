@@ -78,10 +78,7 @@ class InfoWidget extends StatelessWidget {
           title: 'emergency_contact'.tr(),
           hint: 'add_emergency_contact'.tr(),
         ),
-        ProfileInfoTile(
-          title: 'location'.tr(),
-          hint: 'add_location'.tr(),
-        ),
+        ProfileInfoTile(title: 'location'.tr(), hint: 'add_location'.tr()),
       ],
     );
   }

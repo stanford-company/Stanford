@@ -25,8 +25,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _editing = !_editing;
               });
             },
-            icon: Icon(_editing ? Icons.close : Icons.edit, color: kColorBlue),
-          ),
+            icon: Icon(
+              _editing ? Icons.close : Icons.edit,
+              color: kColorBlue,
+            ),
+          )
         ],
       ),
       body: Column(
@@ -39,8 +42,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
           if (_editing)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: CustomButton(onPressed: () {}, text: 'update_info'.tr()),
-            ),
+              child: CustomButton(
+                onPressed: () {},
+                text: 'update_info'.tr(),
+              ),
+            )
         ],
       ),
     );

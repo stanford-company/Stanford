@@ -1,104 +1,68 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/common/components/labeled_text_form_field.dart'
+    show LabeledTextFormField;
+import '../../../blocks/signup/signup_bloc.dart';
 
-import '../../../common/components/labeled_text_form_field.dart';
-import '../../../../core/utils/constants.dart';
-
-enum Gender { male, female }
-
-class InputWidget extends StatefulWidget {
+class SignupInputWidget extends StatefulWidget {
   @override
-  _InputWidgetState createState() => _InputWidgetState();
+  _SignupInputWidgetState createState() => _SignupInputWidgetState();
 }
 
-class _InputWidgetState extends State<InputWidget> {
-  final _firstNameController = TextEditingController();
-  final _lastNameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+class _SignupInputWidgetState extends State<SignupInputWidget> {
+  late TextEditingController _controller;
 
-  Gender _gender = Gender.male;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 38),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              LabeledTextFormField(
-                title: 'first_name_dot'.tr(),
-                controller: _firstNameController,
-                hintText: 'John',
-              ),
-              LabeledTextFormField(
-                title: 'last_name_dot'.tr(),
-                controller: _lastNameController,
-                hintText: 'Doe',
-              ),
-              Text('gender_dot'.tr(), style: kInputTextStyle),
-            ],
+    return BlocListener<SignupBloc, SignupState>(
+      listenWhen: (previous, current) {
+        // Only listen if both states have nationalId and they differ
+        if (previous is SignupProceed && current is SignupProceed) {
+          return previous.nationalId != current.nationalId;
+        }
+        return false;
+      },
+      listener: (context, state) {
+        if (state is SignupProceed) {
+          _controller.value = TextEditingValue(
+            text: state.nationalId,
+            selection: TextSelection.collapsed(offset: state.nationalId.length),
+          );
+        }
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          LabeledTextFormField(
+            title: 'National ID',
+            hintText: 'National ID',
+            controller: _controller,
+            onChanged: (value) {
+              // Dispatch CheckNationalId event when user changes input
+              context.read<SignupBloc>().add(CheckNationalId(value));
+            },
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            children: <Widget>[
-              Radio(
-                value: Gender.male,
-                groupValue: _gender,
-                onChanged: (Gender? gender) {
-                  setState(() {
-                    _gender = gender!;
-                  });
-                },
-              ),
-              Text('male'.tr(), style: kInputTextStyle),
-              SizedBox(width: 30),
-              Radio(
-                value: Gender.female,
-                groupValue: _gender,
-                onChanged: (Gender? gender) {
-                  setState(() {
-                    _gender = gender!;
-                  });
-                },
-              ),
-              Text('female'.tr(), style: kInputTextStyle),
-            ],
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              "Enter your national number to verify your account",
+              style: TextStyle(color: Color(0xff98a2b3)),
+            ),
           ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 38),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              LabeledTextFormField(
-                title: 'email_dot'.tr(),
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                hintText: 'bhr.tawfik@gmail.com',
-              ),
-              LabeledTextFormField(
-                title: 'password_dot'.tr(),
-                controller: _passwordController,
-                obscureText: true,
-                hintText: '* * * * * *',
-              ),
-              LabeledTextFormField(
-                title: 'confirm_password_dot'.tr(),
-                controller: _confirmPasswordController,
-                obscureText: true,
-                hintText: '* * * * * *',
-              ),
-            ],
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

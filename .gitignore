@@ -29,16 +29,22 @@ migrate_working_dir/
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
 .pub-cache/
 .pub/
 /build/
 
+# Web related
+lib/generated_plugin_registrant.dart
 # Symbolication related
 app.*.symbols
 
+# Exceptions to above rules.
+!/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 # Obfuscation related
 app.*.map.json
 
+.fvm/flutter_sdk
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile

@@ -1,95 +1,98 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import '../../common/components/custom_button.dart';
-import '../../common/components/wave_header.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medapp/pages/login/widgets/input_widget.dart';
 import '../../core/routes/routes.dart';
-import 'widgets/input_widget.dart';
-import 'widgets/social_login_widget.dart';
+import '../../blocks/login/login_bloc.dart';
+import '../../core/utils/api_service.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final isEnglish = context.locale.languageCode == 'en';
+
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints viewportConstraints) {
-          return SingleChildScrollView(
-            physics: ClampingScrollPhysics(),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: viewportConstraints.maxHeight,
-              ),
-              child: IntrinsicHeight(
-                child: Column(
-                  children: <Widget>[
-                    WaveHeader(title: 'hello_again'.tr()),
-                    Expanded(
+      backgroundColor: Color(0xff0c3c4c),
+      body: BlocProvider(
+        create: (context) => LoginBloc(ApiService()),
+        child: Column(
+          children: [
+            // Header
+            Container(
+              height: 180.h,
+              width: double.infinity,
+              decoration: BoxDecoration(color: Color(0xFF0C3C4C)),
+              child: Padding(
+                padding: EdgeInsets.only(top: 100.h, right: 8.w, left: 8.w),
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                      child: Image.asset(
+                        'assets/images/launcher_ic-white.png',
+                        height: 60.h,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    Spacer(),
+                    Container(
+                      height: 40.h,
+                      width: 140.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.4),
+                        borderRadius: BorderRadius.circular(50.r),
+                      ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 38),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Expanded(child: SizedBox(height: 20)),
-                            Center(
-                              child: Text(
-                                'login_to_your_account_to_continue'.tr(),
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
+                        padding: EdgeInsets.all(2.5.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () => context.setLocale(Locale('en')),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: isEnglish
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50.r),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'English',
+                                    style: TextStyle(
+                                      color: isEnglish
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 30),
-                            InputWidget(),
-                            CustomButton(
-                              onPressed: () {
-                                Navigator.of(
-                                  context,
-                                ).popAndPushNamed(Routes.home);
-                              },
-                              text: 'login'.tr(),
-                            ),
-                            SizedBox(height: 20),
-                            SocialLoginWidget(),
-                            Expanded(child: SizedBox(height: 20)),
-                            SafeArea(
-                              child: Center(
-                                child: Wrap(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Text(
-                                        'dont_have_an_account'.tr(),
-                                        style: TextStyle(
-                                          color: Color(0xffbcbcbc),
-                                          fontSize: 12,
-                                          fontFamily: 'NunitoSans',
-                                        ),
-                                      ),
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () => context.setLocale(Locale('ar')),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: !isEnglish
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(50.r),
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'العربية',
+                                    style: TextStyle(
+                                      color: !isEnglish
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontWeight: FontWeight.w600,
                                     ),
-                                    InkWell(
-                                      borderRadius: BorderRadius.circular(2),
-                                      onTap: () {
-                                        Navigator.of(
-                                          context,
-                                        ).pushNamed(Routes.signup);
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(5),
-                                        child: Text(
-                                          'register_now'.tr(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge!
-                                              .copyWith(fontSize: 12),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ),
                             ),
-                            SizedBox(height: 10),
                           ],
                         ),
                       ),
@@ -98,8 +101,87 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
             ),
-          );
-        },
+
+            // Content
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20.r),
+                  topRight: Radius.circular(20.r),
+                ),
+                child: Container(
+                  color: Colors.white,
+                  child: SingleChildScrollView(
+                    physics: ClampingScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 38.w),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(height: 30.h),
+                          Center(
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Log in'.tr(),
+                                  style: TextStyle(
+                                    fontSize: 24.sp,
+                                    fontWeight: FontWeight.w700,
+                                    color: Color(0xFF0C3C4C),
+                                  ),
+                                ),
+                                SizedBox(height: 8.h),
+                                Text(
+                                  'Log in to your Stanford account'.tr(),
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    color: Colors.grey[600],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 30.h),
+                          LoginInputWidget(), // Changed from InputWidget to LoginInputWidget
+                          SizedBox(height: 20.h),
+                          Center(
+                            child: Wrap(
+                              children: [
+                                Text(
+                                  'Don\'t have an account? '.tr(),
+                                  style: TextStyle(
+                                    color: Color(0xffbcbcbc),
+                                    fontSize: 14.sp,
+                                  ),
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.of(
+                                      context,
+                                    ).pushNamed(Routes.signup);
+                                  },
+                                  child: Text(
+                                    'Register now'.tr(),
+                                    style: TextStyle(
+                                      color: Color(0xFF1b8064),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14.sp,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

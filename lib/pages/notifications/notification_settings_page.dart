@@ -27,11 +27,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'notification_settings'.tr(),
-        ),
-      ),
+      appBar: AppBar(title: Text('notification_settings'.tr())),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,15 +41,12 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
               },
               title: Text(
                 'all_notifications'.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium!
-                    .copyWith(fontWeight: FontWeight.w700),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w700),
               ),
             ),
-            SizedBox(
-              height: 25,
-            ),
+            SizedBox(height: 25),
             CheckboxListTile(
               value: _campain,
               onChanged: _allNotifications
@@ -64,9 +57,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'campain_messages'.tr(),
-              ),
+              title: Text('campain_messages'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -78,9 +69,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'conversation_messages'.tr(),
-              ),
+              title: Text('conversation_messages'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -92,9 +81,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'alerts'.tr(),
-              ),
+              title: Text('alerts'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -106,9 +93,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'appointments'.tr(),
-              ),
+              title: Text('appointments'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -120,9 +105,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'health_tips'.tr(),
-              ),
+              title: Text('health_tips'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -134,9 +117,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'reminders_and_records'.tr(),
-              ),
+              title: Text('reminders_and_records'.tr()),
             ),
             Divider(),
             CheckboxListTile(
@@ -148,9 +129,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                       });
                     }
                   : null,
-              title: Text(
-                'updates_and_offers'.tr(),
-              ),
+              title: Text('updates_and_offers'.tr()),
             ),
           ],
         ),

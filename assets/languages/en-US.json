@@ -220,5 +220,10 @@
     "hello_again": "Hello again",
     "login_to_your_account_to_continue": "Login to your account to continue",
     "welcome_to_app_name": "Welcome to MedAPP",
-    "create_an_account_to_get_started": "Create an account to get started"
+    "create_an_account_to_get_started": "Create an account to get started",
+    "remember_me": "Remember me",
+    "national_id": "National ID",
+    "enter_national_number": "Enter your national number to verify your account",
+    "medical_authorities": "Medical authorities",
+    "medical_centers": "Medical centers"
 }

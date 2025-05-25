@@ -23,38 +23,30 @@ class NotificationListItem extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Image.asset(notification.icon!),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     notification.title!,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleMedium!
-                        .copyWith(fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4),
                   Text(
                     notification.body! + '\n',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium!
-                        .copyWith(fontSize: 12),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyMedium!.copyWith(fontSize: 12),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              width: 10,
-            ),
+            SizedBox(width: 10),
             Text(
               notification.date!,
               style: TextStyle(

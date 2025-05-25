@@ -17,7 +17,9 @@ class AppointmentBookedPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Image.asset('assets/images/thumb_success.png'),
-              SizedBox(height: 60),
+              SizedBox(
+                height: 60,
+              ),
               Text(
                 'appointment_booked'.tr(),
                 style: TextStyle(
@@ -27,7 +29,9 @@ class AppointmentBookedPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height: 5),
+              SizedBox(
+                height: 5,
+              ),
               Text(
                 'your_appointment_is_confirmed'.tr(),
                 style: TextStyle(
@@ -37,7 +41,11 @@ class AppointmentBookedPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              Expanded(child: SizedBox(height: 20)),
+              Expanded(
+                child: SizedBox(
+                  height: 20,
+                ),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: CustomButton(

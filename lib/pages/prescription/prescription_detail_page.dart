@@ -9,9 +9,16 @@ class PrescriptionDetailPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.search,
+            ),
+          )
         ],
-        title: Text('prescription_detail'.tr()),
+        title: Text(
+          'prescription_detail'.tr(),
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
@@ -27,21 +34,27 @@ class PrescriptionDetailPage extends StatelessWidget {
                 days: '7 ${'days'.tr()}',
                 pills: '2 ${'pills'.tr()}',
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 20,
+              ),
               CustomRecipeItem(
                 title: 'Penicillin 100mg Tablets',
                 subTitle: 'Pain Reliver',
                 days: '7 ${'days'.tr()}',
                 pills: '1 ${'pill'.tr()}',
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 20,
+              ),
               CustomRecipeItem(
                 title: 'Ifazex 2 500mg Tablets',
                 subTitle: 'Pain Reliver',
                 days: '3 ${'days'.tr()}',
                 pills: '1 ${'pill'.tr()}',
               ),
-              SizedBox(height: 20),
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         ),

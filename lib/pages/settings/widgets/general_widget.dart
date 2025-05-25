@@ -8,11 +8,9 @@ class GeneralWidget extends StatefulWidget {
   final bool isDark;
   final void Function(bool) onDarkPressed;
 
-  const GeneralWidget({
-    Key? key,
-    required this.isDark,
-    required this.onDarkPressed,
-  }) : super(key: key);
+  const GeneralWidget(
+      {Key? key, required this.isDark, required this.onDarkPressed})
+      : super(key: key);
   @override
   _GeneralWidgetState createState() => _GeneralWidgetState();
 }
@@ -46,35 +44,50 @@ class _GeneralWidgetState extends State<GeneralWidget> {
         ListTile(
           leading: Text(
             'language'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onTap: () => Navigator.of(context).pushNamed(Routes.changeLanguage),
         ),
         ListTile(
           leading: Text(
             'about_app'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onTap: () {},
         ),
         ListTile(
           leading: Text(
             'pricacy_policy'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onTap: () {},
         ),
         ListTile(
           leading: Text(
             'help_and_support'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onTap: () {},
         ),
         ListTile(
           leading: Text(
             'rate_the_app'.tr(),
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           onTap: () {},
         ),
@@ -88,7 +101,10 @@ class _GeneralWidgetState extends State<GeneralWidget> {
           },
           title: Text(
             'Dark theme',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ],

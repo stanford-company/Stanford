@@ -1,8 +1,5 @@
-name: stanfordapp
-description: "A new Flutter project."
-# The following line prevents the package from being accidentally published to
-# pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+name: medapp
+description: A new Flutter project.
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -43,6 +40,13 @@ dependencies:
   image_picker: ^0.8.6
   easy_localization: ^3.0.1
   dio: ^5.8.0+1
+  flutter_screenutil: ^5.5.4
+  flutter_svg: ^1.1.6
+  http: ^0.13.5
+  carousel_slider: ^5.0.0
+
+
+
 
 
 dev_dependencies:

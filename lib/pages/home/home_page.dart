@@ -1,7 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medapp/model/medical_centers.dart';
+import 'package:medapp/pages/home/widgets/search_slider_widget.dart';
 
-import '../../common/components/visited_doctor_list_item.dart';
+import '../../common/components/medical_authorities_list_item.dart';
+import '../../common/components/medical_center_list_item.dart';
 import '../../../model/doctor.dart';
 import '../../core/routes/routes.dart';
 import 'widgets/widgets.dart';
@@ -24,96 +28,76 @@ class _HomePageState extends State<HomePage>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: <Widget>[
-                  Image.asset('assets/images/hand.png'),
-                  SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${'hello'.tr()} Tawfiq,',
-                        style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                      Text(
-                        'how_are_you_today'.tr(),
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 14,
-                          fontFamily: 'NunitoSans',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
             _noAppoints
                 ? NoAppointmentsWidget()
                 : Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          children: <Widget>[
-                            SectionHeaderWidget(title: 'next_appointment'.tr()),
-                            NextAppointmentWidget(),
-                            SectionHeaderWidget(
-                              title: 'doctors_you_have_visited'.tr(),
+                      Column(
+                        children: <Widget>[
+                          MedicalSearchWidget(),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                            child: SectionHeaderWidget(
+                              title: 'next_appointment'.tr(),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                            child: NextAppointmentWidget(),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                            child: SectionHeaderWidget(
+                              title: 'Medical authorities'.tr(),
                               onPressed: () => Navigator.of(
                                 context,
                               ).pushNamed(Routes.myDoctors),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       Container(
                         height: 160,
                         child: ListView.separated(
                           separatorBuilder: (context, index) =>
-                              SizedBox(width: 15),
+                              SizedBox(width: 15.w),
                           itemCount: 4,
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: 20),
                           itemBuilder: (context, index) {
-                            return VisitedDoctorListItem(
+                            return MedicalAuthoritiesListItem(
                               doctor: doctors[index],
                             );
                           },
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SectionHeaderWidget(
-                              title: 'your_prescriptions'.tr(),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                            child: SectionHeaderWidget(
+                              title: 'medical_centers'.tr(),
                               onPressed: () {},
                             ),
-                            TestAndPrescriptionCardWidget(
-                              title: 'Tuberculosis ${'recipe'.tr()}',
-                              subtitle: '${'given_by'.tr()} Tawfiq Bahri',
-                              image: 'icon_medical_recipe.png',
+                          ),
+                          Container(
+                            height: 160,
+                            child: ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(width: 15),
+                              itemCount: 4,
+                              scrollDirection: Axis.horizontal,
+                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              itemBuilder: (context, index) {
+                                return MedicalCentersListItem(
+                                  medicalCenter: medicalCenter[index],
+                                );
+                              },
                             ),
-                            //test results
-                            SectionHeaderWidget(
-                              title: 'test_results'.tr(),
-                              onPressed: () {},
-                            ),
-                            TestAndPrescriptionCardWidget(
-                              title: 'Monthly Medical Check Up',
-                              subtitle: '1 January 2019',
-                              image: 'icon_medical_check_up.png',
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

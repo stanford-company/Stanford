@@ -27,7 +27,9 @@ class _ExaminationPageState extends State<ExaminationPage>
               buttonTitle: 'see_reports'.tr(),
               imagePath: 'assets/images/icon_examination.png',
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             CustomProfileItem(
               onTap: () {},
               title: 'mri_examination'.tr(),

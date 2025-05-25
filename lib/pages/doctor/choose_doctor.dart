@@ -13,7 +13,9 @@ class ChooseDoctor extends StatelessWidget {
       widgets.add(
         Expanded(
           child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 5),
+            margin: EdgeInsets.symmetric(
+              horizontal: 5,
+            ),
             height: 10,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
@@ -25,7 +27,9 @@ class ChooseDoctor extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-      child: Row(children: <Widget>[...widgets]),
+      child: Row(
+        children: <Widget>[...widgets],
+      ),
     );
   }
 
@@ -34,12 +38,17 @@ class ChooseDoctor extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('doctor'.tr()),
+        title: Text(
+          'doctor'.tr(),
+        ),
         actions: <Widget>[
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.filter_list, color: kColorBlue),
-          ),
+            icon: Icon(
+              Icons.filter_list,
+              color: kColorBlue,
+            ),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -60,9 +69,13 @@ class ChooseDoctor extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 15),
+            SizedBox(
+              height: 15,
+            ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20),
+              margin: EdgeInsets.symmetric(
+                horizontal: 20,
+              ),
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
@@ -70,8 +83,13 @@ class ChooseDoctor extends StatelessWidget {
               ),
               child: Row(
                 children: <Widget>[
-                  RoundIconButton(onPressed: () {}, icon: Icons.person_pin),
-                  SizedBox(width: 20),
+                  RoundIconButton(
+                    onPressed: () {},
+                    icon: Icons.person_pin,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
                   Text(
                     'any_available_doctor'.tr(),
                     style: TextStyle(
@@ -83,15 +101,22 @@ class ChooseDoctor extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(
+              height: 10,
+            ),
             ListView.separated(
-              separatorBuilder: (context, index) =>
-                  Divider(color: Colors.grey[300], height: 1),
+              separatorBuilder: (context, index) => Divider(
+                color: Colors.grey[300],
+                height: 1,
+              ),
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: doctors.length,
               itemBuilder: (context, index) {
-                return DoctorItem(onTap: () {}, doctor: doctors[index]);
+                return DoctorItem(
+                  onTap: () {},
+                  doctor: doctors[index],
+                );
               },
             ),
           ],

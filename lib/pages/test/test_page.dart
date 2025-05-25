@@ -27,7 +27,9 @@ class _TestPageState extends State<TestPage>
               buttonTitle: 'see_reports'.tr(),
               imagePath: 'assets/images/icon_medical_check_up.png',
             ),
-            SizedBox(height: 20),
+            SizedBox(
+              height: 20,
+            ),
             CustomProfileItem(
               onTap: () {},
               title: 'monthly_medical_check_up'.tr(),
