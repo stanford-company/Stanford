@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/round_icon_button.dart';
+import '../../common/components/round_icon_button.dart';
 import '../../data/pref_manager.dart';
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 import '../examination/examination_page.dart';
 import '../prescription/prescription_page.dart';
 import '../test/test_page.dart';

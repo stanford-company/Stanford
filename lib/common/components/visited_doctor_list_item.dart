@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../model/doctor.dart';
+import '../../model/doctor.dart';
 
 class VisitedDoctorListItem extends StatelessWidget {
   final Doctor doctor;
 
-  const VisitedDoctorListItem({
-    Key? key,
-    required this.doctor,
-  }) : super(key: key);
+  const VisitedDoctorListItem({Key? key, required this.doctor})
+    : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,15 +19,17 @@ class VisitedDoctorListItem extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-              color: Color(0x0c000000),
-              offset: Offset(0, 5),
-              blurRadius: 5,
-              spreadRadius: 0),
+            color: Color(0x0c000000),
+            offset: Offset(0, 5),
+            blurRadius: 5,
+            spreadRadius: 0,
+          ),
           BoxShadow(
-              color: Color(0x0c000000),
-              offset: Offset(0, -5),
-              blurRadius: 5,
-              spreadRadius: 0),
+            color: Color(0x0c000000),
+            offset: Offset(0, -5),
+            blurRadius: 5,
+            spreadRadius: 0,
+          ),
         ],
       ),
       child: Column(
@@ -39,9 +39,7 @@ class VisitedDoctorListItem extends StatelessWidget {
             backgroundColor: Colors.grey,
             backgroundImage: AssetImage(doctor.avatar!),
           ),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           Text(
             doctor.name!,
             style: TextStyle(
@@ -62,7 +60,7 @@ class VisitedDoctorListItem extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-          )
+          ),
         ],
       ),
     );

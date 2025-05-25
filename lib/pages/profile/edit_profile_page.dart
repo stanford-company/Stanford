@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../utils/constants.dart';
+import '../../common/components/custom_button.dart';
+import '../../../core/utils/constants.dart';
 import 'widgets/edit_widget.dart';
 import 'widgets/info_widget.dart';
 
@@ -25,11 +25,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 _editing = !_editing;
               });
             },
-            icon: Icon(
-              _editing ? Icons.close : Icons.edit,
-              color: kColorBlue,
-            ),
-          )
+            icon: Icon(_editing ? Icons.close : Icons.edit, color: kColorBlue),
+          ),
         ],
       ),
       body: Column(
@@ -42,11 +39,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
           if (_editing)
             Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-              child: CustomButton(
-                onPressed: () {},
-                text: 'update_info'.tr(),
-              ),
-            )
+              child: CustomButton(onPressed: () {}, text: 'update_info'.tr()),
+            ),
         ],
       ),
     );

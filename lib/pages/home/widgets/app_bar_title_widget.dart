@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/constants.dart';
+import '../../../../core/utils/constants.dart';
 
 class AppBarTitleWidget extends StatelessWidget {
   @override
@@ -8,10 +8,7 @@ class AppBarTitleWidget extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(
-          Icons.add,
-          color: kColorPink,
-        ),
+        Icon(Icons.add, color: kColorPink),
         Text.rich(
           TextSpan(
             children: [

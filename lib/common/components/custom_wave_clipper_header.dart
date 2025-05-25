@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as Vector;
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
 import 'wave_clipper.dart';
 
 class CustomWaveClipperHeader extends StatefulWidget {

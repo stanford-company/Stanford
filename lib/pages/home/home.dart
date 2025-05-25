@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../components/custom_navigation_bar.dart';
+import '../../common/components/custom_navigation_bar.dart';
 import '../../data/pref_manager.dart';
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 import '../drawer/drawer_page.dart';
 import '../messages/messages_page.dart';
 import '../profile/profile_page.dart';
@@ -29,9 +29,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    _pageController = PageController(
-      initialPage: _selectedIndex,
-    );
+    _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
   }
 
@@ -62,14 +60,12 @@ class _HomeState extends State<Home> {
       children: <Widget>[
         DrawerPage(
           onTap: () {
-            setState(
-              () {
-                xOffset = 0;
-                yOffset = 0;
-                scaleFactor = 1;
-                isDrawerOpen = false;
-              },
-            );
+            setState(() {
+              xOffset = 0;
+              yOffset = 0;
+              scaleFactor = 1;
+              isDrawerOpen = false;
+            });
           },
         ),
         AnimatedContainer(
@@ -89,14 +85,12 @@ class _HomeState extends State<Home> {
                     ? IconButton(
                         icon: Icon(Icons.arrow_back_ios),
                         onPressed: () {
-                          setState(
-                            () {
-                              xOffset = 0;
-                              yOffset = 0;
-                              scaleFactor = 1;
-                              isDrawerOpen = false;
-                            },
-                          );
+                          setState(() {
+                            xOffset = 0;
+                            yOffset = 0;
+                            scaleFactor = 1;
+                            isDrawerOpen = false;
+                          });
                         },
                       )
                     : IconButton(
@@ -113,18 +107,13 @@ class _HomeState extends State<Home> {
                 title: AppBarTitleWidget(),
                 actions: <Widget>[
                   _selectedIndex == 2
-                      ? IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add,
-                          ),
-                        )
+                      ? IconButton(onPressed: () {}, icon: Icon(Icons.add))
                       : IconButton(
                           onPressed: () => Navigator.pushNamed(
-                              context, Routes.notifications),
-                          icon: Icon(
-                            Icons.notifications_none,
+                            context,
+                            Routes.notifications,
                           ),
+                          icon: Icon(Icons.notifications_none),
                         ),
                 ],
               ),
@@ -157,10 +146,7 @@ class _HomeState extends State<Home> {
                         shape: BoxShape.circle,
                         color: kColorBlue,
                       ),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
-                      ),
+                      child: Icon(Icons.add, color: Colors.white),
                     ),
                   ),
                 ),
@@ -168,8 +154,9 @@ class _HomeState extends State<Home> {
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.centerDocked,
               bottomNavigationBar: CustomNavigationBar(
-                backgroundColor:
-                    Prefs.isDark() ? Color(0xff121212) : Colors.white,
+                backgroundColor: Prefs.isDark()
+                    ? Color(0xff121212)
+                    : Colors.white,
                 strokeColor: kColorPink,
                 items: [
                   NavBarItemWidget(
@@ -186,11 +173,7 @@ class _HomeState extends State<Home> {
                     image: 'icon_profile',
                     isSelected: _selectedIndex == 1,
                   ),
-                  NavBarItemWidget(
-                    onTap: () {},
-                    image: '',
-                    isSelected: false,
-                  ),
+                  NavBarItemWidget(onTap: () {}, image: '', isSelected: false),
                   NavBarItemWidget(
                     onTap: () {
                       _selectPage(3);

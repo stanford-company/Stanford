@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/labeled_text_form_field.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/labeled_text_form_field.dart';
+import '../../../../core/utils/constants.dart';
 
 enum Gender { male, female }
 
@@ -40,10 +40,7 @@ class _InputWidgetState extends State<InputWidget> {
                 controller: _lastNameController,
                 hintText: 'Doe',
               ),
-              Text(
-                'gender_dot'.tr(),
-                style: kInputTextStyle,
-              ),
+              Text('gender_dot'.tr(), style: kInputTextStyle),
             ],
           ),
         ),
@@ -60,13 +57,8 @@ class _InputWidgetState extends State<InputWidget> {
                   });
                 },
               ),
-              Text(
-                'male'.tr(),
-                style: kInputTextStyle,
-              ),
-              SizedBox(
-                width: 30,
-              ),
+              Text('male'.tr(), style: kInputTextStyle),
+              SizedBox(width: 30),
               Radio(
                 value: Gender.female,
                 groupValue: _gender,
@@ -76,10 +68,7 @@ class _InputWidgetState extends State<InputWidget> {
                   });
                 },
               ),
-              Text(
-                'female'.tr(),
-                style: kInputTextStyle,
-              ),
+              Text('female'.tr(), style: kInputTextStyle),
             ],
           ),
         ),

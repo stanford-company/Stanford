@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../components/custom_profile_item.dart';
-import '../../routes/routes.dart';
+import '../../common/components/custom_profile_item.dart';
+import '../../core/routes/routes.dart';
 
 class VisitPage extends StatefulWidget {
   @override
@@ -32,9 +32,7 @@ class _VisitPageState extends State<VisitPage>
                 imagePath: 'assets/images/icon_doctor_1.png',
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             VisitItem(
               date: 'JAN 08',
               time: 'Tue. 17:00',
@@ -46,9 +44,7 @@ class _VisitPageState extends State<VisitPage>
                 imagePath: 'assets/images/icon_doctor_3.png',
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             Row(
               children: <Widget>[
                 Expanded(
@@ -68,9 +64,7 @@ class _VisitPageState extends State<VisitPage>
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             VisitItem(
               date: 'NOV 24',
               time: 'Tue. 17:00',
@@ -97,9 +91,12 @@ class VisitItem extends StatelessWidget {
   final String time;
   final Widget child;
 
-  const VisitItem(
-      {Key? key, required this.date, required this.time, required this.child})
-      : super(key: key);
+  const VisitItem({
+    Key? key,
+    required this.date,
+    required this.time,
+    required this.child,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -110,9 +107,9 @@ class VisitItem extends StatelessWidget {
           children: <Widget>[
             Text(
               date,
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700),
             ),
             Text(
               time,
@@ -121,15 +118,11 @@ class VisitItem extends StatelessWidget {
                 fontSize: 12,
                 fontWeight: FontWeight.w300,
               ),
-            )
+            ),
           ],
         ),
-        SizedBox(
-          width: 10,
-        ),
-        Expanded(
-          child: child,
-        ),
+        SizedBox(width: 10),
+        Expanded(child: child),
       ],
     );
   }

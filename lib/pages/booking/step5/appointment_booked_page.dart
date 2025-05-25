@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/custom_button.dart';
-import '../../../routes/routes.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/custom_button.dart';
+import '../../../core/routes/routes.dart';
+import '../../../../core/utils/constants.dart';
 
 class AppointmentBookedPage extends StatelessWidget {
   @override
@@ -17,9 +17,7 @@ class AppointmentBookedPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Image.asset('assets/images/thumb_success.png'),
-              SizedBox(
-                height: 60,
-              ),
+              SizedBox(height: 60),
               Text(
                 'appointment_booked'.tr(),
                 style: TextStyle(
@@ -29,9 +27,7 @@ class AppointmentBookedPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 5,
-              ),
+              SizedBox(height: 5),
               Text(
                 'your_appointment_is_confirmed'.tr(),
                 style: TextStyle(
@@ -41,11 +37,7 @@ class AppointmentBookedPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              Expanded(
-                child: SizedBox(
-                  height: 20,
-                ),
-              ),
+              Expanded(child: SizedBox(height: 20)),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: CustomButton(

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
 
 class TimeSlotItem extends StatelessWidget {
   final String time;
   final void Function() onTap;
 
   const TimeSlotItem({Key? key, required this.time, required this.onTap})
-      : super(key: key);
+    : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -1,8 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 
 class DrawerPage extends StatelessWidget {
   final void Function() onTap;
@@ -16,9 +17,7 @@ class DrawerPage extends StatelessWidget {
         backgroundColor: kColorPrimary,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(
-              vertical: 35,
-            ),
+            padding: EdgeInsets.symmetric(vertical: 35),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -34,9 +33,7 @@ class DrawerPage extends StatelessWidget {
                           'assets/images/icon_man.png',
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Row(
                         children: <Widget>[
                           Text(
@@ -47,9 +44,7 @@ class DrawerPage extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
+                          SizedBox(width: 10),
                           Text(
                             'O+',
                             style: TextStyle(
@@ -59,13 +54,11 @@ class DrawerPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
+                SizedBox(height: 30),
                 _drawerItem(
                   image: 'person',
                   text: 'my_doctors',
@@ -78,11 +71,7 @@ class DrawerPage extends StatelessWidget {
                   onTap: () =>
                       Navigator.of(context).pushNamed(Routes.myAppointments),
                 ),
-                _drawerItem(
-                  image: 'hospital',
-                  text: 'hospitals',
-                  onTap: () {},
-                ),
+                _drawerItem(image: 'hospital', text: 'hospitals', onTap: () {}),
               ],
             ),
           ),
@@ -107,13 +96,8 @@ class DrawerPage extends StatelessWidget {
         height: 58,
         child: Row(
           children: <Widget>[
-            Image.asset(
-              'assets/images/$image.png',
-              color: Colors.white,
-            ),
-            SizedBox(
-              width: 10,
-            ),
+            Image.asset('assets/images/$image.png', color: Colors.white),
+            SizedBox(width: 10),
             Text(
               text.tr(),
               style: TextStyle(
@@ -121,7 +105,7 @@ class DrawerPage extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
-            )
+            ),
           ],
         ),
       ),

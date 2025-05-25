@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../components/health_concern_item.dart';
-import '../../../model/health_category.dart';
-import '../../../routes/routes.dart';
+import '../../../common/components/health_concern_item.dart';
+import '../../../../model/health_category.dart';
+import '../../../core/routes/routes.dart';
 
 class HealthConcernPage extends StatelessWidget {
   @override
@@ -12,16 +12,9 @@ class HealthConcernPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'book_an_appointment'.tr(),
-        ),
+        title: Text('book_an_appointment'.tr()),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-            ),
-          )
+          IconButton(onPressed: () {}, icon: Icon(Icons.search)),
         ],
       ),
       body: Column(
@@ -37,8 +30,8 @@ class HealthConcernPage extends StatelessWidget {
                     child: Text(
                       'choose_health_concern'.tr(),
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   MasonryGridView.count(
@@ -58,9 +51,7 @@ class HealthConcernPage extends StatelessWidget {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

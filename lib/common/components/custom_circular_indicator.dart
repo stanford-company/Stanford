@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
 
 class CustomCircularIndicator extends StatelessWidget {
   final double radius;
@@ -34,16 +34,13 @@ class CustomCircularIndicator extends StatelessWidget {
           center: Center(
             child: Text(
               '${(percent * 100).toInt()}%',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleMedium!
-                  .copyWith(fontWeight: FontWeight.w700),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w700),
             ),
           ),
         ),
-        SizedBox(
-          height: 5,
-        ),
+        SizedBox(height: 5),
         Visibility(
           visible: footer.isNotEmpty ? true : false,
           child: Text(

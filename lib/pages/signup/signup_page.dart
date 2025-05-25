@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../components/wave_header.dart';
-import '../../routes/routes.dart';
+import '../../common/components/custom_button.dart';
+import '../../common/components/wave_header.dart';
+import '../../core/routes/routes.dart';
 import 'widgets/input_widget.dart';
 
 class SignupPage extends StatelessWidget {
@@ -23,33 +23,25 @@ class SignupPage extends StatelessWidget {
                   children: <Widget>[
                     Stack(
                       children: <Widget>[
-                        WaveHeader(
-                          title: 'welcome_to_app_name'.tr(),
-                        ),
+                        WaveHeader(title: 'welcome_to_app_name'.tr()),
                         Theme(
                           data: ThemeData(
                             appBarTheme: AppBarTheme(
-                              iconTheme: IconThemeData(
-                                color: Colors.white,
-                              ),
+                              iconTheme: IconThemeData(color: Colors.white),
                             ),
                           ),
                           child: AppBar(
                             backgroundColor: Colors.transparent,
                             elevation: 0,
                           ),
-                        )
+                        ),
                       ],
                     ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Expanded(
-                            child: SizedBox(
-                              height: 20,
-                            ),
-                          ),
+                          Expanded(child: SizedBox(height: 20)),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 38),
                             child: Center(
@@ -62,26 +54,19 @@ class SignupPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
+                          SizedBox(height: 30),
                           InputWidget(),
-                          SizedBox(
-                            height: 35,
-                          ),
+                          SizedBox(height: 35),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 38),
                             child: CustomButton(
-                              onPressed: () => Navigator.of(context)
-                                  .popUntil(ModalRoute.withName(Routes.login)),
+                              onPressed: () => Navigator.of(
+                                context,
+                              ).popUntil(ModalRoute.withName(Routes.login)),
                               text: 'sign_up'.tr(),
                             ),
                           ),
-                          Expanded(
-                            child: SizedBox(
-                              height: 20,
-                            ),
-                          ),
+                          Expanded(child: SizedBox(height: 20)),
                           SafeArea(
                             child: Padding(
                               padding: EdgeInsets.symmetric(horizontal: 38),
@@ -117,9 +102,7 @@ class SignupPage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 10,
-                          )
+                          SizedBox(height: 10),
                         ],
                       ),
                     ),

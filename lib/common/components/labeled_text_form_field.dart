@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
 import 'text_form_field.dart';
 
 class LabeledTextFormField extends StatelessWidget {
@@ -35,10 +35,7 @@ class LabeledTextFormField extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: kInputTextStyle,
-          ),
+          Text(title, style: kInputTextStyle),
           CustomTextFormField(
             controller: controller,
             keyboardType: keyboardType,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import '../utils/constants.dart';
-import '../model/doctor.dart';
+import '../../core/utils/constants.dart';
+import '../../../model/doctor.dart';
 
 class DoctorItem extends StatelessWidget {
   final Doctor doctor;

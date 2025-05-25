@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/visited_doctor_list_item.dart';
-import '../../model/doctor.dart';
-import '../../routes/routes.dart';
+import '../../common/components/visited_doctor_list_item.dart';
+import '../../../model/doctor.dart';
+import '../../core/routes/routes.dart';
 import 'widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,17 +29,15 @@ class _HomePageState extends State<HomePage>
               child: Row(
                 children: <Widget>[
                   Image.asset('assets/images/hand.png'),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         '${'hello'.tr()} Tawfiq,',
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
                       Text(
                         'how_are_you_today'.tr(),
@@ -64,14 +62,13 @@ class _HomePageState extends State<HomePage>
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
                           children: <Widget>[
-                            SectionHeaderWidget(
-                              title: 'next_appointment'.tr(),
-                            ),
+                            SectionHeaderWidget(title: 'next_appointment'.tr()),
                             NextAppointmentWidget(),
                             SectionHeaderWidget(
                               title: 'doctors_you_have_visited'.tr(),
-                              onPressed: () => Navigator.of(context)
-                                  .pushNamed(Routes.myDoctors),
+                              onPressed: () => Navigator.of(
+                                context,
+                              ).pushNamed(Routes.myDoctors),
                             ),
                           ],
                         ),
@@ -79,9 +76,8 @@ class _HomePageState extends State<HomePage>
                       Container(
                         height: 160,
                         child: ListView.separated(
-                          separatorBuilder: (context, index) => SizedBox(
-                            width: 15,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 15),
                           itemCount: 4,
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: 20),

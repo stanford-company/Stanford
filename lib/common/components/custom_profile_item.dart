@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
 
 class CustomProfileItem extends StatelessWidget {
   final String imagePath;
@@ -31,28 +31,20 @@ class CustomProfileItem extends StatelessWidget {
             CircleAvatar(
               backgroundColor: Colors.transparent,
               radius: 25,
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.fill,
-              ),
+              child: Image.asset(imagePath, fit: BoxFit.fill),
             ),
-            SizedBox(
-              width: 15,
-            ),
+            SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleSmall!
-                        .copyWith(fontWeight: FontWeight.w700),
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
-                  SizedBox(
-                    height: 2,
-                  ),
+                  SizedBox(height: 2),
                   Text(
                     subtitle,
                     style: TextStyle(
@@ -66,9 +58,7 @@ class CustomProfileItem extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(
-                          height: 10,
-                        ),
+                        SizedBox(height: 10),
                         Text(
                           '${'given_at'.tr()} 14/02/2019',
                           style: TextStyle(
@@ -80,9 +70,7 @@ class CustomProfileItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   InkWell(
                     onTap: onTap,
                     child: Row(
@@ -91,18 +79,12 @@ class CustomProfileItem extends StatelessWidget {
                       children: <Widget>[
                         Text(
                           buttonTitle,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelLarge!
-                              .copyWith(fontSize: 14),
+                          style: Theme.of(
+                            context,
+                          ).textTheme.labelLarge!.copyWith(fontSize: 14),
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: kColorPrimary,
-                        ),
+                        SizedBox(width: 5),
+                        Icon(Icons.arrow_forward, color: kColorPrimary),
                       ],
                     ),
                   ),

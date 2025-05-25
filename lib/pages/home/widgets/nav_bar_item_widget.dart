@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../data/pref_manager.dart';
-import '../../../utils/constants.dart';
+import '../../../../core/utils/constants.dart';
 
 class NavBarItemWidget extends StatelessWidget {
   final void Function() onTap;
@@ -18,8 +18,8 @@ class NavBarItemWidget extends StatelessWidget {
   Color get _color => isSelected
       ? kColorPrimary
       : Prefs.isDark()
-          ? Colors.grey[800]!
-          : Colors.grey;
+      ? Colors.grey[800]!
+      : Colors.grey;
 
   @override
   Widget build(BuildContext context) {

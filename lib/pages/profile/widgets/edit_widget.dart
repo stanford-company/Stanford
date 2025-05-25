@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../components/text_form_field.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/text_form_field.dart';
+import '../../../../core/utils/constants.dart';
 
 class EditWidget extends StatefulWidget {
   @override
@@ -28,7 +28,7 @@ class _EditWidgetState extends State<EditWidget> {
     'O+',
     'O-',
     'AB+',
-    'AB-'
+    'AB-',
   ];
   var _maritalItems = <String>['single'.tr(), 'married'.tr()];
 
@@ -38,10 +38,10 @@ class _EditWidgetState extends State<EditWidget> {
   late List<DropdownMenuItem<String>> _dropDownMarital;
 
   List<DropdownMenuItem<String>> _dropDownBlood = _bloodItems
-      .map((String value) => DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          ))
+      .map(
+        (String value) =>
+            DropdownMenuItem<String>(value: value, child: Text(value)),
+      )
       .toList();
 
   File? _image;
@@ -58,17 +58,17 @@ class _EditWidgetState extends State<EditWidget> {
 
   _initDropDowns() {
     _dropDownGender = _genderItems
-        .map((String value) => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            ))
+        .map(
+          (String value) =>
+              DropdownMenuItem<String>(value: value, child: Text(value)),
+        )
         .toList();
 
     _dropDownMarital = _maritalItems
-        .map((String value) => DropdownMenuItem<String>(
-              value: value,
-              child: Text(value),
-            ))
+        .map(
+          (String value) =>
+              DropdownMenuItem<String>(value: value, child: Text(value)),
+        )
         .toList();
   }
 
@@ -110,7 +110,8 @@ class _EditWidgetState extends State<EditWidget> {
                 },
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4)),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
                 ),
                 // shape: RoundedRectangleBorder(
                 //     borderRadius: BorderRadius.circular(4)),
@@ -124,51 +125,34 @@ class _EditWidgetState extends State<EditWidget> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 25,
-            ),
-            Text(
-              'first_name_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            SizedBox(height: 25),
+            Text('first_name_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               hintText: 'John',
               validator: (value) =>
                   value!.isEmpty ? 'Please insert a valid first name' : null,
             ),
             SizedBox(height: 15),
-            Text(
-              'last_name_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('last_name_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               hintText: 'Doe',
               validator: (value) =>
                   value!.isEmpty ? 'Please insert a valid last name' : null,
             ),
             SizedBox(height: 15),
-            Text(
-              'contact_number_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('contact_number_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               keyboardType: TextInputType.phone,
               hintText: '0781 34 86 77',
             ),
             SizedBox(height: 15),
-            Text(
-              'email_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('email_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               hintText: 'bhr.tawfik@gmail.com',
               enabled: false,
             ),
             SizedBox(height: 15),
-            Text(
-              'gender_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('gender_dot'.tr(), style: kInputTextStyle),
             DropdownButton(
               isExpanded: true,
               value: _selectedGender,
@@ -181,10 +165,7 @@ class _EditWidgetState extends State<EditWidget> {
               items: _dropDownGender,
             ),
             SizedBox(height: 15),
-            Text(
-              'date_of_birth_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('date_of_birth_dot'.tr(), style: kInputTextStyle),
             ListTile(
               contentPadding: EdgeInsets.all(0),
               title: Text(_birthDate),
@@ -204,10 +185,7 @@ class _EditWidgetState extends State<EditWidget> {
               },
             ),
             SizedBox(height: 15),
-            Text(
-              'blood_group_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('blood_group_dot'.tr(), style: kInputTextStyle),
             DropdownButton(
               isExpanded: true,
               value: _selectedBloodGroup,
@@ -220,10 +198,7 @@ class _EditWidgetState extends State<EditWidget> {
               items: _dropDownBlood,
             ),
             SizedBox(height: 15),
-            Text(
-              'marital_status_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('marital_status_dot'.tr(), style: kInputTextStyle),
             DropdownButton(
               isExpanded: true,
               value: _selectedMarital,
@@ -236,19 +211,13 @@ class _EditWidgetState extends State<EditWidget> {
               items: _dropDownMarital,
             ),
             SizedBox(height: 15),
-            Text(
-              'height_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('height_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               keyboardType: TextInputType.number,
               hintText: 'in_cm'.tr(),
             ),
             SizedBox(height: 15),
-            Text(
-              'weight_dot'.tr(),
-              style: kInputTextStyle,
-            ),
+            Text('weight_dot'.tr(), style: kInputTextStyle),
             CustomTextFormField(
               keyboardType: TextInputType.number,
               hintText: 'in_kg'.tr(),
@@ -261,57 +230,52 @@ class _EditWidgetState extends State<EditWidget> {
 
   _openBottomSheet(BuildContext context) {
     showModalBottomSheet(
-        context: context,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
-          ),
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(12),
+          topRight: Radius.circular(12),
         ),
-        builder: (BuildContext context) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(
-                  Icons.camera,
-                  size: 20,
+      ),
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            ListTile(
+              leading: Icon(Icons.camera, size: 20),
+              title: Text(
+                'take_a_photo'.tr(),
+                style: TextStyle(
+                  color: Color(0xff4a4a4a),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
                 ),
-                title: Text(
-                  'take_a_photo'.tr(),
-                  style: TextStyle(
-                    color: Color(0xff4a4a4a),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _getImage(ImageSource.camera);
-                },
               ),
-              ListTile(
-                leading: Icon(
-                  Icons.photo_library,
-                  size: 20,
+              onTap: () {
+                Navigator.of(context).pop();
+                _getImage(ImageSource.camera);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.photo_library, size: 20),
+              title: Text(
+                'choose_a_photo'.tr(),
+                style: TextStyle(
+                  color: Color(0xff4a4a4a),
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.normal,
                 ),
-                title: Text(
-                  'choose_a_photo'.tr(),
-                  style: TextStyle(
-                    color: Color(0xff4a4a4a),
-                    fontSize: 18,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.normal,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _getImage(ImageSource.gallery);
-                },
               ),
-            ],
-          );
-        });
+              onTap: () {
+                Navigator.of(context).pop();
+                _getImage(ImageSource.gallery);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'routes/route_generator.dart';
-import 'routes/routes.dart';
-import 'utils/themebloc/theme_bloc.dart';
+import 'core/routes/route_generator.dart';
+import 'core/routes/routes.dart';
+import 'core/utils/themebloc/theme_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

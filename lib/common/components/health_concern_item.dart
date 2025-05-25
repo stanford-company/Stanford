@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../model/health_category.dart';
+import '../../../model/health_category.dart';
 
 class HealthConcernItem extends StatelessWidget {
   final HealthCategory healthCategory;
@@ -27,9 +27,7 @@ class HealthConcernItem extends StatelessWidget {
                 backgroundImage: AssetImage(healthCategory.imagePath!),
                 radius: 25,
               ),
-              SizedBox(
-                width: 10,
-              ),
+              SizedBox(width: 10),
               Expanded(
                 child: Text(
                   healthCategory.name!.tr() + '\n',

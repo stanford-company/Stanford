@@ -1,9 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../components/wave_header.dart';
-import '../../routes/routes.dart';
+import '../../common/components/custom_button.dart';
+import '../../common/components/wave_header.dart';
+import '../../core/routes/routes.dart';
 import 'widgets/input_widget.dart';
 import 'widgets/social_login_widget.dart';
 
@@ -22,20 +22,14 @@ class LoginPage extends StatelessWidget {
               child: IntrinsicHeight(
                 child: Column(
                   children: <Widget>[
-                    WaveHeader(
-                      title: 'hello_again'.tr(),
-                    ),
+                    WaveHeader(title: 'hello_again'.tr()),
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 38),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Expanded(
-                              child: SizedBox(
-                                height: 20,
-                              ),
-                            ),
+                            Expanded(child: SizedBox(height: 20)),
                             Center(
                               child: Text(
                                 'login_to_your_account_to_continue'.tr(),
@@ -45,26 +39,19 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 30,
-                            ),
+                            SizedBox(height: 30),
                             InputWidget(),
                             CustomButton(
                               onPressed: () {
-                                Navigator.of(context)
-                                    .popAndPushNamed(Routes.home);
+                                Navigator.of(
+                                  context,
+                                ).popAndPushNamed(Routes.home);
                               },
                               text: 'login'.tr(),
                             ),
-                            SizedBox(
-                              height: 20,
-                            ),
+                            SizedBox(height: 20),
                             SocialLoginWidget(),
-                            Expanded(
-                              child: SizedBox(
-                                height: 20,
-                              ),
-                            ),
+                            Expanded(child: SizedBox(height: 20)),
                             SafeArea(
                               child: Center(
                                 child: Wrap(
@@ -83,8 +70,9 @@ class LoginPage extends StatelessWidget {
                                     InkWell(
                                       borderRadius: BorderRadius.circular(2),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .pushNamed(Routes.signup);
+                                        Navigator.of(
+                                          context,
+                                        ).pushNamed(Routes.signup);
                                       },
                                       child: Padding(
                                         padding: const EdgeInsets.all(5),
@@ -101,9 +89,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 10,
-                            )
+                            SizedBox(height: 10),
                           ],
                         ),
                       ),

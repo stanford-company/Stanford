@@ -1,28 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/appointment/appointment_detail_page.dart';
-import '../pages/appointment/my_appointments_page.dart';
-import '../pages/booking/filter/filter_page.dart';
-import '../pages/booking/step1/health_concern_page.dart';
-import '../pages/booking/step2/choose_doctor_page.dart';
-import '../pages/booking/step3/time_slot_page.dart';
-import '../pages/booking/step4/patient_details_page.dart';
-import '../pages/booking/step5/appointment_booked_page.dart';
-import '../pages/doctor/doctor_profile_page.dart';
-import '../pages/doctor/my_doctor_list_page.dart';
-import '../pages/forgot/forgot_password_page.dart';
-import '../pages/home/home.dart';
-import '../pages/language/change_laguage_page.dart';
-import '../pages/login/login_page.dart';
-import '../pages/messages/messages_detail_page.dart';
-import '../pages/notifications/notification_settings_page.dart';
-import '../pages/notifications/notifications_page.dart';
-import '../pages/prescription/prescription_detail_page.dart';
-import '../pages/profile/edit_profile_page.dart';
-import '../pages/signup/signup_page.dart';
-import '../pages/splash_page.dart';
-import '../pages/visit/visit_detail_page.dart';
+import '../../pages/appointment/appointment_detail_page.dart';
+import '../../pages/appointment/my_appointments_page.dart';
+import '../../pages/booking/filter/filter_page.dart';
+import '../../pages/booking/step1/health_concern_page.dart';
+import '../../pages/booking/step2/choose_doctor_page.dart';
+import '../../pages/booking/step3/time_slot_page.dart';
+import '../../pages/booking/step4/patient_details_page.dart';
+import '../../pages/booking/step5/appointment_booked_page.dart';
+import '../../pages/doctor/doctor_profile_page.dart';
+import '../../pages/doctor/my_doctor_list_page.dart';
+import '../../pages/forgot/forgot_password_page.dart';
+import '../../pages/home/home.dart';
+import '../../pages/language/change_laguage_page.dart';
+import '../../pages/login/login_page.dart';
+import '../../pages/messages/messages_detail_page.dart';
+import '../../pages/notifications/notification_settings_page.dart';
+import '../../pages/notifications/notifications_page.dart';
+import '../../pages/prescription/prescription_detail_page.dart';
+import '../../pages/profile/edit_profile_page.dart';
+import '../../pages/signup/signup_page.dart';
+import '../../pages/splash_page.dart';
+import '../../pages/visit/visit_detail_page.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -112,15 +112,13 @@ class RouteGenerator {
   }
 
   static Route<dynamic> _errorRoute() {
-    return CupertinoPageRoute(builder: (_) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text('Error'),
-        ),
-        body: Center(
-          child: Text('Error'),
-        ),
-      );
-    });
+    return CupertinoPageRoute(
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(title: Text('Error')),
+          body: Center(child: Text('Error')),
+        );
+      },
+    );
   }
 }

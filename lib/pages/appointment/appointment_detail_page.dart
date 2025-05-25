@@ -1,11 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../components/doctor_item1.dart';
+import '../../common/components/doctor_item1.dart';
+import '../../common/components/custom_button.dart';
 import '../../data/pref_manager.dart';
-import '../../model/doctor.dart';
-import '../../utils/constants.dart';
+import '../../../model/doctor.dart';
+import '../../../core/utils/constants.dart';
 
 class AppointmentDetailPage extends StatefulWidget {
   @override
@@ -26,36 +26,21 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             Text(
               'date_and_time'.tr(),
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               '${'tomorrow'.tr()}, 8:30 AM',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               '${'in'.tr()} 13 ${'hours'.tr()}',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
           ],
         ),
       ),
@@ -71,36 +56,21 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             Text(
               'practice_detail'.tr(),
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               'YourHealth Medical Centre',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             Text(
               '3719  Jehovah Drive, Roanoke, Virginia - 24011',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             InkWell(
               onTap: () {},
               child: Text(
@@ -112,9 +82,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
           ],
         ),
       ),
@@ -130,29 +98,17 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             Text(
               'procedure'.tr(),
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-              ),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
             ),
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             Text(
               'Consultation',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
           ],
         ),
       ),
@@ -163,14 +119,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     return Container(
       width: double.infinity,
       color: _color,
-      padding: EdgeInsets.symmetric(
-        horizontal: 15,
-      ),
+      padding: EdgeInsets.symmetric(horizontal: 15),
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           Row(
             children: <Widget>[
               Expanded(
@@ -184,9 +136,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Text(
                       'Tawfiq Bahri',
                       style: TextStyle(
@@ -197,10 +147,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                   ],
                 ),
               ),
-              Container(
-                height: 80,
-                child: VerticalDivider(),
-              ),
+              Container(height: 80, child: VerticalDivider()),
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.only(left: 15),
@@ -214,9 +161,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Text(
                         '9355476',
                         style: TextStyle(
@@ -230,9 +175,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
               ),
             ],
           ),
-          SizedBox(
-            height: 5,
-          ),
+          SizedBox(height: 5),
         ],
       ),
     );
@@ -243,9 +186,7 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(
-          'appointment_details'.tr(),
-        ),
+        title: Text('appointment_details'.tr()),
       ),
       body: SafeArea(
         child: Column(
@@ -260,13 +201,9 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                     children: <Widget>[
                       Container(
                         color: _isdark ? Colors.transparent : Colors.white,
-                        child: DoctorItem1(
-                          doctor: doctors[0],
-                        ),
+                        child: DoctorItem1(doctor: doctors[0]),
                       ),
-                      Divider(
-                        color: _isdark ? Colors.black : Colors.grey[300],
-                      ),
+                      Divider(color: _isdark ? Colors.black : Colors.grey[300]),
                       dateAndTime(),
                       Divider(),
                       practiceDetail(),
@@ -275,8 +212,10 @@ class _AppointmentDetailPageState extends State<AppointmentDetailPage> {
                       Divider(),
                       bookingDetails(),
                       Padding(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
+                          horizontal: 15,
+                        ),
                         child: RichText(
                           text: TextSpan(
                             children: [

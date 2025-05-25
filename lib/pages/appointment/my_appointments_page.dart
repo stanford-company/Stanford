@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/constants.dart';
+import '../../../core/utils/constants.dart';
 import 'history_appointments_page.dart';
 import 'upcoming_appointments_page.dart';
 
@@ -25,26 +25,13 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
     fontStyle: FontStyle.normal,
   );
 
-  final _kTabPages = [
-    UpcomingAppointmentsPage(),
-    HistoryAppointmentsPage(),
-  ];
+  final _kTabPages = [UpcomingAppointmentsPage(), HistoryAppointmentsPage()];
 
-  final _kTabs = [
-    Tab(
-      text: 'upcoming'.tr(),
-    ),
-    Tab(
-      text: 'history'.tr(),
-    ),
-  ];
+  final _kTabs = [Tab(text: 'upcoming'.tr()), Tab(text: 'history'.tr())];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('my_appointments'.tr()),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: Text('my_appointments'.tr()), elevation: 0),
       body: DefaultTabController(
         length: _kTabs.length,
         child: Column(
@@ -57,11 +44,7 @@ class _MyAppointmentsPageState extends State<MyAppointmentsPage> {
               unselectedLabelColor: Colors.grey,
               tabs: _kTabs,
             ),
-            Expanded(
-              child: TabBarView(
-                children: _kTabPages,
-              ),
-            ),
+            Expanded(child: TabBarView(children: _kTabPages)),
           ],
         ),
       ),

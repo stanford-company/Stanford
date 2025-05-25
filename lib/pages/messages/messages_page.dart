@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 
 class MessagesPage extends StatefulWidget {
   @override
@@ -43,9 +43,7 @@ class _MessagesPageState extends State<MessagesPage>
                   size: 20,
                 ),
                 hintText: 'search_messages'.tr(),
-                hintStyle: TextStyle(
-                  color: Colors.grey[400],
-                ),
+                hintStyle: TextStyle(color: Colors.grey[400]),
               ),
               cursorWidth: 1,
               maxLines: 1,
@@ -125,10 +123,7 @@ class MessageListItem extends StatelessWidget {
                   CircleAvatar(
                     radius: 25,
                     backgroundColor: Colors.transparent,
-                    child: Image.asset(
-                      imagePath,
-                      fit: BoxFit.fill,
-                    ),
+                    child: Image.asset(imagePath, fit: BoxFit.fill),
                   ),
                   Visibility(
                     visible: online,
@@ -143,18 +138,14 @@ class MessageListItem extends StatelessWidget {
                           shape: BoxShape.circle,
                           color: Colors.white,
                         ),
-                        child: CircleAvatar(
-                          backgroundColor: Colors.green,
-                        ),
+                        child: CircleAvatar(backgroundColor: Colors.green),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              width: 10,
-            ),
+            SizedBox(width: 10),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,8 +153,8 @@ class MessageListItem extends StatelessWidget {
                   Text(
                     name,
                     style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Text(
                     message,
@@ -176,9 +167,7 @@ class MessageListItem extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
-              width: 5,
-            ),
+            SizedBox(width: 5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
@@ -196,10 +185,7 @@ class MessageListItem extends StatelessWidget {
                   maintainAnimation: true,
                   maintainState: true,
                   child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 7,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 2, horizontal: 7),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(50),
                       color: kColorPrimary,
@@ -213,9 +199,9 @@ class MessageListItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),

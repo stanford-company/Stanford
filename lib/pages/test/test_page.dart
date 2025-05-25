@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_profile_item.dart';
+import '../../common/components/custom_profile_item.dart';
 
 class TestPage extends StatefulWidget {
   @override
@@ -27,9 +27,7 @@ class _TestPageState extends State<TestPage>
               buttonTitle: 'see_reports'.tr(),
               imagePath: 'assets/images/icon_medical_check_up.png',
             ),
-            SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
             CustomProfileItem(
               onTap: () {},
               title: 'monthly_medical_check_up'.tr(),

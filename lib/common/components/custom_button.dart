@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../utils/constants.dart';
+import '../../core/utils/constants.dart';
+import '../../core/utils/constants.dart';
 
 class CustomButton extends StatelessWidget {
   final String text;
@@ -30,7 +31,8 @@ class CustomButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Padding(
-        padding: padding ??
+        padding:
+            padding ??
             const EdgeInsets.only(top: 9, bottom: 10, left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,9 +40,11 @@ class CustomButton extends StatelessWidget {
             Text(
               text,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: Colors.white,
-                  fontSize: textSize ??
-                      Theme.of(context).textTheme.labelLarge!.fontSize),
+                color: Colors.white,
+                fontSize:
+                    textSize ??
+                    Theme.of(context).textTheme.labelLarge!.fontSize,
+              ),
               textAlign: TextAlign.center,
             ),
           ],

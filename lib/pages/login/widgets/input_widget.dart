@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/labeled_text_form_field.dart';
-import '../../../routes/routes.dart';
+import '../../../common/components/labeled_text_form_field.dart';
+import '../../../core/routes/routes.dart';
 
 class InputWidget extends StatefulWidget {
   @override
@@ -33,19 +33,16 @@ class _InputWidgetState extends State<InputWidget> {
         ),
         Row(
           children: [
-            Expanded(
-              child: Container(),
-            ),
+            Expanded(child: Container()),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.forgotPassword);
               },
               child: Text(
                 'forgot_yout_password'.tr(),
-                style: Theme.of(context)
-                    .textTheme
-                    .labelLarge!
-                    .copyWith(fontSize: 12),
+                style: Theme.of(
+                  context,
+                ).textTheme.labelLarge!.copyWith(fontSize: 12),
               ),
             ),
           ],

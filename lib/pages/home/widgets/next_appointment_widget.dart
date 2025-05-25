@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/round_icon_button.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/round_icon_button.dart';
+import '../../../../core/utils/constants.dart';
 
 class NextAppointmentWidget extends StatelessWidget {
   @override
@@ -30,9 +30,7 @@ class NextAppointmentWidget extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5),
                     Text(
                       '11 January 2019, 10:00 AM',
                       style: TextStyle(
@@ -44,17 +42,10 @@ class NextAppointmentWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              RoundIconButton(
-                onPressed: () {},
-                icon: Icons.map,
-              ),
+              RoundIconButton(onPressed: () {}, icon: Icons.map),
             ],
           ),
-          Divider(
-            color: Colors.grey,
-            height: 40,
-            thickness: 0.5,
-          ),
+          Divider(color: Colors.grey, height: 40, thickness: 0.5),
           Row(
             children: <Widget>[
               Container(
@@ -73,9 +64,7 @@ class NextAppointmentWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                width: 10,
-              ),
+              SizedBox(width: 10),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -87,9 +76,7 @@ class NextAppointmentWidget extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  SizedBox(
-                    height: 2,
-                  ),
+                  SizedBox(height: 2),
                   Text(
                     'Family Doctor, Cardiologist',
                     style: TextStyle(
@@ -99,9 +86,9 @@ class NextAppointmentWidget extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
