@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/round_icon_button.dart';
+import '../../common/components/round_icon_button.dart';
 import '../../data/pref_manager.dart';
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 import '../examination/examination_page.dart';
 import '../prescription/prescription_page.dart';
 import '../test/test_page.dart';
@@ -37,18 +37,10 @@ class _ProfilePageState extends State<ProfilePage>
     bool _isdark = Prefs.isDark();
 
     var _kTabs = [
-      Tab(
-        text: 'visit'.tr(),
-      ),
-      Tab(
-        text: 'examination'.tr(),
-      ),
-      Tab(
-        text: 'test'.tr(),
-      ),
-      Tab(
-        text: 'prescription'.tr(),
-      ),
+      Tab(text: 'visit'.tr()),
+      Tab(text: 'examination'.tr()),
+      Tab(text: 'test'.tr()),
+      Tab(text: 'prescription'.tr()),
     ];
 
     return Column(
@@ -61,40 +53,28 @@ class _ProfilePageState extends State<ProfilePage>
               CircleAvatar(
                 radius: 32,
                 backgroundColor: Colors.transparent,
-                backgroundImage: AssetImage(
-                  'assets/images/icon_man.png',
-                ),
+                backgroundImage: AssetImage('assets/images/icon_man.png'),
               ),
-              SizedBox(
-                width: 20,
-              ),
+              SizedBox(width: 20),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       'Tawfiq Bahri',
-                      style: Theme.of(context).textTheme.subtitle2,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
-                    SizedBox(
-                      height: 3,
-                    ),
+                    SizedBox(height: 3),
                     Text(
                       'bhr.tawfik@gmail.com',
-                      style: TextStyle(
-                        color: Colors.grey[350],
-                        fontSize: 12,
-                      ),
+                      style: TextStyle(color: Colors.grey[350], fontSize: 12),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5),
                     Text(
                       '+213 781 348 677',
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle2!
-                          .copyWith(fontSize: 12),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.titleSmall!.copyWith(fontSize: 12),
                     ),
                   ],
                 ),
@@ -110,9 +90,7 @@ class _ProfilePageState extends State<ProfilePage>
             ],
           ),
         ),
-        SizedBox(
-          height: 15,
-        ),
+        SizedBox(height: 15),
         Expanded(
           child: DefaultTabController(
             length: _kTabs.length,
@@ -136,22 +114,19 @@ class _ProfilePageState extends State<ProfilePage>
                   child: TabBar(
                     indicatorColor: kColorBlue,
                     labelStyle: _kTabTextStyle,
-                    unselectedLabelStyle:
-                        _kTabTextStyle.copyWith(color: Colors.grey),
+                    unselectedLabelStyle: _kTabTextStyle.copyWith(
+                      color: Colors.grey,
+                    ),
                     labelColor: kColorBlue,
                     unselectedLabelColor: Colors.grey,
                     tabs: _kTabs,
                   ),
                 ),
-                Expanded(
-                  child: TabBarView(
-                    children: _kTabPages,
-                  ),
-                ),
+                Expanded(child: TabBarView(children: _kTabPages)),
               ],
             ),
           ),
-        )
+        ),
       ],
     );
   }

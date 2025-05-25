@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/history_appointments_list_item.dart';
+import '../../common/components/history_appointments_list_item.dart';
 
 class HistoryAppointmentsPage extends StatelessWidget {
   @override

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../components/round_icon_button.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/round_icon_button.dart';
+import '../../../../core/utils/constants.dart';
 
 class NextAppointmentWidget extends StatelessWidget {
   @override

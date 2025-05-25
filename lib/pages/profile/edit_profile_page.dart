@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../utils/constants.dart';
+import '../../common/components/custom_button.dart';
+import '../../../core/utils/constants.dart';
 import 'widgets/edit_widget.dart';
 import 'widgets/info_widget.dart';
 

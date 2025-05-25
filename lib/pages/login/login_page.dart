@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/pages/login/widgets/input_widget.dart';
-
+import '../../core/routes/routes.dart';
 import '../../blocks/login/login_bloc.dart';
-import '../../routes/routes.dart';
-import '../../utils/api_service.dart';
+import '../../core/utils/api_service.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -53,14 +52,18 @@ class LoginPage extends StatelessWidget {
                                 onTap: () => context.setLocale(Locale('en')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: isEnglish ? Colors.white : Colors.transparent,
+                                    color: isEnglish
+                                        ? Colors.white
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(50.r),
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
                                     'English',
                                     style: TextStyle(
-                                      color: isEnglish ? Colors.black : Colors.white,
+                                      color: isEnglish
+                                          ? Colors.black
+                                          : Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -72,14 +75,18 @@ class LoginPage extends StatelessWidget {
                                 onTap: () => context.setLocale(Locale('ar')),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                    color: !isEnglish ? Colors.white : Colors.transparent,
+                                    color: !isEnglish
+                                        ? Colors.white
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(50.r),
                                   ),
                                   alignment: Alignment.center,
                                   child: Text(
                                     'العربية',
                                     style: TextStyle(
-                                      color: !isEnglish ? Colors.black : Colors.white,
+                                      color: !isEnglish
+                                          ? Colors.black
+                                          : Colors.white,
                                       fontWeight: FontWeight.w600,
                                     ),
                                   ),
@@ -149,7 +156,9 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).pushNamed(Routes.signup);
+                                    Navigator.of(
+                                      context,
+                                    ).pushNamed(Routes.signup);
                                   },
                                   child: Text(
                                     'Register now'.tr(),

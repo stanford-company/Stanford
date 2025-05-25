@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../core/utils/app_themes.dart';
 import '../../data/pref_manager.dart';
-import '../../utils/app_themes.dart';
-import '../../utils/constants.dart';
-import '../../utils/themebloc/theme_bloc.dart';
+import '../../../core/utils/constants.dart';
+import '../../core/utils/themebloc/theme_bloc.dart';
 import 'widgets/widgets.dart';
 
 class SettingsPage extends StatefulWidget {

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/common/components/labeled_text_form_field.dart'
+    show LabeledTextFormField;
 import '../../../blocks/signup/signup_bloc.dart';
-import '../../../components/labeled_text_form_field.dart';
 
 class SignupInputWidget extends StatefulWidget {
   @override

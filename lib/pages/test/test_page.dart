@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_profile_item.dart';
+import '../../common/components/custom_profile_item.dart';
 
 class TestPage extends StatefulWidget {
   @override

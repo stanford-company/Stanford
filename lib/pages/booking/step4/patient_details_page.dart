@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../components/custom_button.dart';
-import '../../../components/doctor_item1.dart';
-import '../../../components/text_form_field.dart';
+import '../../../common/components/custom_button.dart';
+import '../../../common/components/doctor_item1.dart';
+import '../../../common/components/text_form_field.dart';
 import '../../../data/pref_manager.dart';
-import '../../../model/doctor.dart';
-import '../../../routes/routes.dart';
-import '../../../utils/constants.dart';
+import '../../../../model/doctor.dart';
+import '../../../core/routes/routes.dart';
+import '../../../../core/utils/constants.dart';
 
 class PatientDetailsPage extends StatefulWidget {
   @override

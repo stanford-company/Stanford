@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../routes/routes.dart';
-import '../../../utils/constants.dart';
+import '../../../core/routes/routes.dart';
+import '../../../../core/utils/constants.dart';
 
 class GeneralWidget extends StatefulWidget {
   final bool isDark;

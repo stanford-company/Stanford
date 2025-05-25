@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../components/custom_navigation_bar.dart';
+import '../../common/components/custom_navigation_bar.dart';
 import '../../data/pref_manager.dart';
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 import '../booking/step1/health_concern_page.dart';
 import '../drawer/drawer_page.dart';
 import '../messages/messages_page.dart';
@@ -138,8 +138,10 @@ class _HomeState extends State<Home> {
                                       width: 60.w,
                                       height: 60.h,
                                       alignment: Alignment.center,
-                                      child:
-                                          Icon(Icons.arrow_back, size: 24.sp),
+                                      child: Icon(
+                                        Icons.arrow_back,
+                                        size: 24.sp,
+                                      ),
                                     ),
                                     onPressed: () {},
                                   )
@@ -157,7 +159,9 @@ class _HomeState extends State<Home> {
                                       ),
                                     ),
                                     onPressed: () => Navigator.pushNamed(
-                                        context, Routes.notifications),
+                                      context,
+                                      Routes.notifications,
+                                    ),
                                   ),
                           ],
                         ),
@@ -193,8 +197,10 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8.h,
+                      horizontal: 8.w,
+                    ),
                     child: CustomNavigationBar(
                       backgroundColor: Colors.transparent,
                       strokeColor: Colors.transparent,

@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/routes/routes.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 import '../../blocks/logout/logout_bloc.dart';
-import '../../routes/routes.dart';
-import '../../utils/api_service.dart';
-import '../../utils/constants.dart';
-import '../../utils/shared_prefs_service.dart';
+import '../../core/utils/api_service.dart';
+import '../../core/utils/shared_prefs_service.dart';
 
 class DrawerPage extends StatelessWidget {
   final void Function() onTap;
@@ -60,7 +61,7 @@ class DrawerPage extends StatelessWidget {
                             ),
                           ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -69,13 +70,15 @@ class DrawerPage extends StatelessWidget {
                   context: context,
                   image: 'person',
                   text: 'my_doctors',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.myDoctors),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(Routes.myDoctors),
                 ),
                 _drawerItem(
                   context: context,
                   image: 'calendar',
                   text: 'my_appointments',
-                  onTap: () => Navigator.of(context).pushNamed(Routes.myAppointments),
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(Routes.myAppointments),
                 ),
                 _drawerItem(
                   context: context,
@@ -99,16 +102,14 @@ class DrawerPage extends StatelessWidget {
                     showDialog(
                       context: context,
                       builder: (context) => BlocProvider(
-                        create: (context) => LogoutBloc(
-                          ApiService(),
-                          SharedPrefsService(),
-                        ),
+                        create: (context) =>
+                            LogoutBloc(ApiService(), SharedPrefsService()),
                         child: BlocConsumer<LogoutBloc, LogoutState>(
                           listener: (context, state) {
                             if (state is LogoutSuccess) {
                               Navigator.of(context).pushNamedAndRemoveUntil(
                                 Routes.login,
-                                    (route) => false,
+                                (route) => false,
                               );
                             } else if (state is LogoutFailure) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -122,32 +123,35 @@ class DrawerPage extends StatelessWidget {
                               title: Text('Logout'.tr()),
                               content: state is LogoutInProgress
                                   ? Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CircularProgressIndicator(),
-                                  SizedBox(height: 16.h),
-                                  Text('Logging out...'.tr()),
-                                ],
-                              )
-                                  : Text('Are you sure you want to logout?'.tr()),
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CircularProgressIndicator(),
+                                        SizedBox(height: 16.h),
+                                        Text('Logging out...'.tr()),
+                                      ],
+                                    )
+                                  : Text(
+                                      'Are you sure you want to logout?'.tr(),
+                                    ),
                               actions: [
                                 if (state is! LogoutInProgress)
                                   TextButton(
-                                    onPressed: () => Navigator.of(context).pop(),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
                                     child: Text('CANCEL'.tr()),
                                   ),
                                 TextButton(
                                   onPressed: state is LogoutInProgress
                                       ? null
                                       : () => context.read<LogoutBloc>().add(
-                                    LogoutRequested(token),
-                                  ),
+                                          LogoutRequested(token),
+                                        ),
                                   child: Text(
                                     'LOGOUT'.tr(),
                                     style: TextStyle(
                                       color: state is LogoutInProgress
                                           ? Colors.grey
-                                          : Theme.of(context).errorColor,
+                                          : Theme.of(context).colorScheme.error,
                                     ),
                                   ),
                                 ),

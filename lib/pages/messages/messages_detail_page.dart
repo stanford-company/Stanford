@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../routes/routes.dart';
-import '../../utils/constants.dart';
+import '../../core/routes/routes.dart';
+import '../../../core/utils/constants.dart';
 
 class MessagesDetailPage extends StatefulWidget {
   @override
@@ -39,40 +39,29 @@ class _MessagesDetailPageState extends State<MessagesDetailPage> {
                         shape: BoxShape.circle,
                         color: Colors.white,
                       ),
-                      child: CircleAvatar(
-                        backgroundColor: Colors.green,
-                      ),
+                      child: CircleAvatar(backgroundColor: Colors.green),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
-              width: 5,
-            ),
+            SizedBox(width: 5),
             Text(
               'Tawfiq Bahri',
-              style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.w700),
             ),
           ],
         ),
         actions: <Widget>[
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.phone,
-            ),
-          ),
+          IconButton(onPressed: () {}, icon: Icon(Icons.phone)),
           IconButton(
             onPressed: () {
               Navigator.of(context).pushNamed(Routes.doctorProfile);
             },
-            icon: Icon(
-              Icons.info,
-            ),
-          )
+            icon: Icon(Icons.info),
+          ),
         ],
       ),
       body: Column(
@@ -84,30 +73,19 @@ class _MessagesDetailPageState extends State<MessagesDetailPage> {
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    MessageItem(
-                      send: false,
-                      message: 'Hello',
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
+                    MessageItem(send: false, message: 'Hello'),
+                    SizedBox(height: 10),
                     MessageItem(
                       send: true,
                       message: 'Hello Doctor \nHow are you?',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     MessageItem(
                       send: false,
                       message: 'Fine \nI hope you\'re doing well.',
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     MessageItem(
                       send: false,
                       message: 'Don\'t forget about your next appointment.',
@@ -130,30 +108,28 @@ class _MessagesDetailPageState extends State<MessagesDetailPage> {
                 children: <Widget>[
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
-                      Icons.attach_file,
-                      size: 25,
-                    ),
+                    icon: Icon(Icons.attach_file, size: 25),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
-                      Icons.camera_alt,
-                      size: 25,
-                    ),
+                    icon: Icon(Icons.camera_alt, size: 25),
                   ),
                   Expanded(
                     child: TextFormField(
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 0),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 0,
+                          ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide:
-                              BorderSide(color: Colors.transparent, width: 0),
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 0,
+                          ),
                         ),
                         filled: true,
                         fillColor: Colors.grey[250],
@@ -162,28 +138,21 @@ class _MessagesDetailPageState extends State<MessagesDetailPage> {
                           horizontal: 10,
                         ),
                         hintText: 'Enter message',
-                        hintStyle: TextStyle(
-                          color: Colors.grey[400],
-                        ),
+                        hintStyle: TextStyle(color: Colors.grey[400]),
                       ),
                       autofocus: false,
-                      style: TextStyle(
-                        color: kColorDarkBlue,
-                      ),
+                      style: TextStyle(color: kColorDarkBlue),
                       cursorWidth: 1,
                     ),
                   ),
                   IconButton(
                     onPressed: () {},
-                    icon: Icon(
-                      Icons.send,
-                      size: 25,
-                    ),
+                    icon: Icon(Icons.send, size: 25),
                   ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -195,7 +164,7 @@ class MessageItem extends StatelessWidget {
   final String message;
 
   const MessageItem({Key? key, required this.send, required this.message})
-      : super(key: key);
+    : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -219,10 +188,7 @@ class MessageItem extends StatelessWidget {
               left: !send ? 5 : (MediaQuery.of(context).size.width / 2) - 80,
               right: send ? 5 : (MediaQuery.of(context).size.width / 2) - 80,
             ),
-            padding: EdgeInsets.symmetric(
-              vertical: 10,
-              horizontal: 15,
-            ),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(20),
@@ -248,10 +214,7 @@ class MessageItem extends StatelessWidget {
           child: CircleAvatar(
             radius: 18,
             backgroundColor: Colors.transparent,
-            child: Image.asset(
-              'assets/images/icon_man.png',
-              fit: BoxFit.fill,
-            ),
+            child: Image.asset('assets/images/icon_man.png', fit: BoxFit.fill),
           ),
         ),
       ],

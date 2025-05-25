@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../data/pref_manager.dart';
-import '../../../utils/constants.dart';
+import '../../../../core/utils/constants.dart';
 
 class NavBarItemWidget extends StatelessWidget {
   final void Function() onTap;

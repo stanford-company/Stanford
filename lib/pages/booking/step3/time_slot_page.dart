@@ -2,12 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../../../components/day_slot_item.dart';
-import '../../../components/doctor_item1.dart';
-import '../../../components/time_slot_item.dart';
+import '../../../common/components/day_slot_item.dart';
+import '../../../common/components/doctor_item1.dart';
+import '../../../common/components/time_slot_item.dart';
 import '../../../data/pref_manager.dart';
-import '../../../model/doctor.dart';
-import '../../../routes/routes.dart';
+import '../../../../model/doctor.dart';
+import '../../../core/routes/routes.dart';
 
 class TimeSlotPage extends StatefulWidget {
   @override

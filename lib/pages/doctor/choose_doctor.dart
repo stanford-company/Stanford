@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/doctor_item.dart';
-import '../../components/round_icon_button.dart';
-import '../../model/doctor.dart';
-import '../../utils/constants.dart';
+import '../../common/components/doctor_item.dart';
+import '../../common/components/round_icon_button.dart';
+import '../../../model/doctor.dart';
+import '../../../core/utils/constants.dart';
 
 class ChooseDoctor extends StatelessWidget {
   Widget _progress(int size, int progress) {

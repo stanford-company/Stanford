@@ -2,9 +2,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../../components/custom_circular_indicator.dart';
-import '../../components/round_icon_button.dart';
-import '../../utils/constants.dart';
+import '../../common/components/custom_circular_indicator.dart';
+import '../../common/components/round_icon_button.dart';
+import '../../../core/utils/constants.dart';
 
 class DoctorProfilePage extends StatelessWidget {
   @override
@@ -50,10 +50,8 @@ class DoctorProfilePage extends StatelessWidget {
                           ),
                           Text(
                             'Tawfiq Bahri',
-                            style:
-                                Theme.of(context).textTheme.subtitle1!.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                            style: Theme.of(context).textTheme.titleMedium!
+                                .copyWith(fontWeight: FontWeight.w700),
                           ),
                           Text(
                             'Family Doctor. Cardiologist',
@@ -66,9 +64,7 @@ class DoctorProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     RatingBar(
                       itemSize: 20,
                       initialRating: 4.5,
@@ -80,15 +76,9 @@ class DoctorProfilePage extends StatelessWidget {
                       //   color: Colors.amber,
                       // ),
                       ratingWidget: RatingWidget(
-                        full: Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                        ),
+                        full: Icon(Icons.star, color: Colors.amber),
                         half: SizedBox(),
-                        empty: Icon(
-                          Icons.star,
-                          color: Colors.grey,
-                        ),
+                        empty: Icon(Icons.star, color: Colors.grey),
                       ),
                       onRatingUpdate: (rating) {
                         print(rating);
@@ -96,16 +86,9 @@ class DoctorProfilePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Divider(
-                  height: 1,
-                  color: Colors.grey[350],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
+                Divider(height: 1, color: Colors.grey[350]),
+                SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -116,9 +99,7 @@ class DoctorProfilePage extends StatelessWidget {
                       line1Width: 2,
                       footer: 'good_reviews'.tr(),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     CustomCircularIndicator(
                       radius: 80,
                       percent: 0.95,
@@ -126,9 +107,7 @@ class DoctorProfilePage extends StatelessWidget {
                       line1Width: 2,
                       footer: 'total_score'.tr(),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     CustomCircularIndicator(
                       radius: 80,
                       percent: 0.9,
@@ -138,25 +117,16 @@ class DoctorProfilePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Divider(
-                  height: 1,
-                  color: Colors.grey[350],
-                ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
+                Divider(height: 1, color: Colors.grey[350]),
+                SizedBox(height: 20),
                 Text(
                   'about'.tr(),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        fontWeight: FontWeight.w700,
-                      ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.w700),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Text(
                   'Doctor Tawfiq Bahri, is a Doctor primarily located in New York, with another office in Atlantic City, New Jersey. He has 16 years of experience. His specialities include Family Medicine and Cardiology.',
                   style: TextStyle(
@@ -165,9 +135,7 @@ class DoctorProfilePage extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 20),
                 Row(
                   children: <Widget>[
                     RoundIconButton(
@@ -175,17 +143,13 @@ class DoctorProfilePage extends StatelessWidget {
                       icon: Icons.message,
                       elevation: 1,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     RoundIconButton(
                       onPressed: () {},
                       icon: Icons.phone,
                       elevation: 1,
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                    SizedBox(width: 10),
                     Expanded(
                       child: RawMaterialButton(
                         onPressed: () {},
@@ -206,9 +170,9 @@ class DoctorProfilePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
-                )
+                ),
               ],
             ),
           ),

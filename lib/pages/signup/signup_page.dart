@@ -2,9 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocks/signup/signup_bloc.dart';
-import '../../components/custom_button.dart';
-import '../../routes/routes.dart';
-import '../../utils/api_service.dart';
+
+import '../../common/components/custom_button.dart';
+import '../../common/components/wave_header.dart';
+import '../../core/routes/routes.dart';
+import '../../core/utils/api_service.dart';
+import 'widgets/input_widget.dart';
 
 class SignupPage extends StatefulWidget {
   @override
@@ -29,9 +32,9 @@ class _SignupPageState extends State<SignupPage> {
         child: BlocConsumer<SignupBloc, SignupState>(
           listener: (context, state) {
             if (state is SignupFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.error)));
             } else if (state is SignupSuccess) {
               // Show success message and navigate
               ScaffoldMessenger.of(context)
@@ -41,11 +44,10 @@ class _SignupPageState extends State<SignupPage> {
                     content: Text(state.message),
                     duration: Duration(seconds: 2),
                   ),
-                )
-                    .closed.then((_) {
+                ).closed.then((_) {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     Routes.login,
-                        (Route<dynamic> route) => false,
+                    (Route<dynamic> route) => false,
                   );
                 });
             } else if (state is SignupProceed) {
@@ -64,7 +66,11 @@ class _SignupPageState extends State<SignupPage> {
                   width: double.infinity,
                   decoration: BoxDecoration(color: Color(0xFF0C3C4C)),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 100.0, right: 8, left: 8),
+                    padding: const EdgeInsets.only(
+                      top: 100.0,
+                      right: 8,
+                      left: 8,
+                    ),
                     child: Row(
                       children: [
                         Padding(
@@ -89,17 +95,22 @@ class _SignupPageState extends State<SignupPage> {
                               children: [
                                 Expanded(
                                   child: GestureDetector(
-                                    onTap: () => context.setLocale(Locale('en')),
+                                    onTap: () =>
+                                        context.setLocale(Locale('en')),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: isEnglish ? Colors.white : Colors.transparent,
+                                        color: isEnglish
+                                            ? Colors.white
+                                            : Colors.transparent,
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       alignment: Alignment.center,
                                       child: Text(
                                         'English',
                                         style: TextStyle(
-                                          color: isEnglish ? Colors.black : Colors.white,
+                                          color: isEnglish
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -108,17 +119,22 @@ class _SignupPageState extends State<SignupPage> {
                                 ),
                                 Expanded(
                                   child: GestureDetector(
-                                    onTap: () => context.setLocale(Locale('ar')),
+                                    onTap: () =>
+                                        context.setLocale(Locale('ar')),
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: !isEnglish ? Colors.white : Colors.transparent,
+                                        color: !isEnglish
+                                            ? Colors.white
+                                            : Colors.transparent,
                                         borderRadius: BorderRadius.circular(50),
                                       ),
                                       alignment: Alignment.center,
                                       child: Text(
                                         'العربية',
                                         style: TextStyle(
-                                          color: !isEnglish ? Colors.black : Colors.white,
+                                          color: !isEnglish
+                                              ? Colors.black
+                                              : Colors.white,
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -244,15 +260,28 @@ class _SignupPageState extends State<SignupPage> {
                                     text: showFullForm ? 'Submit' : 'Continue',
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        final bloc = BlocProvider.of<SignupBloc>(context);
+                                        final bloc =
+                                            BlocProvider.of<SignupBloc>(
+                                              context,
+                                            );
                                         if (showFullForm) {
-                                          bloc.add(SubmitFullSignup(
-                                            nationalId: _nationalIdController.text.trim(),
-                                            email: _emailController.text.trim(),
-                                            password: _passwordController.text.trim(),
-                                          ));
+                                          bloc.add(
+                                            SubmitFullSignup(
+                                              nationalId: _nationalIdController
+                                                  .text
+                                                  .trim(),
+                                              email: _emailController.text
+                                                  .trim(),
+                                              password: _passwordController.text
+                                                  .trim(),
+                                            ),
+                                          );
                                         } else {
-                                          bloc.add(CheckNationalId(_nationalIdController.text.trim()));
+                                          bloc.add(
+                                            CheckNationalId(
+                                              _nationalIdController.text.trim(),
+                                            ),
+                                          );
                                         }
                                       }
                                     },

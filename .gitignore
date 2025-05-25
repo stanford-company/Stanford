@@ -5,9 +5,12 @@
 *.swp
 .DS_Store
 .atom/
+.build/
 .buildlog/
 .history
 .svn/
+.swiftpm/
+migrate_working_dir/
 
 # IntelliJ related
 *.iml
@@ -22,6 +25,7 @@
 
 # Flutter/Dart/Pub related
 **/doc/api/
+**/ios/Flutter/.last_build_id
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
@@ -32,8 +36,16 @@
 
 # Web related
 lib/generated_plugin_registrant.dart
+# Symbolication related
+app.*.symbols
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+# Obfuscation related
+app.*.map.json
 
 .fvm/flutter_sdk
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release

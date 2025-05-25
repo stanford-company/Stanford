@@ -6,9 +6,9 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../blocks/login/login_bloc.dart';
 import '../../../blocks/remember_me_bloc.dart';
-import '../../../components/custom_button.dart';
-import '../../../components/labeled_text_form_field.dart';
-import '../../../routes/routes.dart';
+import '../../../common/components/custom_button.dart';
+import '../../../common/components/labeled_text_form_field.dart';
+import '../../../core/routes/routes.dart';
 
 class LoginInputWidget extends StatefulWidget {
   @override
@@ -25,13 +25,13 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.error)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.error)));
         } else if (state is LoginSuccess) {
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.home,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         }
       },
@@ -43,6 +43,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
             controller: _nationalIdController,
             keyboardType: TextInputType.number,
             hintText: 'National ID',
+
             prefixIcon: SizedBox(
               width: 48.w,
               height: 48.h,
@@ -102,28 +103,33 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             side: MaterialStateBorderSide.resolveWith(
-                                  (states) => BorderSide(
+                              (states) => BorderSide(
                                 color: Color(0xFF80d5b5),
                                 width: 2,
                               ),
                             ),
                             fillColor: MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
+                              (states) {
                                 if (states.contains(MaterialState.selected)) {
                                   return Color(0x6680D5B5);
                                 }
                                 return Colors.transparent;
                               },
                             ),
-                            checkColor: MaterialStateProperty.all<Color>(Color(0xFF156752)),
+                            checkColor: MaterialStateProperty.all<Color>(
+                              Color(0xFF156752),
+                            ),
                           ),
                         ),
                         child: Checkbox(
                           value: state.isChecked,
                           onChanged: (value) {
-                            context.read<RememberMeBloc>().add(ToggleRememberMe(value ?? false));
+                            context.read<RememberMeBloc>().add(
+                              ToggleRememberMe(value ?? false),
+                            );
                           },
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                         ),
                       ),
@@ -162,10 +168,12 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               }
               return CustomButton(
                 onPressed: () {
-                  context.read<LoginBloc>().add(LoginSubmitted(
-                    nationalId: _nationalIdController.text.trim(),
-                    password: _passwordController.text.trim(),
-                  ));
+                  context.read<LoginBloc>().add(
+                    LoginSubmitted(
+                      nationalId: _nationalIdController.text.trim(),
+                      password: _passwordController.text.trim(),
+                    ),
+                  );
                 },
                 text: 'Login'.tr(),
               );

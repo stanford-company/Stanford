@@ -1,14 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../utils/api_service.dart';
-import '../../utils/shared_prefs_service.dart';
+import '../../core/utils/api_service.dart';
+import '../../core/utils/shared_prefs_service.dart';
 part 'logout_event.dart';
 part 'logout_state.dart';
 
 class LogoutBloc extends Bloc<LogoutEvent, LogoutState> {
   final ApiService apiService;
 
-  LogoutBloc(this.apiService, SharedPrefsService sharedPrefsService) : super(LogoutInitial()) {
+  LogoutBloc(this.apiService, SharedPrefsService sharedPrefsService)
+    : super(LogoutInitial()) {
     on<LogoutRequested>((event, emit) async {
       emit(LogoutInProgress());
       try {

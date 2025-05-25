@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../components/custom_profile_item.dart';
-import '../../routes/routes.dart';
+import '../../common/components/custom_profile_item.dart';
+import '../../core/routes/routes.dart';
 
 class PrescriptionPage extends StatefulWidget {
   @override

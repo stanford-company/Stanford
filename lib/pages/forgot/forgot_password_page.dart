@@ -1,18 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../components/custom_button.dart';
-import '../../components/text_form_field.dart';
-import '../../utils/constants.dart';
+import '../../common/components/custom_button.dart';
+import '../../common/components/text_form_field.dart';
+import '../../../core/utils/constants.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: AppBar(elevation: 0, backgroundColor: Colors.transparent),
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints viewportConstraints) {
           return SingleChildScrollView(
@@ -26,11 +23,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Expanded(
-                        child: SizedBox(
-                          height: 80,
-                        ),
-                      ),
+                      Expanded(child: SizedBox(height: 80)),
                       Text(
                         'forgot_password'.tr(),
                         style: TextStyle(
@@ -38,9 +31,7 @@ class ForgotPasswordPage extends StatelessWidget {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
+                      SizedBox(height: 30),
                       WidgetForgot(),
                       Center(
                         child: TextButton(
@@ -49,19 +40,13 @@ class ForgotPasswordPage extends StatelessWidget {
                           },
                           child: Text(
                             'login'.tr(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .button!
-                                .copyWith(fontSize: 12),
+                            style: Theme.of(
+                              context,
+                            ).textTheme.labelLarge!.copyWith(fontSize: 12),
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: SizedBox(
-                          height: 20,
-                        ),
-                      ),
+                      Expanded(flex: 2, child: SizedBox(height: 20)),
                     ],
                   ),
                 ),
@@ -87,21 +72,13 @@ class _WidgetForgotState extends State<WidgetForgot> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'email_dot'.tr(),
-          style: kInputTextStyle,
-        ),
+        Text('email_dot'.tr(), style: kInputTextStyle),
         CustomTextFormField(
           controller: _emailController,
           hintText: 'bhr.tawfik@gmail.com',
         ),
-        SizedBox(
-          height: 35,
-        ),
-        CustomButton(
-          onPressed: () {},
-          text: 'reset_password'.tr(),
-        )
+        SizedBox(height: 35),
+        CustomButton(onPressed: () {}, text: 'reset_password'.tr()),
       ],
     );
   }

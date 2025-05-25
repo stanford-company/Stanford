@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../components/upcoming_appointment_list_item.dart';
+import '../../common/components/upcoming_appointment_list_item.dart';
 
 class UpcomingAppointmentsPage extends StatelessWidget {
   @override

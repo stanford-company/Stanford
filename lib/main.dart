@@ -7,18 +7,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'blocks/remember_me_bloc.dart';
-import 'routes/route_generator.dart';
-import 'routes/routes.dart';
-import 'utils/themebloc/theme_bloc.dart';
+import 'core/routes/route_generator.dart';
+import 'core/routes/routes.dart';
+import 'core/utils/themebloc/theme_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.white, // Set status bar color
-    statusBarIconBrightness: Brightness.dark, // Set icons to dark for white background
-    statusBarBrightness: Brightness.light, // For iOS
-  ));
+  SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      statusBarColor: Colors.white, // Set status bar color
+      statusBarIconBrightness:
+          Brightness.dark, // Set icons to dark for white background
+      statusBarBrightness: Brightness.light, // For iOS
+    ),
+  );
   runApp(
     EasyLocalization(
       supportedLocales: [
@@ -29,7 +32,10 @@ Future<void> main() async {
         Locale('ar', 'SA'),
       ],
       path: 'assets/languages',
-      child: BlocProvider(create: (context) => RememberMeBloc(), child: MyApp()),
+      child: BlocProvider(
+        create: (context) => RememberMeBloc(),
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -50,10 +56,13 @@ class MyApp extends StatelessWidget {
                 builder: (context, child) {
                   return AnnotatedRegion<SystemUiOverlayStyle>(
                     value: SystemUiOverlayStyle(
-                      statusBarColor: Colors.transparent, // Make status bar transparent
+                      statusBarColor:
+                          Colors.transparent, // Make status bar transparent
                       statusBarIconBrightness: Brightness.dark, // Dark icons
-                      systemNavigationBarColor: Colors.white, // White navigation bar
-                      systemNavigationBarIconBrightness: Brightness.dark, // Dark nav icons
+                      systemNavigationBarColor:
+                          Colors.white, // White navigation bar
+                      systemNavigationBarIconBrightness:
+                          Brightness.dark, // Dark nav icons
                     ),
                     child: ScrollConfiguration(
                       behavior: MyBehavior(),
@@ -71,21 +80,26 @@ class MyApp extends StatelessWidget {
                   DefaultCupertinoLocalizations.delegate,
                   EasyLocalization.of(context)!.delegate,
                 ],
-                supportedLocales: EasyLocalization.of(context)!.supportedLocales,
+                supportedLocales: EasyLocalization.of(
+                  context,
+                )!.supportedLocales,
                 locale: EasyLocalization.of(context)!.locale,
                 debugShowCheckedModeBanner: false,
                 theme: state.themeData.copyWith(
                   appBarTheme: AppBarTheme(
                     color: Colors.white, // White app bar background
                     elevation: 0, // No shadow
-                    iconTheme: IconThemeData(color: Colors.black), // Black icons
+                    iconTheme: IconThemeData(
+                      color: Colors.black,
+                    ), // Black icons
                     titleTextStyle: TextStyle(
                       color: Colors.black, // Black title text
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  scaffoldBackgroundColor: Colors.white, // White scaffold background
+                  scaffoldBackgroundColor:
+                      Colors.white, // White scaffold background
                 ),
               );
             },
@@ -98,7 +112,11 @@ class MyApp extends StatelessWidget {
 
 class MyBehavior extends ScrollBehavior {
   @override
-  Widget buildViewportChrome(BuildContext context, Widget child, AxisDirection axisDirection) {
+  Widget buildViewportChrome(
+    BuildContext context,
+    Widget child,
+    AxisDirection axisDirection,
+  ) {
     return child;
   }
 }

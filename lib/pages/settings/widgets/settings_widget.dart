@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../../routes/routes.dart';
+import '../../../core/routes/routes.dart';
 
 class SettingsWidget extends StatefulWidget {
   final Color color;

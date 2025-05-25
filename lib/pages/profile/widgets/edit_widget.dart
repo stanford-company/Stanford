@@ -4,8 +4,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../../../components/text_form_field.dart';
-import '../../../utils/constants.dart';
+import '../../../common/components/text_form_field.dart';
+import '../../../../core/utils/constants.dart';
 
 class EditWidget extends StatefulWidget {
   @override

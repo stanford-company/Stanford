@@ -35,7 +35,7 @@ class TestAndPrescriptionCardWidget extends StatelessWidget {
               children: <Widget>[
                 Text(
                   title,
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
                 SizedBox(
                   height: 5,

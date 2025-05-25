@@ -20,7 +20,7 @@ class InfoWidget extends StatelessWidget {
           ),
           subtitle: Text(
             'Tawfiq Bahri',
-            style: Theme.of(context).textTheme.subtitle2,
+            style: Theme.of(context).textTheme.titleSmall,
           ),
           trailing: CircleAvatar(
             radius: 25,
@@ -78,10 +78,7 @@ class InfoWidget extends StatelessWidget {
           title: 'emergency_contact'.tr(),
           hint: 'add_emergency_contact'.tr(),
         ),
-        ProfileInfoTile(
-          title: 'location'.tr(),
-          hint: 'add_location'.tr(),
-        ),
+        ProfileInfoTile(title: 'location'.tr(), hint: 'add_location'.tr()),
       ],
     );
   }

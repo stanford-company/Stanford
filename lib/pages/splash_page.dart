@@ -3,18 +3,18 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../core/routes/routes.dart';
+import '../core/utils/app_themes.dart';
+import '../core/utils/themebloc/theme_bloc.dart';
 import '../data/pref_manager.dart';
-import '../routes/routes.dart';
-import '../utils/app_themes.dart';
-import '../utils/constants.dart';
-import '../utils/themebloc/theme_bloc.dart';
 
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateMixin {
+class _SplashPageState extends State<SplashPage>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -36,10 +36,13 @@ class _SplashPageState extends State<SplashPage> with SingleTickerProviderStateM
 
   _loadScreen() async {
     await Prefs.load();
-    context.read<ThemeBloc>().add(ThemeChanged(
+    context.read<ThemeBloc>().add(
+      ThemeChanged(
         theme: Prefs.getBool(Prefs.DARKTHEME, def: false)
             ? AppTheme.DarkTheme
-            : AppTheme.LightTheme));
+            : AppTheme.LightTheme,
+      ),
+    );
     Navigator.of(context).pushReplacementNamed(Routes.login);
   }
 

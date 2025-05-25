@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medapp/components/medical_center_list_item.dart';
 import 'package:medapp/model/medical_centers.dart';
 import 'package:medapp/pages/home/widgets/search_slider_widget.dart';
 
-import '../../components/medical_authorities_list_item.dart';
-import '../../model/doctor.dart';
-import '../../routes/routes.dart';
+import '../../common/components/medical_authorities_list_item.dart';
+import '../../common/components/medical_center_list_item.dart';
+import '../../../model/doctor.dart';
+import '../../core/routes/routes.dart';
 import 'widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,8 +50,9 @@ class _HomePageState extends State<HomePage>
                             padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                             child: SectionHeaderWidget(
                               title: 'Medical authorities'.tr(),
-                              onPressed: () => Navigator.of(context)
-                                  .pushNamed(Routes.myDoctors),
+                              onPressed: () => Navigator.of(
+                                context,
+                              ).pushNamed(Routes.myDoctors),
                             ),
                           ),
                         ],
@@ -59,9 +60,8 @@ class _HomePageState extends State<HomePage>
                       Container(
                         height: 160,
                         child: ListView.separated(
-                          separatorBuilder: (context, index) => SizedBox(
-                            width: 15.w,
-                          ),
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 15.w),
                           itemCount: 4,
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -85,16 +85,15 @@ class _HomePageState extends State<HomePage>
                           Container(
                             height: 160,
                             child: ListView.separated(
-                              separatorBuilder: (context, index) => SizedBox(
-                                width: 15,
-                              ),
+                              separatorBuilder: (context, index) =>
+                                  SizedBox(width: 15),
                               itemCount: 4,
                               scrollDirection: Axis.horizontal,
                               padding: EdgeInsets.symmetric(horizontal: 20),
                               itemBuilder: (context, index) {
                                 return MedicalCentersListItem(
                                   medicalCenter: medicalCenter[index],
-                                 );
+                                );
                               },
                             ),
                           ),
