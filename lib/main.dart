@@ -8,6 +8,8 @@ import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
 
+//test
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -33,19 +35,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ThemeBloc(),
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: _buildWithTheme,
-      ),
+      child: BlocBuilder<ThemeBloc, ThemeState>(builder: _buildWithTheme),
     );
   }
 
   Widget _buildWithTheme(BuildContext context, ThemeState state) {
     return MaterialApp(
       builder: (context, child) {
-        return ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: child!,
-        );
+        return ScrollConfiguration(behavior: MyBehavior(), child: child!);
       },
       title: 'MedAPP',
       initialRoute: Routes.splash,
@@ -68,7 +65,10 @@ class MyApp extends StatelessWidget {
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-      BuildContext context, Widget child, AxisDirection axisDirection) {
+    BuildContext context,
+    Widget child,
+    AxisDirection axisDirection,
+  ) {
     return child;
   }
 }
