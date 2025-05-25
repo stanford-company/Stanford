@@ -43,7 +43,7 @@ dependencies:
   flutter_screenutil: ^5.5.4
   flutter_svg: ^1.1.6
   http: ^0.13.5
-  carousel_slider: ^4.2.0
+  carousel_slider: ^5.0.0
 
 
 
