@@ -100,6 +100,7 @@ flutter:
     - assets/images/3.0x/
     - assets/images/4.0x/
     - assets/languages/
+    - assets/images/svg/
 
   fonts:
     - family: NunitoSans

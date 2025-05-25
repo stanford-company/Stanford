@@ -96,7 +96,7 @@ class NextAppointmentWidget extends StatelessWidget {
             height: 8.h,
           ),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 6.0.w),
+            padding: EdgeInsets.symmetric(horizontal: 2.0.w),
             child: Row(
               children: [
                 Container(

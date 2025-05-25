@@ -126,6 +126,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
               left: 16, right: 16, top: 0, bottom: additionalBottomPadding)
           : EdgeInsets.zero,
       child: Material(
+        color: Colors.transparent,
         elevation: widget.elevation,
         borderRadius: widget.borderRadius,
         child: Container(
