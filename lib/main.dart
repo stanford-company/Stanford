@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -13,6 +14,11 @@ import 'utils/themebloc/theme_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.white, // Set status bar color
+    statusBarIconBrightness: Brightness.dark, // Set icons to dark for white background
+    statusBarBrightness: Brightness.light, // For iOS
+  ));
   runApp(
     EasyLocalization(
       supportedLocales: [
@@ -32,7 +38,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Size(375, 812), // iPhone X size as reference
+      designSize: Size(375, 812),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -42,9 +48,17 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               return MaterialApp(
                 builder: (context, child) {
-                  return ScrollConfiguration(
-                    behavior: MyBehavior(),
-                    child: child!,
+                  return AnnotatedRegion<SystemUiOverlayStyle>(
+                    value: SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent, // Make status bar transparent
+                      statusBarIconBrightness: Brightness.dark, // Dark icons
+                      systemNavigationBarColor: Colors.white, // White navigation bar
+                      systemNavigationBarIconBrightness: Brightness.dark, // Dark nav icons
+                    ),
+                    child: ScrollConfiguration(
+                      behavior: MyBehavior(),
+                      child: child!,
+                    ),
                   );
                 },
                 title: 'Stanford',
@@ -60,7 +74,19 @@ class MyApp extends StatelessWidget {
                 supportedLocales: EasyLocalization.of(context)!.supportedLocales,
                 locale: EasyLocalization.of(context)!.locale,
                 debugShowCheckedModeBanner: false,
-                theme: state.themeData,
+                theme: state.themeData.copyWith(
+                  appBarTheme: AppBarTheme(
+                    color: Colors.white, // White app bar background
+                    elevation: 0, // No shadow
+                    iconTheme: IconThemeData(color: Colors.black), // Black icons
+                    titleTextStyle: TextStyle(
+                      color: Colors.black, // Black title text
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  scaffoldBackgroundColor: Colors.white, // White scaffold background
+                ),
               );
             },
           ),

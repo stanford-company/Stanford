@@ -223,5 +223,7 @@
     "create_an_account_to_get_started": "Create an account to get started",
     "remember_me": "Remember me",
     "national_id": "National ID",
-    "enter_national_number": "Enter your national number to verify your account"
+    "enter_national_number": "Enter your national number to verify your account",
+    "medical_authorities": "Medical authorities",
+    "medical_centers": "Medical centers"
 }

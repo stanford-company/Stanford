@@ -223,5 +223,7 @@
   "create_an_account_to_get_started": "أنشئ حسابًا للبدء",
   "remember_me": "تذكرني",
   "national_id": "الرقم الوطني",
-  "enter_national_number": "أدخل رقمك الوطني للتحقق من حسابك"
+  "enter_national_number": "أدخل رقمك الوطني للتحقق من حسابك",
+  "medical_authorities": "الجهات الطبية",
+  "medical_centers": "المراكز الطبية"
 }

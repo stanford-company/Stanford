@@ -8,32 +8,7 @@ class AppBarTitleWidget extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Icon(
-          Icons.add,
-          color: kColorPink,
-        ),
-        Text.rich(
-          TextSpan(
-            children: [
-              TextSpan(
-                text: 'Med',
-                style: TextStyle(
-                  color: kColorBlue,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              TextSpan(
-                text: 'APP',
-                style: TextStyle(
-                  color: Colors.grey[400],
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
+        Image.asset('assets/images/launcher_ic.png', height: 131,width: 130,)
       ],
     );
   }

@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionHeaderWidget extends StatelessWidget {
   final String title;
@@ -21,11 +22,12 @@ class SectionHeaderWidget extends StatelessWidget {
               title,
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.w700,
+                color: Color(0xff113f4e)
                   ),
             ),
           ),
           SizedBox(
-            width: 5,
+            width: 5.w,
           ),
           onPressed != null
               ? TextButton(
@@ -33,7 +35,9 @@ class SectionHeaderWidget extends StatelessWidget {
                   child: Text(
                     'see_all'.tr(),
                     style: Theme.of(context).textTheme.button!.copyWith(
-                          fontSize: 12,
+                          fontSize: 12.sp,
+                      color: Color(0xff1b8064),
+                      fontWeight: FontWeight.bold
                         ),
                   ),
                 )
