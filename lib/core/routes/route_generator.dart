@@ -23,6 +23,7 @@ import '../../pages/profile/edit_profile_page.dart';
 import '../../pages/signup/signup_page.dart';
 import '../../pages/splash_page.dart';
 import '../../pages/visit/visit_detail_page.dart';
+import '../../presentation/auth/pages/check_id.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -37,7 +38,7 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => LoginPage());
 
       case Routes.signup:
-        return CupertinoPageRoute(builder: (_) => SignupPage());
+         return CupertinoPageRoute(builder: (_) => CheckIdPage());
 
       case Routes.forgotPassword:
         return CupertinoPageRoute(builder: (_) => ForgotPasswordPage());
