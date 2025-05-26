@@ -24,6 +24,7 @@ import '../../pages/signup/signup_page.dart';
 import '../../pages/splash_page.dart';
 import '../../pages/visit/visit_detail_page.dart';
 import '../../presentation/auth/pages/check_id.dart';
+import '../../presentation/auth/pages/login.dart';
 import 'routes.dart';
 
 class RouteGenerator {
