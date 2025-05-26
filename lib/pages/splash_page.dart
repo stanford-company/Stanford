@@ -22,7 +22,7 @@ class _SplashPageState extends State<SplashPage>
   void initState() {
     super.initState();
 
-    // Start timer to load next screen
+    // Start timer to load next pages
     Timer(Duration(seconds: 3), () => _loadScreen());
 
     // Start animation controller

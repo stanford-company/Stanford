@@ -9,11 +9,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'blocks/remember_me_bloc.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
+import 'core/utils/setup_service.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  setUpServiceLocator();
+
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.white, // Set status bar color

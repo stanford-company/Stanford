@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/model/user_model_params.dart';
 import '../../core/utils/api_service.dart';
 import '../../core/utils/shared_prefs_service.dart';
 import '../../model/user.dart';
@@ -11,6 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   LoginBloc(this.apiService) : super(LoginInitial()) {
     on<LoginSubmitted>((event, emit) async {
+
       emit(LoginLoading());
       try {
         final response = await apiService.post('beneficiaries/login', {
