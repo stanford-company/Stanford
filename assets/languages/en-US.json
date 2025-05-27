@@ -225,5 +225,13 @@
     "national_id": "National ID",
     "enter_national_number": "Enter your national number to verify your account",
     "medical_authorities": "Medical authorities",
-    "medical_centers": "Medical centers"
+    "medical_centers": "Medical centers",
+    "medical_network": "Medical Network",
+    "guidelines_list": "Guidelines",
+    "contact_us": "Contact Us",
+    "complaints_suggestions": "Complaints & Suggestions",
+    "logout_confirmation": "Are you sure you want to logout?",
+    "logging_out": "Logging out...",
+    "no_active_session": "No active session found"
+
 }

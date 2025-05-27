@@ -225,5 +225,14 @@
   "national_id": "الرقم الوطني",
   "enter_national_number": "أدخل رقمك الوطني للتحقق من حسابك",
   "medical_authorities": "الجهات الطبية",
-  "medical_centers": "المراكز الطبية"
+  "medical_centers": "المراكز الطبية",
+  "medical_network": "الشبكة الطبية",
+  "guidelines_list": "قائمة الإرشادات",
+  "contact_us": "تواصل معنا",
+  "complaints_suggestions": "الشكاوى و الإقتراحات",
+  "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+  "logging_out": "جاري تسجيل الخروج...",
+  "no_active_session": "لا يوجد جلسة نشطة"
+
+
 }
