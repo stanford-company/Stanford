@@ -17,30 +17,20 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(LoginLoading());
 
-    // Build your UserParams or LoginRequest here based on your data models
-    // For example, if you want to build UserParams:
-    final userParams = UserParams(
-      data: UserData(
-        id: 0,
-        fullName: '',
-        email: '',
-        nationalId: nationalId,
-        phone: '',
-        gender: '',
-        signUpStatus: '',
-        isActive: 1,
-      ),
-      status: '',
-      apiToken: '',
-    );
-
-    var result = await getIt<LoginUsecase>().call(params: userParams);
-    result.fold((failure) {
-      print(failure.message);
-      emit(LoginFailure(failure.message));
-    }, (status) {
-      emit(LoginLoaded(status));
+    final result = await getIt<LoginUsecase>().call(params: {
+      'national_id': nationalId,
+      'password': password,
     });
+
+    result.fold(
+          (failure) {
+        emit(LoginFailure(failure.message));
+      },
+          (userParams) {
+        emit(LoginLoaded(userParams));
+      },
+    );
   }
+
 }
 

@@ -7,7 +7,7 @@ import '../../../data/auth/model/login.dart';
 
 abstract class AuthRepository {
   Future<Either<Failure,CheckIdModel>>checkId({required String nationalId});
-  Future<Either<Failure, UserParams>> login({required UserParams user});
+  Future<Either<Failure, UserParams>> login({required String nationalId, required String password});
 
 
 

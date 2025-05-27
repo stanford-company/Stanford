@@ -3,11 +3,14 @@ import 'package:medapp/core/services/api_service.dart';
 import '../model/check_id.dart';
 import '../model/login.dart';
 
-abstract class AuthService{
-  Future<CheckIdModel>checkId({required String nationalId});
-  Future<UserParams>login(UserParams user);
 
-}
+  abstract class AuthService {
+  Future<CheckIdModel> checkId({required String nationalId});
+  Future<UserParams> login(String nationalId, String password);
+  }
+
+
+
 class AuthServiceImp extends AuthService{
   final ApiService apiService;
   AuthServiceImp(this.apiService);
@@ -20,15 +23,21 @@ class AuthServiceImp extends AuthService{
     return checkIdModel;
   }
 
+  // Replace login method with this
   @override
-  Future<UserParams> login(UserParams user ) async {
+  Future<UserParams> login(String nationalId, String password) async {
     var data = await apiService.post(
-      endPoint: "beneficiaries/login", );
+      endPoint: "beneficiaries/login",
+      body: {
+        "national_id": nationalId,
+        "password": password,
+      },
+    );
 
     print(data);
-    UserParams userParams = UserParams.fromJson(data["data"]);
-    return userParams;
+    return UserParams.fromJson(data);
   }
+
 
 
 }

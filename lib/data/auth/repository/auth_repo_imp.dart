@@ -24,10 +24,9 @@ class AuthRepositoryImp extends AuthRepository{
   }
 
   @override
-  Future<Either<Failure, UserParams>> login({required UserParams user}) async {
-    // TODO: implement login
+  Future<Either<Failure, UserParams>> login({required String nationalId, required String password}) async {
     try {
-      UserParams userParams = await getIt<AuthService>().login(user);
+      final userParams = await getIt<AuthService>().login(nationalId, password);
       return Right(userParams);
     } catch (e) {
       if (e is DioException) {
@@ -36,4 +35,5 @@ class AuthRepositoryImp extends AuthRepository{
       return Left(ServerFailure(e.toString()));
     }
   }
+
 }
