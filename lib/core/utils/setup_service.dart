@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
 
 import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
@@ -26,6 +27,7 @@ void setUpServiceLocator() {
   //usecase
   getIt.registerSingleton<CheckIdUsecase>(CheckIdUsecase());
   getIt.registerSingleton<LoginUsecase>(LoginUsecase());
+  getIt.registerSingleton<LogoutUsecase>(LogoutUsecase());
 
 
 }

@@ -2,11 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../core/routes/routes.dart';
+ 
+ import '../../../core/routes/routes.dart';
 import '../../../core/utils/constants.dart';
-import '../../core/utils/shared_prefs_service.dart';
- import '../../presentation/auth/bloc/logout_cubit.dart'; // ✅ path may vary
+import '../../../core/utils/shared_prefs_service.dart';
+import '../bloc/logout_cubit.dart';
 
 class DrawerPage extends StatelessWidget {
   final void Function() onTap;
