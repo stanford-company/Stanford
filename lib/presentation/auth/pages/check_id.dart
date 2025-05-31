@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/presentation/auth/bloc/check_id_cubit.dart';
 import 'package:medapp/presentation/auth/bloc/register_cubit.dart';
+import 'package:medapp/presentation/auth/pages/header_widget.dart';
 
 import '../../../common/components/custom_button.dart';
 import '../../../core/routes/routes.dart';
@@ -22,7 +23,6 @@ class _CheckIdPageState extends State<CheckIdPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isEnglish = context.locale.languageCode == 'en';
 
     return Scaffold(
       backgroundColor: Color(0xff0c3c4c),
@@ -54,14 +54,11 @@ class _CheckIdPageState extends State<CheckIdPage> {
                   Routes.login,
                       (Route<dynamic> route) => false,
                 );
-              } else {
-                setState(() {
-                  showFullForm = true;
-                });
               }
             }
           },
           builder: (context, checkIdState) {
+            
             return BlocListener<RegisterCubit, RegisterState>(
               listener: (context, regState) {
                 if (regState is RegisterSuccess) {
@@ -91,80 +88,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
               },
               child: Column(
                 children: [
-                  Container(
-                    height: 180,
-                    width: double.infinity,
-                    decoration: BoxDecoration(color: Color(0xFF0C3C4C)),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 100.0, right: 8, left: 8),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Image.asset(
-                              'assets/images/launcher_ic-white.png',
-                              height: 60,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          Spacer(),
-                          Container(
-                            height: 40,
-                            width: 140,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.4),
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.5),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => context.setLocale(Locale('en')),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: isEnglish ? Colors.white : Colors.transparent,
-                                          borderRadius: BorderRadius.circular(50),
-                                        ),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'English',
-                                          style: TextStyle(
-                                            color: isEnglish ? Colors.black : Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () => context.setLocale(Locale('ar')),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: !isEnglish ? Colors.white : Colors.transparent,
-                                          borderRadius: BorderRadius.circular(50),
-                                        ),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          'العربية',
-                                          style: TextStyle(
-                                            color: !isEnglish ? Colors.black : Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  HeaderWidget(),
                   Expanded(
                     child: ClipRRect(
                       borderRadius: BorderRadius.only(
