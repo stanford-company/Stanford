@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:medapp/data/auth/model/register.dart';
 import '../../../core/errors/failure.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../core/utils/shared_prefs_service.dart';
@@ -11,12 +12,17 @@ import '../service/auth_service.dart';
 import '../../../core/services/api_service.dart'; // ✅ your correct ApiService
 
 class AuthRepositoryImp extends AuthRepository {
-  final ApiService apiService = getIt<ApiService>(); // ✅ this ensures we use your own
+  final ApiService apiService =
+      getIt<ApiService>(); // ✅ this ensures we use your own
 
   @override
-  Future<Either<Failure, CheckIdModel>> checkId({required String nationalId}) async {
+  Future<Either<Failure, CheckIdModel>> checkId({
+    required String nationalId,
+  }) async {
     try {
-      CheckIdModel checkIdModel = await getIt<AuthService>().checkId(nationalId: nationalId);
+      CheckIdModel checkIdModel = await getIt<AuthService>().checkId(
+        nationalId: nationalId,
+      );
       return Right(checkIdModel);
     } catch (e) {
       return Left(_handleError(e));
@@ -24,7 +30,25 @@ class AuthRepositoryImp extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserParams>> login({required String nationalId, required String password}) async {
+  Future<Either<Failure, UserParams>> register({
+    required String nationalId,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final user = await getIt<AuthService>().register(nationalId, email, password);
+      await SharedPrefsService.saveToken(user.apiToken);
+      return Right(user);
+    } catch (e) {
+      return Left(_handleError(e));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserParams>> login({
+    required String nationalId,
+    required String password,
+  }) async {
     try {
       final userParams = await getIt<AuthService>().login(nationalId, password);
 
@@ -37,16 +61,13 @@ class AuthRepositoryImp extends AuthRepository {
     }
   }
 
-
   @override
   Future<Either<Failure, LogoutModel>> logout({required String token}) async {
     try {
       final data = await apiService.postWithHeaders(
         endPoint: "beneficiaries/logout",
         body: {},
-        headers: {
-          "Authorization": "Bearer $token",
-        },
+        headers: {"Authorization": "Bearer $token"},
       );
       return Right(LogoutModel.fromJson(data));
     } catch (e) {
