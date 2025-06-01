@@ -14,7 +14,7 @@ class ApiService {
   get({required String endPoint, Map<String, dynamic>? params}) async {
            final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final String? token = prefs.getString('api_token');  // Assuming the token is saved under 'api_token'
+    final String? token = prefs.getString('auth_token');  // Assuming the token is saved under 'api_token'
     print('$baseUrl/$endPoint');
     Response response = await _dio.get('$baseUrl/$endPoint',
         queryParameters: params,
