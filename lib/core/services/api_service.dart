@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../common/helper/cach_helper/cach_helper.dart';
 import '../constants/app_urls.dart';
 import '../constants/const.dart';
@@ -11,12 +12,15 @@ class ApiService {
   ApiService(this._dio);
 
   get({required String endPoint, Map<String, dynamic>? params}) async {
+           final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    final String? token = prefs.getString('api_token');  // Assuming the token is saved under 'api_token'
     print('$baseUrl/$endPoint');
     Response response = await _dio.get('$baseUrl/$endPoint',
         queryParameters: params,
         options: Options(headers: {
           "Authorization":
-              "Bearer ${CacheHelper.getData(key: TextConst.userToken) ?? ""}"
+              "Bearer $token"
         }));
     return response.data;
   }
