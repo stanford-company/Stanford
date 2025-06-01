@@ -5,9 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/routes/routes.dart';
-import '../../blocks/logout/logout_bloc.dart';
 import '../../core/utils/api_service.dart';
 import '../../core/utils/shared_prefs_service.dart';
+import '../../presentation/auth/bloc/logout_cubit.dart';
 
 class DrawerPage extends StatefulWidget {
   final void Function() onTap;
@@ -96,62 +96,62 @@ class _DrawerPageState extends State<DrawerPage> {
                         return;
                       }
 
-                      showDialog(
-                        context: context,
-                        builder: (context) => BlocProvider(
-                          create: (context) => LogoutBloc(ApiService(), SharedPrefsService()),
-                          child: BlocConsumer<LogoutBloc, LogoutState>(
-                            listener: (context, state) {
-                              if (state is LogoutSuccess) {
-                                Navigator.of(context).pushNamedAndRemoveUntil(
-                                  Routes.login,
-                                      (route) => false,
-                                );
-                              } else if (state is LogoutFailure) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(state.error)),
-                                );
-                                Navigator.of(context).pop();
-                              }
-                            },
-                            builder: (context, state) {
-                              return AlertDialog(
-                                title: Text('logout'.tr()),
-                                content: state is LogoutInProgress
-                                    ? Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    CircularProgressIndicator(),
-                                    SizedBox(height: 16.h),
-                                    Text('logging_out'.tr()),
-                                  ],
-                                )
-                                    : Text('logout_confirmation'.tr()),
-                                actions: [
-                                  if (state is! LogoutInProgress)
-                                    TextButton(
-                                      onPressed: () => Navigator.of(context).pop(),
-                                      child: Text('cancel'.tr()),
-                                    ),
-                                  TextButton(
-                                    onPressed: state is LogoutInProgress
-                                        ? null
-                                        : () => context.read<LogoutBloc>().add(LogoutRequested(token)),
-                                    child: Text(
-                                      'logout'.tr(),
-                                      style: TextStyle(
-                                        color: state is LogoutInProgress
-                                            ? Colors.grey
-                                            : Theme.of(context).colorScheme.error,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
-                        ),
-                      );
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) => BlocProvider(
+                      //     create: (context) => LogoutBloc(ApiService(), SharedPrefsService()),
+                      //     child: BlocConsumer<LogoutBloc, LogoutState>(
+                      //       listener: (context, state) {
+                      //         if (state is LogoutSuccess) {
+                      //           Navigator.of(context).pushNamedAndRemoveUntil(
+                      //             Routes.login,
+                      //                 (route) => false,
+                      //           );
+                      //         } else if (state is LogoutFailure) {
+                      //           ScaffoldMessenger.of(context).showSnackBar(
+                      //             SnackBar(content: Text(state.error)),
+                      //           );
+                      //           Navigator.of(context).pop();
+                      //         }
+                      //       },
+                      //       builder: (context, state) {
+                      //         return AlertDialog(
+                      //           title: Text('logout'.tr()),
+                      //           content: state is LogoutInProgress
+                      //               ? Column(
+                      //             mainAxisSize: MainAxisSize.min,
+                      //             children: [
+                      //               CircularProgressIndicator(),
+                      //               SizedBox(height: 16.h),
+                      //               Text('logging_out'.tr()),
+                      //             ],
+                      //           )
+                      //               : Text('logout_confirmation'.tr()),
+                      //           actions: [
+                      //             if (state is! LogoutInProgress)
+                      //               TextButton(
+                      //                 onPressed: () => Navigator.of(context).pop(),
+                      //                 child: Text('cancel'.tr()),
+                      //               ),
+                      //             TextButton(
+                      //               onPressed: state is LogoutInProgress
+                      //                   ? null
+                      //                   : () => context.read<LogoutBloc>().add(LogoutRequested(token)),
+                      //               child: Text(
+                      //                 'logout'.tr(),
+                      //                 style: TextStyle(
+                      //                   color: state is LogoutInProgress
+                      //                       ? Colors.grey
+                      //                       : Theme.of(context).colorScheme.error,
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ],
+                      //         );
+                      //       },
+                      //     ),
+                      //   ),
+                      // );
                     },
                   ),
                 ],

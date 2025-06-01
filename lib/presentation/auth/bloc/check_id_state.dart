@@ -1,7 +1,8 @@
 part of 'check_id_cubit.dart';
 
 @immutable
-sealed class CheckIdState {}
+sealed class CheckIdState {
+}
 
 final class CheckIdInitial extends CheckIdState {}
 final class CheckIdLoading extends CheckIdState {}

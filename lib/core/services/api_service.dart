@@ -69,6 +69,24 @@ class ApiService {
     return response.data;
   }
 
+  Future<Map<String, dynamic>> postWithHeaders({
+    required String endPoint,
+    Object? body,
+    Map<String, String>? headers,
+  }) async {
+    final response = await _dio.post(
+      '$baseUrl/$endPoint',
+      data: body,
+      options: Options(headers: headers),
+    );
+    return response.data as Map<String, dynamic>; // ✅ fix return type
+  }
+
+
+
+
+
+
   delete({required String endPoint}) async {
     Response response = await _dio.delete('$baseUrl/$endPoint',
         options: Options(headers: {
