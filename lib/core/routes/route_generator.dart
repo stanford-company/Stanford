@@ -38,10 +38,7 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => LoginPage());
 
       case Routes.signup:
-        final args = settings.arguments as bool? ?? false;
-        return CupertinoPageRoute(
-          builder: (_) => CheckIdPage(isForgetPassword: args),
-        );
+         return CupertinoPageRoute(builder: (_) => CheckIdPage());
 
       case Routes.forgotPassword:
         return CupertinoPageRoute(builder: (_) => ForgotPasswordPage());

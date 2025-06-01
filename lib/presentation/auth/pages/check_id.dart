@@ -8,9 +8,6 @@ import '../../../core/routes/routes.dart';
 import '../../../core/services/api_service.dart';
 
 class CheckIdPage extends StatefulWidget {
-  final bool isForgetPassword;
-
-  const CheckIdPage({super.key, required this.isForgetPassword});
   @override
   _CheckIdPageState createState() => _CheckIdPageState();
 }
@@ -20,8 +17,6 @@ class _CheckIdPageState extends State<CheckIdPage> {
   final TextEditingController _nationalIdController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
   bool showFullForm = false;
 
   @override
@@ -56,8 +51,6 @@ class _CheckIdPageState extends State<CheckIdPage> {
             }
           },
           builder: (context, state) {
-            print("is valis=${state.isValid}");
-            print("is forget password =${widget.isForgetPassword}");
             return Column(
               children: [
                 // Header
@@ -213,8 +206,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                 SizedBox(height: 20),
 
                                 // Additional fields when proceeding
-                                if (state.isValid &&
-                                    !widget.isForgetPassword) ...[
+                                if (showFullForm) ...[
                                   TextFormField(
                                     controller: _emailController,
                                     decoration: InputDecoration(
@@ -250,44 +242,6 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                     },
                                   ),
                                 ],
-                                if (state.isValid == false &&
-                                    widget.isForgetPassword) ...[
-                                  TextFormField(
-                                    controller: _passwordController,
-                                    decoration: InputDecoration(
-                                      labelText: 'Password',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a password';
-                                      }
-                                      if (value.length < 6) {
-                                        return 'Password must be at least 6 characters';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                  SizedBox(height: 20),
-                                  TextFormField(
-                                    controller: _confirmPasswordController,
-                                    obscureText: true,
-                                    decoration: InputDecoration(
-                                      labelText: 'Confirm Password',
-                                      border: OutlineInputBorder(),
-                                    ),
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter a password';
-                                      }
-                                      if (_passwordController.text !=
-                                          _confirmPasswordController.text) {
-                                        return 'confirm password not the same password';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ],
 
                                 SizedBox(height: 40),
 
@@ -298,17 +252,15 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                   CustomButton(
                                     text: showFullForm ? 'Submit' : 'Continue',
                                     onPressed: () {
-                                      if (_formKey.currentState!.validate() &&
-                                          state.isValid) {
-                                        if (widget.isForgetPassword) {
-                                          print("is forget password");
+                                      if (_formKey.currentState!.validate()) {
+
+                                        if (showFullForm) {
+
+                                        } else {
+                                          context.read<CheckIdCubit>().checkID(nationalId: _nationalIdController.text.trim());
+
+
                                         }
-                                        if (!widget.isForgetPassword)
-                                          context.read<CheckIdCubit>().checkID(
-                                            nationalId: _nationalIdController
-                                                .text
-                                                .trim(),
-                                          );
                                       }
                                     },
                                   ),
