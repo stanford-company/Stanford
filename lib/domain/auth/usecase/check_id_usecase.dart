@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:medapp/data/auth/model/check_id.dart';
+import 'package:medapp/data/auth/model/login.dart';
 
 import '../../../core/errors/failure.dart';
 import '../../../core/usecase/usecase.dart';
@@ -14,3 +15,5 @@ import '../repository/auth_repo.dart';
       return await getIt<AuthRepository>().checkId(nationalId: params);
     }
   }
+
+

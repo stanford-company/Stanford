@@ -11,7 +11,7 @@ import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/utils/setup_service.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
-
+// Side Drawer
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();

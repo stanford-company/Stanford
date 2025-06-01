@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../core/utils/constants.dart';
 import '../../core/utils/constants.dart';
@@ -23,33 +24,41 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RawMaterialButton(
-      onPressed: onPressed,
-      elevation: elevation,
-      fillColor: kColorBlue,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
-      child: Padding(
-        padding:
-            padding ??
-            const EdgeInsets.only(top: 9, bottom: 10, left: 16, right: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              text,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                color: Colors.white,
-                fontSize:
-                    textSize ??
-                    Theme.of(context).textTheme.labelLarge!.fontSize,
-              ),
-              textAlign: TextAlign.center,
+    return Stack(
+      children: [
+
+        RawMaterialButton(
+          onPressed: onPressed,
+          elevation: elevation,
+          fillColor: Color(0xff228f6f),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.w),
+          ),
+          child: Padding(
+            padding:
+                padding ??
+                const EdgeInsets.only(top: 9, bottom: 10, left: 16, right: 16),
+            child: Stack(
+              children:[ Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    text,
+                    style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                      color: Colors.white,
+                      fontSize:
+                          textSize ??
+                          Theme.of(context).textTheme.labelLarge!.fontSize,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),]
             ),
-          ],
+          ),
         ),
-      ),
+
+      ],
     );
   }
 }
