@@ -1,134 +1,69 @@
-import 'dart:convert';
-
-class HealthCategory {
-  int? id;
-  String? name;
-  String? imagePath;
-
-  HealthCategory({
-    this.id,
-    this.name,
-    this.imagePath,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'name': name,
-      'imagePath': imagePath,
-    };
-  }
-
-  factory HealthCategory.fromMap(Map<String, dynamic>? map) {
-    if (map == null) return HealthCategory();
-
-    return HealthCategory(
-      id: map['id'],
-      name: map['name'],
-      imagePath: map['imagePath'],
-    );
-  }
-
-  String toJson() => json.encode(toMap());
-
-  factory HealthCategory.fromJson(String source) =>
-      HealthCategory.fromMap(json.decode(source));
-}
-
-final healthCategories = [
-  HealthCategory(
-    id: 0,
-    name: 'category_women_health',
-    imagePath: 'assets/images/pregnant.png',
-  ),
-  HealthCategory(
-    id: 1,
-    name: 'category_skin',
-    imagePath: 'assets/images/personal-care.png',
-  ),
-  HealthCategory(
-    id: 2,
-    name: 'category_child',
-    imagePath: 'assets/images/baby.png',
-  ),
-  HealthCategory(
-    id: 3,
-    name: 'category_general_physician',
-    imagePath: 'assets/images/stethoscope.png',
-  ),
-  HealthCategory(
-    id: 4,
-    name: 'category_dental',
-    imagePath: 'assets/images/dental-care.png',
-  ),
-  HealthCategory(
-    id: 5,
-    name: 'category_ear',
-    imagePath: 'assets/images/throat.png',
-  ),
-  HealthCategory(
-    id: 6,
-    name: 'category_homoetherapy',
-    imagePath: 'assets/images/medicine.png',
-  ),
-  HealthCategory(
-    id: 7,
-    name: 'category_bone',
-    imagePath: 'assets/images/knee.png',
-  ),
-  HealthCategory(
-    id: 8,
-    name: 'category_sex_specialist',
-    imagePath: 'assets/images/sex.png',
-  ),
-  HealthCategory(
-    id: 9,
-    name: 'category_eye',
-    imagePath: 'assets/images/view.png',
-  ),
-  HealthCategory(
-    id: 10,
-    name: 'category_digestive',
-    imagePath: 'assets/images/stomach.png',
-  ),
-  HealthCategory(
-    id: 11,
-    name: 'category_mental',
-    imagePath: 'assets/images/love.png',
-  ),
-  HealthCategory(
-    id: 12,
-    name: 'category_physiotherapy',
-    imagePath: 'assets/images/healthcare-and-medical.png',
-  ),
-  HealthCategory(
-    id: 13,
-    name: 'category_diabetes',
-    imagePath: 'assets/images/glucosemeter.png',
-  ),
-  HealthCategory(
-    id: 14,
-    name: 'category_brain',
-    imagePath: 'assets/images/stethoscope-2.png',
-  ),
-  HealthCategory(
-    id: 15,
-    name: 'category_general_surgery',
-    imagePath: 'assets/images/surgeon.png',
-  ),
-  HealthCategory(
-    id: 16,
-    name: 'category_lungs',
-    imagePath: 'assets/images/lungs.png',
-  ),
-  HealthCategory(
-    id: 17,
-    name: 'category_heart',
-    imagePath: 'assets/images/electrocardiogram.png',
-  ),
-  HealthCategory(
-    id: 18,
-    name: 'category_cancer',
-    imagePath: 'assets/images/ribbon.png',
-  ),
-];
+// import 'package:flutter/material.dart';
+// import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+// import 'package:easy_localization/easy_localization.dart';
+//
+// import '../../../common/components/health_concern_item.dart';
+// import '../../../../data/category/model/category.dart';  // Use CategoryModel here
+// import '../../../core/routes/routes.dart';
+//
+// class HealthConcernPage extends StatelessWidget {
+//   final List<CategoryModel> healthCategories = [
+//     CategoryModel(id: 1, nameAr: "طب القلب", nameEn: "Cardiology"),
+//     CategoryModel(id: 2, nameAr: "جراحة العظام", nameEn: "Orthopedics"),
+//     // Add more categories here...
+//   ];
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         title: Text('book_an_appointment'.tr()),
+//         actions: <Widget>[
+//           IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+//         ],
+//       ),
+//       body: Column(
+//         children: <Widget>[
+//           Expanded(
+//             child: SingleChildScrollView(
+//               scrollDirection: Axis.vertical,
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: <Widget>[
+//                   Padding(
+//                     padding: EdgeInsets.all(20),
+//                     child: Text(
+//                       'choose_health_concern'.tr(),
+//                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
+//                         fontWeight: FontWeight.w700,
+//                       ),
+//                     ),
+//                   ),
+//                   MasonryGridView.count(
+//                     padding: EdgeInsets.symmetric(horizontal: 10),
+//                     crossAxisCount: 2,
+//                     physics: NeverScrollableScrollPhysics(),
+//                     shrinkWrap: true,
+//                     itemCount: healthCategories.length,
+//                     mainAxisSpacing: 5,
+//                     crossAxisSpacing: 5,
+//                     itemBuilder: (context, index) {
+//                       return HealthConcernItem(
+//                         healthCategory: healthCategories[index],
+//                         onTap: () {
+//                           Navigator.of(context).pushNamed(Routes.bookingStep2);
+//                         },
+//                       );
+//                     },
+//                   ),
+//                   SizedBox(height: 20),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

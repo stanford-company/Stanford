@@ -1,5 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medapp/data/category/repository/category_repo_imp.dart';
+import 'package:medapp/data/category/service/category.dart';
+import 'package:medapp/domain/category/repository/category_repo.dart';
 import 'package:medapp/data/auth/model/register.dart';
 import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
 
@@ -9,6 +12,7 @@ import '../../domain/auth/repository/auth_repo.dart';
 import '../../domain/auth/usecase/check_id_usecase.dart';
 import '../../domain/auth/usecase/login_usecase.dart';
 import '../../domain/auth/usecase/register_usecase.dart';
+import '../../domain/category/usecase/category_usecase.dart';
 import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -22,15 +26,22 @@ void setUpServiceLocator() {
 
   //service
   getIt.registerSingleton<AuthService>(AuthServiceImp(getIt.get<ApiService>()));
+  getIt.registerSingleton<CategoryService>(CategoryServiceImp(getIt.get<ApiService>()));
+
+
 
   //repository
   getIt.registerSingleton<AuthRepository>(AuthRepositoryImp());
+  getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImp());
+
 
   //usecase
   getIt.registerSingleton<CheckIdUsecase>(CheckIdUsecase());
   getIt.registerSingleton<RegisterUsecase>(RegisterUsecase());
   getIt.registerSingleton<LoginUsecase>(LoginUsecase());
   getIt.registerSingleton<LogoutUsecase>(LogoutUsecase());
+  getIt.registerSingleton<GetCategoriesUsecase>(GetCategoriesUsecase());
+
 
 
 }
