@@ -2,28 +2,28 @@ part of 'check_id_cubit.dart';
 
 @immutable
 sealed class CheckIdState {
-  final bool isValid;
 
-  CheckIdState(this.isValid);
+
+  CheckIdState();
 }
 
 final class CheckIdInitial extends CheckIdState {
-  CheckIdInitial() : super(false);
+  CheckIdInitial() : super();
 }
 
 final class CheckIdLoading extends CheckIdState {
-  CheckIdLoading() : super(false);
+  CheckIdLoading() : super();
 }
 
 final class CheckIdLoaded extends CheckIdState {
   final CheckIdModel checkIdModel;
 
   CheckIdLoaded(this.checkIdModel)
-    : super((checkIdModel.signUpStatus == "yes"));
+  ;
 }
 
 final class CheckIdFailure extends CheckIdState {
   final String message;
 
-  CheckIdFailure(this.message) : super(false);
+  CheckIdFailure(this.message) ;
 }

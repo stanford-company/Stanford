@@ -146,7 +146,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Routes.forgotPassword);
+                  Navigator.of(context).pushNamed(Routes.signup,arguments: true);
                 },
                 child: Text(
                   'Forgot password?'.tr(),
