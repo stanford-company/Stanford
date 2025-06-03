@@ -13,7 +13,7 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
     return Container(
       width: 144.w,
       height: 139.h,
-      margin: EdgeInsets.symmetric(vertical: 4.h),
+      margin: EdgeInsets.symmetric(vertical: 2.h),
       padding: EdgeInsets.all(5.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.w),
@@ -26,12 +26,12 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            width: 50.w, // radius * 2
+            width: 50.w,
             height: 50.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
-                color: Color(0xff43b18c), // Border color
+                color: Color(0xff43b18c),
                 width: 2.w, // Border width
               ),
             ),
