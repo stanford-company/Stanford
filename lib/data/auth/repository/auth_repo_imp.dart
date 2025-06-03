@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:medapp/data/auth/model/register.dart';
 import '../../../core/errors/failure.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../core/utils/shared_prefs_service.dart';
@@ -9,7 +8,7 @@ import '../model/check_id.dart';
 import '../model/login.dart';
 import '../model/logout.dart';
 import '../service/auth_service.dart';
-import '../../../core/services/api_service.dart'; // ✅ your correct ApiService
+import '../../../core/services/api_service.dart';
 
 class AuthRepositoryImp extends AuthRepository {
   final ApiService apiService =
@@ -38,6 +37,20 @@ class AuthRepositoryImp extends AuthRepository {
     try {
       final user = await getIt<AuthService>().register(nationalId, email, password);
       await SharedPrefsService.saveToken(user.apiToken);
+      return Right(user);
+    } catch (e) {
+      return Left(_handleError(e));
+    }
+  }
+
+  Future<Either<Failure, String>> forgotPassword({
+    required String nationalId,
+    required String password,
+    required String confirmPassword,
+  }) async {
+    try {
+      final user = await getIt<AuthService>().forgotPassword(nationalId, confirmPassword, password);
+
       return Right(user);
     } catch (e) {
       return Left(_handleError(e));
