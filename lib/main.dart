@@ -10,11 +10,13 @@ import 'blocks/remember_me_bloc.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/utils/setup_service.dart';
+import 'core/utils/simple_bloc_observer.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
 // Side Drawer
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  Bloc.observer = SimpleBlocObserver();
   setUpServiceLocator();
 
   SystemChrome.setSystemUIOverlayStyle(

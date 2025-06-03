@@ -2,6 +2,7 @@ import 'package:medapp/core/services/api_service.dart';
 import '../model/check_id.dart';
 import '../model/login.dart';
 import '../model/logout.dart';
+import '../model/register.dart';
 
 abstract class AuthService {
   Future<CheckIdModel> checkId({required String nationalId});
@@ -11,9 +12,14 @@ abstract class AuthService {
   Future<LogoutModel> logout({required String token});
 
   Future<UserParams> register(String nationalId, String email, String password);
+
+  Future<String> forgotPassword(
+    String nationalId,
+    String confirmPassword,
+    String password,
+  );
 }
 
-// Add this below your abstract class
 class AuthServiceImp extends AuthService {
   final ApiService apiService;
 
@@ -31,16 +37,16 @@ class AuthServiceImp extends AuthService {
   }
 
   @override
-  Future<UserParams> register(String nationalId, String email, String password) async {
+  Future<UserParams> register(
+    String nationalId,
+    String email,
+    String password,
+  ) async {
     final data = await apiService.post(
       endPoint: "beneficiaries/register",
-      body: {
-        "national_id": nationalId,
-        "email": email,
-        "password": password,
-      },
+      body: {"national_id": nationalId, "email": email, "password": password},
     );
-    return UserParams.fromJson(data);
+    return UserParams.fromJson(data); // ✅ parse like login
   }
 
   // Replace login method with this
@@ -63,4 +69,23 @@ class AuthServiceImp extends AuthService {
     );
     return LogoutModel.fromJson(data);
   }
+
+  @override
+  Future<String> forgotPassword(
+    String nationalId,
+    String confirmPassword,
+    String password,
+  ) async {
+    var data = await apiService.post(
+      endPoint: "beneficiaries/forgot-password",
+      body: {
+        "national_id": nationalId,
+        "password": password,
+        "password_confirmation": confirmPassword,
+      },
+    );
+
+    print("🔐 Forgot password API raw response: $data");
+
+return data['message'];  }
 }
