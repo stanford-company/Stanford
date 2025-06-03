@@ -10,6 +10,7 @@ import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
 import '../../domain/auth/repository/auth_repo.dart';
 import '../../domain/auth/usecase/check_id_usecase.dart';
+import '../../domain/auth/usecase/forgot_password_usecase.dart';
 import '../../domain/auth/usecase/login_usecase.dart';
 import '../../domain/auth/usecase/register_usecase.dart';
 import '../../domain/category/usecase/category_usecase.dart';
@@ -38,10 +39,8 @@ void setUpServiceLocator() {
   //usecase
   getIt.registerSingleton<CheckIdUsecase>(CheckIdUsecase());
   getIt.registerSingleton<RegisterUsecase>(RegisterUsecase());
+  getIt.registerSingleton<ForgotPasswordUsecase>(ForgotPasswordUsecase());
   getIt.registerSingleton<LoginUsecase>(LoginUsecase());
   getIt.registerSingleton<LogoutUsecase>(LogoutUsecase());
   getIt.registerSingleton<GetCategoriesUsecase>(GetCategoriesUsecase());
-
-
-
 }

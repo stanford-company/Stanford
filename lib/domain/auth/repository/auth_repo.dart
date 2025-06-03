@@ -17,6 +17,11 @@ abstract class AuthRepository {
     required String nationalId,
     required String password,
   });
+  Future<Either<Failure, UserParams>> forgotPassword({ // ✅ FIXED: return UserParams
+    required String nationalId,
+    required String confirmPassword,
+    required String password,
+  });
   Future<Either<Failure, LogoutModel>> logout({required String token});
 }
 

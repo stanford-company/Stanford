@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/presentation/auth/bloc/check_id_cubit.dart';
@@ -7,6 +6,8 @@ import 'package:medapp/presentation/auth/pages/header_widget.dart';
 
 import '../../../common/components/custom_button.dart';
 import '../../../core/routes/routes.dart';
+import '../bloc/forgot_password_cubit.dart';
+import '../bloc/forgot_password_state.dart';
 import '../bloc/register_state.dart';
 
 class CheckIdPage extends StatefulWidget {
@@ -24,7 +25,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
 
   bool showFullForm = false;
 
@@ -36,33 +37,52 @@ class _CheckIdPageState extends State<CheckIdPage> {
         providers: [
           BlocProvider(create: (_) => CheckIdCubit()),
           BlocProvider(create: (_) => RegisterCubit()),
+          BlocProvider(create: (_) => ForgotPasswordCubit()),
         ],
-        child: BlocListener<RegisterCubit, RegisterState>(
-          listener: (context, regState) {
-            if (regState is RegisterSuccess) {
-              final user = regState.user.data;
-              final token = regState.user.apiToken;
+        child: MultiBlocListener(
+          listeners: [
+            BlocListener<RegisterCubit, RegisterState>(
+              listener: (context, regState) {
+                if (regState is RegisterSuccess) {
+                  final user = regState.user.data;
+                  final token = regState.user.apiToken;
 
-              print('Registration Success:');
-              print('ID: ${user.id}');
-              print('Full Name: ${user.fullName}');
-              print('Email: ${user.email}');
-              print('National ID: ${user.nationalId}');
-              print('Phone: ${user.phone}');
-              print('Gender: ${user.gender}');
-              print('Sign Up Status: ${user.signUpStatus}');
-              print('API Token: $token');
-              print('Active: ${user.isActive}');
+                  print('Registration Success:');
+                  print('ID: ${user.id}');
+                  print('Full Name: ${user.fullName}');
+                  print('Email: ${user.email}');
+                  print('National ID: ${user.nationalId}');
+                  print('Phone: ${user.phone}');
+                  print('Gender: ${user.gender}');
+                  print('Sign Up Status: ${user.signUpStatus}');
+                  print('API Token: $token');
+                  print('Active: ${user.isActive}');
 
-              Navigator.of(
-                context,
-              ).pushNamedAndRemoveUntil(Routes.home, (route) => false);
-            } else if (regState is RegisterFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(regState.message)));
-            }
-          },
+                  Navigator.of(
+                    context,
+                  ).pushNamedAndRemoveUntil(Routes.home, (route) => false);
+                } else if (regState is RegisterFailure) {
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(regState.message)));
+                }
+              },
+            ),
+            BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
+              listener: (context, state) {
+                if (state is ForgotPasswordSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Password updated successfully")),
+                  );
+                  Navigator.of(context).pushNamedAndRemoveUntil(Routes.login, (route) => false);
+                } else if (state is ForgotPasswordFailure) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(state.message)),
+                  );
+                }
+              },
+            ),
+          ],
           child: Column(
             children: [
               HeaderWidget(),
@@ -127,9 +147,11 @@ class _CheckIdPageState extends State<CheckIdPage> {
                               BlocConsumer<CheckIdCubit, CheckIdState>(
                                 listener: (context, checkIdState) {
                                   if (checkIdState is CheckIdFailure) {
-                                    ScaffoldMessenger.of(
-                                      context,
-                                    ).showSnackBar(SnackBar(content: Text(checkIdState.message)));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(checkIdState.message),
+                                      ),
+                                    );
                                   } else if (checkIdState is CheckIdLoaded) {
                                     final model = checkIdState.checkIdModel;
 
@@ -142,8 +164,11 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                         ),
                                       );
 
-                                    if (model.signUpStatus == 'yes'&&!widget.isForgetPassword) {
-                                      Navigator.of(context).pushNamedAndRemoveUntil(
+                                    if (model.signUpStatus == 'yes' &&
+                                        !widget.isForgetPassword) {
+                                      Navigator.of(
+                                        context,
+                                      ).pushNamedAndRemoveUntil(
                                         Routes.login,
                                             (Route<dynamic> route) => false,
                                       );
@@ -151,140 +176,168 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                   }
                                 },
                                 builder: (context, checkIdState) {
-                                  if(checkIdState is CheckIdLoaded)
-                                  return Column(children: [
-                                    if (checkIdState.checkIdModel.signUpStatus=="no"&&!widget.isForgetPassword) ...[
-                                      TextFormField(
-                                        controller: _emailController,
-                                        decoration: InputDecoration(
-                                          labelText: 'Email',
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter your email';
-                                          }
-                                          if (!value.contains('@')) {
-                                            return 'Please enter a valid email';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormField(
-                                        controller: _passwordController,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          labelText: 'Password',
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter a password';
-                                          }
-                                          if (value.length < 6) {
-                                            return 'Password must be at least 6 characters';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ],
-                                    if (checkIdState.checkIdModel.signUpStatus=="yes"  &&
-                                        widget.isForgetPassword) ...[
-                                      TextFormField(
-                                        controller: _passwordController,
-                                        decoration: InputDecoration(
-                                          labelText: 'Password',
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter a password';
-                                          }
-                                          if (value.length < 6) {
-                                            return 'Password must be at least 6 characters';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                      SizedBox(height: 20),
-                                      TextFormField(
-                                        controller: _confirmPasswordController,
-                                        obscureText: true,
-                                        decoration: InputDecoration(
-                                          labelText: 'Confirm Password',
-                                          border: OutlineInputBorder(),
-                                        ),
-                                        validator: (value) {
-                                          if (value == null || value.isEmpty) {
-                                            return 'Please enter a password';
-                                          }
-                                          if (_passwordController.text !=
-                                              _confirmPasswordController.text) {
-                                            return 'confirm password not the same password';
-                                          }
-                                          return null;
-                                        },
-                                      ),
-                                    ],
-                                    SizedBox(height: 40),
-
-                                  ],);
+                                  if (checkIdState is CheckIdLoaded)
+                                    return Column(
+                                      children: [
+                                        if (checkIdState
+                                            .checkIdModel
+                                            .signUpStatus ==
+                                            "no" &&
+                                            !widget.isForgetPassword) ...[
+                                          TextFormField(
+                                            controller: _emailController,
+                                            decoration: InputDecoration(
+                                              labelText: 'Email',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please enter your email';
+                                              }
+                                              if (!value.contains('@')) {
+                                                return 'Please enter a valid email';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                          SizedBox(height: 20),
+                                          TextFormField(
+                                            controller: _passwordController,
+                                            obscureText: true,
+                                            decoration: InputDecoration(
+                                              labelText: 'Password',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please enter a password';
+                                              }
+                                              if (value.length < 6) {
+                                                return 'Password must be at least 6 characters';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                        ],
+                                        if (checkIdState
+                                            .checkIdModel
+                                            .signUpStatus ==
+                                            "yes" &&
+                                            widget.isForgetPassword) ...[
+                                          TextFormField(
+                                            controller: _passwordController,
+                                            decoration: InputDecoration(
+                                              labelText: 'Password',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please enter a password';
+                                              }
+                                              if (value.length < 6) {
+                                                return 'Password must be at least 6 characters';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                          SizedBox(height: 20),
+                                          TextFormField(
+                                            controller:
+                                            _confirmPasswordController,
+                                            obscureText: true,
+                                            decoration: InputDecoration(
+                                              labelText: 'Confirm Password',
+                                              border: OutlineInputBorder(),
+                                            ),
+                                            validator: (value) {
+                                              if (value == null ||
+                                                  value.isEmpty) {
+                                                return 'Please enter a password';
+                                              }
+                                              if (_passwordController.text !=
+                                                  _confirmPasswordController
+                                                      .text) {
+                                                return 'confirm password not the same password';
+                                              }
+                                              return null;
+                                            },
+                                          ),
+                                        ],
+                                        SizedBox(height: 40),
+                                      ],
+                                    );
                                   return SizedBox();
                                 },
                               ),
                               BlocBuilder<CheckIdCubit, CheckIdState>(
-  builder: (context, state) {
-    if(state is CheckIdLoading)
-      return Center(child: CircularProgressIndicator(),);
-    if(state is CheckIdLoaded)
-      return CustomButton(
-        text:  'Submit',
-        onPressed: () async {
-          final nationalId = _nationalIdController
-              .text
-              .trim();
-
-
-
-
-          if (_formKey.currentState!.validate()) {
-            if (widget.isForgetPassword&&state.checkIdModel.signUpStatus=="yes") {
-              print("is forget password");
-            }
-            if (!widget.isForgetPassword&&state.checkIdModel.signUpStatus=="no") {
-              context
-                  .read<RegisterCubit>()
-                  .register(
-                nationalId: nationalId,
-                email: _emailController.text
-                    .trim(),
-                password: _passwordController
-                    .text
-                    .trim(),
-              );}
-          }
-
-
-        },
-      );
-    return CustomButton(
-                                text:  'Continue',
-                                onPressed: () async {
-                                  final nationalId = _nationalIdController
-                                      .text
-                                      .trim();
-
-
-                                    context.read<CheckIdCubit>().checkID(
-                                      nationalId: nationalId,
+                                builder: (context, state) {
+                                  if (state is CheckIdLoading)
+                                    return Center(
+                                      child: CircularProgressIndicator(),
                                     );
+                                  if (state is CheckIdLoaded)
+                                    return CustomButton(
+                                      text: 'Submit',
+                                      onPressed: () async {
+                                        print('object');
+                                        final nationalId = _nationalIdController
+                                            .text
+                                            .trim();
 
+                                        if (_formKey.currentState!.validate()) {
+                                          if (widget.isForgetPassword &&
+                                              state.checkIdModel.signUpStatus ==
+                                                  "yes") {
+                                            print("is forget password");
 
+                                            context
+                                                .read<ForgotPasswordCubit>()
+                                                .forgotPassword(
+                                              nationalId: nationalId,
+                                              password: _passwordController
+                                                  .text
+                                                  .trim(),
+                                              confirmPassword:
+                                              _confirmPasswordController
+                                                  .text
+                                                  .trim(),
+                                            );
+                                          }
+
+                                          if (!widget.isForgetPassword &&
+                                              state.checkIdModel.signUpStatus ==
+                                                  "no") {
+                                            context
+                                                .read<RegisterCubit>()
+                                                .register(
+                                              nationalId: nationalId,
+                                              email: _emailController.text
+                                                  .trim(),
+                                              password: _passwordController
+                                                  .text
+                                                  .trim(),
+                                            );
+                                          }
+                                        }
+                                      },
+                                    );
+                                  return CustomButton(
+                                    text: 'Continue',
+                                    onPressed: () async {
+                                      final nationalId = _nationalIdController
+                                          .text
+                                          .trim();
+
+                                      context.read<CheckIdCubit>().checkID(
+                                        nationalId: nationalId,
+                                      );
+                                    },
+                                  );
                                 },
-                              );
-  },
-),
+                              ),
                               SizedBox(height: 20),
                               Center(
                                 child: Wrap(
