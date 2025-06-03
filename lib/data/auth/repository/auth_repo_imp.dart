@@ -43,14 +43,14 @@ class AuthRepositoryImp extends AuthRepository {
     }
   }
 
-  Future<Either<Failure, UserParams>> forgotPassword({
+  Future<Either<Failure, String>> forgotPassword({
     required String nationalId,
     required String password,
     required String confirmPassword,
   }) async {
     try {
       final user = await getIt<AuthService>().forgotPassword(nationalId, confirmPassword, password);
-      await SharedPrefsService.saveToken(user.apiToken);
+
       return Right(user);
     } catch (e) {
       return Left(_handleError(e));

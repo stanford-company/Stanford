@@ -7,9 +7,9 @@ final class ForgotPasswordInitial extends ForgotPasswordState {}
 final class ForgotPasswordLoading extends ForgotPasswordState {}
 
 final class ForgotPasswordSuccess extends ForgotPasswordState {
-  final UserParams user;
+  final String message;
 
-  ForgotPasswordSuccess(this.user);
+  ForgotPasswordSuccess(this.message);
 }
 
 final class ForgotPasswordFailure extends ForgotPasswordState {

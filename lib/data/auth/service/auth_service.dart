@@ -13,7 +13,7 @@ abstract class AuthService {
 
   Future<UserParams> register(String nationalId, String email, String password);
 
-  Future<UserParams> forgotPassword(
+  Future<String> forgotPassword(
     String nationalId,
     String confirmPassword,
     String password,
@@ -71,7 +71,7 @@ class AuthServiceImp extends AuthService {
   }
 
   @override
-  Future<UserParams> forgotPassword(
+  Future<String> forgotPassword(
     String nationalId,
     String confirmPassword,
     String password,
@@ -87,6 +87,5 @@ class AuthServiceImp extends AuthService {
 
     print("🔐 Forgot password API raw response: $data");
 
-    return UserParams.fromJson(data["data"]);
-  }
+return data['message'];  }
 }
