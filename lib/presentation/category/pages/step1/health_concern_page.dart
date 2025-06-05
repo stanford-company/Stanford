@@ -10,6 +10,7 @@ import '../../../../core/routes/routes.dart';
 class HealthConcernPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return BlocProvider(
       create: (context) => CategoryCubit()..getCategories(),
       child: Scaffold(
@@ -96,11 +97,14 @@ class HealthConcernPage extends StatelessWidget {
                           return HealthConcernItem(
                             healthCategory: state.categories[index],
                             onTap: () {
-                              Navigator.of(
+                              Navigator.pushNamed(
                                 context,
-                              ).pushNamed(Routes.bookingStep2);
+                                Routes.bookingStepCity,
+                                arguments: state.categories[index],
+                              );
                             },
                           );
+
                         },
                       ),
                     ),
