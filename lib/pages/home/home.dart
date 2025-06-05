@@ -8,6 +8,7 @@ import '../../data/pref_manager.dart';
 import '../../core/routes/routes.dart';
 import '../../../core/utils/constants.dart';
 import '../../model/health_category.dart';
+import '../../presentation/auth/pages/drawer_page.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../booking/step1/health_concern_page.dart';
 import '../drawer/drawer_page.dart';
