@@ -18,6 +18,7 @@ class _CityPageState extends State<CityPage> {
   bool isDrawerOpen = false;
   int _selectedIndex = 2;
   late PageController _pageController;
+
   @override
   void initState() {
     super.initState();
@@ -339,31 +340,41 @@ class _CityPageState extends State<CityPage> {
               strokeColor: Colors.transparent,
               items: [
                 NavBarItemWidget(
-                  onTap: () => _selectPage(0),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.home);
+                  },
                   image: 'assets/images/svg/home-nav-bar.svg',
                   label: 'Home',
                   isSelected: _selectedIndex == 0,
                 ),
                 NavBarItemWidget(
-                  onTap: () => _selectPage(1),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.bookingStep3);
+                  },
                   image: 'assets/images/svg/calendar-nav-bar.svg',
                   label: 'Booked',
                   isSelected: _selectedIndex == 1,
                 ),
                 NavBarItemWidget(
-                  onTap: () => _selectPage(2),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                   },
                   image: 'assets/images/svg/appointment-nav-bar.svg',
                   label: 'Book now',
                   isSelected: _selectedIndex == 2,
                 ),
                 NavBarItemWidget(
-                  onTap: () => _selectPage(3),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.appointmentDetail);
+                  },
                   image: 'assets/images/svg/bag-nav-bar.svg',
                   label: 'Store',
                   isSelected: _selectedIndex == 3,
                 ),
                 NavBarItemWidget(
-                  onTap: () => _selectPage(4),
+                  onTap: () {
+                    Navigator.pushNamed(context, Routes.notificationSettings);
+                  },
                   image: 'assets/images/svg/menu-nav-bar.svg',
                   label: 'Settings',
                   isSelected: _selectedIndex == 4,
