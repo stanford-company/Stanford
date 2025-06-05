@@ -26,6 +26,7 @@ import '../../pages/visit/visit_detail_page.dart';
 import '../../presentation/auth/pages/check_id.dart';
 import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
+import '../../presentation/city/pages/city_page.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -63,6 +64,9 @@ class RouteGenerator {
 
       case Routes.bookingStep2:
         return CupertinoPageRoute(builder: (_) => ChooseDoctorPage());
+
+      case Routes.bookingStepCity:
+        return CupertinoPageRoute(builder: (_) => CityPage());
 
       case Routes.bookingStep3:
         return CupertinoPageRoute(builder: (_) => TimeSlotPage());

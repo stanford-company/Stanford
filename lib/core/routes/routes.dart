@@ -6,6 +6,7 @@ class Routes {
   static const String home = '/home';
   static const String filter = '/filter';
   static const String bookingStep1 = '/booking_step1';
+  static const String bookingStepCity = '/booking_step_city';
   static const String bookingStep2 = '/booking_step2';
   static const String bookingStep3 = '/booking_step3';
   static const String bookingStep4 = '/booking_step4';
