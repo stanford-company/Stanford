@@ -3,6 +3,27 @@ import 'package:http/http.dart' as http;
 
 class ApiService {
   final String baseUrl = 'http://10.0.2.2:8000/api/'; // For Android emulator
+  Future<Map<String, dynamic>> get({
+    required String endPoint,
+    Map<String, dynamic>? queryParameters, // ✅ يجب أن يكون بهذا الاسم
+    Map<String, String>? headers,
+  }) async {
+    final uri = Uri.parse(baseUrl + endPoint).replace(queryParameters: queryParameters);
+
+    final response = await http.get(
+      uri,
+      headers: {
+        'Content-Type': 'application/json',
+        ...?headers,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
+    } else {
+      throw Exception('Server responded with status ${response.statusCode}');
+    }
+  }
 
   Future<Map<String, dynamic>> post(
       String endpoint,

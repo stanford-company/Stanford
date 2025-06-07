@@ -100,7 +100,7 @@ class HealthConcernPage extends StatelessWidget {
                               Navigator.pushNamed(
                                 context,
                                 Routes.bookingStepCity,
-                                arguments: state.categories[index],
+                                arguments: state.categories[index].toJson(),
                               );
                             },
                           );

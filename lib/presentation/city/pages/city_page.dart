@@ -5,7 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/custom_navigation_bar.dart';
-import '../../../pages/home/widgets/nav_bar_item_widget.dart';
+import '../../../data/category/model/category.dart';
+ import '../../../pages/home/widgets/nav_bar_item_widget.dart';
 import '../bloc/city_cubit.dart';
 import '../bloc/city_state.dart';
 
@@ -18,12 +19,25 @@ class _CityPageState extends State<CityPage> {
   bool isDrawerOpen = false;
   int _selectedIndex = 2;
   late PageController _pageController;
+  CategoryModel? _category;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
+
+     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final rawCategory = ModalRoute.of(context)?.settings.arguments;
+      setState(() {
+        _category = rawCategory is CategoryModel
+            ? rawCategory
+            : rawCategory is Map<String, dynamic>
+            ? CategoryModel.fromJson(rawCategory)
+            : null;
+      });
+    });
   }
+
 
   @override
   void dispose() {
@@ -40,7 +54,16 @@ class _CityPageState extends State<CityPage> {
 
   @override
   Widget build(BuildContext context) {
+    final rawCategory = ModalRoute.of(context)!.settings.arguments;
+
+    final category = rawCategory is CategoryModel
+        ? rawCategory
+        : rawCategory is Map<String, dynamic>
+        ? CategoryModel.fromJson(rawCategory)
+        : null;
+
     final size = MediaQuery.of(context).size;
+
 
     return BlocProvider(
       create: (context) => CityCubit()..getCities(),
@@ -265,25 +288,23 @@ class _CityPageState extends State<CityPage> {
                     child: ElevatedButton(
                       onPressed: state.selectedCityIds.isNotEmpty
                           ? () {
-                              final selectedCities = state.cities
-                                  .where(
-                                    (city) =>
-                                        state.selectedCityIds.contains(city.id),
-                                  )
-                                  .toList();
-                              final category = ModalRoute.of(
-                                context,
-                              )!.settings.arguments;
-                              Navigator.pushNamed(
-                                context,
-                                Routes.bookingStep2,
-                                arguments: {
-                                  'category': category,
-                                  'cities': selectedCities,
-                                },
-                              );
-                            }
+                        final selectedCities = state.cities
+                            .where((city) => state.selectedCityIds.contains(city.id))
+                            .toList();
+
+                        Navigator.pushNamed(
+                          context,
+                          Routes.bookingStep2,
+                          arguments: {
+                            'cities': selectedCities.map((e) => e.toJson()).toList(),
+                          },
+
+                        );
+                        print("✅ Selected City ID: ${selectedCities.first.id}");
+                      }
                           : null,
+
+
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48.h),
                         backgroundColor: state.selectedCityIds.isNotEmpty
