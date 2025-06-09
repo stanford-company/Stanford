@@ -17,11 +17,9 @@ class CategoryModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name_ar': nameAr,
-      'name_en': nameEn,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name_ar': nameAr,
+    'name_en': nameEn,
+  };
 }

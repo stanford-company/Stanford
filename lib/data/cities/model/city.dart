@@ -11,17 +11,15 @@ class CityModel {
 
   factory CityModel.fromJson(Map<String, dynamic> json) {
     return CityModel(
-      id: json['id'],
-      nameAr: json['name_ar'],
-      nameEn: json['name_en'],
+      id: json['id'] ?? 0,
+      nameAr: json['name_ar'] ?? '',
+      nameEn: json['name_en'] ?? '',
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name_ar': nameAr,
-      'name_en': nameEn,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'id': id,
+    'name_ar': nameAr,
+    'name_en': nameEn,
+  };
 }

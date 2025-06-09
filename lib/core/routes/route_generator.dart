@@ -27,6 +27,7 @@ import '../../presentation/auth/pages/check_id.dart';
 import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../../presentation/city/pages/city_page.dart';
+import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
 import 'routes.dart';
 
 class RouteGenerator {

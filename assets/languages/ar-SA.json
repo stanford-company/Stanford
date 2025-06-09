@@ -232,7 +232,8 @@
   "complaints_suggestions": "الشكاوى و الإقتراحات",
   "logout_confirmation": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
   "logging_out": "جاري تسجيل الخروج...",
-  "no_active_session": "لا يوجد جلسة نشطة"
+  "no_active_session": "لا يوجد جلسة نشطة",
+  "book_now": "احجز الان"
 
 
 }
