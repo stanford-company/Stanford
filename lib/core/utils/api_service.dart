@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  final String baseUrl = 'http://10.0.2.2:8000/api/'; // For Android emulator
+  final String baseUrl = 'http://10.0.2.2:8000/api/';
   Future<Map<String, dynamic>> get({
     required String endPoint,
-    Map<String, dynamic>? queryParameters, // ✅ يجب أن يكون بهذا الاسم
+    Map<String, dynamic>? queryParameters,
     Map<String, String>? headers,
   }) async {
     final uri = Uri.parse(baseUrl + endPoint).replace(queryParameters: queryParameters);
@@ -31,19 +31,19 @@ class ApiService {
         Map<String, String>? headers,
       }) async {
     try {
-      print('Making request to: ${baseUrl + endpoint}'); // Debug print
+      print('Making request to: ${baseUrl + endpoint}');
 
       final response = await http.post(
         Uri.parse(baseUrl + endpoint),
         headers: {
           'Content-Type': 'application/json',
-          ...?headers, // Merge additional headers
+          ...?headers,
         },
         body: jsonEncode(body),
       ).timeout(Duration(seconds: 10));
 
-      print('Response status: ${response.statusCode}'); // Debug print
-      print('Response body: ${response.body}'); // Debug print
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
@@ -54,7 +54,7 @@ class ApiService {
         throw Exception('Server responded with status ${response.statusCode}');
       }
     } catch (e) {
-      print('Network error details: $e'); // Detailed error logging
+      print('Network error details: $e');
       if (e.toString().contains('Connection refused')) {
         throw Exception('Could not connect to server. Please check your network.');
       } else if (e.toString().contains('Failed host lookup')) {

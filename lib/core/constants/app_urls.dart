@@ -1,3 +1,3 @@
 class AppUrl {
-  static final String baseUrl = "http://10.0.2.2:8000/api";
+  static final String baseUrl = "https://stanford-jordan.com/api";
 }

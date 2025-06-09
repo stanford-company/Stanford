@@ -65,7 +65,7 @@ class AuthRepositoryImp extends AuthRepository {
     try {
       final userParams = await getIt<AuthService>().login(nationalId, password);
 
-      // ✅ Save token after login
+
       await SharedPrefsService.saveToken(userParams.apiToken);
 
       return Right(userParams);

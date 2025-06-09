@@ -9,6 +9,7 @@ class MedicalEntityModel {
   final double latitude;
   final double longitude;
   final City city;
+  final MedicalEntityModel? entity;
   final Category category;
   final List<String> images;
   final String createdAt;
@@ -27,6 +28,7 @@ class MedicalEntityModel {
     required this.category,
     required this.images,
     required this.createdAt,
+    this.entity,
   });
 
   factory MedicalEntityModel.fromJson(Map<String, dynamic> json) {
@@ -41,12 +43,14 @@ class MedicalEntityModel {
       latitude: double.tryParse(json['latitude'].toString()) ?? 0.0,
       longitude: double.tryParse(json['longitude'].toString()) ?? 0.0,
       city: City.fromJson(json['city']),
+      entity: json['entity'] != null ? MedicalEntityModel.fromJson(json['entity']) : null,
       category: Category.fromJson(json['category']),
-      images: List<String>.from(json['images']),
+      images: List<String>.from(json['images'] ?? []),
       createdAt: json['created_at'],
     );
   }
 }
+
 
 
 class City {
