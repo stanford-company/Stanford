@@ -62,12 +62,12 @@ class MyApp extends StatelessWidget {
                   return AnnotatedRegion<SystemUiOverlayStyle>(
                     value: SystemUiOverlayStyle(
                       statusBarColor:
-                          Colors.transparent, // Make status bar transparent
-                      statusBarIconBrightness: Brightness.dark, // Dark icons
+                          Colors.transparent,
+                      statusBarIconBrightness: Brightness.dark,
                       systemNavigationBarColor:
-                          Colors.white, // White navigation bar
+                          Colors.white,
                       systemNavigationBarIconBrightness:
-                          Brightness.dark, // Dark nav icons
+                          Brightness.dark,
                     ),
                     child: ScrollConfiguration(
                       behavior: MyBehavior(),
@@ -92,19 +92,19 @@ class MyApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 theme: state.themeData.copyWith(
                   appBarTheme: AppBarTheme(
-                    color: Colors.white, // White app bar background
+                    color: Colors.white,
                     elevation: 0, // No shadow
                     iconTheme: IconThemeData(
                       color: Colors.black,
-                    ), // Black icons
+                    ),
                     titleTextStyle: TextStyle(
-                      color: Colors.black, // Black title text
+                      color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   scaffoldBackgroundColor:
-                      Colors.white, // White scaffold background
+                      Colors.white,
                 ),
               );
             },

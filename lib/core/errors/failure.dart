@@ -36,35 +36,44 @@ class ServerFailure extends Failure {
   }
 
   factory ServerFailure.fromResponse({int? statusCode, dynamic response}) {
-    if (statusCode == 500) {
-      return ServerFailure('There is a problem with server, please try later');
-    } else if (statusCode == 429) {
-      return ServerFailure(
-          CacheHelper.getData(key: TextConst.language) == "English"
-              ? response['message']['en']
-              : response['message']['ar']);
-    } else if (statusCode == 409) {
-      Map<String, dynamic> messageMap = jsonDecode('${response['message']}');
-      return ServerFailure(
-          CacheHelper.getData(key: TextConst.language) == "English"
-              ? messageMap['en']
-              : messageMap['ar']);
-    } else if (statusCode == 400 ||
-        statusCode == 401 ||
-        statusCode == 403 ||
-        statusCode == 404) {
-      print(response['message']);
-      if (response['message'] is Map<String, dynamic>) {
-        dynamic data = response['message'];
-        ;
-        print(data['en']);
-        print(data);
-        return ServerFailure(data.toString());
+    try {
+      if (statusCode == 500) {
+        return ServerFailure('There is a problem with the server, please try later');
+      } else if (statusCode == 429) {
+        final message = response['message'];
+        if (message is Map) {
+          return ServerFailure(
+            CacheHelper.getData(key: TextConst.language) == "English"
+                ? message['en']
+                : message['ar'],
+          );
+        } else {
+          return ServerFailure(message?.toString() ?? 'Too many requests');
+        }
+      } else if (statusCode == 409) {
+        try {
+          final message = jsonDecode(response['message']);
+          return ServerFailure(
+            CacheHelper.getData(key: TextConst.language) == "English"
+                ? message['en']
+                : message['ar'],
+          );
+        } catch (_) {
+          return ServerFailure(response['message'] ?? 'Conflict occurred');
+        }
+      } else if ([400, 401, 403, 404].contains(statusCode)) {
+        final msg = response['message'];
+        if (msg is Map) {
+          return ServerFailure(msg.toString());
+        } else {
+          return ServerFailure(msg?.toString() ?? 'Error occurred');
+        }
       } else {
-        return ServerFailure(response['message'] ?? "");
+        return ServerFailure('Unexpected error with status: $statusCode');
       }
-    } else {
-      return ServerFailure('There was an error please try again $statusCode');
+    } catch (e) {
+      return ServerFailure('Unexpected response format: ${response.toString()}');
     }
   }
+
 }

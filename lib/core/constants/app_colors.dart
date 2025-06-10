@@ -7,5 +7,4 @@ class AppColors{
   static final Color bold_grey_color = Color(0xffe3e3eb);
   static final Color primary_button_color = Color(0xff1e886a);
   static final Color white_text_color = Color(0xffffffff);
-
 }
