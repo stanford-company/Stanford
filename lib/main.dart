@@ -12,7 +12,8 @@ import 'core/routes/routes.dart';
 import 'core/utils/setup_service.dart';
 import 'core/utils/simple_bloc_observer.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
-// Side Drawer
+import 'presentation/ads/bloc/ads_cubit.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
@@ -22,8 +23,7 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.white, // Set status bar color
-      statusBarIconBrightness:
-          Brightness.dark, // Set icons to dark for white background
+      statusBarIconBrightness: Brightness.dark, // Set icons to dark for white background
       statusBarBrightness: Brightness.light, // For iOS
     ),
   );
@@ -37,8 +37,12 @@ Future<void> main() async {
         Locale('ar', 'SA'),
       ],
       path: 'assets/languages',
-      child: BlocProvider(
-        create: (context) => RememberMeBloc(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => RememberMeBloc()),
+          BlocProvider(create: (context) => AdsCubit()),
+          BlocProvider(create: (context) => ThemeBloc()),
+        ],
         child: MyApp(),
       ),
     ),
@@ -53,62 +57,55 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return BlocProvider(
-          create: (context) => ThemeBloc(),
-          child: BlocBuilder<ThemeBloc, ThemeState>(
-            builder: (context, state) {
-              return MaterialApp(
-                builder: (context, child) {
-                  return AnnotatedRegion<SystemUiOverlayStyle>(
-                    value: SystemUiOverlayStyle(
-                      statusBarColor:
-                          Colors.transparent,
-                      statusBarIconBrightness: Brightness.dark,
-                      systemNavigationBarColor:
-                          Colors.white,
-                      systemNavigationBarIconBrightness:
-                          Brightness.dark,
-                    ),
-                    child: ScrollConfiguration(
-                      behavior: MyBehavior(),
-                      child: child!,
-                    ),
-                  );
-                },
-                title: 'Stanford',
-                initialRoute: Routes.splash,
-                onGenerateRoute: RouteGenerator.generateRoute,
-                localizationsDelegates: [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  DefaultCupertinoLocalizations.delegate,
-                  EasyLocalization.of(context)!.delegate,
-                ],
-                supportedLocales: EasyLocalization.of(
-                  context,
-                )!.supportedLocales,
-                locale: EasyLocalization.of(context)!.locale,
-                debugShowCheckedModeBanner: false,
-                theme: state.themeData.copyWith(
-                  appBarTheme: AppBarTheme(
-                    color: Colors.white,
-                    elevation: 0, // No shadow
-                    iconTheme: IconThemeData(
-                      color: Colors.black,
-                    ),
-                    titleTextStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+        return BlocBuilder<ThemeBloc, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp(
+              builder: (context, child) {
+                return AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
+                    statusBarIconBrightness: Brightness.dark,
+                    systemNavigationBarColor: Colors.white,
+                    systemNavigationBarIconBrightness: Brightness.dark,
                   ),
-                  scaffoldBackgroundColor:
-                      Colors.white,
+                  child: ScrollConfiguration(
+                    behavior: MyBehavior(),
+                    child: child!,
+                  ),
+                );
+              },
+              title: 'Stanford',
+              initialRoute: Routes.splash,
+              onGenerateRoute: RouteGenerator.generateRoute,
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                DefaultCupertinoLocalizations.delegate,
+                EasyLocalization.of(context)!.delegate,
+              ],
+              supportedLocales: EasyLocalization.of(
+                context,
+              )!.supportedLocales,
+              locale: EasyLocalization.of(context)!.locale,
+              debugShowCheckedModeBanner: false,
+              theme: state.themeData.copyWith(
+                appBarTheme: AppBarTheme(
+                  color: Colors.white,
+                  elevation: 0, // No shadow
+                  iconTheme: IconThemeData(
+                    color: Colors.black,
+                  ),
+                  titleTextStyle: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              );
-            },
-          ),
+                scaffoldBackgroundColor: Colors.white,
+              ),
+            );
+          },
         );
       },
     );
@@ -118,10 +115,10 @@ class MyApp extends StatelessWidget {
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-    BuildContext context,
-    Widget child,
-    AxisDirection axisDirection,
-  ) {
+      BuildContext context,
+      Widget child,
+      AxisDirection axisDirection,
+      ) {
     return child;
   }
 }
