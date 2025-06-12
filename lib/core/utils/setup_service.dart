@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
+import 'package:medapp/data/ads/service/ads_service.dart';
 import 'package:medapp/data/category/repository/category_repo_imp.dart';
 import 'package:medapp/data/category/service/category.dart';
 import 'package:medapp/data/medical_entity/repository/medical_enitity_repo_imp.dart';
@@ -10,10 +11,13 @@ import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
 import 'package:medapp/domain/medical_entity/repository/entity_repo.dart';
 import 'package:medapp/domain/medical_entity/usecase/entity_usecase.dart';
 
+import '../../data/ads/repository/ads_repo_imp.dart';
 import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
 import '../../data/cities/repository/city_repo_imp.dart';
 import '../../data/cities/service/city.dart';
+import '../../domain/ads/repository/ads.repo.dart';
+import '../../domain/ads/usecase/ads_usecase.dart';
 import '../../domain/auth/repository/auth_repo.dart';
 import '../../domain/auth/usecase/check_id_usecase.dart';
 import '../../domain/auth/usecase/forgot_password_usecase.dart';
@@ -58,4 +62,8 @@ void setUpServiceLocator() {
   getIt.registerSingleton<GetCategoriesUsecase>(GetCategoriesUsecase());
   getIt.registerSingleton<GetCitiesUsecase>(GetCitiesUsecase());
   getIt.registerSingleton<GetEntitiesUsecase>(GetEntitiesUsecase());
+  getIt.registerLazySingleton<AdsService>(() => AdsServiceImp(getIt<ApiService>()));
+  getIt.registerLazySingleton<AdsRepository>(() => AdsRepositoryImp(getIt<AdsService>()));
+  getIt.registerLazySingleton(() => AdsUsecase());
+
 }
