@@ -6,7 +6,7 @@ import 'package:medapp/core/constants/app_colors.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
- import '../../../pages/home/widgets/nav_bar_item_widget.dart';
+import '../../../pages/home/widgets/nav_bar_item_widget.dart';
 import '../bloc/city_cubit.dart';
 import '../bloc/city_state.dart';
 
@@ -26,7 +26,7 @@ class _CityPageState extends State<CityPage> {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
 
-     WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final rawCategory = ModalRoute.of(context)?.settings.arguments;
       setState(() {
         _category = rawCategory is CategoryModel
@@ -37,7 +37,6 @@ class _CityPageState extends State<CityPage> {
       });
     });
   }
-
 
   @override
   void dispose() {
@@ -63,7 +62,6 @@ class _CityPageState extends State<CityPage> {
         : null;
 
     final size = MediaQuery.of(context).size;
-
 
     return BlocProvider(
       create: (context) => CityCubit()..getCities(),
@@ -184,13 +182,11 @@ class _CityPageState extends State<CityPage> {
                         ),
                         itemBuilder: (context, index) {
                           final city = state.cities[index];
-                          final isSelected = state.selectedCityIds.contains(
-                            city.id,
-                          );
+                          final isSelected = state.cityId == city.id.toString();
                           return InkWell(
                             onTap: () {
                               context.read<CityCubit>().toggleCitySelection(
-                                city.id,
+                                city.id.toString(),
                               );
                             },
                             child: Container(
@@ -264,7 +260,9 @@ class _CityPageState extends State<CityPage> {
                                       onChanged: (_) {
                                         context
                                             .read<CityCubit>()
-                                            .toggleCitySelection(city.id);
+                                            .toggleCitySelection(
+                                              city.id.toString(),
+                                            );
                                       },
                                     ),
                                   ),
@@ -286,28 +284,19 @@ class _CityPageState extends State<CityPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: ElevatedButton(
-                      onPressed: state.selectedCityIds.isNotEmpty
+                      onPressed: state.cityId.isNotEmpty
                           ? () {
-                        final selectedCities = state.cities
-                            .where((city) => state.selectedCityIds.contains(city.id))
-                            .toList();
-
-                        Navigator.pushNamed(
-                          context,
-                          Routes.bookingStep2,
-                          arguments: {
-                            'cities': selectedCities.map((e) => e.toJson()).toList(),
-                          },
-
-                        );
-                        print("✅ Selected City ID: ${selectedCities.first.id}");
-                      }
+                              Navigator.pushNamed(
+                                context,
+                                Routes.bookingStep2,
+                                arguments: state.cityId,
+                              );
+                            }
                           : null,
-
 
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48.h),
-                        backgroundColor: state.selectedCityIds.isNotEmpty
+                        backgroundColor: state.cityId.isNotEmpty
                             ? AppColors.primary_button_color
                             : AppColors.light_grey_color,
                         shape: RoundedRectangleBorder(
@@ -379,7 +368,7 @@ class _CityPageState extends State<CityPage> {
                 NavBarItemWidget(
                   onTap: () {
                     Navigator.of(context).pop();
-                   },
+                  },
                   image: 'assets/images/svg/appointment-nav-bar.svg',
                   label: 'Book now',
                   isSelected: _selectedIndex == 2,

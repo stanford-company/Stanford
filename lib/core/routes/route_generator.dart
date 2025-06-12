@@ -64,7 +64,8 @@ class RouteGenerator {
         );
 
       case Routes.bookingStep2:
-        return CupertinoPageRoute(builder: (_) => ChooseDoctorPage());
+        final args = settings.arguments as String? ?? "";
+        return CupertinoPageRoute(builder: (_) => ChooseDoctorPage(cityId: args,));
 
       case Routes.bookingStepCity:
         return CupertinoPageRoute(builder: (_) => CityPage());

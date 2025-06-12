@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:medapp/presentation/city/bloc/city_cubit.dart';
 import '../../../../common/components/custom_navigation_bar.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../data/cities/model/city.dart';
@@ -13,6 +14,11 @@ import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
+  final String cityId;
+
+  const ChooseDoctorPage({super.key, required this.cityId});
+
+
   @override
   State<ChooseDoctorPage> createState() => _ChooseDoctorPageState();
 }
@@ -37,13 +43,10 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)?.settings.arguments as Map?;
-    final citiesJson = args?['cities'] as List?;
-    final cities = citiesJson?.map((e) => CityModel.fromJson(e)).toList();
-    final cityId = cities?.isNotEmpty == true ? cities!.first.id : null;
+
 
     return BlocProvider(
-      create: (_) => EntityCubit()..getEntities(cityId: cityId),
+      create: (_) => EntityCubit()..getEntities(cityId: int.parse(widget.cityId)),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),

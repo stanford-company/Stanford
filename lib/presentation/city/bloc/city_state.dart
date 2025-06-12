@@ -8,22 +8,12 @@ final class CityLoading extends CityState {}
 
 final class CityLoaded extends CityState {
   final List<CityModel> cities;
-  final Set<int> selectedCityIds;
+  final String cityId ;
 
-  CityLoaded({
-    required this.cities,
-    required this.selectedCityIds,
-  });
 
-  CityLoaded copyWith({
-    List<CityModel>? cities,
-    Set<int>? selectedCityIds,
-  }) {
-    return CityLoaded(
-      cities: cities ?? this.cities,
-      selectedCityIds: selectedCityIds ?? this.selectedCityIds,
-    );
-  }
+  CityLoaded(this.cities, this.cityId);
+
+
 }
 
 final class CityFailure extends CityState {
