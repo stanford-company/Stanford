@@ -15,8 +15,8 @@ class AdsServiceImp extends AdsService {
     try {
       var data = await apiService.get(
         endPoint: "adds",
-        params: {}, // Optional: remove if not needed
-        token: token,
+        // Optional: remove if not needed
+
       );
       print('📦 Ads JSON Response: $data');
 

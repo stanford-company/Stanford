@@ -11,13 +11,14 @@ class ApiService {
 
   ApiService(this._dio);
 
-  Future<Map<String, dynamic>> get({
-    required String endPoint,
-    Map<String, dynamic>? params,
-    String? token,
-  }) async {
+  get({required String endPoint, Map<String, dynamic>? params}) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('auth_token');
+
     final fullUrl = '$baseUrl/$endPoint';
-    token ??= CacheHelper.getData(key: TextConst.userToken);
+    print('\n🔹 [GET] Request to: $fullUrl');
+    print('🔸 Query Parameters: $params');
+    print('🔸 Authorization Token: $token');
 
     final response = await _dio.get(
       fullUrl,
@@ -25,7 +26,6 @@ class ApiService {
       options: Options(
         headers: {
           "Authorization": "Bearer $token",
-          'Accept': 'application/json',
         },
       ),
     );
@@ -33,7 +33,6 @@ class ApiService {
     print('✅ [GET] Response: ${response.data}');
     return response.data;
   }
-
 
   Future<Map<String, dynamic>> post({
     required String endPoint,
@@ -62,8 +61,6 @@ class ApiService {
     print('✅ [POST] Response: ${response.data}');
     return response.data;
   }
-
-
 
   postFormData({required String endPoint, required body}) async {
     final fullUrl = '$baseUrl/$endPoint';
