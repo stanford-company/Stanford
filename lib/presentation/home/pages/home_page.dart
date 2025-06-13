@@ -7,20 +7,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/model/medical_centers.dart';
 import 'package:medapp/pages/home/widgets/search_slider_widget.dart';
 
-import '../../../presentation/ads/bloc/ads_cubit.dart'; // Make sure the AdsCubit is imported
-import '../../common/components/medical_authorities_list_item.dart';
-import '../../common/components/medical_center_list_item.dart';
-import '../../../model/doctor.dart';
-import '../../core/routes/routes.dart';
-import '../../presentation/ads/pages/search_slider_widget.dart';
-import 'widgets/widgets.dart';
+import '../../../../presentation/ads/bloc/ads_cubit.dart'; // Make sure the AdsCubit is imported
+import '../../../common/components/medical_authorities_list_item.dart';
+import '../../../common/components/medical_center_list_item.dart';
+import '../../../../model/doctor.dart';
+import '../../../core/routes/routes.dart';
+import '../../ads/pages/search_slider_widget.dart';
+import '../../../pages/home/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<HomePage>, TickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with AutomaticKeepAliveClientMixin<HomePage>, TickerProviderStateMixin {
   final bool _noAppoints = false;
 
   late AnimationController _controller;
@@ -55,31 +56,34 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
               _noAppoints
                   ? NoAppointmentsWidget()
                   : Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  BlocProvider(
-                    create: (_) => AdsCubit()..fetchAdsFromSharedPreferences(),
-                    child: MedicalSearchWidget(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                    child: SectionHeaderWidget(
-                      title: 'next_appointment'.tr(),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        BlocProvider(
+                          create: (_) =>
+                              AdsCubit()..fetchAdsFromSharedPreferences(),
+                          child: MedicalSearchWidget(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                          child: SectionHeaderWidget(
+                            title: 'next_appointment'.tr(),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                          child: NextAppointmentWidget(),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+                          child: SectionHeaderWidget(
+                            title: 'Medical authorities'.tr(),
+                            onPressed: () => Navigator.of(
+                              context,
+                            ).pushNamed(Routes.myDoctors),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                    child: NextAppointmentWidget(),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-                    child: SectionHeaderWidget(
-                      title: 'Medical authorities'.tr(),
-                      onPressed: () => Navigator.of(context).pushNamed(Routes.myDoctors),
-                    ),
-                  ),
-                ],
-              ),
               Container(
                 height: 160,
                 child: ListView.separated(
@@ -88,9 +92,7 @@ class _HomePageState extends State<HomePage> with AutomaticKeepAliveClientMixin<
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   itemBuilder: (context, index) {
-                    return MedicalAuthoritiesListItem(
-                      doctor: doctors[index],
-                    );
+                    return MedicalAuthoritiesListItem(doctor: doctors[index]);
                   },
                 ),
               ),
