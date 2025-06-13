@@ -6,11 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:medapp/presentation/city/bloc/city_cubit.dart';
-import '../../../../common/components/custom_navigation_bar.dart';
+ import '../../../../common/components/custom_navigation_bar.dart';
 import '../../../../core/routes/routes.dart';
-import '../../../../data/cities/model/city.dart';
-import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
+ import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
@@ -131,15 +129,12 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                           final entity = state.entities[index];
                           return Container(
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12.r),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.1),
-                                  blurRadius: 6,
-                                  offset: Offset(0, 2),
-                                )
-                              ],
+                              borderRadius: BorderRadius.circular(8.r),
+                              color: Color(0xfff3f3f6),
+                              border: Border.all(
+                                color: Color(0xffe3e3eb),
+                                width: 2,
+                              ),
                             ),
                             child: ListTile(
                               contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
@@ -173,10 +168,8 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                                     entity.city.nameEn,
                                     style: TextStyle(fontSize: 13.sp),
                                   ),
-
                                 ],
                               ),
-
                               trailing: Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.primary_button_color,
@@ -250,7 +243,6 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                                     ),
                                   ),
                                 )
-
                               ),
                             ),
                           );
