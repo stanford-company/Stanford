@@ -155,17 +155,28 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                               ),
                               subtitle: Row(
                                 children: [
+                                  Expanded(
+                                    child: Text(
+                                      entity.description,
+                                      style: TextStyle(fontSize: 13.sp, color: Colors.black),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:   EdgeInsets.symmetric(horizontal: 4.w),
+                                    child: Text(
+                                      '•',
+                                      style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                                    ),
+                                  ),
                                   Text(
                                     entity.city.nameEn,
                                     style: TextStyle(fontSize: 13.sp),
                                   ),
-                                  Text(
-                                    entity.description,
-                                    style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                                  ),
 
                                 ],
                               ),
+
                               trailing: Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.primary_button_color,
