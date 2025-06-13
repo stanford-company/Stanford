@@ -32,9 +32,22 @@ class MedicalRepositoryImp extends MedicalRepository {
   }
 
   @override
-  Future<Either<Failure, List<MedicalDoctor>>> getMedicalDoctor() async {
+  Future<Either<Failure, List<MedicalModel>>> getMedicalDoctor() async {
     try {
       final medicalDoctors = await getIt<MedicalService>().getMedicalDoctor();
+      return Right(medicalDoctors);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MedicalModel>>> getMedicalCenter() async {
+    try {
+      final medicalDoctors = await getIt<MedicalService>().getMedicalCenter();
       return Right(medicalDoctors);
     } catch (e) {
       if (e is DioException) {

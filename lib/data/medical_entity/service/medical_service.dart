@@ -10,7 +10,8 @@ abstract class MedicalService {
     String? name,
     int? page,
   });
-  Future<List<MedicalDoctor>> getMedicalDoctor();
+  Future<List<MedicalModel>> getMedicalDoctor();
+  Future<List<MedicalModel>> getMedicalCenter();
 }
 
 class MedicalServiceImp extends MedicalService {
@@ -48,13 +49,24 @@ class MedicalServiceImp extends MedicalService {
   }
 
   @override
-  Future<List<MedicalDoctor>> getMedicalDoctor() async {
+  Future<List<MedicalModel>> getMedicalDoctor() async {
     var data = await apiService.get(endPoint: "adds/medical-doctores");
 
-    List<MedicalDoctor> medicalDoctors = [];
+    List<MedicalModel> medicalDoctors = [];
     for (var doc in data['data']) {
-      medicalDoctors.add(MedicalDoctor.fromJson(doc));
+      medicalDoctors.add(MedicalModel.fromJson(doc));
     }
     return medicalDoctors;
+  }
+
+  @override
+  Future<List<MedicalModel>> getMedicalCenter() async {
+    var data = await apiService.get(endPoint: "adds/medical-center");
+
+    List<MedicalModel> medicalCenters = [];
+    for (var doc in data['data']) {
+      medicalCenters.add(MedicalModel.fromJson(doc));
+    }
+    return medicalCenters;
   }
 }

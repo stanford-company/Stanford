@@ -10,5 +10,6 @@ abstract class MedicalRepository {
     String? name,
     int? page,
   });
-  Future<Either<Failure, List<MedicalDoctor>>> getMedicalDoctor();
+  Future<Either<Failure, List<MedicalModel>>> getMedicalDoctor();
+  Future<Either<Failure, List<MedicalModel>>> getMedicalCenter();
 }

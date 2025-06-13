@@ -1,4 +1,4 @@
-class MedicalDoctor {
+class MedicalModel {
   final int id;
   final String title;
   final String medicalName;
@@ -11,7 +11,7 @@ class MedicalDoctor {
   final String categoryEn;
   final String categoryAr;
 
-  MedicalDoctor({
+  MedicalModel({
     required this.id,
     required this.title,
     required this.medicalName,
@@ -25,8 +25,8 @@ class MedicalDoctor {
     required this.categoryAr,
   });
 
-  factory MedicalDoctor.fromJson(Map<String, dynamic> json) {
-    return MedicalDoctor(
+  factory MedicalModel.fromJson(Map<String, dynamic> json) {
+    return MedicalModel(
       id: json['id'],
       title: json['title'],
       medicalName: json['medical_name'],

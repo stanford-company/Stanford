@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 import 'package:medapp/model/medical_centers.dart';
 
 class MedicalCentersListItem extends StatelessWidget {
-  final MedicalCenter medicalCenter;
+  final MedicalModel medicalCenter;
 
   const MedicalCentersListItem({Key? key, required this.medicalCenter})
     : super(key: key);
@@ -26,8 +27,8 @@ class MedicalCentersListItem extends StatelessWidget {
           SizedBox(
             height: 80.h, // Bigger height for image section
             width: double.infinity,
-            child: medicalCenter.avatar != null
-                ? Image.asset('assets/images/Image (1).png', fit: BoxFit.cover)
+            child: medicalCenter.imageUrl.isNotEmpty
+                ? Image.network(medicalCenter.imageUrl, fit: BoxFit.cover)
                 : Container(
                     color: Colors.grey[300],
                     child: Icon(Icons.image, size: 40.sp, color: Colors.grey),
@@ -40,7 +41,7 @@ class MedicalCentersListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  medicalCenter.name ?? '',
+                  medicalCenter.medicalName ?? '',
                   style: TextStyle(
                     color: const Color(0xff113f4e),
                     fontSize: 14.sp,
@@ -51,7 +52,7 @@ class MedicalCentersListItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  medicalCenter.speciality ?? '',
+                  medicalCenter.categoryEn ?? '',
                   style: TextStyle(
                     color: const Color(0xff6A717E),
                     fontSize: 12.sp,

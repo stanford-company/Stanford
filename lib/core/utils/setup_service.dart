@@ -26,6 +26,7 @@ import '../../domain/auth/usecase/register_usecase.dart';
 import '../../domain/category/usecase/category_usecase.dart';
 import '../../domain/city/repository/city_repo.dart';
 import '../../domain/city/usecase/city_usecase.dart';
+import '../../domain/medical_entity/usecase/get_medical_centers.dart';
 import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
 import '../services/api_service.dart';
 
@@ -66,4 +67,5 @@ void setUpServiceLocator() {
   );
   getIt.registerLazySingleton(() => AdsUsecase());
   getIt.registerSingleton<GetMedicalDoctorsUseCase>(GetMedicalDoctorsUseCase());
+  getIt.registerSingleton<GetMedicalCentersUseCase>(GetMedicalCentersUseCase());
 }

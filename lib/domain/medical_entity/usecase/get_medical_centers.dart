@@ -6,10 +6,10 @@ import '../../../core/errors/failure.dart';
 import '../../../core/usecase/usecase.dart';
 import '../../../core/utils/setup_service.dart';
 
-class GetMedicalDoctorsUseCase
+class GetMedicalCentersUseCase
     extends Usecase<Either<Failure, List<MedicalModel>>, dynamic> {
   @override
   Future<Either<Failure, List<MedicalModel>>> call({dynamic params}) async {
-    return await getIt<MedicalRepository>().getMedicalDoctor();
+    return await getIt<MedicalRepository>().getMedicalCenter();
   }
 }
