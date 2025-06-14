@@ -25,4 +25,5 @@ class Routes {
   static const String myAppointments = '/my_appointments';
   static const String notifications = '/notifications';
   static const String search = '/search';
+  static const String medicalDetails = '/medical_details';
 }

@@ -48,7 +48,9 @@ dependencies:
   dartz: ^0.10.1
   url_launcher: ^6.1.7
   flutter_cached_pdfview: ^0.4.2
-  get_it: 
+  get_it:
+  google_maps_flutter: ^2.12.2
+
 
 
 

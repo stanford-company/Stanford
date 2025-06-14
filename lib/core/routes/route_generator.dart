@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
@@ -123,6 +124,8 @@ class RouteGenerator {
         return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());
       case Routes.search:
         return CupertinoPageRoute(builder: (_) => SearchPage());
+      case Routes.medicalDetails:
+        return CupertinoPageRoute(builder: (_) => MedicalDetailsScreen());
 
       case Routes.notifications:
         return CupertinoPageRoute(
