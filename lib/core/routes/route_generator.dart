@@ -30,6 +30,7 @@ import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../../presentation/city/pages/city_page.dart';
 import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
 import '../../presentation/procedures/bloc/procedures_cubit.dart';
+import '../../presentation/search/pages/search_page.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -45,7 +46,9 @@ class RouteGenerator {
 
       case Routes.signup:
         final args = settings.arguments as bool? ?? false;
-         return CupertinoPageRoute(builder: (_) => CheckIdPage(isForgetPassword: args,));
+        return CupertinoPageRoute(
+          builder: (_) => CheckIdPage(isForgetPassword: args),
+        );
 
       case Routes.forgotPassword:
         return CupertinoPageRoute(builder: (_) => ForgotPasswordPage());
@@ -73,7 +76,9 @@ class RouteGenerator {
 
       case Routes.bookingStep2:
         final args = settings.arguments as String? ?? "";
-        return CupertinoPageRoute(builder: (_) => ChooseDoctorPage(cityId: args,));
+        return CupertinoPageRoute(
+          builder: (_) => ChooseDoctorPage(cityId: args),
+        );
 
       case Routes.bookingStepCity:
         return CupertinoPageRoute(builder: (_) => CityPage());
@@ -116,6 +121,8 @@ class RouteGenerator {
 
       case Routes.myAppointments:
         return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());
+      case Routes.search:
+        return CupertinoPageRoute(builder: (_) => SearchPage());
 
       case Routes.notifications:
         return CupertinoPageRoute(

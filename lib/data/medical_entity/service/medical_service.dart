@@ -12,6 +12,7 @@ abstract class MedicalService {
   });
   Future<List<MedicalModel>> getMedicalDoctor();
   Future<List<MedicalModel>> getMedicalCenter();
+  Future<List<MedicalEntityModel>> medicalSearch({required String name});
 }
 
 class MedicalServiceImp extends MedicalService {
@@ -68,5 +69,19 @@ class MedicalServiceImp extends MedicalService {
       medicalCenters.add(MedicalModel.fromJson(doc));
     }
     return medicalCenters;
+  }
+
+  @override
+  Future<List<MedicalEntityModel>> medicalSearch({required String name}) async {
+    var data = await apiService.get(
+      endPoint: "medical/entities/filter?name=$name",
+      // params: {"name": "$name"},
+    );
+
+    List<MedicalEntityModel> medicalEntity = [];
+    for (var medical in data['data']) {
+      medicalEntity.add(MedicalEntityModel.fromJson(medical));
+    }
+    return medicalEntity;
   }
 }

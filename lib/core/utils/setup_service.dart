@@ -30,6 +30,7 @@ import '../../domain/city/repository/city_repo.dart';
 import '../../domain/city/usecase/city_usecase.dart';
 import '../../domain/medical_entity/usecase/get_medical_centers.dart';
 import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
+import '../../domain/medical_entity/usecase/medical_search.dart';
 import '../../domain/procedures/repository/procedure_repo.dart';
 import '../../domain/procedures/usecase/procedures_usecase.dart';
 import '../services/api_service.dart';
@@ -73,7 +74,12 @@ void setUpServiceLocator() {
   getIt.registerSingleton<GetMedicalDoctorsUseCase>(GetMedicalDoctorsUseCase());
   getIt.registerSingleton<GetMedicalCentersUseCase>(GetMedicalCentersUseCase());
 
-  getIt.registerLazySingleton<ProcedureService>(() => ProcedureServiceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<ProceduresRepository>(() => ProcedureRepositoryImp());
+  getIt.registerLazySingleton<ProcedureService>(
+    () => ProcedureServiceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<ProceduresRepository>(
+    () => ProcedureRepositoryImp(),
+  );
   getIt.registerLazySingleton(() => ProceduresUsecase());
+  getIt.registerSingleton<MedicalSearchUseCase>(MedicalSearchUseCase());
 }

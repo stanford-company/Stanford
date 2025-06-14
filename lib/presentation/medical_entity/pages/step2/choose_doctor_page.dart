@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medapp/common/components/medical_card.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
- import '../../../../common/components/custom_navigation_bar.dart';
+import '../../../../common/components/custom_navigation_bar.dart';
 import '../../../../core/routes/routes.dart';
- import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
+import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
   final String cityId;
 
   const ChooseDoctorPage({super.key, required this.cityId});
-
 
   @override
   State<ChooseDoctorPage> createState() => _ChooseDoctorPageState();
@@ -41,10 +41,9 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return BlocProvider(
-      create: (_) => EntityCubit()..getEntities(cityId: int.parse(widget.cityId)),
+      create: (_) =>
+          EntityCubit()..getEntities(cityId: int.parse(widget.cityId)),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),
@@ -82,7 +81,10 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
             return Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 12.h,
+                  ),
                   child: Container(
                     height: 48.h,
                     decoration: BoxDecoration(
@@ -123,129 +125,12 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     } else if (state is EntityLoaded) {
                       return ListView.separated(
                         padding: EdgeInsets.all(16.w),
-                        separatorBuilder: (context, index) => SizedBox(height: 12.h),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 12.h),
                         itemCount: state.entities.length,
                         itemBuilder: (context, index) {
                           final entity = state.entities[index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: Color(0xfff3f3f6),
-                              border: Border.all(
-                                color: Color(0xffe3e3eb),
-                                width: 2,
-                              ),
-                            ),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-                              leading: CircleAvatar(
-                                radius: 26.r,
-                                backgroundImage: NetworkImage(
-                                  entity.images.isNotEmpty ? entity.images[0] : 'https://via.placeholder.com/150',
-                                ),
-                              ),
-                              title: Text(
-                                entity.name,
-                                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      entity.description,
-                                      style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding:   EdgeInsets.symmetric(horizontal: 4.w),
-                                    child: Text(
-                                      '•',
-                                      style: TextStyle(fontSize: 13.sp, color: Colors.grey),
-                                    ),
-                                  ),
-                                  Text(
-                                    entity.city.nameEn,
-                                    style: TextStyle(fontSize: 13.sp),
-                                  ),
-                                ],
-                              ),
-                              trailing: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary_button_color,
-                                  borderRadius: BorderRadius.circular(12.r),
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.3),
-                                        spreadRadius: 1,
-                                        blurRadius: 6,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, Routes.bookingStep3);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.primary_button_color,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(8.r),
-                                      ),
-                                      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                                      elevation: 4, // default elevation
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          "book_now".tr(),
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(right: 8.w, left: 8.w),
-                                          child: Container(
-                                            width: 18.w,
-                                            height: 18.w,
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Colors.white.withOpacity(0.17), // white glow for the arrow circle
-                                                  spreadRadius: 1,
-                                                  blurRadius: 4,
-                                                  offset: Offset(0, 2),
-                                                ),
-                                              ],
-                                            ),
-                                            child: Center(
-                                              child: Transform.rotate(
-                                                angle: pi,
-                                                child: SvgPicture.asset(
-                                                  'assets/images/svg/single_arrow.svg',
-                                                  width: 10.w,
-                                                  height: 10.h,
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ),
-                            ),
-                          );
+                          return MedicalCard(medicalEntity: entity);
                         },
                       );
                     } else if (state is EntityFailure) {
@@ -286,7 +171,8 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                   isSelected: _selectedIndex == 0,
                 ),
                 NavBarItemWidget(
-                  onTap: () => Navigator.pushNamed(context, Routes.bookingStep3),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.bookingStep3),
                   image: 'assets/images/svg/calendar-nav-bar.svg',
                   label: 'booked'.tr(),
                   isSelected: _selectedIndex == 1,
@@ -298,13 +184,15 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                   isSelected: _selectedIndex == 2,
                 ),
                 NavBarItemWidget(
-                  onTap: () => Navigator.pushNamed(context, Routes.appointmentDetail),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.appointmentDetail),
                   image: 'assets/images/svg/bag-nav-bar.svg',
                   label: 'store'.tr(),
                   isSelected: _selectedIndex == 3,
                 ),
                 NavBarItemWidget(
-                  onTap: () => Navigator.pushNamed(context, Routes.notificationSettings),
+                  onTap: () =>
+                      Navigator.pushNamed(context, Routes.notificationSettings),
                   image: 'assets/images/svg/menu-nav-bar.svg',
                   label: 'settings'.tr(),
                   isSelected: _selectedIndex == 4,

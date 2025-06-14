@@ -24,7 +24,6 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
     context.read<AdsCubit>().fetchAdsFromSharedPreferences();
   }
 
-
   Future<void> _loadAndFetchAds() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('auth_token');
@@ -85,6 +84,9 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                       Expanded(
                         child: TextField(
                           textDirection: TextDirection.rtl,
+                          onTap: () {
+                            Navigator.pushNamed(context, '/search');
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: 'Search for clinics, doctors, hospitals',
@@ -111,24 +113,30 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
               if (state is AdsLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is AdsLoaded) {
-                final List<String> imageUrls =
-                state.ads.ads.map((ad) => ad.imageUrl).toList();
+                final List<String> imageUrls = state.ads.ads
+                    .map((ad) => ad.imageUrl)
+                    .toList();
                 return Column(
                   children: [
                     CarouselSlider(
                       items: imageUrls
-                          .map((url) => Image.network(
-                        url,
-                        width: double.infinity,
-                        height: 200.h,
-                        fit: BoxFit.cover,
-                        loadingBuilder: (context, child, loadingProgress) {
-                          if (loadingProgress == null) return child;
-                          return const Center(child: CircularProgressIndicator());
-                        },
-                        errorBuilder: (context, error, stackTrace) =>
-                        const Icon(Icons.error),
-                      ))
+                          .map(
+                            (url) => Image.network(
+                              url,
+                              width: double.infinity,
+                              height: 200.h,
+                              fit: BoxFit.cover,
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                    if (loadingProgress == null) return child;
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  },
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Icon(Icons.error),
+                            ),
+                          )
                           .toList(),
                       options: CarouselOptions(
                         height: 200.h,
@@ -148,7 +156,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         imageUrls.length,
-                            (index) => Container(
+                        (index) => Container(
                           margin: EdgeInsets.symmetric(horizontal: 4.w),
                           width: index == _currentIndex ? 30.w : 8.w,
                           height: 8.h,
@@ -163,8 +171,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
                     ),
                   ],
                 );
-              }
-              else if (state is AdsError) {
+              } else if (state is AdsError) {
                 return Center(child: Text("Failed to load ads"));
               }
               return const SizedBox();
