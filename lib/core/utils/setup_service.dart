@@ -4,10 +4,11 @@ import 'package:medapp/data/ads/service/ads_service.dart';
 import 'package:medapp/data/category/repository/category_repo_imp.dart';
 import 'package:medapp/data/category/service/category.dart';
 import 'package:medapp/data/medical_entity/repository/medical_enitity_repo_imp.dart';
-import 'package:medapp/data/medical_entity/service/medical_entity.dart';
+import 'package:medapp/data/medical_entity/service/medical_service.dart';
 import 'package:medapp/domain/category/repository/category_repo.dart';
- import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
-import 'package:medapp/domain/medical_entity/repository/entity_repo.dart';
+import 'package:medapp/data/auth/model/register.dart';
+import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
+import 'package:medapp/domain/medical_entity/repository/medical_repo.dart';
 import 'package:medapp/domain/medical_entity/usecase/entity_usecase.dart';
 
 import '../../data/ads/repository/ads_repo_imp.dart';
@@ -15,8 +16,6 @@ import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
 import '../../data/cities/repository/city_repo_imp.dart';
 import '../../data/cities/service/city.dart';
-import '../../data/procedures/repository/procedures_repo_imp.dart';
-import '../../data/procedures/service/procedures.dart';
 import '../../domain/ads/repository/ads.repo.dart';
 import '../../domain/ads/usecase/ads_usecase.dart';
 import '../../domain/auth/repository/auth_repo.dart';
@@ -27,34 +26,29 @@ import '../../domain/auth/usecase/register_usecase.dart';
 import '../../domain/category/usecase/category_usecase.dart';
 import '../../domain/city/repository/city_repo.dart';
 import '../../domain/city/usecase/city_usecase.dart';
-import '../../domain/procedures/repository/procedure_repo.dart';
-import '../../domain/procedures/usecase/procedures_usecase.dart';
+import '../../domain/medical_entity/usecase/get_medical_centers.dart';
+import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
 import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
 void setUpServiceLocator() {
-  getIt.registerSingleton<ApiService>(
-    ApiService(
-      Dio(),
-    ),
-
-  );
+  getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
   //service
   getIt.registerSingleton<AuthService>(AuthServiceImp(getIt.get<ApiService>()));
-  getIt.registerSingleton<CategoryService>(CategoryServiceImp(getIt.get<ApiService>()));
+  getIt.registerSingleton<CategoryService>(
+    CategoryServiceImp(getIt.get<ApiService>()),
+  );
   getIt.registerSingleton<CityService>(CityServiceImp(getIt.get<ApiService>()));
-  getIt.registerSingleton<MedicalEntityService>(MedicalEntityServiceImp(getIt.get<ApiService>()));
-
-
+  getIt.registerSingleton<MedicalService>(
+    MedicalServiceImp(getIt.get<ApiService>()),
+  );
 
   //repository
   getIt.registerSingleton<AuthRepository>(AuthRepositoryImp());
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImp());
   getIt.registerSingleton<CityRepository>(CityRepositoryImp());
-  getIt.registerSingleton<EntityRepository>(EntityRepositoryImp());
-
-
+  getIt.registerSingleton<MedicalRepository>(MedicalRepositoryImp());
 
   //usecase
   getIt.registerSingleton<CheckIdUsecase>(CheckIdUsecase());
@@ -65,12 +59,13 @@ void setUpServiceLocator() {
   getIt.registerSingleton<GetCategoriesUsecase>(GetCategoriesUsecase());
   getIt.registerSingleton<GetCitiesUsecase>(GetCitiesUsecase());
   getIt.registerSingleton<GetEntitiesUsecase>(GetEntitiesUsecase());
-  getIt.registerLazySingleton<AdsService>(() => AdsServiceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<AdsRepository>(() => AdsRepositoryImp(getIt<AdsService>()));
+  getIt.registerLazySingleton<AdsService>(
+    () => AdsServiceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<AdsRepository>(
+    () => AdsRepositoryImp(getIt<AdsService>()),
+  );
   getIt.registerLazySingleton(() => AdsUsecase());
-
-  getIt.registerLazySingleton<ProcedureService>(() => ProcedureServiceImp(getIt<ApiService>()));
-  getIt.registerLazySingleton<ProceduresRepository>(() => ProcedureRepositoryImp());
-  getIt.registerLazySingleton(() => ProceduresUsecase());
-
+  getIt.registerSingleton<GetMedicalDoctorsUseCase>(GetMedicalDoctorsUseCase());
+  getIt.registerSingleton<GetMedicalCentersUseCase>(GetMedicalCentersUseCase());
 }

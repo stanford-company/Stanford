@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 
 import '../../model/doctor.dart';
 
 class MedicalAuthoritiesListItem extends StatelessWidget {
-  final Doctor doctor;
+  final MedicalModel doctor;
 
   const MedicalAuthoritiesListItem({Key? key, required this.doctor})
     : super(key: key);
@@ -38,12 +39,12 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
             child: CircleAvatar(
               radius: 30.w,
               backgroundColor: Colors.grey,
-              backgroundImage: AssetImage(doctor.avatar!),
+              backgroundImage: NetworkImage(doctor.imageUrl),
             ),
           ),
           SizedBox(height: 15),
           Text(
-            doctor.name!,
+            doctor.medicalName,
             style: TextStyle(
               color: Color(0xff113f4e),
               fontSize: 14.sp,
@@ -53,7 +54,7 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
           Text(
-            doctor.speciality!,
+            doctor.categoryEn,
             style: TextStyle(
               color: Color(0xff6A717E),
               fontSize: 12.sp,

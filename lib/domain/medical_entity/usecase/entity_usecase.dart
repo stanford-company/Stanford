@@ -3,7 +3,7 @@ import 'package:medapp/core/errors/failure.dart';
 import 'package:medapp/core/utils/setup_service.dart';
 import 'package:medapp/data/medical_entity/model/medical_entity.dart';
 import '../../../data/cities/model/city.dart';
-import '../repository/entity_repo.dart';
+import '../repository/medical_repo.dart';
 
 class GetEntitiesUsecase {
   Future<Either<Failure, List<MedicalEntityModel>>> call({
@@ -12,13 +12,11 @@ class GetEntitiesUsecase {
     String? name,
     int? page,
   }) async {
-    return await getIt<EntityRepository>().getEntities(
+    return await getIt<MedicalRepository>().getEntities(
       cityId: cityId,
       medicalCategoryId: medicalCategoryId,
       name: name,
       page: page,
     );
   }
-
 }
-

@@ -15,7 +15,7 @@ import '../drawer/drawer_page.dart';
 import '../messages/messages_page.dart';
 import '../profile/profile_page.dart';
 import '../settings/settings_page.dart';
-import 'home_page.dart';
+import '../../presentation/home/pages/home_page.dart';
 import 'widgets/widgets.dart';
 
 class Home extends StatefulWidget {

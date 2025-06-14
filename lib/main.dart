@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medapp/presentation/home/bloc/center_cubit.dart';
+import 'package:medapp/presentation/home/bloc/doctor_cubit.dart';
 
 import 'blocks/remember_me_bloc.dart';
 import 'core/routes/route_generator.dart';
@@ -23,7 +25,8 @@ Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       statusBarColor: Colors.white, // Set status bar color
-      statusBarIconBrightness: Brightness.dark, // Set icons to dark for white background
+      statusBarIconBrightness:
+          Brightness.dark, // Set icons to dark for white background
       statusBarBrightness: Brightness.light, // For iOS
     ),
   );
@@ -42,6 +45,8 @@ Future<void> main() async {
           BlocProvider(create: (context) => RememberMeBloc()),
           BlocProvider(create: (context) => AdsCubit()),
           BlocProvider(create: (context) => ThemeBloc()),
+          BlocProvider(create: (context) => DoctorCubit()..getDoctor()),
+          BlocProvider(create: (context) => CenterCubit()..getCenter()),
         ],
         child: MyApp(),
       ),
@@ -84,18 +89,14 @@ class MyApp extends StatelessWidget {
                 DefaultCupertinoLocalizations.delegate,
                 EasyLocalization.of(context)!.delegate,
               ],
-              supportedLocales: EasyLocalization.of(
-                context,
-              )!.supportedLocales,
+              supportedLocales: EasyLocalization.of(context)!.supportedLocales,
               locale: EasyLocalization.of(context)!.locale,
               debugShowCheckedModeBanner: false,
               theme: state.themeData.copyWith(
                 appBarTheme: AppBarTheme(
                   color: Colors.white,
                   elevation: 0, // No shadow
-                  iconTheme: IconThemeData(
-                    color: Colors.black,
-                  ),
+                  iconTheme: IconThemeData(color: Colors.black),
                   titleTextStyle: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -115,10 +116,10 @@ class MyApp extends StatelessWidget {
 class MyBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-      BuildContext context,
-      Widget child,
-      AxisDirection axisDirection,
-      ) {
+    BuildContext context,
+    Widget child,
+    AxisDirection axisDirection,
+  ) {
     return child;
   }
 }
