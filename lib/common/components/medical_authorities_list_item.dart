@@ -27,8 +27,8 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            width: 50.w,
-            height: 50.h,
+            width: 70.w,
+            height: 70.h,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(
@@ -37,7 +37,7 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
               ),
             ),
             child: CircleAvatar(
-              radius: 30.w,
+              radius: 35.w,
               backgroundColor: Colors.grey,
               backgroundImage: NetworkImage(doctor.imageUrl),
             ),
