@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
@@ -28,6 +29,7 @@ import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../../presentation/city/pages/city_page.dart';
 import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
+import '../../presentation/procedures/bloc/procedures_cubit.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -56,7 +58,13 @@ class RouteGenerator {
           builder: (_) => FilterPage(),
           fullscreenDialog: true,
         );
-
+      case Routes.procedures:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => ProcedureCubit()..fetchProcedure(),
+            // child: const ProcedureListPage(),
+          ),
+        );
       case Routes.bookingStep1:
         return CupertinoPageRoute(
           builder: (_) => HealthConcernPage(),
