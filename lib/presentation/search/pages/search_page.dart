@@ -14,8 +14,15 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/routes/routes.dart';
 import '../../../pages/home/widgets/app_bar_title_widget.dart';
 
-class SearchPage extends StatelessWidget {
+class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
+
+  @override
+  State<SearchPage> createState() => _SearchPageState();
+}
+
+class _SearchPageState extends State<SearchPage> {
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +39,7 @@ class SearchPage extends StatelessWidget {
               alignment: Alignment.center,
               child: Icon(Icons.arrow_back),
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () => Navigator.pop(context),
           ),
           title: AppBarTitleWidget(),
         ),
@@ -43,10 +48,7 @@ class SearchPage extends StatelessWidget {
             BlocBuilder<SearchCubit, SearchState>(
               builder: (context, state) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16.w,
-                    vertical: 16.h,
-                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
                   child: Row(
                     children: [
                       InkWell(
@@ -79,25 +81,35 @@ class SearchPage extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 12.w),
                           child: Row(
                             children: [
-                              SvgPicture.asset(
-                                'assets/images/svg/Search Icon.svg',
-                                width: 24.w,
-                                height: 24.h,
-                                color: Colors.green.shade700,
+                              GestureDetector(
+                                onTap: () async {
+                                  final value = _searchController.text.trim();
+                                  if (value.isNotEmpty) {
+                                    await context
+                                        .read<SearchCubit>()
+                                        .medicalSearch(name: value);
+                                  }
+                                },
+                                child: SvgPicture.asset(
+                                  'assets/images/svg/Search Icon.svg',
+                                  width: 24.w,
+                                  height: 24.h,
+                                  color: Colors.green.shade700,
+                                ),
                               ),
                               SizedBox(width: 8.w),
                               Expanded(
                                 child: TextField(
+                                  controller: _searchController,
                                   textDirection: TextDirection.rtl,
                                   onSubmitted: (value) async {
                                     await context
                                         .read<SearchCubit>()
-                                        .medicalSearch(name: value);
+                                        .medicalSearch(name: value.trim());
                                   },
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText:
-                                        'Search for clinics, doctors, hospitals',
+                                    hintText: 'Search for clinics, doctors, hospitals',
                                     hintStyle: TextStyle(
                                       color: Colors.grey.shade400,
                                       fontSize: 14.sp,
@@ -117,10 +129,10 @@ class SearchPage extends StatelessWidget {
             BlocBuilder<SearchCubit, SearchState>(
               builder: (context, state) {
                 if (state is SearchLoading) {
-                  return Expanded(
+                  return const Expanded(
                     child: Center(child: CircularProgressIndicator()),
                   );
-                } else if (state is SearchLoaded)
+                } else if (state is SearchLoaded) {
                   return Expanded(
                     child: ListView.separated(
                       padding: EdgeInsets.all(16.w),
@@ -134,7 +146,8 @@ class SearchPage extends StatelessWidget {
                       },
                     ),
                   );
-                return SizedBox();
+                }
+                return const SizedBox();
               },
             ),
           ],
@@ -143,3 +156,4 @@ class SearchPage extends StatelessWidget {
     );
   }
 }
+
