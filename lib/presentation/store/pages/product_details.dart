@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 
+import '../../../data/store/model/supplies_model.dart';
+
 class ProductDetailsScreen extends StatefulWidget {
+  final SuppliesModel suppliesModel;
+
+  const ProductDetailsScreen({super.key, required this.suppliesModel});
+
   @override
   State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
 }
@@ -10,12 +16,6 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   int quantity = 1;
   int selectedImageIndex = 0;
-
-  final List<String> productImages = [
-    'assets/images/Rectangle 4.png',
-    'assets/images/Rectangle 4.png',
-    'assets/images/Rectangle 4.png',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +26,8 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
             // Main Product Image
             AspectRatio(
               aspectRatio: 1.2,
-              child: Image.asset(
-                productImages[selectedImageIndex],
+              child: Image.network(
+                widget.suppliesModel.images[selectedImageIndex].imageUrl,
                 fit: BoxFit.cover,
               ),
             ),
@@ -38,12 +38,16 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
               child: Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: List.generate(productImages.length, (index) {
+                  children: List.generate(widget.suppliesModel.images.length, (
+                    index,
+                  ) {
                     return GestureDetector(
                       onTap: () {
                         setState(() => selectedImageIndex = index);
                       },
                       child: Container(
+                        width: 50,
+                        height: 50,
                         margin: EdgeInsets.symmetric(horizontal: 4),
                         padding: EdgeInsets.all(4),
                         decoration: BoxDecoration(
@@ -55,7 +59,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: Image.asset(productImages[index], width: 50),
+                        child: Image.network(
+                          widget.suppliesModel.images[index].imageUrl,
+                          width: 50,
+                        ),
                       ),
                     );
                   }),
@@ -95,7 +102,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                         ],
                       ),
                       Text(
-                        '100 JOD',
+                        '${widget.suppliesModel.price} JOD',
                         style: TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
@@ -110,7 +117,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   Row(
                     children: [
                       Text(
-                        'كرسي طبي متحرك',
+                        widget.suppliesModel.nameAr,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -165,7 +172,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    'كرسي طبي متحرك مصمم لتوفير الراحة والدعم للمرضى الذين يحتاجون إلى مساعدة في التنقل. يتميز بإطار قوي وعجلات سهلة الحركة، مما يسهل على المستخدمين التنقل في مختلف البيئات.',
+                    widget.suppliesModel.descriptionAr,
                     style: TextStyle(
                       color: Color(0xff6A717E),
                       fontWeight: FontWeight.w400,

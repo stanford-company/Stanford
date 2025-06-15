@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/store/model/supplies_model.dart';
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
 import '../../pages/booking/filter/filter_page.dart';
@@ -111,7 +112,11 @@ class RouteGenerator {
       case Routes.myDoctors:
         return CupertinoPageRoute(builder: (_) => MyDoctorListPage());
       case Routes.productDetails:
-        return CupertinoPageRoute(builder: (_) => ProductDetailsScreen());
+        final args = settings.arguments as SuppliesModel;
+
+        return CupertinoPageRoute(
+          builder: (_) => ProductDetailsScreen(suppliesModel: args),
+        );
 
       case Routes.myAppointments:
         return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());
