@@ -32,6 +32,8 @@ import '../../presentation/city/pages/city_page.dart';
 import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
 import '../../presentation/procedures/bloc/procedures_cubit.dart';
 import '../../presentation/search/pages/search_page.dart';
+import '../../presentation/suggestions/bloc/suggestions_cubit.dart';
+import '../../presentation/suggestions/pages/suggestions_page.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -67,6 +69,14 @@ class RouteGenerator {
           builder: (_) => BlocProvider(
             create: (_) => ProcedureCubit()..fetchProcedure(),
             // child: const ProcedureListPage(),
+          ),
+        );
+
+      case Routes.suggestions:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SuggestionsCubit(),
+            child: SuggestionsPage(),
           ),
         );
       case Routes.bookingStep1:

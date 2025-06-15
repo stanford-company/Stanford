@@ -13,6 +13,8 @@ class Routes {
   static const String bookingStep5 = '/booking_step5';
   static const String appointmentDetail = '/appointment_detail';
   static const String procedures = '/procedures';
+  static const String suggestions = '/suggestions';
+
 
   static const String visitDetail = '/visit_detail';
   static const String prescriptionDetail = '/prescription_detail';

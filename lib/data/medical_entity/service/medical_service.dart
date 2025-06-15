@@ -32,7 +32,7 @@ class MedicalServiceImp extends MedicalService {
       if (medicalCategoryId != null)
         'medical_category_id': medicalCategoryId.toString(),
       if (name != null && name.isNotEmpty) 'name': name,
-      if (page != null) 'page': page.toString(),
+      if (page != null) 'pages': page.toString(),
     };
     print('📦 Sending queryParams to API: $queryParams');
 

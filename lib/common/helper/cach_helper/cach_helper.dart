@@ -24,11 +24,16 @@ class CacheHelper {
     required String key,
     required dynamic value,
   }) async {
+    if (sharedPreferences == null) {
+      sharedPreferences = await SharedPreferences.getInstance();
+    }
+
     if (value is String) return await sharedPreferences!.setString(key, value);
     if (value is int) return await sharedPreferences!.setInt(key, value);
     if (value is bool) return await sharedPreferences!.setBool(key, value);
+    if (value is double) return await sharedPreferences!.setDouble(key, value);
 
-    return await sharedPreferences!.setDouble(key, value);
+    throw Exception("Unsupported value type for key: $key");
   }
 
   static Future<bool> removeData({
