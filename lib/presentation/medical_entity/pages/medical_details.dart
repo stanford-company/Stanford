@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details_images.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/constants/app_colors.dart' show AppColors;
+import '../../../data/medical_entity/model/medical_doctor.dart';
+import '../../../data/medical_entity/model/medical_entity.dart';
+
 class MedicalDetailsScreen extends StatelessWidget {
-  const MedicalDetailsScreen({super.key});
+  final MedicalEntityModel? medicalEntity;
+  final MedicalModel? medicalModel;
+
+  const MedicalDetailsScreen({
+    super.key,
+    this.medicalEntity,
+    this.medicalModel,
+  });
 
   void _launchPhone() async {
     final Uri url = Uri.parse('tel:+962790000000');
@@ -15,10 +28,7 @@ class MedicalDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng location = const LatLng(
-      31.963158,
-      35.930359,
-    ); // Example for Amman
+    // Example for Amman
 
     return Scaffold(
       appBar: AppBar(
@@ -29,25 +39,94 @@ class MedicalDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MedicalDetailsImages(),
+            MedicalDetailsImages(
+              images:
+                  medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
+            ),
 
             // Description
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    'عن الدكتور',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 8,
+                        backgroundColor: Color(0xff80D5B5),
+                        child: CircleAvatar(
+                          radius: 5,
+                          backgroundColor: AppColors.green,
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        'Currently Available',
+                        style: TextStyle(
+                          color: AppColors.green,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12.sp,
+                        ),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'الدكتور فهد هو طبيب مختص في الأنف والأذن والحنجرة يتمتع بخبرة كبيرة في تشخيص وعلاج مشكلات الأنف الواسعة في الحالات في الأردن...'
-                    'يؤكد الدكتور فهد على أهمية التواصل مع المرضى لفهم احتياجاتهم الطبية وتوفير أفضل رعاية طبية ممكنة.',
+                    medicalEntity?.name ?? medicalModel?.medicalName ?? '',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Row(
+                    children: [
+                      SvgPicture.asset(
+                        "assets/images/svg/phone.svg",
+                        width: 13.w,
+                      ),
+                      SizedBox(width: 5.w),
+                      Text(
+                        medicalEntity?.phone1 ?? "",
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.green,
+                          decoration: TextDecoration.underline,
+                          fontSize: 14.sp,
+                          decorationColor: AppColors.green,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'عن الدكتور',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+
+                  Text(
+                    medicalEntity?.description ??
+                        medicalModel?.description ??
+                        "",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.grey,
+                    ),
                   ),
                   SizedBox(height: 16),
-                  Text('الموقع', style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    'الموقع',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16.sp,
+                    ),
+                  ),
                   SizedBox(height: 8),
                   Text(
                     'عمان - حي الرضوان - مقابل حلويات جيبلة - الطابق الثالث',
@@ -58,16 +137,15 @@ class MedicalDetailsScreen extends StatelessWidget {
             ),
 
             // Map
-            SizedBox(
-              height: 200,
-              child: GoogleMap(
-                initialCameraPosition: CameraPosition(
-                  target: location,
-                  zoom: 14,
+            Container(
+              width: 360.w,
+              height: 200.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.r),
+                image: DecorationImage(
+                  image: AssetImage("assets/images/maps.png"),
+                  fit: BoxFit.cover,
                 ),
-                markers: {
-                  Marker(markerId: MarkerId('clinic'), position: location),
-                },
               ),
             ),
             const SizedBox(height: 80),
@@ -78,18 +156,47 @@ class MedicalDetailsScreen extends StatelessWidget {
       // Book Now Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF1B8755),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 360.w,
+          height: 48.h,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF29A07B), Color(0xFF1B8064)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+            border: Border.all(color: Color(0xFF156752), width: 1),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                // outer shadow
+                color: Color(0x80156752), // #15675280
+                offset: Offset(0, 2),
+                blurRadius: 4,
+              ),
+              BoxShadow(
+                // inner inset shadow
+                color: Color(0x66FFFFFF), // #FFFFFF40
+                offset: Offset(0, 2),
+                blurRadius: 0,
+                spreadRadius: 1,
+                // requires flutter_inset_box_shadow
+              ),
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+            child: Center(
+              child: Text(
+                'اطلب الآن',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
           ),
-          onPressed: () {
-            // Handle booking
-          },
-          child: const Text('احجز الآن', style: TextStyle(fontSize: 18)),
         ),
       ),
     );

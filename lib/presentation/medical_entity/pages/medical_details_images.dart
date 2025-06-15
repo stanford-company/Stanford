@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
 class MedicalDetailsImages extends StatefulWidget {
-  const MedicalDetailsImages({super.key});
+  final List<String> images;
+  const MedicalDetailsImages({super.key, required this.images});
 
   @override
   State<MedicalDetailsImages> createState() => _MedicalDetailsImagesState();
 }
 
 class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
-  final int _itemCount = 4;
+  // final int _itemCount = widget.images.length;
   int _currentPage = 0;
 
   void _onPageChanged(int index) {
@@ -16,7 +17,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
       _currentPage = index;
     });
     // When reaching the last page, jump to the first
-    if (index == _itemCount - 1) {
+    if (index == widget.images.length - 1) {
       Future.delayed(const Duration(milliseconds: 300), () {
         _controller.jumpToPage(0);
       });
@@ -39,14 +40,14 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
           child: PageView.builder(
             controller: _controller,
             scrollDirection: Axis.horizontal,
-            itemCount: _itemCount,
+            itemCount: widget.images.length,
             onPageChanged: (index) => _onPageChanged(index),
             itemBuilder: (context, index) {
               return SizedBox(
                 width: double.infinity,
                 height: 300,
-                child: Image.asset(
-                  'assets/images/doctor_profile.jpg', // Replace with your image
+                child: Image.network(
+                  widget.images[index], // Replace with your image
                   fit: BoxFit.cover,
                 ),
               );
@@ -87,13 +88,17 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildDot(isActive: _currentPage == 0),
-                  const SizedBox(width: 6),
-                  _buildDot(isActive: _currentPage == 1),
-                  const SizedBox(width: 6),
-                  _buildDot(isActive: _currentPage == 2),
-                ],
+                children: List.generate(
+                  widget.images.length, // includes dots and spacing
+                  (index) {
+                    if (index.isEven) {
+                      final pageIndex = index ~/ 2;
+                      return _buildDot(isActive: _currentPage == pageIndex);
+                    } else {
+                      return const SizedBox(width: 6);
+                    }
+                  },
+                ),
               ),
             ),
           ),

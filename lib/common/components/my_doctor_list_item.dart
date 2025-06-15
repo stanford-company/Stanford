@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 
+import '../../core/routes/routes.dart';
 import '../../model/doctor.dart';
 import 'custom_button.dart';
 
@@ -45,7 +46,11 @@ class MyDoctorListItem extends StatelessWidget {
             CustomButton(
               text: 'details'.tr(),
               textSize: 14,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).pushNamed(Routes.medicalDetails, arguments: doctor);
+              },
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
             ),
           ],

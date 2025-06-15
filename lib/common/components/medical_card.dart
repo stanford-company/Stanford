@@ -70,7 +70,11 @@ class MedicalCard extends StatelessWidget {
             ),
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.medicalDetails);
+                Navigator.pushNamed(
+                  context,
+                  Routes.medicalDetails,
+                  arguments: medicalEntity,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.primary_button_color,

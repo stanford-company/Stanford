@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
+import '../../data/medical_entity/model/medical_doctor.dart';
+import '../../data/medical_entity/model/medical_entity.dart';
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
 import '../../pages/booking/filter/filter_page.dart';
@@ -125,7 +127,20 @@ class RouteGenerator {
       case Routes.search:
         return CupertinoPageRoute(builder: (_) => SearchPage());
       case Routes.medicalDetails:
-        return CupertinoPageRoute(builder: (_) => MedicalDetailsScreen());
+        final args = settings.arguments;
+
+        if (args is MedicalEntityModel) {
+          return CupertinoPageRoute(
+            builder: (_) => MedicalDetailsScreen(medicalEntity: args),
+          );
+        } else if (args is MedicalModel) {
+          // Convert MedicalModel to MedicalEntityModel if needed
+          return CupertinoPageRoute(
+            builder: (_) => MedicalDetailsScreen(medicalModel: args),
+          );
+        } else {
+          throw Exception('Unexpected argument type: ${args.runtimeType}');
+        }
 
       case Routes.notifications:
         return CupertinoPageRoute(
