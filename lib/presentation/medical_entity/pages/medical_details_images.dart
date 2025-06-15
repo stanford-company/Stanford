@@ -15,7 +15,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
     setState(() {
       _currentPage = index;
     });
-    // When reaching the last page, jump to the first
+    // When reaching the last pages, jump to the first
     if (index == _itemCount - 1) {
       Future.delayed(const Duration(milliseconds: 300), () {
         _controller.jumpToPage(0);

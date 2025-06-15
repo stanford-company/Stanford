@@ -18,6 +18,8 @@ import '../../data/cities/repository/city_repo_imp.dart';
 import '../../data/cities/service/city.dart';
 import '../../data/procedures/repository/procedures_repo_imp.dart';
 import '../../data/procedures/service/procedures.dart';
+import '../../data/suggestions/repository/suggestions_repo_imp.dart';
+import '../../data/suggestions/service/suggestions.dart';
 import '../../domain/ads/repository/ads.repo.dart';
 import '../../domain/ads/usecase/ads_usecase.dart';
 import '../../domain/auth/repository/auth_repo.dart';
@@ -33,6 +35,8 @@ import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
 import '../../domain/medical_entity/usecase/medical_search.dart';
 import '../../domain/procedures/repository/procedure_repo.dart';
 import '../../domain/procedures/usecase/procedures_usecase.dart';
+import '../../domain/suggestions/repository/suggestions_repo.dart';
+import '../../domain/suggestions/usecase/suggestions_usecase.dart';
 import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -82,4 +86,19 @@ void setUpServiceLocator() {
   );
   getIt.registerLazySingleton(() => ProceduresUsecase());
   getIt.registerSingleton<MedicalSearchUseCase>(MedicalSearchUseCase());
+
+  // Service
+  getIt.registerLazySingleton<SuggestionsService>(
+        () => SuggestionsServiceImp(getIt<ApiService>()),
+  );
+
+// Repository
+  getIt.registerLazySingleton<SuggestionsRepository>(
+        () => SuggestionsRepositoryImp(),
+  );
+
+// Usecase
+  getIt.registerLazySingleton<SuggestionsUsecase>(
+        () => SuggestionsUsecase(),
+  );
 }

@@ -78,8 +78,13 @@ class _DrawerPageState extends State<DrawerPage> {
                     label: 'complaints_suggestions',
                     icon: 'suggestions-drawer-icon',
                     isSelected: selectedItem == 'complaints_suggestions',
-                    onTap: () => setState(() => selectedItem = 'complaints_suggestions'),
+                    onTap: () {
+                      setState(() => selectedItem = 'complaints_suggestions');
+                      Navigator.pop(context); // Close drawer
+                      Navigator.pushNamed(context, Routes.suggestions);
+                    },
                   ),
+
                   _divider(),
                   _drawerItem(
                     label: 'profile',
