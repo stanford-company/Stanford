@@ -56,4 +56,21 @@ class MedicalRepositoryImp extends MedicalRepository {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, List<MedicalEntityModel>>> medicalSearch({
+    required String name,
+  }) async {
+    try {
+      final medicalDoctors = await getIt<MedicalService>().medicalSearch(
+        name: name,
+      );
+      return Right(medicalDoctors);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

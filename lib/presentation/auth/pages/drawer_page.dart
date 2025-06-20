@@ -6,6 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/routes/routes.dart';
 import '../../../core/utils/shared_prefs_service.dart';
+import '../../procedures/bloc/procedures_cubit.dart';
+import '../../procedures/pages/procedures.dart';
 import '../bloc/logout_cubit.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -52,7 +54,18 @@ class _DrawerPageState extends State<DrawerPage> {
                     label: 'guidelines_list',
                     icon: 'instructions-drawer-icon',
                     isSelected: selectedItem == 'guidelines_list',
-                    onTap: () => setState(() => selectedItem = 'guidelines_list'),
+                    onTap: () {
+                      Navigator.pop(context); // لإغلاق الـ Drawer
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => BlocProvider(
+                            create: (_) => ProcedureCubit()..fetchProcedure(),
+                            child: const ProcedureListPage(),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   _divider(),
                   _drawerItem(
@@ -65,8 +78,13 @@ class _DrawerPageState extends State<DrawerPage> {
                     label: 'complaints_suggestions',
                     icon: 'suggestions-drawer-icon',
                     isSelected: selectedItem == 'complaints_suggestions',
-                    onTap: () => setState(() => selectedItem = 'complaints_suggestions'),
+                    onTap: () {
+                      setState(() => selectedItem = 'complaints_suggestions');
+                      Navigator.pop(context); // Close drawer
+                      Navigator.pushNamed(context, Routes.suggestions);
+                    },
                   ),
+
                   _divider(),
                   _drawerItem(
                     label: 'profile',

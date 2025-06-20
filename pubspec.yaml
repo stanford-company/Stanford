@@ -46,7 +46,11 @@ dependencies:
   carousel_slider: ^5.0.0
   cached_network_image: ^3.2.3
   dartz: ^0.10.1
-  get_it: 
+  url_launcher: ^6.1.7
+  flutter_cached_pdfview: ^0.4.2
+  get_it:
+  google_maps_flutter: ^2.12.2
+  another_flushbar: ^1.10.30
 
 
 
@@ -70,7 +74,7 @@ flutter_icons:
   flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
+# following pages: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
@@ -103,6 +107,7 @@ flutter:
     - assets/images/3.0x/
     - assets/images/4.0x/
     - assets/languages/
+    - assets/images/svg/
     - assets/images/svg/
 
   fonts:

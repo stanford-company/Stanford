@@ -12,4 +12,7 @@ abstract class MedicalRepository {
   });
   Future<Either<Failure, List<MedicalModel>>> getMedicalDoctor();
   Future<Either<Failure, List<MedicalModel>>> getMedicalCenter();
+  Future<Either<Failure, List<MedicalEntityModel>>> medicalSearch({
+    required String name,
+  });
 }

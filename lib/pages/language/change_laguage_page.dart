@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/pref_manager.dart';
 
-enum Language { english, spanish, italian, portuguese }
+enum Language { english, spanish, italian, portuguese, arabic }
 
 class ChangeLanguagePage extends StatefulWidget {
   @override
@@ -30,6 +30,9 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
 
       case 'pt':
         _language = Language.portuguese;
+        break;
+      case 'ar':
+        _language = Language.arabic;
         break;
 
       default:
@@ -58,9 +61,14 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
         _language = Language.portuguese;
         Prefs.setString(Prefs.LANGUAGE, 'pt');
         break;
+      case 4:
+        _language = Language.arabic;
+        Prefs.setString(Prefs.LANGUAGE, 'ar');
+        break;
     }
-    EasyLocalization.of(context)!
-        .setLocale(EasyLocalization.of(context)!.supportedLocales[index]);
+    EasyLocalization.of(
+      context,
+    )!.setLocale(EasyLocalization.of(context)!.supportedLocales[index]);
 
     print("language" + _language.toString());
   }
@@ -68,11 +76,7 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'language_settings'.tr(),
-        ),
-      ),
+      appBar: AppBar(title: Text('language_settings'.tr())),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
@@ -84,38 +88,33 @@ class _ChangeLanguagePageState extends State<ChangeLanguagePage> {
               groupValue: _language,
               title: Text('english'.tr()),
             ),
-            Divider(
-              height: 0.5,
-              indent: 10,
-              endIndent: 10,
-            ),
+            Divider(height: 0.5, indent: 10, endIndent: 10),
             RadioListTile(
               value: Language.spanish,
               onChanged: (value) => _changeLanguage(1),
               groupValue: _language,
               title: Text('spanish'.tr()),
             ),
-            Divider(
-              height: 0.5,
-              indent: 10,
-              endIndent: 10,
-            ),
+            Divider(height: 0.5, indent: 10, endIndent: 10),
             RadioListTile(
               value: Language.italian,
               onChanged: (value) => _changeLanguage(2),
               groupValue: _language,
               title: Text('italian'.tr()),
             ),
-            Divider(
-              height: 0.5,
-              indent: 10,
-              endIndent: 10,
-            ),
+            Divider(height: 0.5, indent: 10, endIndent: 10),
             RadioListTile(
               value: Language.portuguese,
               onChanged: (value) => _changeLanguage(3),
               groupValue: _language,
               title: Text('portuguese'.tr()),
+            ),
+            Divider(height: 0.5, indent: 10, endIndent: 10),
+            RadioListTile(
+              value: Language.arabic,
+              onChanged: (value) => _changeLanguage(4),
+              groupValue: _language,
+              title: Text('arabic'.tr()),
             ),
           ],
         ),

@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/routes/routes.dart';
+import '../../../data/pref_manager.dart';
 import '../../../pages/login/widgets/input_widget.dart';
 import '../bloc/login_cubit.dart';
-import '../widgets/input_widget.dart';  // Import cubit
+import '../widgets/input_widget.dart'; // Import cubit
 
 class LoginPage extends StatelessWidget {
   @override
@@ -49,7 +50,14 @@ class LoginPage extends StatelessWidget {
                           children: [
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => context.setLocale(Locale('en')),
+                                onTap: () {
+                                  Prefs.setString(Prefs.LANGUAGE, 'en');
+                                  EasyLocalization.of(context)!.setLocale(
+                                    EasyLocalization.of(
+                                      context,
+                                    )!.supportedLocales[0],
+                                  );
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: isEnglish
@@ -72,7 +80,14 @@ class LoginPage extends StatelessWidget {
                             ),
                             Expanded(
                               child: GestureDetector(
-                                onTap: () => context.setLocale(Locale('ar')),
+                                onTap: () {
+                                  Prefs.setString(Prefs.LANGUAGE, 'ar');
+                                  EasyLocalization.of(context)!.setLocale(
+                                    EasyLocalization.of(
+                                      context,
+                                    )!.supportedLocales[4],
+                                  );
+                                },
                                 child: Container(
                                   decoration: BoxDecoration(
                                     color: !isEnglish
@@ -156,7 +171,9 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                    Navigator.of(context).pushNamed(Routes.signup);
+                                    Navigator.of(
+                                      context,
+                                    ).pushNamed(Routes.signup);
                                   },
                                   child: Text(
                                     'Register now'.tr(),

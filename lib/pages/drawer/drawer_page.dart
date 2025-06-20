@@ -51,7 +51,7 @@
 //                   ),
 //                   _drawerItem(
 //                     label: 'guidelines_list',
-//                     icon: 'instructions-drawer-icon',
+//                     icon: 'procedures-drawer-icon',
 //                     isSelected: selectedItem == 'guidelines_list',
 //                     onTap: () => setState(() => selectedItem = 'guidelines_list'),
 //                   ),

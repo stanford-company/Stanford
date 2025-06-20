@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
+import '../../data/medical_entity/model/medical_doctor.dart';
+import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
@@ -29,6 +33,10 @@ import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../../presentation/city/pages/city_page.dart';
 import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
+import '../../presentation/procedures/bloc/procedures_cubit.dart';
+import '../../presentation/search/pages/search_page.dart';
+import '../../presentation/suggestions/bloc/suggestions_cubit.dart';
+import '../../presentation/suggestions/pages/suggestions_page.dart';
 import '../../presentation/store/pages/product_details.dart';
 import 'routes.dart';
 
@@ -60,7 +68,21 @@ class RouteGenerator {
           builder: (_) => FilterPage(),
           fullscreenDialog: true,
         );
+      case Routes.procedures:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => ProcedureCubit()..fetchProcedure(),
+            // child: const ProcedureListPage(),
+          ),
+        );
 
+      case Routes.suggestions:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SuggestionsCubit(),
+            child: SuggestionsPage(),
+          ),
+        );
       case Routes.bookingStep1:
         return CupertinoPageRoute(
           builder: (_) => HealthConcernPage(),
@@ -120,6 +142,23 @@ class RouteGenerator {
 
       case Routes.myAppointments:
         return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());
+      case Routes.search:
+        return CupertinoPageRoute(builder: (_) => SearchPage());
+      case Routes.medicalDetails:
+        final args = settings.arguments;
+
+        if (args is MedicalEntityModel) {
+          return CupertinoPageRoute(
+            builder: (_) => MedicalDetailsScreen(medicalEntity: args),
+          );
+        } else if (args is MedicalModel) {
+          // Convert MedicalModel to MedicalEntityModel if needed
+          return CupertinoPageRoute(
+            builder: (_) => MedicalDetailsScreen(medicalModel: args),
+          );
+        } else {
+          throw Exception('Unexpected argument type: ${args.runtimeType}');
+        }
 
       case Routes.notifications:
         return CupertinoPageRoute(

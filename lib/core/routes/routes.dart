@@ -12,6 +12,10 @@ class Routes {
   static const String bookingStep4 = '/booking_step4';
   static const String bookingStep5 = '/booking_step5';
   static const String appointmentDetail = '/appointment_detail';
+  static const String procedures = '/procedures';
+  static const String suggestions = '/suggestions';
+
+
   static const String visitDetail = '/visit_detail';
   static const String prescriptionDetail = '/prescription_detail';
   static const String chatDetail = '/chat_detail';
@@ -23,4 +27,6 @@ class Routes {
   static const String myAppointments = '/my_appointments';
   static const String notifications = '/notifications';
   static const String productDetails = '/product_details';
+  static const String search = '/search';
+  static const String medicalDetails = '/medical_details';
 }
