@@ -5,6 +5,7 @@ import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
+import '../../data/store/model/supplies_model.dart';
 import '../../pages/appointment/appointment_detail_page.dart';
 import '../../pages/appointment/my_appointments_page.dart';
 import '../../pages/booking/filter/filter_page.dart';
@@ -36,6 +37,7 @@ import '../../presentation/procedures/bloc/procedures_cubit.dart';
 import '../../presentation/search/pages/search_page.dart';
 import '../../presentation/suggestions/bloc/suggestions_cubit.dart';
 import '../../presentation/suggestions/pages/suggestions_page.dart';
+import '../../presentation/store/pages/product_details.dart';
 import 'routes.dart';
 
 class RouteGenerator {
@@ -131,6 +133,12 @@ class RouteGenerator {
 
       case Routes.myDoctors:
         return CupertinoPageRoute(builder: (_) => MyDoctorListPage());
+      case Routes.productDetails:
+        final args = settings.arguments as SuppliesModel;
+
+        return CupertinoPageRoute(
+          builder: (_) => ProductDetailsScreen(suppliesModel: args),
+        );
 
       case Routes.myAppointments:
         return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());

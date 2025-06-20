@@ -5,11 +5,14 @@ import 'package:medapp/data/category/repository/category_repo_imp.dart';
 import 'package:medapp/data/category/service/category.dart';
 import 'package:medapp/data/medical_entity/repository/medical_enitity_repo_imp.dart';
 import 'package:medapp/data/medical_entity/service/medical_service.dart';
+import 'package:medapp/data/store/repository/store_repo_imp.dart';
+import 'package:medapp/data/store/service/store.dart';
 import 'package:medapp/domain/category/repository/category_repo.dart';
 import 'package:medapp/data/auth/model/register.dart';
 import 'package:medapp/domain/auth/usecase/logout_usecase.dart';
 import 'package:medapp/domain/medical_entity/repository/medical_repo.dart';
 import 'package:medapp/domain/medical_entity/usecase/entity_usecase.dart';
+import 'package:medapp/domain/store/repository/store_repo.dart';
 
 import '../../data/ads/repository/ads_repo_imp.dart';
 import '../../data/auth/repository/auth_repo_imp.dart';
@@ -37,6 +40,7 @@ import '../../domain/procedures/repository/procedure_repo.dart';
 import '../../domain/procedures/usecase/procedures_usecase.dart';
 import '../../domain/suggestions/repository/suggestions_repo.dart';
 import '../../domain/suggestions/usecase/suggestions_usecase.dart';
+import '../../domain/store/usecase/get_supplies_usecase.dart';
 import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
@@ -52,12 +56,16 @@ void setUpServiceLocator() {
   getIt.registerSingleton<MedicalService>(
     MedicalServiceImp(getIt.get<ApiService>()),
   );
+  getIt.registerSingleton<StoreService>(
+    StoreServiceImp(getIt.get<ApiService>()),
+  );
 
   //repository
   getIt.registerSingleton<AuthRepository>(AuthRepositoryImp());
   getIt.registerSingleton<CategoryRepository>(CategoryRepositoryImp());
   getIt.registerSingleton<CityRepository>(CityRepositoryImp());
   getIt.registerSingleton<MedicalRepository>(MedicalRepositoryImp());
+  getIt.registerSingleton<StoreRepository>(StoreRepositoryImp());
 
   //usecase
   getIt.registerSingleton<CheckIdUsecase>(CheckIdUsecase());
@@ -77,6 +85,7 @@ void setUpServiceLocator() {
   getIt.registerLazySingleton(() => AdsUsecase());
   getIt.registerSingleton<GetMedicalDoctorsUseCase>(GetMedicalDoctorsUseCase());
   getIt.registerSingleton<GetMedicalCentersUseCase>(GetMedicalCentersUseCase());
+  getIt.registerSingleton<GetSuppliesUsecase>(GetSuppliesUsecase());
 
   getIt.registerLazySingleton<ProcedureService>(
     () => ProcedureServiceImp(getIt<ApiService>()),

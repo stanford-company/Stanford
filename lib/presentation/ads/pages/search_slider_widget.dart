@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:medapp/common/components/search_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../presentation/ads/bloc/ads_cubit.dart';
@@ -40,70 +41,7 @@ class _MedicalSearchWidgetState extends State<MedicalSearchWidget> {
     return Column(
       children: [
         /// Search + Filter UI
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-          child: Row(
-            children: [
-              InkWell(
-                onTap: () => print("Filter button clicked"),
-                child: Container(
-                  width: 48.w,
-                  height: 48.h,
-                  decoration: BoxDecoration(
-                    color: const Color(0xff13434A),
-                    borderRadius: BorderRadius.circular(12.r),
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      'assets/images/svg/IC_Filter.svg',
-                      width: 24.w,
-                      height: 24.h,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(width: 12.w),
-              Expanded(
-                child: Container(
-                  height: 48.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r),
-                    border: Border.all(color: Colors.grey.shade400),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 12.w),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/svg/Search Icon.svg',
-                        width: 24.w,
-                        height: 24.h,
-                        color: Colors.green.shade700,
-                      ),
-                      SizedBox(width: 8.w),
-                      Expanded(
-                        child: TextField(
-                          textDirection: TextDirection.rtl,
-                          onTap: () {
-                            Navigator.pushNamed(context, '/search');
-                          },
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search for clinics, doctors, hospitals',
-                            hintStyle: TextStyle(
-                              color: Colors.grey.shade400,
-                              fontSize: 14.sp,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+        SearchWidget(),
 
         /// Ads Carousel
         SizedBox(

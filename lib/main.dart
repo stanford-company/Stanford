@@ -9,6 +9,7 @@ import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 import 'package:medapp/presentation/home/bloc/doctor_cubit.dart';
 
 import 'blocks/remember_me_bloc.dart';
+import 'common/bloc/bottom_bar_cubit.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/utils/setup_service.dart';
@@ -47,6 +48,7 @@ Future<void> main() async {
           BlocProvider(create: (context) => ThemeBloc()),
           BlocProvider(create: (context) => DoctorCubit()..getDoctor()),
           BlocProvider(create: (context) => CenterCubit()..getCenter()),
+          BlocProvider(create: (context) => BottomBarCubit()),
         ],
         child: MyApp(),
       ),
