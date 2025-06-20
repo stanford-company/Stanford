@@ -5,8 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../common/components/medical_authorities_list_item.dart';
 import '../../../core/routes/routes.dart';
-import '../../../model/doctor.dart';
-import '../../../pages/home/widgets/section_header_widget.dart';
+import '../../main_home/widgets/section_header_widget.dart';
 import '../bloc/doctor_cubit.dart';
 
 class MedicalDoctorWidget extends StatelessWidget {

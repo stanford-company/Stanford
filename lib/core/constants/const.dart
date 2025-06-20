@@ -18,4 +18,5 @@ class TextConst {
   static const String userProviderId = 'userProviderId';
   static const String isVerified = 'isVerified';
   static const String language = 'lang';
+  static const String isLogin = 'isLogin';
 }

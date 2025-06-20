@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
+import 'package:medapp/core/constants/const.dart';
 import 'package:medapp/domain/auth/usecase/check_id_usecase.dart';
 import 'package:meta/meta.dart';
 
- import '../../../core/utils/setup_service.dart';
+import '../../../core/utils/setup_service.dart';
 import '../../../data/auth/model/login.dart';
 import '../../../domain/auth/usecase/login_usecase.dart';
 
@@ -17,20 +19,17 @@ class LoginCubit extends Cubit<LoginState> {
   }) async {
     emit(LoginLoading());
 
-    final result = await getIt<LoginUsecase>().call(params: {
-      'national_id': nationalId,
-      'password': password,
-    });
+    final result = await getIt<LoginUsecase>().call(
+      params: {'national_id': nationalId, 'password': password},
+    );
 
     result.fold(
-          (failure) {
+      (failure) {
         emit(LoginFailure(failure.message));
       },
-          (userParams) {
+      (userParams) {
         emit(LoginLoaded(userParams));
       },
     );
   }
-
 }
-

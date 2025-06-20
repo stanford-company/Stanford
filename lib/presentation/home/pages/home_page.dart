@@ -4,18 +4,14 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medapp/model/medical_centers.dart';
-import 'package:medapp/pages/home/widgets/search_slider_widget.dart';
 import 'package:medapp/presentation/home/widgets/medical_center.dart';
 import 'package:medapp/presentation/home/widgets/medical_doctor.dart';
 
 import '../../../../presentation/ads/bloc/ads_cubit.dart'; // Make sure the AdsCubit is imported
-import '../../../common/components/medical_authorities_list_item.dart';
-import '../../../common/components/medical_center_list_item.dart';
-import '../../../../model/doctor.dart';
-import '../../../core/routes/routes.dart';
 import '../../ads/pages/search_slider_widget.dart';
-import '../../../pages/home/widgets/widgets.dart';
+import '../../main_home/widgets/next_appointment_widget.dart';
+import '../../main_home/widgets/no_appointments_widget.dart';
+import '../../main_home/widgets/section_header_widget.dart';
 
 class HomePage extends StatefulWidget {
   @override

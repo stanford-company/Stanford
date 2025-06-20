@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:medapp/data/auth/model/profile.dart';
 import '../../../core/errors/failure.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../core/utils/shared_prefs_service.dart';
@@ -11,9 +12,6 @@ import '../service/auth_service.dart';
 import '../../../core/services/api_service.dart';
 
 class AuthRepositoryImp extends AuthRepository {
-  final ApiService apiService =
-      getIt<ApiService>(); // ✅ this ensures we use your own
-
   @override
   Future<Either<Failure, CheckIdModel>> checkId({
     required String nationalId,
@@ -24,7 +22,7 @@ class AuthRepositoryImp extends AuthRepository {
       );
       return Right(checkIdModel);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -35,11 +33,15 @@ class AuthRepositoryImp extends AuthRepository {
     required String password,
   }) async {
     try {
-      final user = await getIt<AuthService>().register(nationalId, email, password);
+      final user = await getIt<AuthService>().register(
+        nationalId,
+        email,
+        password,
+      );
       await SharedPrefsService.saveToken(user.apiToken);
       return Right(user);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -49,11 +51,15 @@ class AuthRepositoryImp extends AuthRepository {
     required String confirmPassword,
   }) async {
     try {
-      final user = await getIt<AuthService>().forgotPassword(nationalId, confirmPassword, password);
+      final user = await getIt<AuthService>().forgotPassword(
+        nationalId,
+        confirmPassword,
+        password,
+      );
 
       return Right(user);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -65,33 +71,31 @@ class AuthRepositoryImp extends AuthRepository {
     try {
       final userParams = await getIt<AuthService>().login(nationalId, password);
 
-
       await SharedPrefsService.saveToken(userParams.apiToken);
 
       return Right(userParams);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, LogoutModel>> logout({required String token}) async {
     try {
-      final data = await apiService.postWithHeaders(
-        endPoint: "beneficiaries/logout",
-        body: {},
-        headers: {"Authorization": "Bearer $token"},
-      );
-      return Right(LogoutModel.fromJson(data));
+      final data = await getIt<AuthService>().logout(token: token);
+      return Right(data);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
-  Failure _handleError(dynamic e) {
-    if (e is DioException) {
-      return ServerFailure.fromDioError(e);
+  @override
+  Future<Either<Failure, ProfileModel>> getUserProfile() async {
+    try {
+      final ProfileModel data = await getIt<AuthService>().getUserProfile();
+      return Right(data);
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
     }
-    return ServerFailure(e.toString());
   }
 }

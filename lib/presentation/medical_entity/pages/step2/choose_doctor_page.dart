@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/common/components/medical_card.dart';
-import 'package:medapp/core/constants/app_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../common/components/custom_navigation_bar.dart';
 import '../../../../core/routes/routes.dart';
-import '../../../../pages/home/widgets/nav_bar_item_widget.dart';
+import '../../../main_home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
@@ -171,8 +170,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                   isSelected: _selectedIndex == 0,
                 ),
                 NavBarItemWidget(
-                  onTap: () =>
-                      Navigator.pushNamed(context, Routes.bookingStep3),
+                  onTap: () {},
                   image: 'assets/images/svg/calendar-nav-bar.svg',
                   label: 'booked'.tr(),
                   isSelected: _selectedIndex == 1,
@@ -184,8 +182,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                   isSelected: _selectedIndex == 2,
                 ),
                 NavBarItemWidget(
-                  onTap: () =>
-                      Navigator.pushNamed(context, Routes.appointmentDetail),
+                  onTap: () {},
                   image: 'assets/images/svg/bag-nav-bar.svg',
                   label: 'store'.tr(),
                   isSelected: _selectedIndex == 3,

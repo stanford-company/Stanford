@@ -6,28 +6,11 @@ import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
-import '../../pages/appointment/appointment_detail_page.dart';
-import '../../pages/appointment/my_appointments_page.dart';
-import '../../pages/booking/filter/filter_page.dart';
-import '../../pages/booking/step1/health_concern_page.dart';
-import '../../pages/booking/step2/choose_doctor_page.dart';
-import '../../pages/booking/step3/time_slot_page.dart';
-import '../../pages/booking/step4/patient_details_page.dart';
-import '../../pages/booking/step5/appointment_booked_page.dart';
-import '../../pages/doctor/doctor_profile_page.dart';
-import '../../pages/doctor/my_doctor_list_page.dart';
-import '../../pages/forgot/forgot_password_page.dart';
-import '../../pages/home/home.dart';
+import '../../presentation/main_home/home.dart';
 import '../../pages/language/change_laguage_page.dart';
-import '../../pages/login/login_page.dart';
-import '../../pages/messages/messages_detail_page.dart';
 import '../../pages/notifications/notification_settings_page.dart';
 import '../../pages/notifications/notifications_page.dart';
-import '../../pages/prescription/prescription_detail_page.dart';
-import '../../pages/profile/edit_profile_page.dart';
-import '../../pages/signup/signup_page.dart';
 import '../../pages/splash_page.dart';
-import '../../pages/visit/visit_detail_page.dart';
 import '../../presentation/auth/pages/check_id.dart';
 import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
@@ -57,17 +40,9 @@ class RouteGenerator {
           builder: (_) => CheckIdPage(isForgetPassword: args),
         );
 
-      case Routes.forgotPassword:
-        return CupertinoPageRoute(builder: (_) => ForgotPasswordPage());
-
       case Routes.home:
         return CupertinoPageRoute(builder: (_) => Home());
 
-      case Routes.filter:
-        return CupertinoPageRoute(
-          builder: (_) => FilterPage(),
-          fullscreenDialog: true,
-        );
       case Routes.procedures:
         return CupertinoPageRoute(
           builder: (_) => BlocProvider(
@@ -98,41 +73,12 @@ class RouteGenerator {
       case Routes.bookingStepCity:
         return CupertinoPageRoute(builder: (_) => CityPage());
 
-      case Routes.bookingStep3:
-        return CupertinoPageRoute(builder: (_) => TimeSlotPage());
-
-      case Routes.bookingStep4:
-        return CupertinoPageRoute(builder: (_) => PatientDetailsPage());
-
-      case Routes.bookingStep5:
-        return CupertinoPageRoute(builder: (_) => AppointmentBookedPage());
-
-      case Routes.appointmentDetail:
-        return CupertinoPageRoute(builder: (_) => AppointmentDetailPage());
-
-      case Routes.visitDetail:
-        return CupertinoPageRoute(builder: (_) => VisitDetailPage());
-
-      case Routes.prescriptionDetail:
-        return CupertinoPageRoute(builder: (_) => PrescriptionDetailPage());
-
-      case Routes.chatDetail:
-        return CupertinoPageRoute(builder: (_) => MessagesDetailPage());
-
-      case Routes.doctorProfile:
-        return CupertinoPageRoute(builder: (_) => DoctorProfilePage());
-
-      case Routes.editProfile:
-        return CupertinoPageRoute(builder: (_) => EditProfilePage());
-
       case Routes.changeLanguage:
         return CupertinoPageRoute(builder: (_) => ChangeLanguagePage());
 
       case Routes.notificationSettings:
         return CupertinoPageRoute(builder: (_) => NotificationSettingsPage());
 
-      case Routes.myDoctors:
-        return CupertinoPageRoute(builder: (_) => MyDoctorListPage());
       case Routes.productDetails:
         final args = settings.arguments as SuppliesModel;
 
@@ -140,8 +86,6 @@ class RouteGenerator {
           builder: (_) => ProductDetailsScreen(suppliesModel: args),
         );
 
-      case Routes.myAppointments:
-        return CupertinoPageRoute(builder: (_) => MyAppointmentsPage());
       case Routes.search:
         return CupertinoPageRoute(builder: (_) => SearchPage());
       case Routes.medicalDetails:

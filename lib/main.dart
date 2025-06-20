@@ -7,9 +7,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 import 'package:medapp/presentation/home/bloc/doctor_cubit.dart';
+import 'package:medapp/presentation/settings/bloc/profile_cubit.dart';
 
 import 'blocks/remember_me_bloc.dart';
 import 'common/bloc/bottom_bar_cubit.dart';
+import 'common/helper/cach_helper/cach_helper.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/utils/setup_service.dart';
@@ -20,6 +22,7 @@ import 'presentation/ads/bloc/ads_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await CacheHelper.init();
   Bloc.observer = SimpleBlocObserver();
   setUpServiceLocator();
 
@@ -45,6 +48,7 @@ Future<void> main() async {
         providers: [
           BlocProvider(create: (context) => RememberMeBloc()),
           BlocProvider(create: (context) => AdsCubit()),
+          BlocProvider(create: (context) => ProfileCubit()..getProfile()),
           BlocProvider(create: (context) => ThemeBloc()),
           BlocProvider(create: (context) => DoctorCubit()..getDoctor()),
           BlocProvider(create: (context) => CenterCubit()..getCenter()),

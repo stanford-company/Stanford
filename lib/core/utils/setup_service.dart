@@ -28,6 +28,7 @@ import '../../domain/ads/usecase/ads_usecase.dart';
 import '../../domain/auth/repository/auth_repo.dart';
 import '../../domain/auth/usecase/check_id_usecase.dart';
 import '../../domain/auth/usecase/forgot_password_usecase.dart';
+import '../../domain/auth/usecase/get_profile_usecase.dart';
 import '../../domain/auth/usecase/login_usecase.dart';
 import '../../domain/auth/usecase/register_usecase.dart';
 import '../../domain/category/usecase/category_usecase.dart';
@@ -98,16 +99,15 @@ void setUpServiceLocator() {
 
   // Service
   getIt.registerLazySingleton<SuggestionsService>(
-        () => SuggestionsServiceImp(getIt<ApiService>()),
+    () => SuggestionsServiceImp(getIt<ApiService>()),
   );
 
-// Repository
+  // Repository
   getIt.registerLazySingleton<SuggestionsRepository>(
-        () => SuggestionsRepositoryImp(),
+    () => SuggestionsRepositoryImp(),
   );
 
-// Usecase
-  getIt.registerLazySingleton<SuggestionsUsecase>(
-        () => SuggestionsUsecase(),
-  );
+  // Usecase
+  getIt.registerLazySingleton<SuggestionsUsecase>(() => SuggestionsUsecase());
+  getIt.registerLazySingleton<GetProfileUsecase>(() => GetProfileUsecase());
 }

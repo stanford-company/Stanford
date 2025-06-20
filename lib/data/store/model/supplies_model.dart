@@ -1,9 +1,9 @@
 class SuppliesModel {
   final int id;
   final String nameAr;
-  final String nameEn;
+  final String? nameEn;
   final String descriptionAr;
-  final String descriptionEn;
+  final String? descriptionEn;
   final String price;
   final List<SupplyImage> images;
   final String createdAt;

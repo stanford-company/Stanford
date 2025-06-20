@@ -2,6 +2,7 @@ import 'package:medapp/core/services/api_service.dart';
 import '../model/check_id.dart';
 import '../model/login.dart';
 import '../model/logout.dart';
+import '../model/profile.dart';
 import '../model/register.dart';
 
 abstract class AuthService {
@@ -18,6 +19,7 @@ abstract class AuthService {
     String confirmPassword,
     String password,
   );
+  Future<ProfileModel> getUserProfile();
 }
 
 class AuthServiceImp extends AuthService {
@@ -63,10 +65,7 @@ class AuthServiceImp extends AuthService {
 
   @override
   Future<LogoutModel> logout({required String token}) async {
-    var data = await apiService.post(
-      endPoint: "beneficiaries/logout",
-      body: {},
-    );
+    var data = await apiService.post(endPoint: "beneficiaries/logout");
     return LogoutModel.fromJson(data);
   }
 
@@ -87,5 +86,12 @@ class AuthServiceImp extends AuthService {
 
     print("🔐 Forgot password API raw response: $data");
 
-return data['message'];  }
+    return data['message'];
+  }
+
+  @override
+  Future<ProfileModel> getUserProfile() async {
+    var data = await apiService.get(endPoint: "beneficiaries/profile");
+    return ProfileModel.fromJson(data['data']);
+  }
 }

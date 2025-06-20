@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
+import 'package:medapp/core/constants/const.dart';
 
 import '../core/routes/routes.dart';
 import '../core/utils/app_themes.dart';
@@ -43,7 +45,10 @@ class _SplashPageState extends State<SplashPage>
             : AppTheme.LightTheme,
       ),
     );
-    Navigator.of(context).pushReplacementNamed(Routes.login);
+    print("isLogin =${CacheHelper.getData(key: TextConst.isLogin)}");
+    await CacheHelper.getData(key: TextConst.isLogin) == true
+        ? Navigator.of(context).pushReplacementNamed(Routes.home)
+        : Navigator.of(context).pushReplacementNamed(Routes.login);
   }
 
   @override

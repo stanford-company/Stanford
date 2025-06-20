@@ -7,6 +7,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../../blocks/remember_me_bloc.dart';
 import '../../../common/components/custom_button.dart';
 import '../../../common/components/labeled_text_form_field.dart';
+import '../../../common/helper/cach_helper/cach_helper.dart';
+import '../../../core/constants/const.dart';
 import '../../../core/routes/routes.dart';
 import '../../../data/auth/model/login.dart';
 import '../bloc/login_cubit.dart';
@@ -24,15 +26,16 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         } else if (state is LoginLoaded) {
+          await CacheHelper.saveData(key: TextConst.isLogin, value: true);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.home,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         }
       },
@@ -103,13 +106,13 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             side: MaterialStateBorderSide.resolveWith(
-                                  (states) => BorderSide(
+                              (states) => BorderSide(
                                 color: Color(0xFF80d5b5),
                                 width: 2,
                               ),
                             ),
                             fillColor: MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
+                              (states) {
                                 if (states.contains(MaterialState.selected)) {
                                   return Color(0x6680D5B5);
                                 }
@@ -128,7 +131,8 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               ToggleRememberMe(value ?? false),
                             );
                           },
-                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                         ),
                       ),
@@ -146,7 +150,9 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Routes.signup,arguments: true);
+                  Navigator.of(
+                    context,
+                  ).pushNamed(Routes.signup, arguments: true);
                 },
                 child: Text(
                   'Forgot password?'.tr(),
@@ -174,7 +180,6 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                 },
                 text: 'Login'.tr(),
               );
-
             },
           ),
         ],

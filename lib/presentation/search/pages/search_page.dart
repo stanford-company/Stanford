@@ -1,18 +1,10 @@
-import 'dart:math';
-
-import 'package:easy_localization/easy_localization.dart'
-    show tr, StringTranslateExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medapp/presentation/ads/pages/search_slider_widget.dart';
 import 'package:medapp/presentation/search/bloc/search_cubit.dart';
-
 import '../../../common/components/medical_card.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/routes/routes.dart';
-import '../../../pages/home/widgets/app_bar_title_widget.dart';
+import '../../main_home/widgets/app_bar_title_widget.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -48,7 +40,10 @@ class _SearchPageState extends State<SearchPage> {
             BlocBuilder<SearchCubit, SearchState>(
               builder: (context, state) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16.w,
+                    vertical: 16.h,
+                  ),
                   child: Row(
                     children: [
                       InkWell(
@@ -109,7 +104,8 @@ class _SearchPageState extends State<SearchPage> {
                                   },
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'Search for clinics, doctors, hospitals',
+                                    hintText:
+                                        'Search for clinics, doctors, hospitals',
                                     hintStyle: TextStyle(
                                       color: Colors.grey.shade400,
                                       fontSize: 14.sp,
@@ -156,4 +152,3 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 }
-

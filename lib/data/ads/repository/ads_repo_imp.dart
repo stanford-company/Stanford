@@ -17,14 +17,7 @@ class AdsRepositoryImp extends AdsRepository {
       final data = await adsService.ads(token: token);
       return Right(data);
     } catch (e) {
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
-  }
-
-  Failure _handleError(dynamic e) {
-    if (e is DioException) {
-      return ServerFailure.fromDioError(e);
-    }
-    return ServerFailure(e.toString());
   }
 }

@@ -6,7 +6,7 @@ import 'package:medapp/core/constants/app_colors.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
-import '../../../pages/home/widgets/nav_bar_item_widget.dart';
+import '../../main_home/widgets/nav_bar_item_widget.dart';
 import '../bloc/city_cubit.dart';
 import '../bloc/city_state.dart';
 
@@ -359,7 +359,7 @@ class _CityPageState extends State<CityPage> {
                 ),
                 NavBarItemWidget(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.bookingStep3);
+                    // Navigator.pushNamed(context, Routes.bookingStep3);
                   },
                   image: 'assets/images/svg/calendar-nav-bar.svg',
                   label: 'Booked',
@@ -375,7 +375,7 @@ class _CityPageState extends State<CityPage> {
                 ),
                 NavBarItemWidget(
                   onTap: () {
-                    Navigator.pushNamed(context, Routes.appointmentDetail);
+                    // Navigator.pushNamed(context, Routes.appointmentDetail);
                   },
                   image: 'assets/images/svg/bag-nav-bar.svg',
                   label: 'Store',

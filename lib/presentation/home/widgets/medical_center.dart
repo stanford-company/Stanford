@@ -5,8 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 
 import '../../../common/components/medical_center_list_item.dart';
-import '../../../model/medical_centers.dart';
-import '../../../pages/home/widgets/section_header_widget.dart';
+import '../../main_home/widgets/section_header_widget.dart';
 
 class MedicalCenterWidget extends StatelessWidget {
   const MedicalCenterWidget({super.key});

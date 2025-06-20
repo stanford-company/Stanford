@@ -5,10 +5,11 @@ const kColorDarkBlue = Color(0xff1b3a5e);
 const kColorPink = Color(0xffff748d);
 
 const kInputTextStyle = TextStyle(
-    fontSize: 14,
-    color: Color(0xffbcbcbc),
-    fontWeight: FontWeight.w300,
-    fontFamily: 'NunitoSans');
+  fontSize: 15,
+  color: Colors.black,
+  fontWeight: FontWeight.w500,
+  fontFamily: 'NunitoSans',
+);
 
 const kColorPrimary = Color(0xff2e83f8);
 const kColorPrimaryDark = Color(0xff1b3a5e);

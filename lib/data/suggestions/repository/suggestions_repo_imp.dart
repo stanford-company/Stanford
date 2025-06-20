@@ -13,8 +13,6 @@ import '../service/suggestions.dart';
 import '../../../common/helper/cach_helper/cach_helper.dart';
 
 class SuggestionsRepositoryImp extends SuggestionsRepository {
-  final ApiService apiService = getIt<ApiService>();
-
   @override
   Future<Either<Failure, SuggestionResponse>> suggestions({
     required String title,
@@ -28,27 +26,21 @@ class SuggestionsRepositoryImp extends SuggestionsRepository {
         print('✅ Token saved to CacheHelper');
       } else {
         print('❌ Token is null or empty. Aborting suggestion send.');
-        return Left(ServerFailure("Authentication token is missing. Please log in again."));
+        return Left(
+          ServerFailure(
+            "Authentication token is missing. Please log in again.",
+          ),
+        );
       }
 
-
-      final suggestionResponse = await getIt<SuggestionsService>().sendSuggestion(
-        title,
-        description,
-      );
+      final suggestionResponse = await getIt<SuggestionsService>()
+          .sendSuggestion(title, description);
 
       return Right(suggestionResponse);
     } catch (e, stacktrace) {
       print('❌ ERROR during sendSuggestion: $e');
       print('📍 StackTrace: $stacktrace');
-      return Left(_handleError(e));
+      return Left(ServerFailure(e.toString()));
     }
-  }
-
-  Failure _handleError(dynamic e) {
-    if (e is DioException) {
-      return ServerFailure.fromDioError(e);
-    }
-    return ServerFailure(e.toString());
   }
 }
