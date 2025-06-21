@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 
 import '../../../common/components/medical_center_list_item.dart';
+import '../../../core/routes/routes.dart';
 import '../../main_home/widgets/section_header_widget.dart';
 
 class MedicalCenterWidget extends StatelessWidget {
@@ -26,7 +27,10 @@ class MedicalCenterWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                 child: SectionHeaderWidget(
                   title: 'medical_centers'.tr(),
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pushNamed(
+                    Routes.allMedical,
+                    arguments: state.medicalCenters,
+                  ),
                 ),
               ),
               Container(

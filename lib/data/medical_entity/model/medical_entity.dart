@@ -5,7 +5,7 @@ class MedicalEntityModel {
   final String phone1;
   final String phone2;
   final String email;
-  final String description;
+  final String? description;
   final double latitude;
   final double longitude;
   final City city;
@@ -43,7 +43,9 @@ class MedicalEntityModel {
       latitude: double.tryParse(json['latitude'].toString()) ?? 0.0,
       longitude: double.tryParse(json['longitude'].toString()) ?? 0.0,
       city: City.fromJson(json['city']),
-      entity: json['entity'] != null ? MedicalEntityModel.fromJson(json['entity']) : null,
+      entity: json['entity'] != null
+          ? MedicalEntityModel.fromJson(json['entity'])
+          : null,
       category: Category.fromJson(json['category']),
       images: List<String>.from(json['images'] ?? []),
       createdAt: json['created_at'],
@@ -51,18 +53,12 @@ class MedicalEntityModel {
   }
 }
 
-
-
 class City {
   final int id;
   final String nameAr;
   final String nameEn;
 
-  City({
-    required this.id,
-    required this.nameAr,
-    required this.nameEn,
-  });
+  City({required this.id, required this.nameAr, required this.nameEn});
 
   factory City.fromJson(Map<String, dynamic> json) {
     return City(
@@ -78,11 +74,7 @@ class Category {
   final String nameAr;
   final String nameEn;
 
-  Category({
-    required this.id,
-    required this.nameAr,
-    required this.nameEn,
-  });
+  Category({required this.id, required this.nameAr, required this.nameEn});
 
   factory Category.fromJson(Map<String, dynamic> json) {
     return Category(

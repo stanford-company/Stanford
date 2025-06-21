@@ -8,10 +8,12 @@ import 'package:medapp/data/medical_entity/model/medical_entity.dart';
 
 import '../../core/constants/app_colors.dart';
 import '../../core/routes/routes.dart';
+import '../../data/medical_entity/model/medical_doctor.dart';
 
 class MedicalCard extends StatelessWidget {
-  final MedicalEntityModel medicalEntity;
-  const MedicalCard({super.key, required this.medicalEntity});
+  final MedicalEntityModel? medicalEntity;
+  final MedicalModel? medicalModel;
+  const MedicalCard({super.key, this.medicalEntity, this.medicalModel});
 
   @override
   Widget build(BuildContext context) {
@@ -25,19 +27,24 @@ class MedicalCard extends StatelessWidget {
         contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
         leading: CircleAvatar(
           radius: 26.r,
-          backgroundImage: medicalEntity.images.isNotEmpty
-              ? NetworkImage(medicalEntity.images[0])
+          backgroundImage:
+              medicalEntity?.images.isNotEmpty ??
+                  (medicalModel?.imageUrl.isNotEmpty) ??
+                  false
+              ? NetworkImage(
+                  medicalEntity?.images[0] ?? medicalModel?.imageUrl ?? "",
+                )
               : null,
         ),
         title: Text(
-          medicalEntity.name,
+          medicalEntity?.name ?? medicalModel?.medicalName ?? "",
           style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
         ),
         subtitle: Row(
           children: [
             Expanded(
               child: Text(
-                medicalEntity.description,
+                medicalEntity?.description ?? medicalModel?.description ?? "",
                 style: TextStyle(fontSize: 13.sp, color: Colors.black),
                 overflow: TextOverflow.ellipsis,
               ),
@@ -49,7 +56,10 @@ class MedicalCard extends StatelessWidget {
                 style: TextStyle(fontSize: 13.sp, color: Colors.grey),
               ),
             ),
-            Text(medicalEntity.city.nameAr, style: TextStyle(fontSize: 13.sp)),
+            Text(
+              medicalEntity?.city.nameAr ?? medicalModel?.categoryAr ?? "",
+              style: TextStyle(fontSize: 13.sp),
+            ),
           ],
         ),
         trailing: Container(
@@ -73,7 +83,7 @@ class MedicalCard extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   Routes.medicalDetails,
-                  arguments: medicalEntity,
+                  arguments: medicalEntity ?? medicalModel,
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -16,6 +16,7 @@ import '../../presentation/auth/pages/check_id.dart';
 import '../../presentation/auth/pages/login.dart';
 import '../../presentation/category/pages/step1/health_concern_page.dart';
 import '../../presentation/city/pages/city_page.dart';
+import '../../presentation/medical_entity/pages/all_medicals.dart';
 import '../../presentation/medical_entity/pages/step2/choose_doctor_page.dart';
 import '../../presentation/procedures/bloc/procedures_cubit.dart';
 import '../../presentation/search/pages/search_page.dart';
@@ -114,6 +115,13 @@ class RouteGenerator {
       case Routes.aboutUs:
         return CupertinoPageRoute(
           builder: (_) => AboutUsPage(),
+          fullscreenDialog: true,
+          maintainState: true,
+        );
+      case Routes.allMedical:
+        final args = settings.arguments as List<MedicalModel>;
+        return CupertinoPageRoute(
+          builder: (_) => AllMedicalsPage(medicalDoctors: args),
           fullscreenDialog: true,
           maintainState: true,
         );

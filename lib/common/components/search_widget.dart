@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../core/routes/routes.dart';
+
 class SearchWidget extends StatelessWidget {
   const SearchWidget({super.key});
 
@@ -50,6 +52,7 @@ class SearchWidget extends StatelessWidget {
                   SizedBox(width: 8.w),
                   Expanded(
                     child: TextField(
+                      onTap: () => Navigator.pushNamed(context, Routes.search),
                       textDirection: TextDirection.rtl,
                       decoration: InputDecoration(
                         border: InputBorder.none,

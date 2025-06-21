@@ -23,8 +23,10 @@ class MedicalDoctorWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                 child: SectionHeaderWidget(
                   title: 'Medical authorities'.tr(),
-                  onPressed: () =>
-                      Navigator.of(context).pushNamed(Routes.myDoctors),
+                  onPressed: () => Navigator.of(context).pushNamed(
+                    Routes.allMedical,
+                    arguments: state.medicalDoctors,
+                  ),
                 ),
               ),
               Container(
