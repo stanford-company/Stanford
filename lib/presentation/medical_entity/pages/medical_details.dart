@@ -101,7 +101,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   Text(
-                    'عن الدكتور',
+                    'About Doctor',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16.sp,
@@ -121,7 +121,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'الموقع',
+                    'Location',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.sp,
@@ -188,7 +188,7 @@ class MedicalDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
             child: Center(
               child: Text(
-                'اطلب الآن',
+                'Book now',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.sp,

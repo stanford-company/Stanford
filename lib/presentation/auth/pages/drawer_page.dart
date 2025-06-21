@@ -43,7 +43,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     isSelected: selectedItem == 'home',
                     onTap: () {
                       setState(() => selectedItem = 'home');
-                      Navigator.of(context).pushNamed(Routes.myDoctors);
+                      Navigator.pushNamed(context, '/home');
                     },
                   ),
                   _drawerItem(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MedicalDetailsImages extends StatefulWidget {
   final List<String> images;
@@ -36,7 +37,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
     return Stack(
       children: [
         SizedBox(
-          height: 300,
+          height: 200.h,
           child: PageView.builder(
             controller: _controller,
             scrollDirection: Axis.horizontal,
