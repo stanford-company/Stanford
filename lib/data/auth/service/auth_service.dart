@@ -10,7 +10,7 @@ abstract class AuthService {
 
   Future<UserParams> login(String nationalId, String password);
 
-  Future<LogoutModel> logout({required String token});
+  Future<LogoutModel> logout();
 
   Future<UserParams> register(String nationalId, String email, String password);
 
@@ -64,7 +64,7 @@ class AuthServiceImp extends AuthService {
   }
 
   @override
-  Future<LogoutModel> logout({required String token}) async {
+  Future<LogoutModel> logout() async {
     var data = await apiService.post(endPoint: "beneficiaries/logout");
     return LogoutModel.fromJson(data);
   }

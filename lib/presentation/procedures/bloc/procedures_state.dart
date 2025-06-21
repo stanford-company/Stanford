@@ -1,4 +1,4 @@
- import '../../../data/procedures/model/procedures.dart';
+import '../../../data/app/model/procedures.dart';
 
 sealed class ProcedureState {}
 

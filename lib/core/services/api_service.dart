@@ -23,11 +23,7 @@ class ApiService {
     final response = await _dio.get(
       fullUrl,
       queryParameters: params,
-      options: Options(
-        headers: {
-          "Authorization": "Bearer $token",
-        },
-      ),
+      options: Options(headers: {"Authorization": "Bearer $token"}),
     );
 
     print('✅ [GET] Response: ${response.data}');
@@ -40,7 +36,8 @@ class ApiService {
     Map<String, dynamic>? params,
   }) async {
     final fullUrl = '$baseUrl/$endPoint';
-    final token = CacheHelper.getData(key: TextConst.userToken);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('auth_token');
 
     print('\n🔹 [POST] Request to: $fullUrl');
     print('🔸 Query Parameters: $params');
@@ -51,11 +48,13 @@ class ApiService {
       fullUrl,
       queryParameters: params,
       data: body,
-      options: Options(headers: {
-        "Authorization": "Bearer $token",
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }),
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
     );
 
     print('✅ [POST] Response: ${response.data}');
@@ -64,7 +63,8 @@ class ApiService {
 
   postFormData({required String endPoint, required body}) async {
     final fullUrl = '$baseUrl/$endPoint';
-    final token = CacheHelper.getData(key: TextConst.userToken);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('auth_token');
 
     print('\n🔹 [POST FORM] Request to: $fullUrl');
     print('🔸 Body (FormData): $body');
@@ -73,9 +73,7 @@ class ApiService {
     final response = await _dio.post(
       fullUrl,
       data: FormData.fromMap(body),
-      options: Options(headers: {
-        "Authorization": "Bearer $token",
-      }),
+      options: Options(headers: {"Authorization": "Bearer $token"}),
     );
 
     print('✅ [POST FORM] Response: ${response.data}');
@@ -84,7 +82,8 @@ class ApiService {
 
   putFormData({required String endPoint, required body}) async {
     final fullUrl = '$baseUrl/$endPoint';
-    final token = CacheHelper.getData(key: TextConst.userToken);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('auth_token');
 
     print('\n🔹 [PUT FORM] Request to: $fullUrl');
     print('🔸 Body: $body');
@@ -93,11 +92,13 @@ class ApiService {
     final response = await _dio.put(
       fullUrl,
       data: body,
-      options: Options(headers: {
-        "Authorization": "Bearer $token",
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }),
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
     );
 
     print('✅ [PUT FORM] Response: ${response.data}');
@@ -127,18 +128,21 @@ class ApiService {
 
   delete({required String endPoint}) async {
     final fullUrl = '$baseUrl/$endPoint';
-    final token = CacheHelper.getData(key: TextConst.userToken);
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('auth_token');
 
     print('\n🔹 [DELETE] Request to: $fullUrl');
     print('🔸 Authorization Token: $token');
 
     final response = await _dio.delete(
       fullUrl,
-      options: Options(headers: {
-        "Authorization": "Bearer $token",
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      }),
+      options: Options(
+        headers: {
+          "Authorization": "Bearer $token",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      ),
     );
 
     print('✅ [DELETE] Response: ${response.data}');

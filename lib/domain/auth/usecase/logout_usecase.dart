@@ -5,11 +5,9 @@ import '../../../core/utils/setup_service.dart';
 import '../../../data/auth/model/logout.dart';
 import '../repository/auth_repo.dart';
 
-class LogoutUsecase extends Usecase<Either<Failure, LogoutModel>, String> {
+class LogoutUsecase extends Usecase<Either<Failure, LogoutModel>, dynamic> {
   @override
-  Future<Either<Failure, LogoutModel>> call({required String params}) async {
-    return await getIt<AuthRepository>().logout(token: params);
+  Future<Either<Failure, LogoutModel>> call({dynamic params}) async {
+    return await getIt<AuthRepository>().logout();
   }
 }
-
-

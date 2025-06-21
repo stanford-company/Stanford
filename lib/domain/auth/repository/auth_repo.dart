@@ -25,6 +25,6 @@ abstract class AuthRepository {
     required String confirmPassword,
     required String password,
   });
-  Future<Either<Failure, LogoutModel>> logout({required String token});
+  Future<Either<Failure, LogoutModel>> logout();
   Future<Either<Failure, ProfileModel>> getUserProfile();
 }

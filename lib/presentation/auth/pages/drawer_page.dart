@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
+import 'package:medapp/core/constants/const.dart';
 
 import '../../../core/routes/routes.dart';
 import '../../../core/utils/shared_prefs_service.dart';
@@ -45,10 +47,13 @@ class _DrawerPageState extends State<DrawerPage> {
                     },
                   ),
                   _drawerItem(
-                    label: 'medical_network',
+                    label: 'about-us',
                     icon: 'medical-authorities-drawer-icon',
                     isSelected: selectedItem == 'medical_network',
-                    onTap: () => setState(() => selectedItem = 'medical_network'),
+                    onTap: () {
+                      setState(() => selectedItem = 'medical_network');
+                      Navigator.of(context).pushNamed(Routes.aboutUs);
+                    },
                   ),
                   _drawerItem(
                     label: 'guidelines_list',
@@ -118,60 +123,63 @@ class _DrawerPageState extends State<DrawerPage> {
                         context: context,
                         barrierDismissible: false,
                         builder: (_) {
-                          return BlocProvider(
-                            create: (_) => LogoutCubit(),
-                            child: BlocConsumer<LogoutCubit, LogoutState>(
-                              listener: (context, state) {
-                                if (state is LogoutLoaded) {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                    Routes.login,
-                                        (route) => false,
-                                  );
-                                } else if (state is LogoutFailure) {
-                                  Navigator.of(context).pop(); // Close dialog
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(state.message)),
-                                  );
-                                }
-                              },
-                              builder: (context, state) {
-                                return AlertDialog(
-                                  title: Text('logout'.tr()),
-                                  content: state is LogoutLoading
-                                      ? Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      CircularProgressIndicator(),
-                                      SizedBox(height: 16.h),
-                                      Text('logging_out'.tr()),
-                                    ],
-                                  )
-                                      : Text('logout_confirmation'.tr()),
-                                  actions: [
-                                    if (state is! LogoutLoading)
-                                      TextButton(
-                                        onPressed: () => Navigator.of(context).pop(),
-                                        child: Text('cancel'.tr()),
-                                      ),
+                          return BlocConsumer<LogoutCubit, LogoutState>(
+                            listener: (context, state) {
+                              if (state is LogoutLoaded) {
+                                CacheHelper.removeData(key: TextConst.isLogin);
+                                Navigator.of(context).pushNamedAndRemoveUntil(
+                                  Routes.login,
+                                  (route) => false,
+                                );
+                              } else if (state is LogoutFailure) {
+                                Navigator.of(context).pop(); // Close dialog
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.message)),
+                                );
+                              }
+                            },
+                            builder: (context, state) {
+                              return AlertDialog(
+                                title: Text('logout'.tr()),
+                                content: state is LogoutLoading
+                                    ? Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          CircularProgressIndicator(),
+                                          SizedBox(height: 16.h),
+                                          Text('logging_out'.tr()),
+                                        ],
+                                      )
+                                    : Text('logout_confirmation'.tr()),
+                                actions: [
+                                  if (state is! LogoutLoading)
                                     TextButton(
-                                      onPressed: state is LogoutLoading
-                                          ? null
-                                          : () {
-                                        context.read<LogoutCubit>().logout(token: token);
-                                      },
-                                      child: Text(
-                                        'logout'.tr(),
-                                        style: TextStyle(
-                                          color: state is LogoutLoading
-                                              ? Colors.grey
-                                              : Theme.of(context).colorScheme.error,
-                                        ),
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: Text('cancel'.tr()),
+                                    ),
+                                  TextButton(
+                                    onPressed: state is LogoutLoading
+                                        ? null
+                                        : () {
+                                            context
+                                                .read<LogoutCubit>()
+                                                .logout();
+                                          },
+                                    child: Text(
+                                      'logout'.tr(),
+                                      style: TextStyle(
+                                        color: state is LogoutLoading
+                                            ? Colors.grey
+                                            : Theme.of(
+                                                context,
+                                              ).colorScheme.error,
                                       ),
                                     ),
-                                  ],
-                                );
-                              },
-                            ),
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
                       );
@@ -205,12 +213,12 @@ class _DrawerPageState extends State<DrawerPage> {
           padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 14.w),
           decoration: isSelected
               ? BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30.r),
-              bottomRight: Radius.circular(30.r),
-            ),
-          )
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(30.r),
+                    bottomRight: Radius.circular(30.r),
+                  ),
+                )
               : null,
           child: Row(
             children: [
@@ -228,7 +236,9 @@ class _DrawerPageState extends State<DrawerPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14.sp,
-                    fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                    fontWeight: isSelected
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                     color: isSelected ? selectedColor : unselectedColor,
                   ),
                 ),

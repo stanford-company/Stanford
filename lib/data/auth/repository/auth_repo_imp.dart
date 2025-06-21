@@ -80,9 +80,9 @@ class AuthRepositoryImp extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, LogoutModel>> logout({required String token}) async {
+  Future<Either<Failure, LogoutModel>> logout() async {
     try {
-      final data = await getIt<AuthService>().logout(token: token);
+      final data = await getIt<AuthService>().logout();
       return Right(data);
     } catch (e) {
       return Left(ServerFailure(e.toString()));

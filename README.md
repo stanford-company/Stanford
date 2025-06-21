@@ -1,4 +1,4 @@
-# MedAPP
+# Stanford
 
 A new Flutter project.
 

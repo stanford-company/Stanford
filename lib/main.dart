@@ -5,8 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medapp/presentation/auth/bloc/logout_cubit.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 import 'package:medapp/presentation/home/bloc/doctor_cubit.dart';
+import 'package:medapp/presentation/main_home/bloc/about_us_cubit.dart';
 import 'package:medapp/presentation/settings/bloc/profile_cubit.dart';
 
 import 'blocks/remember_me_bloc.dart';
@@ -53,6 +55,8 @@ Future<void> main() async {
           BlocProvider(create: (context) => DoctorCubit()..getDoctor()),
           BlocProvider(create: (context) => CenterCubit()..getCenter()),
           BlocProvider(create: (context) => BottomBarCubit()),
+          BlocProvider(create: (context) => LogoutCubit()),
+          BlocProvider(create: (context) => AboutUsCubit()..getAboutUs()),
         ],
         child: MyApp(),
       ),

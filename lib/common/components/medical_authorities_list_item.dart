@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 
 import '../../core/routes/routes.dart';
+import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../model/doctor.dart';
 
 class MedicalAuthoritiesListItem extends StatelessWidget {

@@ -8,14 +8,14 @@ part 'logout_state.dart';
 class LogoutCubit extends Cubit<LogoutState> {
   LogoutCubit() : super(LogoutInitial());
 
-  Future<void> logout({required String token}) async {
+  Future<void> logout() async {
     emit(LogoutLoading());
 
-    final result = await getIt<LogoutUsecase>().call(params: token);
+    final result = await getIt<LogoutUsecase>().call();
 
     result.fold(
-          (failure) => emit(LogoutFailure(failure.message)),
-          (logoutModel) => emit(LogoutLoaded(logoutModel)),
+      (failure) => emit(LogoutFailure(failure.message)),
+      (logoutModel) => emit(LogoutLoaded(logoutModel)),
     );
   }
 }

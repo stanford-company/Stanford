@@ -4,14 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/presentation/main_home/widgets/app_bar_title_widget.dart';
 import 'package:medapp/presentation/main_home/widgets/nav_bar_item_widget.dart';
-import '../../common/components/custom_navigation_bar.dart';
-import '../../core/routes/routes.dart';
-import '../auth/pages/drawer_page.dart';
-import '../booked/pages/booked_page.dart';
-import '../category/pages/step1/health_concern_page.dart';
-import '../store/pages/stroe_page.dart';
-import '../settings/pages/settings_page.dart';
-import '../home/pages/home_page.dart';
+import '../../../common/components/custom_navigation_bar.dart';
+import '../../../core/routes/routes.dart';
+import '../../auth/pages/drawer_page.dart';
+import '../../booked/pages/booked_page.dart';
+import '../../category/pages/step1/health_concern_page.dart';
+import '../../store/pages/stroe_page.dart';
+import '../../settings/pages/settings_page.dart';
+import '../../home/pages/home_page.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -143,24 +143,25 @@ class _HomeState extends State<Home> {
                                     ),
                                     onPressed: () {},
                                   )
-                                : IconButton(
-                                    padding: EdgeInsets.zero,
-                                    icon: Container(
-                                      width: 60.w,
-                                      height: 60.h,
-                                      alignment: Alignment.center,
-                                      child: SvgPicture.asset(
-                                        'assets/images/svg/notifications_icon.svg',
-                                        width: 45.w,
-                                        height: 45.h,
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                    onPressed: () => Navigator.pushNamed(
-                                      context,
-                                      Routes.notifications,
-                                    ),
-                                  ),
+                                : SizedBox(),
+                            // IconButton(
+                            //         padding: EdgeInsets.zero,
+                            //         icon: Container(
+                            //           width: 60.w,
+                            //           height: 60.h,
+                            //           alignment: Alignment.center,
+                            //           child: SvgPicture.asset(
+                            //             'assets/images/svg/notifications_icon.svg',
+                            //             width: 45.w,
+                            //             height: 45.h,
+                            //             fit: BoxFit.contain,
+                            //           ),
+                            //         ),
+                            //         onPressed: () => Navigator.pushNamed(
+                            //           context,
+                            //           Routes.notifications,
+                            //         ),
+                            //       ),
                           ],
                         ),
                       ],

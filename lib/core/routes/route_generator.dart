@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medapp/presentation/main_home/pages/about_us.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
-import '../../presentation/main_home/home.dart';
+import '../../presentation/main_home/pages/home.dart';
 import '../../pages/language/change_laguage_page.dart';
 import '../../pages/notifications/notification_settings_page.dart';
 import '../../pages/notifications/notifications_page.dart';
@@ -107,6 +108,12 @@ class RouteGenerator {
       case Routes.notifications:
         return CupertinoPageRoute(
           builder: (_) => NotificationsPage(),
+          fullscreenDialog: true,
+          maintainState: true,
+        );
+      case Routes.aboutUs:
+        return CupertinoPageRoute(
+          builder: (_) => AboutUsPage(),
           fullscreenDialog: true,
           maintainState: true,
         );
