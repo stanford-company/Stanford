@@ -137,7 +137,7 @@ class LoginPage extends StatelessWidget {
                             child: Column(
                               children: [
                                 Text(
-                                  'Log in'.tr(),
+                                  'log_in'.tr(),
                                   style: TextStyle(
                                     fontSize: 24.sp,
                                     fontWeight: FontWeight.w700,
@@ -146,7 +146,7 @@ class LoginPage extends StatelessWidget {
                                 ),
                                 SizedBox(height: 8.h),
                                 Text(
-                                  'Log in to your Stanford account'.tr(),
+                                  'log_in_to_your_stanford_account'.tr(),
                                   style: TextStyle(
                                     fontSize: 16.sp,
                                     color: Colors.grey[600],
@@ -162,7 +162,7 @@ class LoginPage extends StatelessWidget {
                             child: Wrap(
                               children: [
                                 Text(
-                                  'Don\'t have an account? '.tr(),
+                                  'dont_have_an_account'.tr(),
                                   style: TextStyle(
                                     color: Color(0xffbcbcbc),
                                     fontSize: 14.sp,
@@ -175,7 +175,7 @@ class LoginPage extends StatelessWidget {
                                     ).pushNamed(Routes.signup);
                                   },
                                   child: Text(
-                                    'Register now'.tr(),
+                                    'register_now'.tr(),
                                     style: TextStyle(
                                       color: Color(0xFF1b8064),
                                       fontWeight: FontWeight.bold,

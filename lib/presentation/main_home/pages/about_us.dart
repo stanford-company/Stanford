@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/core/constants/app_colors.dart';
@@ -33,14 +34,8 @@ class AboutUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subCompanies = [
-      {'name': 'فرع الرياض', 'image': 'assets/riyadh.png'},
-      {'name': 'فرع جدة', 'image': 'assets/jeddah.png'},
-      {'name': 'فرع عمان', 'image': 'assets/amman.png'},
-    ];
-
     return Scaffold(
-      appBar: AppBar(title: const Text('من نحن')),
+      appBar: AppBar(title: Text('about_us'.tr())),
       body: BlocBuilder<AboutUsCubit, AboutUsState>(
         builder: (context, state) {
           if (state is AboutUsLoadingState) {
@@ -55,7 +50,9 @@ class AboutUsPage extends StatelessWidget {
                   Center(child: Image.asset('assets/images/launcher_ic.png')),
                   const SizedBox(height: 20),
                   Text(
-                    state.aboutUsModel.addressAr,
+                    context.locale.languageCode == 'en'
+                        ? state.aboutUsModel.addressEn
+                        : state.aboutUsModel.addressAr,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -103,10 +100,10 @@ class AboutUsPage extends StatelessWidget {
                   const SizedBox(height: 30),
 
                   // Sub Companies (horizontal ListView)
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'ضباط الارتباط:',
+                      'liaison_officers'.tr(),
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -122,7 +119,6 @@ class AboutUsPage extends StatelessWidget {
                       itemCount: state.aboutUsModel.officers.length,
                       separatorBuilder: (_, __) => const SizedBox(width: 12),
                       itemBuilder: (context, index) {
-                        final sub = subCompanies[index];
                         return Container(
                           // width: 100,
                           padding: const EdgeInsets.all(8),
@@ -130,20 +126,15 @@ class AboutUsPage extends StatelessWidget {
                             border: Border.all(color: AppColors.green),
                             color: AppColors.light_grey_color,
                             borderRadius: BorderRadius.circular(12),
-                            // boxShadow: [
-                            //   BoxShadow(
-                            //     color: Colors.grey.withOpacity(0.3),
-                            //     blurRadius: 6,
-                            //     offset: const Offset(2, 2),
-                            //   ),
-                            // ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               const SizedBox(height: 8),
                               Text(
-                                state.aboutUsModel.officers[index].nameAr,
+                                context.locale.languageCode == 'en'
+                                    ? state.aboutUsModel.officers[index].nameEn
+                                    : state.aboutUsModel.officers[index].nameAr,
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.w800,
@@ -152,7 +143,15 @@ class AboutUsPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                state.aboutUsModel.officers[index].addressAr,
+                                context.locale.languageCode == 'en'
+                                    ? state
+                                          .aboutUsModel
+                                          .officers[index]
+                                          .addressEn
+                                    : state
+                                          .aboutUsModel
+                                          .officers[index]
+                                          .addressAr,
                                 style: const TextStyle(fontSize: 18),
                                 textAlign: TextAlign.center,
                               ),

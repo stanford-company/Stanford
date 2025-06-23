@@ -47,7 +47,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     },
                   ),
                   _drawerItem(
-                    label: 'about-us',
+                    label: 'about_us',
                     icon: 'medical-authorities-drawer-icon',
                     isSelected: selectedItem == 'medical_network',
                     onTap: () {

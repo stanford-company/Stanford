@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/routes/routes.dart';
@@ -32,7 +33,9 @@ class StoreCard extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              suppliesModel.nameAr,
+              context.locale.languageCode == "en"
+                  ? suppliesModel.nameEn ?? ""
+                  : suppliesModel.nameAr ?? "",
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 color: Color(0xff113F4E),

@@ -43,10 +43,10 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           LabeledTextFormField(
-            title: 'National ID'.tr(),
+            title: 'national_id'.tr(),
             controller: _nationalIdController,
             keyboardType: TextInputType.number,
-            hintText: 'National ID',
+            hintText: 'national_id'.tr(),
             prefixIcon: SizedBox(
               width: 48.w,
               height: 48.h,
@@ -63,7 +63,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
           ),
           SizedBox(height: 16.h),
           LabeledTextFormField(
-            title: 'Password'.tr(),
+            title: 'password'.tr(),
             controller: _passwordController,
             obscureText: _obscurePassword,
             hintText: '* * * * * *',
@@ -137,7 +137,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                         ),
                       ),
                       Text(
-                        'Remember me'.tr(),
+                        'remember_me'.tr(),
                         style: TextStyle(
                           fontSize: 12.sp,
                           color: Colors.grey[700],
@@ -155,7 +155,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                   ).pushNamed(Routes.signup, arguments: true);
                 },
                 child: Text(
-                  'Forgot password?'.tr(),
+                  'forgot_password'.tr(),
                   style: TextStyle(
                     fontSize: 12.sp,
                     color: Color(0xFF1B8064),
@@ -178,7 +178,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                     password: _passwordController.text.trim(),
                   );
                 },
-                text: 'Login'.tr(),
+                text: 'login'.tr(),
               );
             },
           ),

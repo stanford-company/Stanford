@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/core/constants/app_colors.dart';
@@ -92,7 +93,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           SizedBox(width: 4),
                           Text(
-                            'Currently Available',
+                            'currently_available'.tr(),
                             style: TextStyle(
                               color: AppColors.green,
                               fontWeight: FontWeight.w400,
@@ -117,7 +118,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   Row(
                     children: [
                       Text(
-                        widget.suppliesModel.nameAr,
+                        context.locale.languageCode == "en"
+                            ? widget.suppliesModel.nameEn ?? ""
+                            : widget.suppliesModel.nameAr ?? "",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -164,7 +167,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                   // Product Details
                   Text(
-                    'تفاصيل المنتج',
+                    'product_details'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16.sp,
@@ -172,7 +175,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    widget.suppliesModel.descriptionAr,
+                    context.locale.languageCode == "en"
+                        ? widget.suppliesModel.descriptionEn ?? ""
+                        : widget.suppliesModel.descriptionAr ?? "",
                     style: TextStyle(
                       color: Color(0xff6A717E),
                       fontWeight: FontWeight.w400,
@@ -216,7 +221,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          'اطلب الآن',
+                          'book_now'.tr(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16.sp,

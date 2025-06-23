@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -61,7 +62,9 @@ class MedicalAuthoritiesListItem extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             Text(
-              doctor.categoryEn,
+              context.locale.languageCode == 'en'
+                  ? doctor.categoryEn
+                  : doctor.categoryAr,
               style: TextStyle(
                 color: Color(0xff6A717E),
                 fontSize: 12.sp,

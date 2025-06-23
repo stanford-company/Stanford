@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -207,31 +208,31 @@ class _HomeState extends State<Home> {
                         NavBarItemWidget(
                           onTap: () => _selectPage(0),
                           image: 'assets/images/svg/home-nav-bar.svg',
-                          label: 'Home',
+                          label: 'home'.tr(),
                           isSelected: _selectedIndex == 0,
                         ),
                         NavBarItemWidget(
                           onTap: () => _selectPage(1),
                           image: 'assets/images/svg/calendar-nav-bar.svg',
-                          label: 'Booked',
+                          label: 'booked'.tr(),
                           isSelected: _selectedIndex == 1,
                         ),
                         NavBarItemWidget(
                           onTap: () => _selectPage(2),
                           image: 'assets/images/svg/appointment-nav-bar.svg',
-                          label: 'Book now',
+                          label: 'book_now'.tr(),
                           isSelected: _selectedIndex == 2,
                         ),
                         NavBarItemWidget(
                           onTap: () => _selectPage(3),
                           image: 'assets/images/svg/bag-nav-bar.svg',
-                          label: 'Store',
+                          label: 'store'.tr(),
                           isSelected: _selectedIndex == 3,
                         ),
                         NavBarItemWidget(
                           onTap: () => _selectPage(4),
                           image: 'assets/images/svg/menu-nav-bar.svg',
-                          label: 'Settings',
+                          label: 'settings'.tr(),
                           isSelected: _selectedIndex == 4,
                         ),
                       ],

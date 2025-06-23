@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -62,7 +63,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                       ),
                       SizedBox(width: 4),
                       Text(
-                        'Currently Available',
+                        'currently_available'.tr(),
                         style: TextStyle(
                           color: AppColors.green,
                           fontWeight: FontWeight.w400,
@@ -80,28 +81,32 @@ class MedicalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        "assets/images/svg/phone.svg",
-                        width: 13.w,
-                      ),
-                      SizedBox(width: 5.w),
-                      Text(
-                        medicalEntity?.phone1 ?? "",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.green,
-                          decoration: TextDecoration.underline,
-                          fontSize: 14.sp,
-                          decorationColor: AppColors.green,
+                  if ((medicalEntity?.phone1 != null &&
+                          medicalEntity!.phone1.isNotEmpty) ||
+                      (medicalEntity?.phone2 != null &&
+                          medicalEntity!.phone2.isNotEmpty))
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          "assets/images/svg/phone.svg",
+                          width: 13.w,
                         ),
-                      ),
-                    ],
-                  ),
+                        SizedBox(width: 5.w),
+                        Text(
+                          medicalEntity?.phone1 ?? medicalEntity?.phone2 ?? "",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.green,
+                            decoration: TextDecoration.underline,
+                            fontSize: 14.sp,
+                            decorationColor: AppColors.green,
+                          ),
+                        ),
+                      ],
+                    ),
                   SizedBox(height: 8),
                   Text(
-                    'About Doctor',
+                    'about_doctor'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16.sp,
@@ -121,16 +126,13 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16),
                   Text(
-                    'Location',
+                    'location'.tr(),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 16.sp,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    'عمان - حي الرضوان - مقابل حلويات جيبلة - الطابق الثالث',
-                  ),
+
                   SizedBox(height: 16),
                 ],
               ),
@@ -188,7 +190,7 @@ class MedicalDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
             child: Center(
               child: Text(
-                'Book now',
+                'book_now'.tr(),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 16.sp,

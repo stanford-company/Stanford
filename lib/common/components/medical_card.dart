@@ -57,7 +57,13 @@ class MedicalCard extends StatelessWidget {
               ),
             ),
             Text(
-              medicalEntity?.city.nameAr ?? medicalModel?.categoryAr ?? "",
+              (context.locale.languageCode == 'en'
+                      ? medicalEntity?.city.nameEn
+                      : medicalEntity?.city.nameAr) ??
+                  (context.locale.languageCode == 'en'
+                      ? medicalModel?.categoryEn
+                      : medicalModel?.categoryAr) ??
+                  "",
               style: TextStyle(fontSize: 13.sp),
             ),
           ],
@@ -126,7 +132,7 @@ class MedicalCard extends StatelessWidget {
                       ),
                       child: Center(
                         child: Transform.rotate(
-                          angle: pi,
+                          angle: context.locale.languageCode == 'ar' ? 0 : pi,
                           child: SvgPicture.asset(
                             'assets/images/svg/single_arrow.svg',
                             width: 10.w,

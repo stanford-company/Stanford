@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/presentation/auth/bloc/check_id_cubit.dart';
@@ -25,7 +26,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-  TextEditingController();
+      TextEditingController();
 
   bool showFullForm = false;
 
@@ -74,11 +75,13 @@ class _CheckIdPageState extends State<CheckIdPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(content: Text("Password updated successfully")),
                   );
-                  Navigator.of(context).pushNamedAndRemoveUntil(Routes.login, (route) => false);
+                  Navigator.of(
+                    context,
+                  ).pushNamedAndRemoveUntil(Routes.login, (route) => false);
                 } else if (state is ForgotPasswordFailure) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
+                  ScaffoldMessenger.of(
+                    context,
+                  ).showSnackBar(SnackBar(content: Text(state.message)));
                 }
               },
             ),
@@ -108,7 +111,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      'Create Account',
+                                      'create_account'.tr(),
                                       style: TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.w700,
@@ -118,8 +121,10 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                     SizedBox(height: 8),
                                     Text(
                                       showFullForm
-                                          ? 'Complete your details to register'
-                                          : 'Enter your National ID to continue',
+                                          ? 'complete_your_details_to_register'
+                                                .tr()
+                                          : 'enter_your_national_id_to_continue'
+                                                .tr(),
                                       style: TextStyle(
                                         fontSize: 16,
                                         color: Colors.grey[600],
@@ -132,13 +137,13 @@ class _CheckIdPageState extends State<CheckIdPage> {
                               TextFormField(
                                 controller: _nationalIdController,
                                 decoration: InputDecoration(
-                                  labelText: 'National ID',
+                                  labelText: 'national_id'.tr(),
                                   border: OutlineInputBorder(),
                                 ),
                                 enabled: !showFullForm,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
-                                    return 'Please enter your national ID';
+                                    return 'please_enter_your_national_id'.tr();
                                   }
                                   return null;
                                 },
@@ -170,7 +175,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                         context,
                                       ).pushNamedAndRemoveUntil(
                                         Routes.login,
-                                            (Route<dynamic> route) => false,
+                                        (Route<dynamic> route) => false,
                                       );
                                     }
                                   }
@@ -180,23 +185,25 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                     return Column(
                                       children: [
                                         if (checkIdState
-                                            .checkIdModel
-                                            .signUpStatus ==
-                                            "no" &&
+                                                    .checkIdModel
+                                                    .signUpStatus ==
+                                                "no" &&
                                             !widget.isForgetPassword) ...[
                                           TextFormField(
                                             controller: _emailController,
                                             decoration: InputDecoration(
-                                              labelText: 'Email',
+                                              labelText: 'email'.tr(),
                                               border: OutlineInputBorder(),
                                             ),
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter your email';
+                                                return 'please_enter_your_email'
+                                                    .tr();
                                               }
                                               if (!value.contains('@')) {
-                                                return 'Please enter a valid email';
+                                                return 'please_enter_a_valid_email'
+                                                    .tr();
                                               }
                                               return null;
                                             },
@@ -206,39 +213,43 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                             controller: _passwordController,
                                             obscureText: true,
                                             decoration: InputDecoration(
-                                              labelText: 'Password',
+                                              labelText: 'password'.tr(),
                                               border: OutlineInputBorder(),
                                             ),
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter a password';
+                                                return 'please_enter_password'
+                                                    .tr();
                                               }
                                               if (value.length < 6) {
-                                                return 'Password must be at least 6 characters';
+                                                return 'password_min_length'
+                                                    .tr();
                                               }
                                               return null;
                                             },
                                           ),
                                         ],
                                         if (checkIdState
-                                            .checkIdModel
-                                            .signUpStatus ==
-                                            "yes" &&
+                                                    .checkIdModel
+                                                    .signUpStatus ==
+                                                "yes" &&
                                             widget.isForgetPassword) ...[
                                           TextFormField(
                                             controller: _passwordController,
                                             decoration: InputDecoration(
-                                              labelText: 'Password',
+                                              labelText: 'password'.tr(),
                                               border: OutlineInputBorder(),
                                             ),
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter a password';
+                                                return 'please_enter_password'
+                                                    .tr();
                                               }
                                               if (value.length < 6) {
-                                                return 'Password must be at least 6 characters';
+                                                return 'password_min_length'
+                                                    .tr();
                                               }
                                               return null;
                                             },
@@ -246,21 +257,24 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                           SizedBox(height: 20),
                                           TextFormField(
                                             controller:
-                                            _confirmPasswordController,
+                                                _confirmPasswordController,
                                             obscureText: true,
                                             decoration: InputDecoration(
-                                              labelText: 'Confirm Password',
+                                              labelText: 'confirm_password'
+                                                  .tr(),
                                               border: OutlineInputBorder(),
                                             ),
                                             validator: (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please enter a password';
+                                                return 'please_enter_password'
+                                                    .tr();
                                               }
                                               if (_passwordController.text !=
                                                   _confirmPasswordController
                                                       .text) {
-                                                return 'confirm password not the same password';
+                                                return 'confirm_password_not_same'
+                                                    .tr();
                                               }
                                               return null;
                                             },
@@ -280,7 +294,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                     );
                                   if (state is CheckIdLoaded)
                                     return CustomButton(
-                                      text: 'Submit',
+                                      text: 'submit'.tr(),
                                       onPressed: () async {
                                         print('object');
                                         final nationalId = _nationalIdController
@@ -296,15 +310,15 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                             context
                                                 .read<ForgotPasswordCubit>()
                                                 .forgotPassword(
-                                              nationalId: nationalId,
-                                              password: _passwordController
-                                                  .text
-                                                  .trim(),
-                                              confirmPassword:
-                                              _confirmPasswordController
-                                                  .text
-                                                  .trim(),
-                                            );
+                                                  nationalId: nationalId,
+                                                  password: _passwordController
+                                                      .text
+                                                      .trim(),
+                                                  confirmPassword:
+                                                      _confirmPasswordController
+                                                          .text
+                                                          .trim(),
+                                                );
                                           }
 
                                           if (!widget.isForgetPassword &&
@@ -313,19 +327,19 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                             context
                                                 .read<RegisterCubit>()
                                                 .register(
-                                              nationalId: nationalId,
-                                              email: _emailController.text
-                                                  .trim(),
-                                              password: _passwordController
-                                                  .text
-                                                  .trim(),
-                                            );
+                                                  nationalId: nationalId,
+                                                  email: _emailController.text
+                                                      .trim(),
+                                                  password: _passwordController
+                                                      .text
+                                                      .trim(),
+                                                );
                                           }
                                         }
                                       },
                                     );
                                   return CustomButton(
-                                    text: 'Continue',
+                                    text: 'continue'.tr(),
                                     onPressed: () async {
                                       final nationalId = _nationalIdController
                                           .text
@@ -343,17 +357,16 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                 child: Wrap(
                                   children: [
                                     Text(
-                                      'Already have an account? ',
+                                      'already_have_an_account'.tr(),
                                       style: TextStyle(
                                         color: Color(0xffbcbcbc),
                                         fontSize: 14,
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () =>
-                                          Navigator.of(context).pop(),
+                                      onTap: () => Navigator.of(context).pop(),
                                       child: Text(
-                                        'Login',
+                                        'login'.tr(),
                                         style: TextStyle(
                                           color: Color(0xFF1b8064),
                                           fontWeight: FontWeight.bold,

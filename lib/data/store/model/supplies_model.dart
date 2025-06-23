@@ -1,8 +1,8 @@
 class SuppliesModel {
   final int id;
-  final String nameAr;
+  final String? nameAr;
   final String? nameEn;
-  final String descriptionAr;
+  final String? descriptionAr;
   final String? descriptionEn;
   final String price;
   final List<SupplyImage> images;
@@ -10,10 +10,10 @@ class SuppliesModel {
 
   SuppliesModel({
     required this.id,
-    required this.nameAr,
-    required this.nameEn,
-    required this.descriptionAr,
-    required this.descriptionEn,
+    this.nameAr,
+    this.nameEn,
+    this.descriptionAr,
+    this.descriptionEn,
     required this.price,
     required this.images,
     required this.createdAt,

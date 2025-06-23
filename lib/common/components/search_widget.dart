@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as x;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -53,10 +55,10 @@ class SearchWidget extends StatelessWidget {
                   Expanded(
                     child: TextField(
                       onTap: () => Navigator.pushNamed(context, Routes.search),
-                      textDirection: TextDirection.rtl,
+                      textDirection: x.TextDirection.rtl,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Search for clinics, doctors, hospitals',
+                        hintText: 'search_for_clinics_doctors_hospitals'.tr(),
                         hintStyle: TextStyle(
                           color: Colors.grey.shade400,
                           fontSize: 14.sp,

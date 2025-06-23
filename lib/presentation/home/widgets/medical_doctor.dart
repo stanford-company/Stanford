@@ -22,7 +22,7 @@ class MedicalDoctorWidget extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                 child: SectionHeaderWidget(
-                  title: 'Medical authorities'.tr(),
+                  title: 'medical_authorities'.tr(),
                   onPressed: () => Navigator.of(context).pushNamed(
                     Routes.allMedical,
                     arguments: state.medicalDoctors,
