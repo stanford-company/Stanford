@@ -71,7 +71,7 @@ class City {
 
 class Category {
   final int id;
-  final String nameAr;
+  final String nameAr; 
   final String nameEn;
 
   Category({required this.id, required this.nameAr, required this.nameEn});

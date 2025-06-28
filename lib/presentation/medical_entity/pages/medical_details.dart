@@ -113,10 +113,17 @@ class MedicalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-
+                  Text(
+                        medicalModel?.description ??
+                        "",
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.grey,
+                    ),
+                  ),
                   Text(
                     medicalEntity?.description ??
-                        medicalModel?.description ??
                         "",
                     style: TextStyle(
                       fontSize: 14,

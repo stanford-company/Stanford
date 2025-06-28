@@ -30,7 +30,7 @@ class MedicalModel {
       id: json['id'],
       title: json['title'],
       medicalName: json['medical_name'],
-      description: json['description'],
+      description: json[' '],
       status: json['status'],
       startDate: json['start_date'],
       endDate: json['end_date'],
