@@ -82,9 +82,9 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   if ((medicalEntity?.phone1 != null &&
-                          medicalEntity!.phone1.isNotEmpty) ||
+                          medicalEntity!.phone1!.isNotEmpty) ||
                       (medicalEntity?.phone2 != null &&
-                          medicalEntity!.phone2.isNotEmpty))
+                          medicalEntity!.phone2!.isNotEmpty))
                     Row(
                       children: [
                         SvgPicture.asset(

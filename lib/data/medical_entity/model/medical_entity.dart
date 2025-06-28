@@ -2,12 +2,12 @@ class MedicalEntityModel {
   final int id;
   final String name;
   final String address;
-  final String phone1;
-  final String phone2;
-  final String email;
+  final String? phone1;
+  final String? phone2;
+  final String ?email;
   final String? description;
-  final double latitude;
-  final double longitude;
+  final double ?latitude;
+  final double ?longitude;
   final City city;
   final MedicalEntityModel? entity;
   final Category category;
@@ -18,11 +18,11 @@ class MedicalEntityModel {
     required this.id,
     required this.name,
     required this.address,
-    required this.phone1,
-    required this.phone2,
-    required this.email,
-    required this.description,
-    required this.latitude,
+      this.phone1,
+      this.phone2,
+      this.email,
+      this.description,
+      this.latitude,
     required this.longitude,
     required this.city,
     required this.category,

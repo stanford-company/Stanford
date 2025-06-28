@@ -3,20 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../bloc/about_us_cubit.dart';
 
 class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
 
-  void _callCompany(String companyPhone) async {
-    final uri = Uri.parse('tel:$companyPhone');
+  Future<void> _callCompany(String phoneNumber) async {
+    final formattedNumber = phoneNumber.trim().startsWith('0')
+        ? phoneNumber.trim().replaceFirst('0', '+962')
+        : phoneNumber.trim();
+
+    final Uri uri = Uri(scheme: 'tel', path: formattedNumber);
+
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      throw 'Could not launch $uri';
+      debugPrint('Could not launch $uri');
     }
   }
+
+
+
 
   void _mailCompany(String mail) async {
     final Uri emailLaunchUri = Uri(
@@ -80,7 +87,7 @@ class AboutUsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   GestureDetector(
-                    onTap: () => _callCompany,
+                    onTap: () => _callCompany(state.aboutUsModel.phone1),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
