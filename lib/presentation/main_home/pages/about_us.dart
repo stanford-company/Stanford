@@ -9,19 +9,19 @@ class AboutUsPage extends StatelessWidget {
   const AboutUsPage({super.key});
 
   Future<void> _callCompany(String phoneNumber) async {
-    if (phoneNumber.trim().isEmpty) {
-      debugPrint('Phone number is empty');
-      return;
-    }
+    final formattedNumber = phoneNumber.trim().startsWith('0')
+        ? phoneNumber.trim().replaceFirst('0', '+962')
+        : phoneNumber.trim();
 
-    final Uri uri = Uri(scheme: 'tel', path: phoneNumber);
+    final Uri uri = Uri(scheme: 'tel', path: formattedNumber);
 
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
       debugPrint('Could not launch $uri');
     }
   }
+
 
 
 
