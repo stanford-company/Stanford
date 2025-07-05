@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medapp/core/errors/failure.dart';
+import 'package:medapp/data/medical_entity/model/appointment_params.dart';
 import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 import 'package:medapp/data/medical_entity/service/medical_service.dart';
 import '../../../core/utils/setup_service.dart';
@@ -66,6 +67,23 @@ class MedicalRepositoryImp extends MedicalRepository {
         name: name,
       );
       return Right(medicalDoctors);
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDioError(e));
+      }
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> setAppointment({
+    required AppointmentParams params,
+  }) async {
+    try {
+      final String data = await getIt<MedicalService>().setAppointment(
+        params: params,
+      );
+      return Right(data);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDioError(e));

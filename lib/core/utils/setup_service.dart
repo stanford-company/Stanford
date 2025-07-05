@@ -39,6 +39,7 @@ import '../../domain/city/usecase/city_usecase.dart';
 import '../../domain/medical_entity/usecase/get_medical_centers.dart';
 import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
 import '../../domain/medical_entity/usecase/medical_search.dart';
+import '../../domain/medical_entity/usecase/set_appointment.dart';
 import '../../domain/suggestions/repository/suggestions_repo.dart';
 import '../../domain/suggestions/usecase/suggestions_usecase.dart';
 import '../../domain/store/usecase/get_supplies_usecase.dart';
@@ -109,4 +110,7 @@ void setUpServiceLocator() {
   getIt.registerLazySingleton<SuggestionsUsecase>(() => SuggestionsUsecase());
   getIt.registerLazySingleton<GetProfileUsecase>(() => GetProfileUsecase());
   getIt.registerLazySingleton<GetAboutUsUsecase>(() => GetAboutUsUsecase());
+  getIt.registerLazySingleton<SetAppointmentUseCase>(
+    () => SetAppointmentUseCase(),
+  );
 }

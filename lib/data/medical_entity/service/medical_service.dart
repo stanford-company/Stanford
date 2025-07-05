@@ -1,5 +1,6 @@
 import 'package:medapp/core/services/api_service.dart';
 
+import '../model/appointment_params.dart';
 import '../model/medical_doctor.dart';
 import '../model/medical_entity.dart';
 
@@ -13,6 +14,7 @@ abstract class MedicalService {
   Future<List<MedicalModel>> getMedicalDoctor();
   Future<List<MedicalModel>> getMedicalCenter();
   Future<List<MedicalEntityModel>> medicalSearch({required String name});
+  Future<String> setAppointment({required AppointmentParams params});
 }
 
 class MedicalServiceImp extends MedicalService {
@@ -83,5 +85,16 @@ class MedicalServiceImp extends MedicalService {
       medicalEntity.add(MedicalEntityModel.fromJson(medical));
     }
     return medicalEntity;
+  }
+
+  @override
+  Future<String> setAppointment({required AppointmentParams params}) async {
+    print(params.toJson());
+    var data = await apiService.post(
+      endPoint: "appointments/store",
+      params: params.toJson(),
+    );
+    print(data);
+    return data['message'];
   }
 }

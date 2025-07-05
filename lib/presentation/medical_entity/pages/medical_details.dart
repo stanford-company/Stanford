@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:medapp/common/components/basic_app_button.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details_images.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/constants/app_colors.dart' show AppColors;
 import '../../../data/medical_entity/model/medical_doctor.dart';
 import '../../../data/medical_entity/model/medical_entity.dart';
+import 'appointment_screen.dart';
 
 class MedicalDetailsScreen extends StatelessWidget {
   final MedicalEntityModel? medicalEntity;
@@ -158,47 +160,19 @@ class MedicalDetailsScreen extends StatelessWidget {
       // Book Now Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Container(
-          width: 360.w,
-          height: 48.h,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF29A07B), Color(0xFF1B8064)],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-            border: Border.all(color: Color(0xFF156752), width: 1),
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                // outer shadow
-                color: Color(0x80156752), // #15675280
-                offset: Offset(0, 2),
-                blurRadius: 4,
-              ),
-              BoxShadow(
-                // inner inset shadow
-                color: Color(0x66FFFFFF), // #FFFFFF40
-                offset: Offset(0, 2),
-                blurRadius: 0,
-                spreadRadius: 1,
-                // requires flutter_inset_box_shadow
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
-            child: Center(
-              child: Text(
-                'book_now'.tr(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
+        child: BasicAppButton(
+          text: "book_now",
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppointmentScreen(
+                  medicalModel: medicalModel,
+                  medicalEntity: medicalEntity,
                 ),
               ),
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
