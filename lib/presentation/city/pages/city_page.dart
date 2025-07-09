@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../common/components/arrow_back_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
 import '../../main_home/widgets/nav_bar_item_widget.dart';
@@ -78,21 +79,7 @@ class _CityPageState extends State<CityPage> {
                   elevation: 0,
                   automaticallyImplyLeading: false,
                   toolbarHeight: 60.h,
-                  leading: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Container(
-                      alignment: Alignment.center,
-                      child: SvgPicture.asset(
-                        'assets/images/svg/arrow_back.svg',
-                        width: 45.w,
-                        height: 45.h,
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
+                  leading: ArrowBackWidget(),
                   title: Text(
                     "Book an appointment",
                     style: TextStyle(color: Color(0xff113f4e)),

@@ -1,54 +1,66 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../presentation/medical_entity/bloc/appointment_cubit.dart';
 
 class BasicAppButton extends StatelessWidget {
   final Function()? onTap;
   final String text;
-  const BasicAppButton({super.key, this.onTap, required this.text});
+  final bool isEnabled;
+
+  const BasicAppButton({
+    super.key,
+    this.onTap,
+    required this.text,
+    this.isEnabled = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isEnabled ? onTap : null,
       child: Container(
         width: 360.w,
         height: 48.h,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
+          gradient: isEnabled
+              ? const LinearGradient(
             colors: [Color(0xFF29A07B), Color(0xFF1B8064)],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
+          )
+              : null,
+          color: isEnabled ? null : const Color(0xFFBDBDBD),
+          border: Border.all(
+            color: isEnabled ? const Color(0xFF156752) : const Color(0xFF9E9E9E),
+            width: 1,
           ),
-          border: Border.all(color: Color(0xFF156752), width: 1),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              // outer shadow
-              color: Color(0x80156752), // #15675280
+          boxShadow: isEnabled
+              ? [
+            const BoxShadow(
+              color: Color(0x80156752),
               offset: Offset(0, 2),
               blurRadius: 4,
             ),
-            BoxShadow(
-              // inner inset shadow
-              color: Color(0x66FFFFFF), // #FFFFFF40
+            const BoxShadow(
+              color: Color(0x66FFFFFF),
               offset: Offset(0, 2),
               blurRadius: 0,
               spreadRadius: 1,
-              // requires flutter_inset_box_shadow
             ),
-          ],
+          ]
+              : [],
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
-          child: Center(
-            child: Text(
-              text.tr(),
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w700,
-              ),
+        child: Center(
+          child: Text(
+            text.tr(),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
@@ -56,3 +68,4 @@ class BasicAppButton extends StatelessWidget {
     );
   }
 }
+

@@ -71,7 +71,7 @@
     "evening": "Evening",
     "please_provide_following_information_about": "Please provide following information about",
     "please_provide_following_patient_details_dot": "Please provide following patient details:",
-    "full_name": "Full Name",
+    "full_name": "Full name",
     "patient_full_name": "Patient's Full Name",
     "mobile": "Mobile",
     "your_email": "Your Email",
@@ -261,9 +261,12 @@
     "currently_available": "Currently Available",
     "about_doctor": "About Doctor",
     "product_details": "Product Details",
-
-
-
-
-    "already_have_account": "Already have an account?"
+    "already_have_account": "Already have an account?",
+    "visiting_date": "Visiting Date",
+    "select_the_date": "Select the date",
+    "select_the_time": "Select the time",
+    "patient_information": "Patient information",
+    "case_details": "Case details",
+    "phone_number": "Phone number",
+    "confirm_appointment": "Confirm appointment"
 }
