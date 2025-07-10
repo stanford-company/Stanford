@@ -32,7 +32,7 @@ class AppointmentScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: AppBar(
                 leading: ArrowBackWidget(),
-                title: const Text('معلومات المريض'),
+                title:   Text('book_appointment'.tr()),
                 centerTitle: true,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
@@ -87,17 +87,20 @@ class AppointmentScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${medicalEntity?.name ?? medicalModel?.medicalName}',
+                                context.locale.languageCode == 'ar'
+                                    ? medicalEntity?.nameAr ?? medicalModel?.medicalName ?? ''
+                                    : medicalEntity?.name ?? medicalModel?.medicalName ?? '',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,
                                 ),
                               ),
                               Text(
-                                medicalEntity?.description ??
-                                    medicalModel?.description ??
-                                    "",
+                                context.locale.languageCode == 'ar'
+                                    ? medicalEntity?.descriptionAr ?? medicalModel?.description ?? ''
+                                    : medicalEntity?.description ?? medicalModel?.description ?? '',
                               ),
+
                             ],
                           ),
                         ],
@@ -137,11 +140,28 @@ class AppointmentScreen extends StatelessWidget {
                               onTap: () async {
                                 final picked = await showDatePicker(
                                   context: context,
-                                  initialDate:
-                                  state.params.date ?? DateTime.now(),
+                                  initialDate: state.params.date ?? DateTime.now(),
                                   firstDate: DateTime(2020),
                                   lastDate: DateTime(2100),
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: AppColors.primary_color,
+                                          onPrimary: Colors.white,
+                                          onSurface: AppColors.primary_button_color,
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: AppColors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
                                 );
+
                                 if (picked != null) cubit.setDate(picked);
                               },
                               child: Container(
@@ -156,6 +176,7 @@ class AppointmentScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       'assets/images/svg/calendar.svg',
@@ -187,7 +208,25 @@ class AppointmentScreen extends StatelessWidget {
                                 final picked = await showTimePicker(
                                   context: context,
                                   initialTime: TimeOfDay.now(),
+                                  builder: (context, child) {
+                                    return Theme(
+                                      data: Theme.of(context).copyWith(
+                                        colorScheme: ColorScheme.light(
+                                          primary: AppColors.primary_color,
+                                          onPrimary: Colors.white,
+                                          onSurface: AppColors.primary_button_color,
+                                        ),
+                                        textButtonTheme: TextButtonThemeData(
+                                          style: TextButton.styleFrom(
+                                            foregroundColor: AppColors.green,
+                                          ),
+                                        ),
+                                      ),
+                                      child: child!,
+                                    );
+                                  },
                                 );
+
                                 if (picked != null) {
                                   final now = DateTime.now();
                                   final dateTime = DateTime(
@@ -212,6 +251,7 @@ class AppointmentScreen extends StatelessWidget {
                                   ),
                                 ),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     SvgPicture.asset(
                                       'assets/images/svg/watch.svg',
@@ -338,12 +378,21 @@ class AppointmentScreen extends StatelessWidget {
                       padding: EdgeInsets.only(top: 136.w, right: 22.w, left: 22.w),
                       child: BasicAppButton(
                         text: "confirm_appointment".tr(),
-                        onTap: () {
-                          cubit.setAppointment(medicalEntity!.id);
-                        },
+                        isEnabled: cubit.isFormValid(),
+                        onTap: cubit.isFormValid()
+                            ? () {
+                          final id = medicalEntity?.id ?? medicalModel?.id;
+                          if (id != null) {
+                            cubit.setAppointment(id);
+                          } else {
+                            print('object');
+
+                          }
+                        }
+                            : null,
                       ),
                     ),
-                    SizedBox(height: 24),
+                      SizedBox(height: 24),
                   ],
                 ),
               ),
