@@ -181,7 +181,7 @@ class AppointmentScreen extends StatelessWidget {
                                     SvgPicture.asset(
                                       'assets/images/svg/calendar.svg',
                                     ),
-                                    SizedBox(width: 4.w),
+                                    SizedBox(width: 2.w),
                                     Text(
                                       state.params.date != null
                                           ? '${state.params.date!.year}-${state.params.date!.month}-${state.params.date!.day}'
@@ -256,7 +256,7 @@ class AppointmentScreen extends StatelessWidget {
                                     SvgPicture.asset(
                                       'assets/images/svg/watch.svg',
                                     ),
-                                    SizedBox(width: 4.w),
+                                    SizedBox(width: 2.w),
                                     Text(
                                       state.params.time != null
                                           ? '${state.params.time!.hour.toString().padLeft(2, '0')}:${state.params.time!.minute.toString().padLeft(2, '0')}'
