@@ -49,7 +49,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
                 height: 300,
                 child: Image.network(
                   widget.images[index], // Replace with your image
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                 ),
               );
             },

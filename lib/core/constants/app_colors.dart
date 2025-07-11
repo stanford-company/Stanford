@@ -9,4 +9,5 @@ class AppColors {
   static final Color white_text_color = Color(0xffffffff);
   static final Color green = Color(0xff43B18C);
   static final Color grey = Color(0xff919090);
+  static final Color green_icons_color = Color(0xff135242);
 }
