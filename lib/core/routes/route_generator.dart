@@ -7,6 +7,7 @@ import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
+import '../../presentation/cart/bloc/cart_cubit.dart';
 import '../../presentation/main_home/pages/home.dart';
 import '../../pages/language/change_laguage_page.dart';
 import '../../pages/notifications/notification_settings_page.dart';
@@ -83,6 +84,14 @@ class RouteGenerator {
 
       case Routes.productDetails:
         final args = settings.arguments as SuppliesModel;
+
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => CartCubit(),
+            child: ProductDetailsScreen(suppliesModel: args),
+          ),
+        );
+
 
         return CupertinoPageRoute(
           builder: (_) => ProductDetailsScreen(suppliesModel: args),

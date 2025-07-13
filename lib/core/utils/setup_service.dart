@@ -19,6 +19,8 @@ import 'package:medapp/domain/store/repository/store_repo.dart';
 import '../../data/ads/repository/ads_repo_imp.dart';
 import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
+import '../../data/cart/repository/cart_repo_imp.dart';
+import '../../data/cart/service/cart_service.dart';
 import '../../data/cities/repository/city_repo_imp.dart';
 import '../../data/cities/service/city.dart';
 import '../../data/suggestions/repository/suggestions_repo_imp.dart';
@@ -33,6 +35,8 @@ import '../../domain/auth/usecase/forgot_password_usecase.dart';
 import '../../domain/auth/usecase/get_profile_usecase.dart';
 import '../../domain/auth/usecase/login_usecase.dart';
 import '../../domain/auth/usecase/register_usecase.dart';
+import '../../domain/cart/repository/cart_rpeo.dart';
+import '../../domain/cart/usecase/cart_usecase.dart';
 import '../../domain/category/usecase/category_usecase.dart';
 import '../../domain/city/repository/city_repo.dart';
 import '../../domain/city/usecase/city_usecase.dart';
@@ -113,4 +117,11 @@ void setUpServiceLocator() {
   getIt.registerLazySingleton<SetAppointmentUseCase>(
     () => SetAppointmentUseCase(),
   );
+  // Cart
+  getIt.registerLazySingleton<CartService>(
+        () => CartServiceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<CartRepository>(() => CartRepositoryImp());
+  getIt.registerLazySingleton(() => CreateOrderUsecase());
+
 }
