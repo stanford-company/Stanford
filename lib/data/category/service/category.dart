@@ -14,7 +14,7 @@ class CategoryServiceImp extends CategoryService{
   @override
   Future<List<CategoryModel>> getCategory() async {
     var data = await apiService.get(
-        endPoint: "medical/categories");
+        endPoint: "medical/categories-book-now");
 
     print(data);
     List<CategoryModel> categories = [];

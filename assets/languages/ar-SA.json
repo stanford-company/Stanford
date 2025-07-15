@@ -222,5 +222,6 @@
   "patient_information": "معلومات المريض",
   "case_details": "تفاصيل الحالة",
   "phone_number": "رقم الهاتف",
-  "confirm_appointment": "تأكيد الموعد"
+  "confirm_appointment": "تأكيد الموعد",
+  "medical_network": "الشبكة الطبية"
 }

@@ -8,6 +8,7 @@ import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
 import '../../presentation/cart/bloc/cart_cubit.dart';
+import '../../presentation/category_network/pages/step1/health_concern_page.dart';
 import '../../presentation/main_home/pages/home.dart';
 import '../../pages/language/change_laguage_page.dart';
 import '../../pages/notifications/notification_settings_page.dart';
@@ -59,6 +60,13 @@ class RouteGenerator {
           builder: (_) => BlocProvider(
             create: (_) => SuggestionsCubit(),
             child: SuggestionsPage(),
+          ),
+        );
+      case Routes.medicalNetwork:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SuggestionsCubit(),
+            child: CategoryNetworkPage(),
           ),
         );
       case Routes.bookingStep1:

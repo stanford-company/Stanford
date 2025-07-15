@@ -8,6 +8,7 @@ class Routes {
   static const String bookingStep2 = '/booking_step2';
   static const String procedures = '/procedures';
   static const String suggestions = '/suggestions';
+  static const String medicalNetwork = '/network';
 
   static const String doctorProfile = '/doctorProfile';
   static const String changeLanguage = '/change_language';

@@ -77,10 +77,11 @@ class AppointmentScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 24,
                             backgroundImage: NetworkImage(
-                              medicalEntity?.images[0] ??
-                                  medicalModel?.imageUrl ??
-                                  "",
+                              (medicalEntity?.images != null && medicalEntity!.images!.isNotEmpty)
+                                  ? medicalEntity!.images![0]
+                                  : (medicalModel?.imageUrl ?? ""),
                             ),
+
                           ),
                           const SizedBox(width: 12),
                           Column(
