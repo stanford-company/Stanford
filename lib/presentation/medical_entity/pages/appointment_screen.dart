@@ -81,7 +81,6 @@ class AppointmentScreen extends StatelessWidget {
                                   ? medicalEntity!.images![0]
                                   : (medicalModel?.imageUrl ?? ""),
                             ),
-
                           ),
                           const SizedBox(width: 12),
                           Column(

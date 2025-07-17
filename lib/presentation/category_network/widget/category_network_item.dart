@@ -1,6 +1,7 @@
 // lib/presentation/category_network/widget/category_network_item.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/data/category_network/model/category.dart';
 
 class HealthConcernNetworkItem extends StatelessWidget {
@@ -18,14 +19,15 @@ class HealthConcernNetworkItem extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(12),
+        padding:   EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          color: Colors.grey[200],
+          border: Border.all(color: Color(0xffE4E4E4)),
+          borderRadius: BorderRadius.circular(6.w),
+          color: Color(0xfff3f3f6),
         ),
         child: Center(
           child: Text(
-            healthCategory.nameAr ?? "No name", // غيّر إذا عندك لغة ثانية
+            healthCategory.nameAr ?? "No name",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

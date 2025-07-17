@@ -5,6 +5,7 @@ class Routes {
   static const String home = '/home';
   static const String bookingStep1 = '/booking_step1';
   static const String bookingStepCity = '/booking_step_city';
+  static const String bookingStepCityNetwork = '/booking_step_city_network';
   static const String bookingStep2 = '/booking_step2';
   static const String procedures = '/procedures';
   static const String suggestions = '/suggestions';

@@ -25,6 +25,8 @@ import '../../data/category_network/repository/category_repo_imp.dart';
 import '../../data/category_network/service/category.dart';
 import '../../data/cities/repository/city_repo_imp.dart';
 import '../../data/cities/service/city.dart';
+import '../../data/cities_network/repository/city_repo_imp.dart';
+import '../../data/cities_network/service/city.dart';
 import '../../data/suggestions/repository/suggestions_repo_imp.dart';
 import '../../data/suggestions/service/suggestions.dart';
 import '../../domain/ads/repository/ads.repo.dart';
@@ -44,6 +46,8 @@ import '../../domain/category_network/repository/category_network_repo.dart';
 import '../../domain/category_network/usecase/category_network_usecase.dart';
 import '../../domain/city/repository/city_repo.dart';
 import '../../domain/city/usecase/city_usecase.dart';
+import '../../domain/city_network/repository/city_repo.dart';
+import '../../domain/city_network/usecase/city_usecase.dart';
 import '../../domain/medical_entity/usecase/get_medical_centers.dart';
 import '../../domain/medical_entity/usecase/get_medical_doctors.dart';
 import '../../domain/medical_entity/usecase/medical_search.dart';
@@ -137,4 +141,8 @@ void setUpServiceLocator() {
   getIt.registerLazySingleton<GetCategoriesNetworkUsecase>(
         () => GetCategoriesNetworkUsecase(),
   );
+
+  getIt.registerLazySingleton<CityNetworkService>(() => CityNetworkServiceImp(getIt<ApiService>()));
+  getIt.registerLazySingleton<CityNetworkRepository>(() => CityNetworkRepositoryImp());
+  getIt.registerLazySingleton<GetCitiesNetworkUsecase>(() => GetCitiesNetworkUsecase());
 }

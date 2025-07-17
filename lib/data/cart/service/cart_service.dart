@@ -15,6 +15,13 @@ class CartServiceImp extends CartService {
   final ApiService apiService;
 
   CartServiceImp(this.apiService);
+  double calculateTotalPrice(List<Map<String, dynamic>> items) {
+    double total = 0;
+    for (var item in items) {
+      total += item['price'] * item['quantity'];
+    }
+    return total;
+  }
 
   @override
   Future<OrderModel> createOrder({
@@ -26,8 +33,10 @@ class CartServiceImp extends CartService {
       body: {
         'phone_beneficiary': phone,
         'items': items,
+        'total_price': calculateTotalPrice(items),
       },
     );
+
     return OrderModel.fromJson(response['data']);
   }
 }
