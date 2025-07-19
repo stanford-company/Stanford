@@ -46,17 +46,14 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoading());
 
     try {
-      // حساب إجمالي السعر
       final totalPrice = calculateTotalPrice(items);
 
-      // إرسال البيانات بالكامل إلى الـ API
       final orderData = {
         'phone_beneficiary': phone,
         'items': items,
-        'total_price': totalPrice,  // إرسال total_price
+        'total_price': totalPrice,  
       };
 
-      // إرسال الطلب إلى الـ API
       final order = await getIt<CartService>().createOrder(
         phone: phone,
         items: items,

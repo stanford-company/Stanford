@@ -85,8 +85,9 @@ class RouteGenerator {
 
       case Routes.bookingStep2:
         final args = settings.arguments as String? ?? "";
+        final isBook = settings.arguments as bool? ?? false;
         return CupertinoPageRoute(
-          builder: (_) => ChooseDoctorPage(cityId: args),
+          builder: (_) => ChooseDoctorPage(cityId: args, isBooking: true),
         );
 
       case Routes.bookingStepCity:
@@ -108,7 +109,6 @@ class RouteGenerator {
           ),
         );
 
-
         return CupertinoPageRoute(
           builder: (_) => ProductDetailsScreen(suppliesModel: args),
         );
@@ -116,20 +116,22 @@ class RouteGenerator {
       case Routes.search:
         return CupertinoPageRoute(builder: (_) => SearchPage());
       case Routes.medicalDetails:
-        final args = settings.arguments;
+        final args = settings.arguments as Map<String, dynamic>;
+        final isBook = args['isBooking'] as bool? ?? false;
+        final model = args['model'];
 
-        if (args is MedicalEntityModel) {
+        if (model is MedicalEntityModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalEntity: args),
+            builder: (_) => MedicalDetailsScreen(medicalEntity: model, isBooking: isBook),
           );
-        } else if (args is MedicalModel) {
-          // Convert MedicalModel to MedicalEntityModel if needed
+        } else if (model is MedicalModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalModel: args),
+            builder: (_) => MedicalDetailsScreen(medicalModel: model, isBooking: isBook),
           );
         } else {
-          throw Exception('Unexpected argument type: ${args.runtimeType}');
+          throw Exception('Unexpected argument type: ${model.runtimeType}');
         }
+
 
       case Routes.notifications:
         return CupertinoPageRoute(

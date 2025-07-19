@@ -11,6 +11,7 @@ import '../../search/bloc/search_cubit.dart';
 
 class AllMedicalsPage extends StatelessWidget {
   final List<MedicalModel> medicalDoctors;
+
   const AllMedicalsPage({super.key, required this.medicalDoctors});
 
   @override
@@ -39,7 +40,10 @@ class AllMedicalsPage extends StatelessWidget {
               separatorBuilder: (context, index) => SizedBox(height: 12.h),
               itemCount: medicalDoctors.length,
               itemBuilder: (context, index) {
-                return MedicalCard(medicalModel: medicalDoctors[index]);
+                return MedicalCard(
+                  medicalModel: medicalDoctors[index],
+                  isBooking: true,
+                );
               },
             ),
           ),

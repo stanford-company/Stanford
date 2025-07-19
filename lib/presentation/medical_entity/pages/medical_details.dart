@@ -15,11 +15,13 @@ import 'appointment_screen.dart';
 class MedicalDetailsScreen extends StatelessWidget {
   final MedicalEntityModel? medicalEntity;
   final MedicalModel? medicalModel;
+  final bool isBooking;
 
   const MedicalDetailsScreen({
     super.key,
     this.medicalEntity,
     this.medicalModel,
+    required this.isBooking,
   });
 
   void _launchPhone() async {
@@ -160,20 +162,22 @@ class MedicalDetailsScreen extends StatelessWidget {
       // Book Now Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: BasicAppButton(
-          text: "book_now",
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AppointmentScreen(
-                  medicalModel: medicalModel,
-                  medicalEntity: medicalEntity,
-                ),
-              ),
-            );
-          },
-        ),
+        child: isBooking == true
+            ? BasicAppButton(
+                text: "book_now",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AppointmentScreen(
+                        medicalModel: medicalModel,
+                        medicalEntity: medicalEntity,
+                      ),
+                    ),
+                  );
+                },
+              )
+            : SizedBox(),
       ),
     );
   }

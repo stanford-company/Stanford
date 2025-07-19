@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
+import 'package:medapp/presentation/medical_entity/pages/step2/choose_doctor_page.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/arrow_back_widget.dart';
 import '../../../core/utils/setup_service.dart';
@@ -275,11 +276,12 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                        Navigator.pushNamed(
-                          context,
-                          Routes.bookingStep2,
-                          arguments: state.cityId,
-                        );
+                        // Navigator.pushNamed(
+                        //   context,
+                        //   Routes.bookingStep2,
+                        //   arguments: [state.cityId,false],
+                        // );
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: false)));
                       }
                           : null,
 
