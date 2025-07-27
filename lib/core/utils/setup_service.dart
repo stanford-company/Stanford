@@ -17,6 +17,8 @@ import 'package:medapp/domain/medical_entity/usecase/entity_usecase.dart';
 import 'package:medapp/domain/store/repository/store_repo.dart';
 
 import '../../data/ads/repository/ads_repo_imp.dart';
+import '../../data/appointments_history/repository/appointments_history_repo_imp.dart';
+import '../../data/appointments_history/service/appointments_history_service.dart';
 import '../../data/auth/repository/auth_repo_imp.dart';
 import '../../data/auth/service/auth_service.dart';
 import '../../data/cart/repository/cart_repo_imp.dart';
@@ -33,6 +35,8 @@ import '../../domain/ads/repository/ads.repo.dart';
 import '../../domain/ads/usecase/ads_usecase.dart';
 import '../../domain/app/usecase/get_about_us_usecase.dart';
 import '../../domain/app/usecase/procedures_usecase.dart';
+import '../../domain/appointments_history/repository/appointments_repo.dart';
+import '../../domain/appointments_history/usecase/appointments_usecase.dart';
 import '../../domain/auth/repository/auth_repo.dart';
 import '../../domain/auth/usecase/check_id_usecase.dart';
 import '../../domain/auth/usecase/forgot_password_usecase.dart';
@@ -145,4 +149,18 @@ void setUpServiceLocator() {
   getIt.registerLazySingleton<CityNetworkService>(() => CityNetworkServiceImp(getIt<ApiService>()));
   getIt.registerLazySingleton<CityNetworkRepository>(() => CityNetworkRepositoryImp());
   getIt.registerLazySingleton<GetCitiesNetworkUsecase>(() => GetCitiesNetworkUsecase());
+
+  // Appointment History
+  getIt.registerLazySingleton<AppointmentService>(
+        () => AppointmentServiceImp(getIt<ApiService>()),
+  );
+  getIt.registerLazySingleton<AppointmentRepository>(
+        () => AppointmentRepositoryImp(),
+  );
+  getIt.registerLazySingleton<GetAppointmentsHistoryUsecase>(
+        () => GetAppointmentsHistoryUsecase(),
+  );
+
+
+
 }

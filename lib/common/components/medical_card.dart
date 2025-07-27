@@ -124,7 +124,7 @@ class MedicalCard extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary_button_color,
+                        backgroundColor: AppColors.primary_button_color, 
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.r),
                         ),

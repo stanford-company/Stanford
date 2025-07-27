@@ -8,7 +8,7 @@ import 'package:medapp/presentation/main_home/widgets/nav_bar_item_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../core/routes/routes.dart';
 import '../../auth/pages/drawer_page.dart';
-import '../../booked/pages/booked_page.dart';
+import '../../appointments_history/pages/booked_page.dart';
 import '../../category/pages/step1/health_concern_page.dart';
 import '../../store/pages/stroe_page.dart';
 import '../../settings/pages/settings_page.dart';

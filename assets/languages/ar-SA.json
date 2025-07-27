@@ -223,5 +223,9 @@
   "case_details": "تفاصيل الحالة",
   "phone_number": "رقم الهاتف",
   "confirm_appointment": "تأكيد الموعد",
-  "medical_network": "الشبكة الطبية"
+  "medical_network": "الشبكة الطبية",
+  "filter_all": "الكل",
+  "filter_upcoming": "المواعيد القادمة",
+  "filter_accepted": "المواعيد المقبولة",
+  "filter_previous": "المواعيد السابقة"
 }
