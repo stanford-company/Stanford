@@ -160,7 +160,7 @@ class BookedPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                const SizedBox(height: 12),
+                                SizedBox(height: 12.h),
                                 // Time & date
                                 Row(
                                   children: [
