@@ -8,6 +8,8 @@ import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
 import '../../presentation/cart/bloc/cart_cubit.dart';
+import '../../presentation/category_network/pages/step1/health_concern_page.dart';
+import '../../presentation/city_network/pages/city_page.dart';
 import '../../presentation/main_home/pages/home.dart';
 import '../../pages/language/change_laguage_page.dart';
 import '../../pages/notifications/notification_settings_page.dart';
@@ -61,6 +63,20 @@ class RouteGenerator {
             child: SuggestionsPage(),
           ),
         );
+      case Routes.medicalNetwork:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SuggestionsCubit(),
+            child: CategoryNetworkPage(),
+          ),
+        );
+      case Routes.bookingStepCityNetwork:
+        return CupertinoPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => SuggestionsCubit(),
+            child: CityNetworkPage(),
+          ),
+        );
       case Routes.bookingStep1:
         return CupertinoPageRoute(
           builder: (_) => HealthConcernPage(),
@@ -69,8 +85,9 @@ class RouteGenerator {
 
       case Routes.bookingStep2:
         final args = settings.arguments as String? ?? "";
+        final isBook = settings.arguments as bool? ?? false;
         return CupertinoPageRoute(
-          builder: (_) => ChooseDoctorPage(cityId: args),
+          builder: (_) => ChooseDoctorPage(cityId: args, isBooking: true),
         );
 
       case Routes.bookingStepCity:
@@ -92,7 +109,6 @@ class RouteGenerator {
           ),
         );
 
-
         return CupertinoPageRoute(
           builder: (_) => ProductDetailsScreen(suppliesModel: args),
         );
@@ -100,20 +116,22 @@ class RouteGenerator {
       case Routes.search:
         return CupertinoPageRoute(builder: (_) => SearchPage());
       case Routes.medicalDetails:
-        final args = settings.arguments;
+        final args = settings.arguments as Map<String, dynamic>;
+        final isBook = args['isBooking'] as bool? ?? false;
+        final model = args['model'];
 
-        if (args is MedicalEntityModel) {
+        if (model is MedicalEntityModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalEntity: args),
+            builder: (_) => MedicalDetailsScreen(medicalEntity: model, isBooking: isBook),
           );
-        } else if (args is MedicalModel) {
-          // Convert MedicalModel to MedicalEntityModel if needed
+        } else if (model is MedicalModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalModel: args),
+            builder: (_) => MedicalDetailsScreen(medicalModel: model, isBooking: isBook),
           );
         } else {
-          throw Exception('Unexpected argument type: ${args.runtimeType}');
+          throw Exception('Unexpected argument type: ${model.runtimeType}');
         }
+
 
       case Routes.notifications:
         return CupertinoPageRoute(

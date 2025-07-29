@@ -47,12 +47,12 @@ class _DrawerPageState extends State<DrawerPage> {
                     },
                   ),
                   _drawerItem(
-                    label: 'about_us',
-                    icon: 'medical-authorities-drawer-icon',
-                    isSelected: selectedItem == 'medical_network',
+                    label: 'medical_network',
+                    icon: 'contact-us-drawer-icon',
+                    isSelected: selectedItem == 'contact_us',
                     onTap: () {
-                      setState(() => selectedItem = 'medical_network');
-                      Navigator.of(context).pushNamed(Routes.aboutUs);
+                      setState(() => selectedItem = 'contact_us', );
+                      Navigator.pushNamed(context, '/network');
                     },
                   ),
                   _drawerItem(
@@ -73,11 +73,15 @@ class _DrawerPageState extends State<DrawerPage> {
                     },
                   ),
                   _divider(),
+
                   _drawerItem(
-                    label: 'contact_us',
-                    icon: 'contact-us-drawer-icon',
-                    isSelected: selectedItem == 'contact_us',
-                    onTap: () => setState(() => selectedItem = 'contact_us'),
+                    label: 'about_us',
+                    icon: 'medical-authorities-drawer-icon',
+                    isSelected: selectedItem == 'medical_network',
+                    onTap: () {
+                      setState(() => selectedItem = 'medical_network');
+                      Navigator.of(context).pushNamed(Routes.aboutUs);
+                    },
                   ),
                   _drawerItem(
                     label: 'complaints_suggestions',

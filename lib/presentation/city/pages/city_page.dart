@@ -8,6 +8,7 @@ import '../../../common/components/arrow_back_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
 import '../../main_home/widgets/nav_bar_item_widget.dart';
+import '../../medical_entity/pages/step2/choose_doctor_page.dart';
 import '../bloc/city_cubit.dart';
 import '../bloc/city_state.dart';
 
@@ -273,12 +274,14 @@ class _CityPageState extends State<CityPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                              Navigator.pushNamed(
-                                context,
-                                Routes.bookingStep2,
-                                arguments: state.cityId,
-                              );
-                            }
+                              // Navigator.pushNamed(
+                              //   context,
+                              //   Routes.bookingStep2,
+                              //   arguments: [state.cityId,true],
+                              // );
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: true)));
+
+                      }
                           : null,
 
                       style: ElevatedButton.styleFrom(

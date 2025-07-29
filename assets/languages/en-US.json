@@ -268,5 +268,9 @@
     "patient_information": "Patient information",
     "case_details": "Case details",
     "phone_number": "Phone number",
-    "confirm_appointment": "Confirm appointment"
+    "confirm_appointment": "Confirm appointment",
+    "filter_all": "All",
+    "filter_upcoming": "Upcoming",
+    "filter_accepted": "Accepted",
+    "filter_previous": "Previous"
 }

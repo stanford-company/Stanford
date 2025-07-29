@@ -12,7 +12,7 @@ import '../service/category.dart';
 class CategoryRepositoryImp extends CategoryRepository{
 
 
-  Future<Either<Failure, List<CategoryModel>>> getCategories() async {
+  Future<Either<Failure, List<CategoryModel>>> getNetworkCategories() async {
     try {
       List<CategoryModel> categories = await getIt<CategoryService>().getCategory();
       return Right(categories);

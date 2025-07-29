@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/utils/setup_service.dart';
+import '../../../data/cart/service/cart_service.dart';
 import '../pages/cart_storage.dart';
 
 part 'cart_state.dart';
@@ -22,10 +24,19 @@ class CartCubit extends Cubit<CartState> {
   }
 
 
+
   Future<void> clearCart() async {
     await CartStorage.clearCart();
     cartItems.clear();
     emit(CartLoaded(cartItems));
+  }
+
+  double calculateTotalPrice(List<Map<String, dynamic>> items) {
+    double total = 0;
+    for (var item in items) {
+      total += item['price'] * item['quantity'];
+    }
+    return total;
   }
 
   Future<void> createOrder({
@@ -35,20 +46,29 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoading());
 
     try {
-      await Future.delayed(Duration(seconds: 2));
+      final totalPrice = calculateTotalPrice(items);
 
-      final fakeOrder = {
+      final orderData = {
+        'phone_beneficiary': phone,
         'items': items,
+        'total_price': totalPrice,  
       };
 
-      print("Order Response: $fakeOrder");
+      final order = await getIt<CartService>().createOrder(
+        phone: phone,
+        items: items,
+      );
+
+      print("Order Response: $order");
 
       await clearCart();
-      emit(CartSuccess(fakeOrder));
+      emit(CartSuccess(order));
     } catch (e) {
       print("Order Error: $e");
       emit(CartFailure("Order failed: $e"));
     }
   }
+
+
 
 }

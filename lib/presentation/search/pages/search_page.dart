@@ -137,7 +137,7 @@ class _SearchPageState extends State<SearchPage> {
                       itemCount: state.medicalEntity.length,
                       itemBuilder: (context, index) {
                         return MedicalCard(
-                          medicalEntity: state.medicalEntity[index],
+                          medicalEntity: state.medicalEntity[index], isBooking: true,
                         );
                       },
                     ),

@@ -13,7 +13,14 @@ import '../../data/medical_entity/model/medical_doctor.dart';
 class MedicalCard extends StatelessWidget {
   final MedicalEntityModel? medicalEntity;
   final MedicalModel? medicalModel;
-  const MedicalCard({super.key, this.medicalEntity, this.medicalModel});
+  final bool isBooking;
+
+  const MedicalCard({
+    super.key,
+    this.medicalEntity,
+    this.medicalModel,
+    required this.isBooking,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,128 +30,159 @@ class MedicalCard extends StatelessWidget {
         color: Color(0xfff3f3f6),
         border: Border.all(color: Color(0xffe3e3eb), width: 2),
       ),
-      child: ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
-        leading: CircleAvatar(
-          radius: 26.r,
-          backgroundImage:
-              medicalEntity?.images.isNotEmpty ??
-                  (medicalModel?.imageUrl.isNotEmpty) ??
-                  false
-              ? NetworkImage(
-                  medicalEntity?.images[0] ?? medicalModel?.imageUrl ?? "",
-                )
-              : null,
-        ),
-        title: Text(
-          medicalEntity?.name ?? medicalModel?.medicalName ?? "",
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-        ),
-        subtitle: Row(
-          children: [
-            Expanded(
-              child: Text(
-                medicalEntity?.description ?? medicalModel?.description ?? "",
-                style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              child: Text(
-                '•',
-                style: TextStyle(fontSize: 13.sp, color: Colors.grey),
-              ),
-            ),
-            Text(
-              (context.locale.languageCode == 'en'
-                      ? medicalEntity?.city.nameEn
-                      : medicalEntity?.city.nameAr) ??
-                  (context.locale.languageCode == 'en'
-                      ? medicalModel?.categoryEn
-                      : medicalModel?.categoryAr) ??
-                  "",
-              style: TextStyle(fontSize: 13.sp),
-            ),
-          ],
-        ),
-        trailing: Container(
-          decoration: BoxDecoration(
-            color: AppColors.primary_button_color,
-            borderRadius: BorderRadius.circular(12.r),
+      child: InkWell(
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            Routes.medicalDetails,
+            arguments: {
+              "model": medicalEntity ?? medicalModel,
+              "isBooking": isBooking,
+            },
+          );
+        },
+
+        child: ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+          leading: CircleAvatar(
+            radius: 26.r,
+            backgroundImage:
+                medicalEntity?.images.isNotEmpty ??
+                    (medicalModel?.imageUrl.isNotEmpty) ??
+                    false
+                ? NetworkImage(
+                    medicalEntity?.images[0] ?? medicalModel?.imageUrl ?? "",
+                  )
+                : null,
           ),
-          child: Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.3),
-                  spreadRadius: 1,
-                  blurRadius: 6,
-                  offset: Offset(0, 2),
+          title: Text(
+            medicalEntity?.name ?? medicalModel?.medicalName ?? "",
+            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+          ),
+          subtitle: Row(
+            children: [
+              if (((context.locale.languageCode == 'en'
+                  ? medicalEntity?.description
+                  : medicalEntity?.descriptionAr) ??
+                  "").isNotEmpty) ...[
+                Expanded(
+                  child: Text(
+                    context.locale.languageCode == 'en'
+                        ? medicalEntity?.description ?? ""
+                        : medicalEntity?.descriptionAr ?? "",
+                    style: TextStyle(fontSize: 13.sp, color: Colors.black),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 4.w),
+                  child: Text(
+                    '•',
+                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
+                  ),
                 ),
               ],
-            ),
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(
-                  context,
-                  Routes.medicalDetails,
-                  arguments: medicalEntity ?? medicalModel,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary_button_color,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                elevation: 4, // default elevation
+              Text(
+                (context.locale.languageCode == 'en'
+                    ? medicalEntity?.city.nameEn
+                    : medicalEntity?.city.nameAr) ??
+                    (context.locale.languageCode == 'en'
+                        ? medicalModel?.categoryEn
+                        : medicalModel?.categoryAr) ??
+                    "",
+                style: TextStyle(fontSize: 13.sp),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    "book_now".tr(),
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 8.w, left: 8.w),
-                    child: Container(
-                      width: 18.w,
-                      height: 18.w,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.white.withOpacity(
-                              0.17,
-                            ), // white glow for the arrow circle
-                            spreadRadius: 1,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Center(
-                        child: Transform.rotate(
-                          angle: context.locale.languageCode == 'ar' ? 0 : pi,
-                          child: SvgPicture.asset(
-                            'assets/images/svg/single_arrow.svg',
-                            width: 10.w,
-                            height: 10.h,
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
+            ],
+          ),
+
+          trailing: Container(
+            decoration: BoxDecoration(
+              color: AppColors.primary_button_color,
+              borderRadius: BorderRadius.circular(12.r),
+            ),
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white.withOpacity(0.3),
+                    spreadRadius: 1,
+                    blurRadius: 6,
+                    offset: Offset(0, 2),
                   ),
                 ],
               ),
+              child: isBooking == true
+                  ? ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          Routes.medicalDetails,
+                          arguments: {
+                            "model": medicalEntity ?? medicalModel,
+                            "isBooking": isBooking,
+                          },
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primary_button_color, 
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.r),
+                        ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.w,
+                          vertical: 6.h,
+                        ),
+                        elevation: 4, // default elevation
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "book_now".tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(right: 8.w, left: 8.w),
+                            child: Container(
+                              width: 18.w,
+                              height: 18.w,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(
+                                      0.17,
+                                    ), // white glow for the arrow circle
+                                    spreadRadius: 1,
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                  ),
+                                ],
+                              ),
+                              child: Center(
+                                child: Transform.rotate(
+                                  angle: context.locale.languageCode == 'ar'
+                                      ? 0
+                                      : pi,
+                                  child: SvgPicture.asset(
+                                    'assets/images/svg/single_arrow.svg',
+                                    width: 10.w,
+                                    height: 10.h,
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  : SizedBox(),
             ),
           ),
         ),

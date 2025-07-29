@@ -9,6 +9,6 @@ class GetCategoriesUsecase {
 
   // No need for NoParams class if no parameters are required
   Future<Either<Failure, List<CategoryModel>>> call() async {
-    return await getIt<CategoryRepository>().getCategories();
+    return await getIt<CategoryRepository>().getNetworkCategories();
   }
 }

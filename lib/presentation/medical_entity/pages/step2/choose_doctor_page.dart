@@ -13,8 +13,13 @@ import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
   final String cityId;
+  final bool isBooking;
 
-  const ChooseDoctorPage({super.key, required this.cityId});
+  const ChooseDoctorPage({
+    super.key,
+    required this.cityId,
+    required this.isBooking,
+  });
 
   @override
   State<ChooseDoctorPage> createState() => _ChooseDoctorPageState();
@@ -116,7 +121,6 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     ),
                   ),
                 ),
-
                 Expanded(
                   child: () {
                     if (state is EntityLoading) {
@@ -129,7 +133,10 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                         itemCount: state.entities.length,
                         itemBuilder: (context, index) {
                           final entity = state.entities[index];
-                          return MedicalCard(medicalEntity: entity);
+                          return MedicalCard(
+                            medicalEntity: entity,
+                            isBooking: widget.isBooking,
+                          );
                         },
                       );
                     } else if (state is EntityFailure) {
@@ -144,62 +151,62 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
           },
         ),
 
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w, bottom: 12.h),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xff113f4e),
-              borderRadius: BorderRadius.circular(20.w),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-            child: CustomNavigationBar(
-              backgroundColor: Colors.transparent,
-              strokeColor: Colors.transparent,
-              items: [
-                NavBarItemWidget(
-                  onTap: () => Navigator.pushNamed(context, Routes.home),
-                  image: 'assets/images/svg/home-nav-bar.svg',
-                  label: 'home'.tr(),
-                  isSelected: _selectedIndex == 0,
-                ),
-                NavBarItemWidget(
-                  onTap: () {},
-                  image: 'assets/images/svg/calendar-nav-bar.svg',
-                  label: 'booked'.tr(),
-                  isSelected: _selectedIndex == 1,
-                ),
-                NavBarItemWidget(
-                  onTap: () => Navigator.of(context).pop(),
-                  image: 'assets/images/svg/appointment-nav-bar.svg',
-                  label: 'book_now'.tr(),
-                  isSelected: _selectedIndex == 2,
-                ),
-                NavBarItemWidget(
-                  onTap: () {},
-                  image: 'assets/images/svg/bag-nav-bar.svg',
-                  label: 'store'.tr(),
-                  isSelected: _selectedIndex == 3,
-                ),
-                NavBarItemWidget(
-                  onTap: () =>
-                      Navigator.pushNamed(context, Routes.notificationSettings),
-                  image: 'assets/images/svg/menu-nav-bar.svg',
-                  label: 'settings'.tr(),
-                  isSelected: _selectedIndex == 4,
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              elevation: 0,
-            ),
-          ),
-        ),
+        // bottomNavigationBar: Padding(
+        //   padding: EdgeInsets.only(left: 12.w, right: 12.w, bottom: 12.h),
+        //   child: Container(
+        //     decoration: BoxDecoration(
+        //       color: Color(0xff113f4e),
+        //       borderRadius: BorderRadius.circular(20.w),
+        //       boxShadow: [
+        //         BoxShadow(
+        //           color: Colors.black12,
+        //           blurRadius: 10,
+        //           offset: Offset(0, 4),
+        //         ),
+        //       ],
+        //     ),
+        //     padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
+        //     child: CustomNavigationBar(
+        //       backgroundColor: Colors.transparent,
+        //       strokeColor: Colors.transparent,
+        //       items: [
+        //         NavBarItemWidget(
+        //           onTap: () => Navigator.pushNamed(context, Routes.home),
+        //           image: 'assets/images/svg/home-nav-bar.svg',
+        //           label: 'home'.tr(),
+        //           isSelected: _selectedIndex == 0,
+        //         ),
+        //         NavBarItemWidget(
+        //           onTap: () {},
+        //           image: 'assets/images/svg/calendar-nav-bar.svg',
+        //           label: 'booked'.tr(),
+        //           isSelected: _selectedIndex == 1,
+        //         ),
+        //         NavBarItemWidget(
+        //           onTap: () => Navigator.of(context).pop(),
+        //           image: 'assets/images/svg/appointment-nav-bar.svg',
+        //           label: 'book_now'.tr(),
+        //           isSelected: _selectedIndex == 2,
+        //         ),
+        //         NavBarItemWidget(
+        //           onTap: () {},
+        //           image: 'assets/images/svg/bag-nav-bar.svg',
+        //           label: 'store'.tr(),
+        //           isSelected: _selectedIndex == 3,
+        //         ),
+        //         NavBarItemWidget(
+        //           onTap: () =>
+        //               Navigator.pushNamed(context, Routes.notificationSettings),
+        //           image: 'assets/images/svg/menu-nav-bar.svg',
+        //           label: 'settings'.tr(),
+        //           isSelected: _selectedIndex == 4,
+        //         ),
+        //       ],
+        //       currentIndex: _selectedIndex,
+        //       elevation: 0,
+        //     ),
+        //   ),
+        // ),
       ),
     );
   }
