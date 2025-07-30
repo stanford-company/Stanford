@@ -71,10 +71,11 @@ class RouteGenerator {
           ),
         );
       case Routes.bookingStepCityNetwork:
+        final args = settings.arguments as int;
         return CupertinoPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => SuggestionsCubit(),
-            child: CityNetworkPage(),
+            child: CityNetworkPage(categoryId: args,),
           ),
         );
       case Routes.bookingStep1:
@@ -87,11 +88,13 @@ class RouteGenerator {
         final args = settings.arguments as String? ?? "";
         final isBook = settings.arguments as bool? ?? false;
         return CupertinoPageRoute(
-          builder: (_) => ChooseDoctorPage(cityId: args, isBooking: true),
+          builder: (_) => ChooseDoctorPage(cityId: args, isBooking: true, categoryId: 0,),
         );
 
       case Routes.bookingStepCity:
-        return CupertinoPageRoute(builder: (_) => CityPage());
+        final args = settings.arguments as int;
+
+        return CupertinoPageRoute(builder: (_) => CityPage(CategoryId: args,));
 
       case Routes.changeLanguage:
         return CupertinoPageRoute(builder: (_) => ChangeLanguagePage());

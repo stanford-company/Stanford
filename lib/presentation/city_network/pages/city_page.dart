@@ -14,6 +14,9 @@ import '../bloc/city_network_cubit.dart';
 import '../bloc/city_network_state.dart';
 
 class CityNetworkPage extends StatefulWidget {
+  final int categoryId;
+
+  const CityNetworkPage({super.key, required this.categoryId});
   @override
   State<CityNetworkPage> createState() => _CityNetworkPageState();
 }
@@ -281,7 +284,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                         //   Routes.bookingStep2,
                         //   arguments: [state.cityId,false],
                         // );
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: false)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: false, categoryId: widget.categoryId,)));
                       }
                           : null,
 

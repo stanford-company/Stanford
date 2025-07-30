@@ -161,7 +161,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                               Navigator.pushNamed(
                                 context,
                                 Routes.bookingStepCityNetwork,  // Assuming this is your route name for CityNetworkPage
-                                arguments: category,  // Pass the selected category
+                                arguments: category.id,  // Pass the selected category
                               );
                             },
                             child: Container(

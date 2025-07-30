@@ -13,12 +13,14 @@ import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
   final String cityId;
+  final int categoryId;
   final bool isBooking;
 
   const ChooseDoctorPage({
     super.key,
     required this.cityId,
     required this.isBooking,
+    required this.categoryId
   });
 
   @override
@@ -47,7 +49,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) =>
-          EntityCubit()..getEntities(cityId: int.parse(widget.cityId)),
+          EntityCubit()..getEntities(cityId: int.parse(widget.cityId), categoryId: widget.categoryId),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),

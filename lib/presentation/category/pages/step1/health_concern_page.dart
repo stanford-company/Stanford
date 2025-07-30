@@ -94,17 +94,21 @@ class HealthConcernPage extends StatelessWidget {
                           childAspectRatio: 2.8,
                         ),
                         itemBuilder: (context, index) {
+                          final category = state.categories[index];
+                          final isSelected = state.categoryId == category.id.toString();
                           return HealthConcernItem(
                             healthCategory: state.categories[index],
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
                                 Routes.bookingStepCity,
-                                arguments: state.categories[index].toJson(),
+                                arguments: category.id,
+                              );
+                              context.read<CategoryCubit>().toggleCategorySelection(
+                                category.id.toString(),
                               );
                             },
                           );
-
                         },
                       ),
                     ),

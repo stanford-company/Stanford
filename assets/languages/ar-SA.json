@@ -227,5 +227,7 @@
   "filter_all": "الكل",
   "filter_upcoming": "المواعيد القادمة",
   "filter_accepted": "المواعيد المقبولة",
-  "filter_previous": "المواعيد السابقة"
+  "filter_previous": "المواعيد السابقة",
+  "invalid_national_id_or_password": "الرقم الوطني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
+  "general_error_1": "حدث خطأ ما. الرجاء المحاولة لاحقاً."
 }

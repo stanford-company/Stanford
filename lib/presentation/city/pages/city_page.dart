@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
+import 'package:medapp/data/medical_entity/model/medical_entity.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/arrow_back_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
@@ -13,6 +14,9 @@ import '../bloc/city_cubit.dart';
 import '../bloc/city_state.dart';
 
 class CityPage extends StatefulWidget {
+  final int CategoryId;
+
+  const CityPage({super.key, required this.CategoryId});
   @override
   State<CityPage> createState() => _CityPageState();
 }
@@ -279,7 +283,7 @@ class _CityPageState extends State<CityPage> {
                               //   Routes.bookingStep2,
                               //   arguments: [state.cityId,true],
                               // );
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: true)));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: true, categoryId: widget.CategoryId,)));
 
                       }
                           : null,

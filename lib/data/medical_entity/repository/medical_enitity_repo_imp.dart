@@ -19,7 +19,7 @@ class MedicalRepositoryImp extends MedicalRepository {
     try {
       final entities = await getIt<MedicalService>().getMedicalEntity(
         cityId: cityId,
-        medicalCategoryId: medicalCategoryId,
+        categoryId: medicalCategoryId,
         name: name,
         page: page,
       );

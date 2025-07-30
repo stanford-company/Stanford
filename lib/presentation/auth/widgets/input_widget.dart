@@ -22,26 +22,49 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
   final _nationalIdController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  String? _errorMessage; // ✅ Added to show error message inline
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
+          setState(() {
+            _errorMessage = state.message; // ✅ Store error message
+          });
         } else if (state is LoginLoaded) {
           await CacheHelper.saveData(key: TextConst.isLogin, value: true);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.home,
-            (Route<dynamic> route) => false,
+                (Route<dynamic> route) => false,
           );
         }
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          if (_errorMessage != null) // ✅ Show error box like screenshot
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.only(bottom: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: Color(0xFFFF5D5D),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
+                  SizedBox(width: 8.w),
+                  Expanded(
+                    child: Text(
+                      _errorMessage!,
+                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           LabeledTextFormField(
             title: 'national_id'.tr(),
             controller: _nationalIdController,
@@ -106,13 +129,13 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             side: MaterialStateBorderSide.resolveWith(
-                              (states) => BorderSide(
+                                  (states) => BorderSide(
                                 color: Color(0xFF80d5b5),
                                 width: 2,
                               ),
                             ),
                             fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (states) {
+                                  (states) {
                                 if (states.contains(MaterialState.selected)) {
                                   return Color(0x6680D5B5);
                                 }
@@ -132,7 +155,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                             );
                           },
                           materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
+                          MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                         ),
                       ),
@@ -173,6 +196,9 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               }
               return CustomButton(
                 onPressed: () {
+                  setState(() {
+                    _errorMessage = null; // ✅ Clear message on retry
+                  });
                   context.read<LoginCubit>().login(
                     nationalId: _nationalIdController.text.trim(),
                     password: _passwordController.text.trim(),

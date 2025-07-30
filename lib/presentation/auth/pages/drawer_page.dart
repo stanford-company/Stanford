@@ -95,19 +95,17 @@ class _DrawerPageState extends State<DrawerPage> {
                   ),
 
                   _divider(),
-                  _drawerItem(
-                    label: 'profile',
-                    icon: 'profile-drawer-icon',
-                    isSelected: selectedItem == 'profile',
-                    onTap: () => setState(() => selectedItem = 'profile'),
-                  ),
-                  _drawerItem(
-                    label: 'settings',
-                    icon: 'setting-drawer-icon',
-                    isSelected: selectedItem == 'settings',
-                    onTap: () => setState(() => selectedItem = 'settings'),
-                  ),
-                  _divider(),
+                  //
+                  // _drawerItem(
+                  //   label: 'settings',
+                  //   icon: 'setting-drawer-icon',
+                  //   isSelected: selectedItem == 'settings',
+                  //   onTap: () {
+                  //     setState(() => selectedItem = 'settings');
+                  //     Navigator.pop(context); // Close drawer
+                  //     Navigator.pushNamed(context, Routes.notificationSettings);
+                  //   },
+                  // ),
                   _drawerItem(
                     label: 'logout',
                     icon: 'logout-drawer-icon',

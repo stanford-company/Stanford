@@ -8,6 +8,9 @@ import '../../../domain/category/usecase/category_usecase.dart';
 part 'category_state.dart';
 
 class CategoryCubit extends Cubit<CategoryState> {
+  String categoryId = "";
+
+  List<CategoryModel> _categories=[];
   CategoryCubit() : super(CategoryInitial());
 
   Future<void> getCategories() async {
@@ -19,8 +22,14 @@ class CategoryCubit extends Cubit<CategoryState> {
         emit(CategoryFailure(failure.message));
       },
           (categories) async {
-        emit(CategoryLoaded(categories));
+            _categories=categories;
+        emit(CategoryLoaded(categories, ""));
       },
     );
+  }
+
+  void toggleCategorySelection(String categoryId) {
+
+    emit(CategoryLoaded(_categories,categoryId));
   }
 }

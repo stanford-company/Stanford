@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
 import 'package:medapp/core/constants/const.dart';
 import 'package:medapp/domain/auth/usecase/check_id_usecase.dart';
 import 'package:meta/meta.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../../core/utils/setup_service.dart';
 import '../../../data/auth/model/login.dart';
@@ -24,10 +26,19 @@ class LoginCubit extends Cubit<LoginState> {
     );
 
     result.fold(
-      (failure) {
-        emit(LoginFailure(failure.message));
+          (failure) {
+        String errorMessage;
+
+        if (failure.message.contains('401')) {
+          // 🔁 Localized message
+          errorMessage = tr('invalid_national_id_or_password');
+        } else {
+          errorMessage = tr('general_error');
+        }
+
+        emit(LoginFailure(errorMessage));
       },
-      (userParams) {
+          (userParams) {
         emit(LoginLoaded(userParams));
       },
     );

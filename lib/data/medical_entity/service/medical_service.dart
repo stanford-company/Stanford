@@ -7,7 +7,7 @@ import '../model/medical_entity.dart';
 abstract class MedicalService {
   Future<List<MedicalEntityModel>> getMedicalEntity({
     int? cityId,
-    int? medicalCategoryId,
+    int? categoryId,
     String? name,
     int? page,
   });
@@ -25,14 +25,14 @@ class MedicalServiceImp extends MedicalService {
   @override
   Future<List<MedicalEntityModel>> getMedicalEntity({
     int? cityId,
-    int? medicalCategoryId,
+    int? categoryId,
     String? name,
     int? page,
   }) async {
     final queryParams = {
       if (cityId != null) 'city_id': cityId.toString(),
-      if (medicalCategoryId != null)
-        'medical_category_id': medicalCategoryId.toString(),
+      if (categoryId != null)
+        'medical_category_id': categoryId.toString(),
       if (name != null && name.isNotEmpty) 'name': name,
       if (page != null) 'pages': page.toString(),
     };
