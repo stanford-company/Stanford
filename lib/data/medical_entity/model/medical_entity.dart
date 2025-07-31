@@ -3,6 +3,7 @@ class MedicalEntityModel {
   final String name;
   final String nameAr;
   final String address;
+  final String addressAr;
   final String? phone1;
   final String? phone2;
   final String? email;
@@ -21,6 +22,7 @@ class MedicalEntityModel {
     required this.name,
     required this.nameAr,
     required this.address,
+    required this.addressAr,
     this.phone1,
     this.phone2,
     this.email,
@@ -41,6 +43,7 @@ class MedicalEntityModel {
       name: json['name'],
       nameAr: json['name_ar'] ?? '',
       address: json['address'],
+      addressAr: json['address_ar'],
       phone1: json['phone_1'],
       phone2: json['phone_2'],
       email: json['email'],

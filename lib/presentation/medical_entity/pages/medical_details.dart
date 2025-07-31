@@ -33,7 +33,8 @@ class MedicalDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Example for Amman
+    final double latitude = medicalEntity?.latitude ?? 0.0;
+    final double longitude = medicalEntity?.longitude ?? 0.0;
 
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +47,7 @@ class MedicalDetailsScreen extends StatelessWidget {
           children: [
             MedicalDetailsImages(
               images:
-                  medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
+              medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
             ),
 
             // Description
@@ -59,7 +60,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 8,
-                        backgroundColor: Color(0xff80D5B5),
+                        backgroundColor: const Color(0xff80D5B5),
                         child: CircleAvatar(
                           radius: 5,
                           backgroundColor: AppColors.green,
@@ -86,7 +87,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   if ((medicalEntity?.phone1 != null &&
-                          medicalEntity!.phone1!.isNotEmpty) ||
+                      medicalEntity!.phone1!.isNotEmpty) ||
                       (medicalEntity?.phone2 != null &&
                           medicalEntity!.phone2!.isNotEmpty))
                     Row(
@@ -136,24 +137,51 @@ class MedicalDetailsScreen extends StatelessWidget {
                       fontSize: 16.sp,
                     ),
                   ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    context.locale.languageCode == 'ar'
+                        ? (medicalEntity?.addressAr ?? medicalModel?.addressAr ?? "")
+                        : (medicalEntity?.address ?? medicalModel?.address ?? ""),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.grey,
+                    ),
+                  ),
 
-                  SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                 ],
               ),
             ),
 
             // Map
-            Container(
+            SizedBox(
               width: 360.w,
               height: 200.h,
-              decoration: BoxDecoration(
+              child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/maps.png"),
-                  fit: BoxFit.cover,
+                child: GoogleMap(
+                  initialCameraPosition: CameraPosition(
+                    target: LatLng(latitude, longitude),
+                    zoom: 14,
+                  ),
+                  markers: {
+                    Marker(
+                      markerId: const MarkerId('entity_location'),
+                      position: LatLng(latitude, longitude),
+                      infoWindow: InfoWindow(
+                        title: medicalEntity?.name ?? 'Entity Location',
+                        snippet: medicalEntity?.address,
+                      ),
+                    )
+                  },
+                  zoomControlsEnabled: false,
+                  myLocationEnabled: false,
+                  onMapCreated: (GoogleMapController controller) {},
                 ),
               ),
             ),
+
             const SizedBox(height: 80),
           ],
         ),
@@ -164,20 +192,20 @@ class MedicalDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: isBooking == true
             ? BasicAppButton(
-                text: "book_now",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppointmentScreen(
-                        medicalModel: medicalModel,
-                        medicalEntity: medicalEntity,
-                      ),
-                    ),
-                  );
-                },
-              )
-            : SizedBox(),
+          text: "book_now",
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppointmentScreen(
+                  medicalModel: medicalModel,
+                  medicalEntity: medicalEntity,
+                ),
+              ),
+            );
+          },
+        )
+            : const SizedBox(),
       ),
     );
   }
