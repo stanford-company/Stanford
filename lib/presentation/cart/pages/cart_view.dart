@@ -43,74 +43,81 @@ class CartPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       itemCount: items.length,
                       separatorBuilder: (_, __) => const SizedBox(height: 10),
-                      itemBuilder: (context, index) {
-                        final item = items[index];
-                        final name = item['name_en'] ?? item['name_ar'] ?? item['name'] ?? 'Unnamed';
-                        final imageUrl = item['image_url'] ?? item['image'] ?? '';
-                        final quantity = item['quantity'];
-                        final price = (item['price'] ?? 0.0) * (item['quantity'] ?? 1);
+                        // CartPage widget...
 
-
-                        return Card(
-                          elevation: 3,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(12),
-                            child: Row(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    imageUrl,
-                                    width: 60,
-                                    height: 60,
-                                    fit: BoxFit.contain,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Icon(
-                                              Icons.image_not_supported,
-                                            ),
+                        itemBuilder: (context, index) {
+                          final item = items[index];
+                          final name = item['name_en'] ?? item['name_ar'] ?? item['name'] ?? 'Unnamed';
+                          final imageUrl = item['image_url'] ?? item['image'] ?? '';
+                          final quantity = item['quantity'];
+                          final price = (item['price'] ?? 0.0) * (item['quantity'] ?? 1);
+                          return Card(
+                            elevation: 3,
+                            shape: RoundedRectangleBorder( 
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12),
+                              child: Row(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: Image.network(
+                                      imageUrl,
+                                      width: 60,
+                                      height: 60,
+                                      fit: BoxFit.contain,
+                                      errorBuilder: (context, error, stackTrace) =>
+                                      const Icon(Icons.image_not_supported),
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(width: 12),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          name,
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Color(0xFF113F4E),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 4),
+                                        Text(
+                                          "Quantity: $quantity",
+                                          style: const TextStyle(fontSize: 14),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
 
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                  Column(
                                     children: [
                                       Text(
-                                        name,
+                                        "$price JOD",
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
-                                          color: Color(0xFF113F4E),
+                                          color: Color(0xFF1B8064),
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
-                                      Text(
-                                        "Quantity: $quantity",
-                                        style: const TextStyle(fontSize: 14),
+                                      const SizedBox(height: 8),
+                                      IconButton(
+                                        icon: const Icon(Icons.delete_outline, color: Colors.red),
+                                        onPressed: () {
+                                          context.read<CartCubit>().removeItem(index);
+                                        },
                                       ),
                                     ],
                                   ),
-                                ),
-
-                                Text(
-                                  "$price JOD",
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Color(0xFF1B8064),
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        }
+
                     ),
                   ),
 

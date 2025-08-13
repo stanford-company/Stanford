@@ -167,8 +167,9 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                             child: Container(
                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
                               decoration: BoxDecoration(
-                                color: const Color(0xffF2F4F7),
-                                borderRadius: BorderRadius.circular(12),
+                                color: Color(0xfff3f3f6),
+                                borderRadius: BorderRadius.circular(8.r),
+                                border: Border.all(color: Colors.grey.shade200),
                               ),
                               child: Row(
                                 children: [
