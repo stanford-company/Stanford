@@ -32,3 +32,10 @@ Runner/GeneratedPluginRegistrant.*
 !default.mode2v3
 !default.pbxuser
 !default.perspectivev3
+# Ignore xcconfig build files
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+
+# Ignore lockfile only if this is a package (not an app)
+# pubspec.lock
+
