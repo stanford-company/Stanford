@@ -23,8 +23,6 @@ class CartCubit extends Cubit<CartState> {
     emit(CartLoaded(cartItems));
   }
 
-
-
   Future<void> clearCart() async {
     await CartStorage.clearCart();
     cartItems.clear();
@@ -51,7 +49,7 @@ class CartCubit extends Cubit<CartState> {
       final orderData = {
         'phone_beneficiary': phone,
         'items': items,
-        'total_price': totalPrice,  
+        'total_price': totalPrice,
       };
 
       final order = await getIt<CartService>().createOrder(
@@ -69,6 +67,11 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-
-
+  Future<void> removeItem(int index) async {
+    if (index >= 0 && index < cartItems.length) {
+      cartItems.removeAt(index);
+      await CartStorage.saveCartItems(cartItems);
+      emit(CartLoaded(cartItems));
+    }
+  }
 }

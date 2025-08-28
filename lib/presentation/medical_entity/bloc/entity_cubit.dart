@@ -14,7 +14,7 @@ class EntityCubit extends Cubit<EntityState> {
 
   Future<void> getEntities({
     int? cityId,
-    int? medicalCategoryId,
+    int? categoryId,
     String? name,
     int? page,
   }) async {
@@ -22,7 +22,7 @@ class EntityCubit extends Cubit<EntityState> {
 
     var result = await getIt<GetEntitiesUsecase>().call(
       cityId: cityId,
-      medicalCategoryId: medicalCategoryId,
+      categoryId: categoryId,
       name: name,
       page: page,
     );

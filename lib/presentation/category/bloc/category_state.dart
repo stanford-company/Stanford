@@ -7,8 +7,8 @@ final class CategoryInitial extends CategoryState {}
 final class CategoryLoading extends CategoryState {}
 final class CategoryLoaded extends CategoryState {
   final List<CategoryModel> categories;
-
-  CategoryLoaded(this.categories);
+  final String categoryId;
+  CategoryLoaded(this.categories, this.categoryId);
 }
 final class CategoryFailure extends CategoryState {
   final String message;

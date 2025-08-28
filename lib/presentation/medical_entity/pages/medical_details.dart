@@ -1,16 +1,15 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:medapp/common/components/basic_app_button.dart';
-import 'package:medapp/presentation/medical_entity/pages/medical_details_images.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../core/constants/app_colors.dart' show AppColors;
+import '../../../common/components/basic_app_button.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../data/medical_entity/model/medical_doctor.dart';
 import '../../../data/medical_entity/model/medical_entity.dart';
 import 'appointment_screen.dart';
+import 'medical_details_images.dart';
 
 class MedicalDetailsScreen extends StatelessWidget {
   final MedicalEntityModel? medicalEntity;
@@ -31,9 +30,21 @@ class MedicalDetailsScreen extends StatelessWidget {
     }
   }
 
+  void _launchMap(double latitude, double longitude) async {
+    final String googleMapUrl =
+        'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunchUrl(Uri.parse(googleMapUrl))) {
+      await launchUrl(Uri.parse(googleMapUrl));
+    } else {
+      // Handle error if URL can't be launched
+      print("Could not open the map.");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Example for Amman
+    final double latitude = medicalEntity?.latitude ?? 0.0;
+    final double longitude = medicalEntity?.longitude ?? 0.0;
 
     return Scaffold(
       appBar: AppBar(
@@ -45,10 +56,8 @@ class MedicalDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             MedicalDetailsImages(
-              images:
-                  medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
+              images: medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
             ),
-
             // Description
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -59,7 +68,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                     children: [
                       CircleAvatar(
                         radius: 8,
-                        backgroundColor: Color(0xff80D5B5),
+                        backgroundColor: const Color(0xff80D5B5),
                         child: CircleAvatar(
                           radius: 5,
                           backgroundColor: AppColors.green,
@@ -85,10 +94,9 @@ class MedicalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-                  if ((medicalEntity?.phone1 != null &&
-                          medicalEntity!.phone1!.isNotEmpty) ||
-                      (medicalEntity?.phone2 != null &&
-                          medicalEntity!.phone2!.isNotEmpty))
+                  // Phone number
+                  if ((medicalEntity?.phone1 != null && medicalEntity!.phone1!.isNotEmpty) ||
+                      (medicalEntity?.phone2 != null && medicalEntity!.phone2!.isNotEmpty))
                     Row(
                       children: [
                         SvgPicture.asset(
@@ -117,11 +125,8 @@ class MedicalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 8),
-
                   Text(
-                    medicalEntity?.description ??
-                        medicalModel?.description ??
-                        "",
+                    medicalEntity?.description ?? medicalModel?.description ?? "",
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
@@ -129,6 +134,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 16),
+                  // Location
                   Text(
                     'location'.tr(),
                     style: TextStyle(
@@ -136,21 +142,58 @@ class MedicalDetailsScreen extends StatelessWidget {
                       fontSize: 16.sp,
                     ),
                   ),
-
-                  SizedBox(height: 16),
+                  SizedBox(height: 16.h),
+                  Text(
+                    context.locale.languageCode == 'ar'
+                        ? (medicalEntity?.addressAr ?? medicalModel?.addressAr ?? "")
+                        : (medicalEntity?.address ?? medicalModel?.address ?? ""),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.grey,
+                    ),
+                  ),
+                  SizedBox(height: 16.h),
                 ],
               ),
             ),
-
-            // Map
-            Container(
-              width: 360.w,
-              height: 200.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.r),
-                image: DecorationImage(
-                  image: AssetImage("assets/images/maps.png"),
-                  fit: BoxFit.cover,
+            // Map with Google Pin
+            InkWell(
+              onTap: () {
+                _launchMap(latitude, longitude); // Open the location in Google Maps
+              },
+              child: SizedBox(
+                width: 450.w,
+                height: 200.h,
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20.r),
+                      child: Image.asset(
+                        'assets/images/Untitled.png',
+                        fit: BoxFit.cover,
+                        width: 450.w,
+                        height: 200.h,
+                      ),
+                    ),
+                    Positioned(
+                      left: 8.w,
+                      child: Image.asset(
+                        'assets/images/Google_Maps_Logo.svg.png',
+                        width: 100.w,
+                        height: 50.h,
+                      ),
+                    ),
+                    Positioned(
+                      top: 90.h,
+                      left: 200.w,
+                      child: Image.asset(
+                        'assets/images/Google_Maps_pin.svg.png',
+                        width: 40.w,
+                        height: 30.h,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -158,26 +201,25 @@ class MedicalDetailsScreen extends StatelessWidget {
           ],
         ),
       ),
-
       // Book Now Button
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(12.0),
         child: isBooking == true
             ? BasicAppButton(
-                text: "book_now",
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppointmentScreen(
-                        medicalModel: medicalModel,
-                        medicalEntity: medicalEntity,
-                      ),
-                    ),
-                  );
-                },
-              )
-            : SizedBox(),
+          text: "book_now",
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppointmentScreen(
+                  medicalModel: medicalModel,
+                  medicalEntity: medicalEntity,
+                ),
+              ),
+            );
+          },
+        )
+            : const SizedBox(),
       ),
     );
   }

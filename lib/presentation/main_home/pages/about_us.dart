@@ -79,7 +79,6 @@ class AboutUsPage extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.blue,
-                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ],
@@ -98,7 +97,6 @@ class AboutUsPage extends StatelessWidget {
                           style: const TextStyle(
                             fontSize: 18,
                             color: Colors.blue,
-                            decoration: TextDecoration.underline,
                           ),
                         ),
                       ],
@@ -127,48 +125,48 @@ class AboutUsPage extends StatelessWidget {
                       separatorBuilder: (_, __) => const SizedBox(width: 12),
                       itemBuilder: (context, index) {
                         return Container(
-                          // width: 100,
-                          padding: const EdgeInsets.all(8),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.green),
+                            borderRadius: BorderRadius.circular(16), // Softer corners for the card
                             color: AppColors.light_grey_color,
-                            borderRadius: BorderRadius.circular(12),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.1),
+                                blurRadius: 8,
+                                spreadRadius: 2,
+                                offset: const Offset(0, 4), // Soft shadow effect
+                              ),
+                            ],
                           ),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center, // Center all content
                             children: [
-                              const SizedBox(height: 8),
                               Text(
                                 context.locale.languageCode == 'en'
                                     ? state.aboutUsModel.officers[index].nameEn
                                     : state.aboutUsModel.officers[index].nameAr,
                                 style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w800,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700, // Slightly bolder font for the name
                                 ),
                                 textAlign: TextAlign.center,
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 4),
                               Text(
                                 context.locale.languageCode == 'en'
-                                    ? state
-                                          .aboutUsModel
-                                          .officers[index]
-                                          .addressEn
-                                    : state
-                                          .aboutUsModel
-                                          .officers[index]
-                                          .addressAr,
-                                style: const TextStyle(fontSize: 18),
+                                    ? state.aboutUsModel.officers[index].addressEn
+                                    : state.aboutUsModel.officers[index].addressAr,
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: Colors.black54, // Slightly dimmed address text for readability
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                               const SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () => _callCompany(
-                                  state
-                                      .aboutUsModel
-                                      .officers[index]
-                                      .phoneNumber,
+                                  state.aboutUsModel.officers[index].phoneNumber,
                                 ),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -176,17 +174,14 @@ class AboutUsPage extends StatelessWidget {
                                     const Icon(
                                       Icons.phone,
                                       color: Colors.green,
+                                      size: 20, // Slightly smaller icon for balance
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
-                                      state
-                                          .aboutUsModel
-                                          .officers[index]
-                                          .phoneNumber,
+                                      state.aboutUsModel.officers[index].phoneNumber,
                                       style: const TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         color: Colors.blue,
-                                        decoration: TextDecoration.underline,
                                       ),
                                     ),
                                   ],
@@ -198,6 +193,7 @@ class AboutUsPage extends StatelessWidget {
                       },
                     ),
                   ),
+
                 ],
               ),
             );
