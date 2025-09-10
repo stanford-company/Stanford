@@ -274,5 +274,7 @@
     "filter_accepted": "Accepted",
     "filter_previous": "Previous",
     "invalid_national_id_or_password": "Your national ID or password is incorrect. Please try again.",
-    "general_error_1": "Something went wrong. Please try again later."
+    "general_error_1": "Something went wrong. Please try again later.",
+    "Select medical condition": "Select medical condition",
+
 }

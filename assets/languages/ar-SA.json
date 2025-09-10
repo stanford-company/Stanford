@@ -229,5 +229,8 @@
   "filter_accepted": "المواعيد المقبولة",
   "filter_previous": "المواعيد السابقة",
   "invalid_national_id_or_password": "الرقم الوطني أو كلمة المرور غير صحيحة. حاول مرة أخرى.",
-  "general_error_1": "حدث خطأ ما. الرجاء المحاولة لاحقاً."
+  "general_error_1": "حدث خطأ ما. الرجاء المحاولة لاحقاً.",
+  "Select medical condition": "اختر الفئة الطبية",
+  "logout_confirmation": "هل انت متأكد من تسجيل الخروج",
+  "cancel": "الغاء"
 }
