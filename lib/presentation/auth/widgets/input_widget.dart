@@ -10,7 +10,6 @@ import '../../../common/components/labeled_text_form_field.dart';
 import '../../../common/helper/cach_helper/cach_helper.dart';
 import '../../../core/constants/const.dart';
 import '../../../core/routes/routes.dart';
-import '../../../data/auth/model/login.dart';
 import '../bloc/login_cubit.dart';
 
 class LoginInputWidget extends StatefulWidget {
@@ -22,17 +21,12 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
   final _nationalIdController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
-  String? _errorMessage; // ✅ Added to show error message inline
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) async {
-        if (state is LoginFailure) {
-          setState(() {
-            _errorMessage = state.message; // ✅ Store error message
-          });
-        } else if (state is LoginLoaded) {
+          if (state is LoginLoaded) {
           await CacheHelper.saveData(key: TextConst.isLogin, value: true);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.home,
@@ -43,28 +37,35 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          if (_errorMessage != null) // ✅ Show error box like screenshot
-            Container(
-              width: double.infinity,
-              margin: EdgeInsets.only(bottom: 16.h),
-              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-              decoration: BoxDecoration(
-                color: Color(0xFFFF5D5D),
-                borderRadius: BorderRadius.circular(8.r),
-              ),
-              child: Row(
-                children: [
-                  Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
-                  SizedBox(width: 8.w),
-                  Expanded(
-                    child: Text(
-                      _errorMessage!,
-                      style: TextStyle(color: Colors.white, fontSize: 14.sp),
+          BlocBuilder<LoginCubit, LoginState>(
+            builder: (context, state) {
+              if(state is LoginFailure && state.message.isNotEmpty) {
+              return Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 16.h),
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+                decoration: BoxDecoration(
+                  color: Color(0xFFFF5D5D),
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
+                    SizedBox(width: 8.w),
+                    Expanded(
+                      child: Text(
+                        state.message,
+                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
+                  ],
+                ),
+              );
+            }else{
+                return SizedBox.shrink();
+              }
+              },
+          ),
           LabeledTextFormField(
             title: 'national_id'.tr(),
             controller: _nationalIdController,
@@ -129,10 +130,11 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             side: MaterialStateBorderSide.resolveWith(
-                                  (states) => BorderSide(
-                                color: Color(0xFF80d5b5),
-                                width: 2,
-                              ),
+                                  (states) =>
+                                  BorderSide(
+                                    color: Color(0xFF80d5b5),
+                                    width: 2,
+                                  ),
                             ),
                             fillColor: MaterialStateProperty.resolveWith<Color>(
                                   (states) {
@@ -196,9 +198,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               }
               return CustomButton(
                 onPressed: () {
-                  setState(() {
-                    _errorMessage = null; // ✅ Clear message on retry
-                  });
+
                   context.read<LoginCubit>().login(
                     nationalId: _nationalIdController.text.trim(),
                     password: _passwordController.text.trim(),

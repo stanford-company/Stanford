@@ -8,10 +8,6 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
-        <!-- ✅ هنا المفتاح الصحيح -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBEm27xnUcH9vkoGZyCDvjvHtUZpk1Am1E"/>
 
         <activity
             android:name=".MainActivity"
