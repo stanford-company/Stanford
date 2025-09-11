@@ -56,7 +56,7 @@ class HealthConcernPage extends StatelessWidget {
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText:
-                                          'Search for clinics, doctors, hospitals',
+                                          'search_for_clinics_doctors_hospitals'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
