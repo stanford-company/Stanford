@@ -1,7 +1,4 @@
-import 'package:medapp/data/cities/model/city.dart';
-
-import '../../../data/cities_network/model/city.dart';
-
+import 'package:medapp/data/cities_network/model/city.dart';
 
 abstract class CityNetworkState {}
 

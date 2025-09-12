@@ -6,17 +6,29 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medapp/presentation/category/bloc/category_cubit.dart';
 import '../../../../common/components/health_concern_item.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../../data/category/model/category.dart';
 
-class HealthConcernPage extends StatelessWidget {
+class HealthConcernPage extends StatefulWidget {
+  @override
+  _HealthConcernPageState createState() => _HealthConcernPageState();
+}
+
+class _HealthConcernPageState extends State<HealthConcernPage> {
+  TextEditingController _searchController = TextEditingController();
+  List<CategoryModel> _filteredCategories = [];
+  List<CategoryModel> _allCategories = [];
+
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => CategoryCubit()..getCategories(),
       child: Scaffold(
         body: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
             if (state is CategoryLoaded) {
+              _allCategories = state.categories;  // Store all categories initially
+              if (_filteredCategories.isEmpty) _filteredCategories = _allCategories;  // If no filtering, show all
+
               return Column(
                 children: [
                   SizedBox(height: 12.h),
@@ -52,16 +64,16 @@ class HealthConcernPage extends StatelessWidget {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
-                                    // textDirection: TextDirection.RTL,
+                                    controller: _searchController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          'search_for_clinics_doctors_hospitals'.tr(),
+                                      hintText: 'search_for_clinics_doctors_hospitals'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
                                       ),
                                     ),
+                                    onChanged: _onSearchChanged,  // Call _onSearchChanged when text changes
                                   ),
                                 ),
                               ],
@@ -86,7 +98,7 @@ class HealthConcernPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: state.categories.length,
+                        itemCount: _filteredCategories.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -94,10 +106,10 @@ class HealthConcernPage extends StatelessWidget {
                           childAspectRatio: 2.8,
                         ),
                         itemBuilder: (context, index) {
-                          final category = state.categories[index];
+                          final category = _filteredCategories[index];
                           final isSelected = state.categoryId == category.id.toString();
                           return HealthConcernItem(
-                            healthCategory: state.categories[index],
+                            healthCategory: category,
                             onTap: () {
                               Navigator.pushNamed(
                                 context,
@@ -121,5 +133,14 @@ class HealthConcernPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _onSearchChanged(String query) {
+    setState(() {
+      _filteredCategories = _allCategories.where((category) {
+        return category.nameEn.toLowerCase().contains(query.toLowerCase()) ||
+            category.nameAr.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    });
   }
 }

@@ -1,13 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:medapp/data/medical_entity/model/medical_entity.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/arrow_back_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
+import '../../../data/cities/model/city.dart';
 import '../../main_home/widgets/nav_bar_item_widget.dart';
 import '../../medical_entity/pages/step2/choose_doctor_page.dart';
 import '../bloc/city_cubit.dart';
@@ -17,6 +19,7 @@ class CityPage extends StatefulWidget {
   final int CategoryId;
 
   const CityPage({super.key, required this.CategoryId});
+
   @override
   State<CityPage> createState() => _CityPageState();
 }
@@ -27,11 +30,18 @@ class _CityPageState extends State<CityPage> {
   late PageController _pageController;
   CategoryModel? _category;
 
+  // Add search variables
+  TextEditingController _searchController = TextEditingController();
+  List<CityModel> _filteredCities = [];
+  List<CityModel> _allCities = [];
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
+    _searchController.addListener(_onSearchChanged); // Listen to search changes
 
+    // Fetch category from navigation arguments
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final rawCategory = ModalRoute.of(context)?.settings.arguments;
       setState(() {
@@ -44,9 +54,21 @@ class _CityPageState extends State<CityPage> {
     });
   }
 
+  void _onSearchChanged() {
+    final query = _searchController.text.toLowerCase();
+    final isArabic = context.locale.languageCode == 'ar';
+    setState(() {
+      _filteredCities = _allCities.where((city) {
+        final name = isArabic ? city.nameAr : city.nameEn;
+        return name?.toLowerCase().contains(query) ?? false;
+      }).toList();
+    });
+  }
+
   @override
   void dispose() {
     _pageController.dispose();
+    _searchController.dispose(); // Dispose the controller
     super.dispose();
   }
 
@@ -60,14 +82,11 @@ class _CityPageState extends State<CityPage> {
   @override
   Widget build(BuildContext context) {
     final rawCategory = ModalRoute.of(context)!.settings.arguments;
-
     final category = rawCategory is CategoryModel
         ? rawCategory
         : rawCategory is Map<String, dynamic>
         ? CategoryModel.fromJson(rawCategory)
         : null;
-
-    final size = MediaQuery.of(context).size;
 
     return BlocProvider(
       create: (context) => CityCubit()..getCities(),
@@ -97,6 +116,10 @@ class _CityPageState extends State<CityPage> {
         body: BlocBuilder<CityCubit, CityState>(
           builder: (context, state) {
             if (state is CityLoaded) {
+              _allCities = state.cities; // Store all cities initially
+              // If no cities have been filtered, use all cities
+              if (_filteredCities.isEmpty) _filteredCities = _allCities;
+
               return Column(
                 children: [
                   SizedBox(height: 12.h),
@@ -128,10 +151,10 @@ class _CityPageState extends State<CityPage> {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
+                                    controller: _searchController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          'Search for clinics, doctors, hospitals',
+                                      hintText: 'Search for cities...',
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -154,10 +177,10 @@ class _CityPageState extends State<CityPage> {
                         'Choose City',
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff113f4e),
-                              fontSize: 16.sp,
-                            ),
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xff113f4e),
+                          fontSize: 16.sp,
+                        ),
                       ),
                     ),
                   ),
@@ -165,7 +188,9 @@ class _CityPageState extends State<CityPage> {
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: state.cities.length,
+                        itemCount: _filteredCities.isNotEmpty
+                            ? _filteredCities.length
+                            : state.cities.length, // Use filtered list or all cities
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -173,7 +198,9 @@ class _CityPageState extends State<CityPage> {
                           childAspectRatio: 3,
                         ),
                         itemBuilder: (context, index) {
-                          final city = state.cities[index];
+                          final city = _filteredCities.isNotEmpty
+                              ? _filteredCities[index]
+                              : state.cities[index];
                           final isSelected = state.cityId == city.id.toString();
                           return InkWell(
                             onTap: () {
@@ -199,48 +226,35 @@ class _CityPageState extends State<CityPage> {
                                     data: Theme.of(context).copyWith(
                                       checkboxTheme: CheckboxThemeData(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            4.r,
-                                          ),
+                                          borderRadius: BorderRadius.circular(4.r),
                                         ),
-                                        side:
-                                            MaterialStateBorderSide.resolveWith(
+                                        side: MaterialStateBorderSide.resolveWith(
                                               (states) {
-                                                if (states.contains(
-                                                  MaterialState.selected,
-                                                )) {
-                                                  return BorderSide(
-                                                    color: AppColors
-                                                        .secondary_color,
-                                                    width: 2,
-                                                  );
-                                                }
-                                                return BorderSide(
-                                                  color: isSelected
-                                                      ? AppColors
-                                                            .secondary_color
-                                                      : AppColors
-                                                            .bold_grey_color,
-                                                  width: isSelected ? 3.w : 2.w,
-                                                );
-                                              },
-                                            ),
-                                        fillColor:
-                                            MaterialStateProperty.resolveWith<
-                                              Color
-                                            >((states) {
-                                              return states.contains(
-                                                    MaterialState.selected,
-                                                  )
+                                            if (states.contains(MaterialState.selected)) {
+                                              return BorderSide(
+                                                color: AppColors.secondary_color,
+                                                width: 2,
+                                              );
+                                            }
+                                            return BorderSide(
+                                              color: isSelected
                                                   ? AppColors.secondary_color
-                                                  : Colors.transparent;
-                                            }),
-                                        checkColor:
-                                            MaterialStateProperty.all<Color>(
-                                              AppColors.primary_color,
-                                            ),
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
+                                                  : AppColors.bold_grey_color,
+                                              width: isSelected ? 3.w : 2.w,
+                                            );
+                                          },
+                                        ),
+                                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                                              (states) {
+                                            return states.contains(MaterialState.selected)
+                                                ? AppColors.secondary_color
+                                                : Colors.transparent;
+                                          },
+                                        ),
+                                        checkColor: MaterialStateProperty.all<Color>(
+                                          AppColors.primary_color,
+                                        ),
+                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity(
                                           horizontal: -2,
                                           vertical: -2,
@@ -253,8 +267,8 @@ class _CityPageState extends State<CityPage> {
                                         context
                                             .read<CityCubit>()
                                             .toggleCitySelection(
-                                              city.id.toString(),
-                                            );
+                                          city.id.toString(),
+                                        );
                                       },
                                     ),
                                   ),
@@ -278,13 +292,7 @@ class _CityPageState extends State<CityPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   Routes.bookingStep2,
-                              //   arguments: [state.cityId,true],
-                              // );
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: true, categoryId: widget.CategoryId,)));
-
                       }
                           : null,
 
@@ -323,71 +331,6 @@ class _CityPageState extends State<CityPage> {
               return SizedBox.shrink();
             }
           },
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w, bottom: 12.h),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xff113f4e),
-              borderRadius: BorderRadius.circular(20.w),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-            child: CustomNavigationBar(
-              backgroundColor: Colors.transparent,
-              strokeColor: Colors.transparent,
-              items: [
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.home);
-                  },
-                  image: 'assets/images/svg/home-nav-bar.svg',
-                  label: 'Home',
-                  isSelected: _selectedIndex == 0,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    // Navigator.pushNamed(context, Routes.bookingStep3);
-                  },
-                  image: 'assets/images/svg/calendar-nav-bar.svg',
-                  label: 'Booked',
-                  isSelected: _selectedIndex == 1,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  image: 'assets/images/svg/appointment-nav-bar.svg',
-                  label: 'Book now',
-                  isSelected: _selectedIndex == 2,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    // Navigator.pushNamed(context, Routes.appointmentDetail);
-                  },
-                  image: 'assets/images/svg/bag-nav-bar.svg',
-                  label: 'Store',
-                  isSelected: _selectedIndex == 3,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.notificationSettings);
-                  },
-                  image: 'assets/images/svg/menu-nav-bar.svg',
-                  label: 'Settings',
-                  isSelected: _selectedIndex == 4,
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              elevation: 0,
-            ),
-          ),
         ),
       ),
     );

@@ -64,27 +64,6 @@ class MedicalDetailsScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 8,
-                        backgroundColor: const Color(0xff80D5B5),
-                        child: CircleAvatar(
-                          radius: 5,
-                          backgroundColor: AppColors.green,
-                        ),
-                      ),
-                      SizedBox(width: 4),
-                      Text(
-                        'currently_available'.tr(),
-                        style: TextStyle(
-                          color: AppColors.green,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                        ),
-                      ),
-                    ],
-                  ),
                   SizedBox(height: 8),
                   Text(
                     medicalEntity?.name ?? medicalModel?.medicalName ?? '',
