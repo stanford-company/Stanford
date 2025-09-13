@@ -33,7 +33,6 @@ class CategoryCubit extends Cubit<CategoryState> {
 
     emit(CategoryLoaded(_categories,categoryId));
   }
-  TextEditingController searchController = TextEditingController();
 
 
   void onSearchChanged(String query) {

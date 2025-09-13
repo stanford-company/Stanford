@@ -8,13 +8,7 @@ import '../../../../common/components/health_concern_item.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../../data/category/model/category.dart';
 
-class HealthConcernPage extends StatefulWidget {
-  @override
-  _HealthConcernPageState createState() => _HealthConcernPageState();
-}
-
-class _HealthConcernPageState extends State<HealthConcernPage> {
-
+class HealthConcernPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -130,5 +124,4 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
       ),
     );
   }
-
 }
