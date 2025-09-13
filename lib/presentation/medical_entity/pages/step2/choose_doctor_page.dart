@@ -34,39 +34,26 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
   int? cityId;
   bool _didFetch = false;
 
-  // Add search variables
-  TextEditingController _searchController = TextEditingController();
-  List<MedicalEntityModel> _filteredEntities = [];
-  List<MedicalEntityModel> _allEntities = [];
-
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
-    _searchController.addListener(_onSearchChanged); // Listen to search changes
-  }
-
-  void _onSearchChanged() {
-    final query = _searchController.text.toLowerCase();
-    setState(() {
-      _filteredEntities = _allEntities.where((entity) {
-        return entity.name?.toLowerCase().contains(query) ?? false;
-      }).toList();
-    });
   }
 
   @override
   void dispose() {
     _pageController.dispose();
-    _searchController.dispose(); // Dispose the controller
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-      EntityCubit()..getEntities(cityId: int.parse(widget.cityId), categoryId: widget.categoryId),
+      create: (_) => EntityCubit()
+        ..getEntities(
+          cityId: int.parse(widget.cityId),
+          categoryId: widget.categoryId,
+        ),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),
@@ -127,7 +114,9 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                         SizedBox(width: 8.w),
                         Expanded(
                           child: TextField(
-                            controller: _searchController,
+                            onChanged: context
+                                .read<EntityCubit>()
+                                .searchEntities,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'search_placeholder'.tr(),
@@ -147,20 +136,19 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     if (state is EntityLoading) {
                       return Center(child: CircularProgressIndicator());
                     } else if (state is EntityLoaded) {
-                      _allEntities = state.entities; // Store all entities initially
-                      if (_filteredEntities.isEmpty) _filteredEntities = _allEntities;
-
-                      if (_filteredEntities.isEmpty) {
-                        return Center(child: Text("There is no medical entity")); // Empty state message
+                      if (state.entities.isEmpty) {
+                        return Center(
+                          child: Text("There is no medical entity"),
+                        ); // Empty state message
                       }
 
                       return ListView.separated(
                         padding: EdgeInsets.all(16.w),
                         separatorBuilder: (context, index) =>
                             SizedBox(height: 12.h),
-                        itemCount: _filteredEntities.length,
+                        itemCount: state.entities.length,
                         itemBuilder: (context, index) {
-                          final entity = _filteredEntities[index];
+                          final entity = state.entities[index];
                           return MedicalCard(
                             medicalEntity: entity,
                             isBooking: widget.isBooking,
