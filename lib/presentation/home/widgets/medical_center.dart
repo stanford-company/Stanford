@@ -17,9 +17,14 @@ class MedicalCenterWidget extends StatelessWidget {
       builder: (context, state) {
         if (state is CenterLoading)
           return Center(child: CircularProgressIndicator());
+
         if (state is CenterFailure)
           return Center(child: Text('Something went wrong'));
-        if (state is CenterLoaded)
+
+        if (state is CenterLoaded) {
+          if (state.medicalCenters.isEmpty) {
+            return SizedBox();
+          }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,6 +54,7 @@ class MedicalCenterWidget extends StatelessWidget {
               ),
             ],
           );
+        }
         return SizedBox();
       },
     );

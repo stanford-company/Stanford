@@ -6,17 +6,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medapp/presentation/category/bloc/category_cubit.dart';
 import '../../../../common/components/health_concern_item.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../../data/category/model/category.dart';
 
 class HealthConcernPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => CategoryCubit()..getCategories(),
       child: Scaffold(
         body: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
+            var cubit = context.read<CategoryCubit>();
             if (state is CategoryLoaded) {
+              // Store all categories initially
+              // If no filtering, show all
+
               return Column(
                 children: [
                   SizedBox(height: 12.h),
@@ -52,16 +56,15 @@ class HealthConcernPage extends StatelessWidget {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
-                                    // textDirection: TextDirection.RTL,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          'search_for_clinics_doctors_hospitals'.tr(),
+                                      hintText: 'search_for_clinics_doctors_hospitals'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
                                       ),
                                     ),
+                                    onChanged: cubit.onSearchChanged,  // Call _onSearchChanged when text changes
                                   ),
                                 ),
                               ],
@@ -95,9 +98,8 @@ class HealthConcernPage extends StatelessWidget {
                         ),
                         itemBuilder: (context, index) {
                           final category = state.categories[index];
-                          final isSelected = state.categoryId == category.id.toString();
                           return HealthConcernItem(
-                            healthCategory: state.categories[index],
+                            healthCategory: category,
                             onTap: () {
                               Navigator.pushNamed(
                                 context,

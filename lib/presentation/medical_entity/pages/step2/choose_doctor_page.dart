@@ -8,6 +8,7 @@ import 'package:medapp/common/components/medical_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../common/components/custom_navigation_bar.dart';
 import '../../../../core/routes/routes.dart';
+import '../../../../data/medical_entity/model/medical_entity.dart';
 import '../../../main_home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
@@ -20,7 +21,7 @@ class ChooseDoctorPage extends StatefulWidget {
     super.key,
     required this.cityId,
     required this.isBooking,
-    required this.categoryId
+    required this.categoryId,
   });
 
   @override
@@ -48,8 +49,11 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) =>
-          EntityCubit()..getEntities(cityId: int.parse(widget.cityId), categoryId: widget.categoryId),
+      create: (_) => EntityCubit()
+        ..getEntities(
+          cityId: int.parse(widget.cityId),
+          categoryId: widget.categoryId,
+        ),
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),
@@ -86,6 +90,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
           builder: (context, state) {
             return Column(
               children: [
+                // Search bar implementation
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 16.w,
@@ -109,6 +114,9 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                         SizedBox(width: 8.w),
                         Expanded(
                           child: TextField(
+                            onChanged: context
+                                .read<EntityCubit>()
+                                .searchEntities,
                             decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: 'search_placeholder'.tr(),
@@ -128,6 +136,12 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     if (state is EntityLoading) {
                       return Center(child: CircularProgressIndicator());
                     } else if (state is EntityLoaded) {
+                      if (state.entities.isEmpty) {
+                        return Center(
+                          child: Text("There is no medical entity"),
+                        ); // Empty state message
+                      }
+
                       return ListView.separated(
                         padding: EdgeInsets.all(16.w),
                         separatorBuilder: (context, index) =>
@@ -152,63 +166,6 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
             );
           },
         ),
-
-        // bottomNavigationBar: Padding(
-        //   padding: EdgeInsets.only(left: 12.w, right: 12.w, bottom: 12.h),
-        //   child: Container(
-        //     decoration: BoxDecoration(
-        //       color: Color(0xff113f4e),
-        //       borderRadius: BorderRadius.circular(20.w),
-        //       boxShadow: [
-        //         BoxShadow(
-        //           color: Colors.black12,
-        //           blurRadius: 10,
-        //           offset: Offset(0, 4),
-        //         ),
-        //       ],
-        //     ),
-        //     padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-        //     child: CustomNavigationBar(
-        //       backgroundColor: Colors.transparent,
-        //       strokeColor: Colors.transparent,
-        //       items: [
-        //         NavBarItemWidget(
-        //           onTap: () => Navigator.pushNamed(context, Routes.home),
-        //           image: 'assets/images/svg/home-nav-bar.svg',
-        //           label: 'home'.tr(),
-        //           isSelected: _selectedIndex == 0,
-        //         ),
-        //         NavBarItemWidget(
-        //           onTap: () {},
-        //           image: 'assets/images/svg/calendar-nav-bar.svg',
-        //           label: 'booked'.tr(),
-        //           isSelected: _selectedIndex == 1,
-        //         ),
-        //         NavBarItemWidget(
-        //           onTap: () => Navigator.of(context).pop(),
-        //           image: 'assets/images/svg/appointment-nav-bar.svg',
-        //           label: 'book_now'.tr(),
-        //           isSelected: _selectedIndex == 2,
-        //         ),
-        //         NavBarItemWidget(
-        //           onTap: () {},
-        //           image: 'assets/images/svg/bag-nav-bar.svg',
-        //           label: 'store'.tr(),
-        //           isSelected: _selectedIndex == 3,
-        //         ),
-        //         NavBarItemWidget(
-        //           onTap: () =>
-        //               Navigator.pushNamed(context, Routes.notificationSettings),
-        //           image: 'assets/images/svg/menu-nav-bar.svg',
-        //           label: 'settings'.tr(),
-        //           isSelected: _selectedIndex == 4,
-        //         ),
-        //       ],
-        //       currentIndex: _selectedIndex,
-        //       elevation: 0,
-        //     ),
-        //   ),
-        // ),
       ),
     );
   }

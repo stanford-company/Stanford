@@ -16,7 +16,12 @@ class MedicalDoctorWidget extends StatelessWidget {
     return BlocBuilder<DoctorCubit, DoctorState>(
       builder: (context, state) {
         if (state is DoctorLoading) return CircularProgressIndicator();
-        if (state is DoctorLoaded)
+
+        if (state is DoctorLoaded) {
+          if (state.medicalDoctors.isEmpty) {
+            return SizedBox(); // Return an empty widget if no doctors
+          }
+
           return Column(
             children: [
               Padding(
@@ -47,6 +52,8 @@ class MedicalDoctorWidget extends StatelessWidget {
               ),
             ],
           );
+        }
+
         return SizedBox();
       },
     );

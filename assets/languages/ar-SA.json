@@ -232,6 +232,7 @@
   "general_error_1": "حدث خطأ ما. الرجاء المحاولة لاحقاً.",
   "Select medical condition": "اختر الفئة الطبية",
   "logout_confirmation": "هل انت متأكد من تسجيل الخروج",
-  "cancel": "الغاء"
+  "cancel": "الغاء",
+  "choose_city": "اختر مدينة"
 
 }

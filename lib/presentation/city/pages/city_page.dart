@@ -1,13 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import 'package:medapp/data/medical_entity/model/medical_entity.dart';
 import '../../../../core/routes/routes.dart';
 import '../../../common/components/arrow_back_widget.dart';
 import '../../../common/components/custom_navigation_bar.dart';
 import '../../../data/category/model/category.dart';
+import '../../../data/cities/model/city.dart';
 import '../../main_home/widgets/nav_bar_item_widget.dart';
 import '../../medical_entity/pages/step2/choose_doctor_page.dart';
 import '../bloc/city_cubit.dart';
@@ -17,6 +19,7 @@ class CityPage extends StatefulWidget {
   final int CategoryId;
 
   const CityPage({super.key, required this.CategoryId});
+
   @override
   State<CityPage> createState() => _CityPageState();
 }
@@ -25,23 +28,11 @@ class _CityPageState extends State<CityPage> {
   bool isDrawerOpen = false;
   int _selectedIndex = 2;
   late PageController _pageController;
-  CategoryModel? _category;
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rawCategory = ModalRoute.of(context)?.settings.arguments;
-      setState(() {
-        _category = rawCategory is CategoryModel
-            ? rawCategory
-            : rawCategory is Map<String, dynamic>
-            ? CategoryModel.fromJson(rawCategory)
-            : null;
-      });
-    });
   }
 
   @override
@@ -50,25 +41,8 @@ class _CityPageState extends State<CityPage> {
     super.dispose();
   }
 
-  _selectPage(int index) {
-    if (_pageController.hasClients) _pageController.jumpToPage(index);
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    final rawCategory = ModalRoute.of(context)!.settings.arguments;
-
-    final category = rawCategory is CategoryModel
-        ? rawCategory
-        : rawCategory is Map<String, dynamic>
-        ? CategoryModel.fromJson(rawCategory)
-        : null;
-
-    final size = MediaQuery.of(context).size;
-
     return BlocProvider(
       create: (context) => CityCubit()..getCities(),
       child: Scaffold(
@@ -128,10 +102,12 @@ class _CityPageState extends State<CityPage> {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
+                                    onChanged: context
+                                        .read<CityCubit>()
+                                        .searchCity,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          'Search for clinics, doctors, hospitals',
+                                      hintText: 'Search for cities...',
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -165,7 +141,9 @@ class _CityPageState extends State<CityPage> {
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: state.cities.length,
+                        itemCount: state
+                            .cities
+                            .length, // Use filtered list or all cities
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -278,14 +256,17 @@ class _CityPageState extends State<CityPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                              // Navigator.pushNamed(
-                              //   context,
-                              //   Routes.bookingStep2,
-                              //   arguments: [state.cityId,true],
-                              // );
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: true, categoryId: widget.CategoryId,)));
-
-                      }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChooseDoctorPage(
+                                    cityId: state.cityId,
+                                    isBooking: true,
+                                    categoryId: widget.CategoryId,
+                                  ),
+                                ),
+                              );
+                            }
                           : null,
 
                       style: ElevatedButton.styleFrom(
@@ -323,71 +304,6 @@ class _CityPageState extends State<CityPage> {
               return SizedBox.shrink();
             }
           },
-        ),
-        bottomNavigationBar: Padding(
-          padding: EdgeInsets.only(left: 12.w, right: 12.w, bottom: 12.h),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Color(0xff113f4e),
-              borderRadius: BorderRadius.circular(20.w),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black12,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 8.w),
-            child: CustomNavigationBar(
-              backgroundColor: Colors.transparent,
-              strokeColor: Colors.transparent,
-              items: [
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.home);
-                  },
-                  image: 'assets/images/svg/home-nav-bar.svg',
-                  label: 'Home',
-                  isSelected: _selectedIndex == 0,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    // Navigator.pushNamed(context, Routes.bookingStep3);
-                  },
-                  image: 'assets/images/svg/calendar-nav-bar.svg',
-                  label: 'Booked',
-                  isSelected: _selectedIndex == 1,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                  },
-                  image: 'assets/images/svg/appointment-nav-bar.svg',
-                  label: 'Book now',
-                  isSelected: _selectedIndex == 2,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    // Navigator.pushNamed(context, Routes.appointmentDetail);
-                  },
-                  image: 'assets/images/svg/bag-nav-bar.svg',
-                  label: 'Store',
-                  isSelected: _selectedIndex == 3,
-                ),
-                NavBarItemWidget(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.notificationSettings);
-                  },
-                  image: 'assets/images/svg/menu-nav-bar.svg',
-                  label: 'Settings',
-                  isSelected: _selectedIndex == 4,
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              elevation: 0,
-            ),
-          ),
         ),
       ),
     );

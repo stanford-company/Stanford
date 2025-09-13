@@ -27,13 +27,32 @@ class EntityCubit extends Cubit<EntityState> {
       page: page,
     );
 
-    result.fold(
-          (failure) => emit(EntityFailure(failure.message)),
-          (entities) {
-        _entities = entities;
-        emit(EntityLoaded(entities: _entities, selectedEntityIds: _selectedEntityIds));
-      },
-    );
+    result.fold((failure) => emit(EntityFailure(failure.message)), (entities) {
+      _entities = entities;
+      emit(
+        EntityLoaded(
+          entities: _entities,
+          selectedEntityIds: _selectedEntityIds,
+        ),
+      );
+    });
   }
 
+  // add search function
+  Future<void> searchEntities(String query) async {
+    emit(EntityLoading());
+    final filteredEntities = _entities
+        .where(
+          (entity) =>
+              entity.nameAr.toLowerCase().contains(query.toLowerCase()) ||
+              entity.name.toLowerCase().contains(query.toLowerCase()),
+        )
+        .toList();
+    emit(
+      EntityLoaded(
+        entities: filteredEntities,
+        selectedEntityIds: _selectedEntityIds,
+      ),
+    );
+  }
 }

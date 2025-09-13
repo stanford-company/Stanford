@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +9,7 @@ import '../../../../core/routes/routes.dart';
 import '../../../common/components/arrow_back_widget.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../data/category/model/category.dart';
+import '../../../data/cities_network/model/city.dart';
 import '../../../domain/city_network/usecase/city_usecase.dart';
 import '../../main_home/widgets/nav_bar_item_widget.dart';
 import '../bloc/city_network_cubit.dart';
@@ -17,6 +19,7 @@ class CityNetworkPage extends StatefulWidget {
   final int categoryId;
 
   const CityNetworkPage({super.key, required this.categoryId});
+
   @override
   State<CityNetworkPage> createState() => _CityNetworkPageState();
 }
@@ -25,7 +28,6 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
   bool isDrawerOpen = false;
   int _selectedIndex = 2;
   late PageController _pageController;
-  CategoryModel? _category;
 
   @override
   void initState() {
@@ -33,16 +35,6 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
     _pageController = PageController(initialPage: _selectedIndex);
 
     // Fetch category from navigation arguments
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rawCategory = ModalRoute.of(context)?.settings.arguments;
-      setState(() {
-        _category = rawCategory is CategoryModel
-            ? rawCategory
-            : rawCategory is Map<String, dynamic>
-            ? CategoryModel.fromJson(rawCategory)
-            : null;
-      });
-    });
   }
 
   @override
@@ -61,17 +53,16 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
   @override
   Widget build(BuildContext context) {
     final rawCategory = ModalRoute.of(context)!.settings.arguments;
-
     final category = rawCategory is CategoryModel
         ? rawCategory
         : rawCategory is Map<String, dynamic>
         ? CategoryModel.fromJson(rawCategory)
         : null;
 
-    final size = MediaQuery.of(context).size;
-
     return BlocProvider(
-      create: (context) => CityNetworkCubit(getIt<GetCitiesNetworkUsecase>())..fetchCities(),  // Pass GetCitiesNetworkUsecase to CityNetworkCubit
+      create: (context) =>
+          CityNetworkCubit(getIt<GetCitiesNetworkUsecase>())
+            ..fetchCities(), // Pass GetCitiesNetworkUsecase to CityNetworkCubit
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),
@@ -87,7 +78,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                   toolbarHeight: 60.h,
                   leading: ArrowBackWidget(),
                   title: Text(
-                    "Book",
+                    "choose_city".tr(),
                     style: TextStyle(color: Color(0xff113f4e)),
                   ),
                 ),
@@ -97,7 +88,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
         ),
         body: BlocBuilder<CityNetworkCubit, CityNetworkState>(
           builder: (context, state) {
-            if (state is CityNetworkLoaded) { // Use CityNetworkLoaded state
+            if (state is CityNetworkLoaded) {
               return Column(
                 children: [
                   SizedBox(height: 12.h),
@@ -129,10 +120,12 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
+                                    onChanged: context
+                                        .read<CityNetworkCubit>()
+                                        .searchCities,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                      'Search for clinics, doctors, hospitals',
+                                      hintText: 'Search for cities...',
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -155,10 +148,10 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                         'Choose City',
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff113f4e),
-                          fontSize: 16.sp,
-                        ),
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff113f4e),
+                              fontSize: 16.sp,
+                            ),
                       ),
                     ),
                   ),
@@ -166,7 +159,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: state.cities.length, // Use state from CityNetworkCubit
+                        itemCount: state
+                            .cities
+                            .length, // Use filtered list or all cities
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -178,9 +173,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                           final isSelected = state.cityId == city.id.toString();
                           return InkWell(
                             onTap: () {
-                              context.read<CityNetworkCubit>().toggleCitySelection( // Use CityNetworkCubit
-                                city.id.toString(),
-                              );
+                              context
+                                  .read<CityNetworkCubit>()
+                                  .toggleCitySelection(city.id.toString());
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -205,43 +200,43 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                           ),
                                         ),
                                         side:
-                                        MaterialStateBorderSide.resolveWith(
+                                            MaterialStateBorderSide.resolveWith(
                                               (states) {
-                                            if (states.contains(
-                                              MaterialState.selected,
-                                            )) {
-                                              return BorderSide(
-                                                color: AppColors
-                                                    .secondary_color,
-                                                width: 2,
-                                              );
-                                            }
-                                            return BorderSide(
-                                              color: isSelected
-                                                  ? AppColors
-                                                  .secondary_color
-                                                  : AppColors
-                                                  .bold_grey_color,
-                                              width: isSelected ? 3.w : 2.w,
-                                            );
-                                          },
-                                        ),
+                                                if (states.contains(
+                                                  MaterialState.selected,
+                                                )) {
+                                                  return BorderSide(
+                                                    color: AppColors
+                                                        .secondary_color,
+                                                    width: 2,
+                                                  );
+                                                }
+                                                return BorderSide(
+                                                  color: isSelected
+                                                      ? AppColors
+                                                            .secondary_color
+                                                      : AppColors
+                                                            .bold_grey_color,
+                                                  width: isSelected ? 3.w : 2.w,
+                                                );
+                                              },
+                                            ),
                                         fillColor:
-                                        MaterialStateProperty.resolveWith<
-                                            Color
-                                        >((states) {
-                                          return states.contains(
-                                            MaterialState.selected,
-                                          )
-                                              ? AppColors.secondary_color
-                                              : Colors.transparent;
-                                        }),
+                                            MaterialStateProperty.resolveWith<
+                                              Color
+                                            >((states) {
+                                              return states.contains(
+                                                    MaterialState.selected,
+                                                  )
+                                                  ? AppColors.secondary_color
+                                                  : Colors.transparent;
+                                            }),
                                         checkColor:
-                                        MaterialStateProperty.all<Color>(
-                                          AppColors.primary_color,
-                                        ),
+                                            MaterialStateProperty.all<Color>(
+                                              AppColors.primary_color,
+                                            ),
                                         materialTapTargetSize:
-                                        MaterialTapTargetSize.shrinkWrap,
+                                            MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity(
                                           horizontal: -2,
                                           vertical: -2,
@@ -253,9 +248,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                       onChanged: (_) {
                                         context
                                             .read<CityNetworkCubit>()
-                                            .toggleCitySelection( // Use CityNetworkCubit
-                                          city.id.toString(),
-                                        );
+                                            .toggleCitySelection(
+                                              city.id.toString(),
+                                            );
                                       },
                                     ),
                                   ),
@@ -279,15 +274,18 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   Routes.bookingStep2,
-                        //   arguments: [state.cityId,false],
-                        // );
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChooseDoctorPage(cityId:state.cityId, isBooking: false, categoryId: widget.categoryId,)));
-                      }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChooseDoctorPage(
+                                    cityId: state.cityId,
+                                    isBooking: false,
+                                    categoryId: widget.categoryId,
+                                  ),
+                                ),
+                              );
+                            }
                           : null,
-
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48.h),
                         backgroundColor: state.cityId.isNotEmpty
@@ -315,9 +313,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                   SizedBox(height: 20.h),
                 ],
               );
-            } else if (state is CityNetworkLoading) {  // Adjusted to CityNetworkLoading
+            } else if (state is CityNetworkLoading) {
               return Center(child: CircularProgressIndicator());
-            } else if (state is CityNetworkError) {  // Adjusted to CityNetworkError
+            } else if (state is CityNetworkError) {
               return Center(child: Text(state.errorMessage));
             } else {
               return SizedBox.shrink();
