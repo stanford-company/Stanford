@@ -75,6 +75,7 @@ class _HomePageState extends State<HomePage>
                     ),
               MedicalDoctorWidget(),
               MedicalCenterWidget(),
+
             ],
           ),
         ),
