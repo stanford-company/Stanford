@@ -135,7 +135,7 @@ class LoginPage extends StatelessWidget {
                           SizedBox(height: 30.h),
                           Center(
                             child: Column(
-                              children: [
+                              children: [ 
                                 Text(
                                   'log_in'.tr(),
                                   style: TextStyle(
