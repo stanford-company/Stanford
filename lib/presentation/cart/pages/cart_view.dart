@@ -17,8 +17,11 @@ class CartPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Padding(
-            padding:   EdgeInsets.only(top: 8.0.h),
-            child: const Text('Your Cart', style: TextStyle(color: Colors.white)),
+            padding: EdgeInsets.only(top: 8.0.h),
+            child: const Text(
+              'Your Cart',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
           centerTitle: true,
           backgroundColor: AppColors.primary_color,
@@ -28,9 +31,7 @@ class CartPage extends StatelessWidget {
           builder: (context, state) {
             if (state is CartLoading) {
               return const Center(child: CircularProgressIndicator());
-            }
-
-            if (state is CartLoaded) {
+            } else if (state is CartLoaded) {
               final items = state.items;
               if (items.isEmpty) {
                 return const Center(child: Text("Your cart is empty 🛒"));
@@ -43,81 +44,95 @@ class CartPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       itemCount: items.length,
                       separatorBuilder: (_, __) => const SizedBox(height: 10),
-                        // CartPage widget...
 
-                        itemBuilder: (context, index) {
-                          final item = items[index];
-                          final name = item['name_en'] ?? item['name_ar'] ?? item['name'] ?? 'Unnamed';
-                          final imageUrl = item['image_url'] ?? item['image'] ?? '';
-                          final quantity = item['quantity'];
-                          final price = (item['price'] ?? 0.0) * (item['quantity'] ?? 1);
-                          return Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder( 
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12),
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: Image.network(
-                                      imageUrl,
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.contain,
-                                      errorBuilder: (context, error, stackTrace) =>
-                                      const Icon(Icons.image_not_supported),
-                                    ),
+                      // CartPage widget...
+                      itemBuilder: (context, index) {
+                        final item = items[index];
+                        final name =
+                            item['name_en'] ??
+                            item['name_ar'] ??
+                            item['name'] ??
+                            'Unnamed';
+                        final imageUrl =
+                            item['image_url'] ?? item['image'] ?? '';
+                        final quantity = item['quantity'];
+                        final price =
+                            (item['price'] ?? 0.0) * (item['quantity'] ?? 1);
+                        return Card(
+                          elevation: 3,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    imageUrl,
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.contain,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Icon(
+                                              Icons.image_not_supported,
+                                            ),
                                   ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          name,
-                                          style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: Color(0xFF113F4E),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          "Quantity: $quantity",
-                                          style: const TextStyle(fontSize: 14),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  Column(
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "$price JOD",
+                                        name,
                                         style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
-                                          color: Color(0xFF1B8064),
+                                          color: Color(0xFF113F4E),
                                         ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      IconButton(
-                                        icon: const Icon(Icons.delete_outline, color: Colors.red),
-                                        onPressed: () {
-                                          context.read<CartCubit>().removeItem(index);
-                                        },
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        "Quantity: $quantity",
+                                        style: const TextStyle(fontSize: 14),
                                       ),
                                     ],
                                   ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }
+                                ),
 
+                                Column(
+                                  children: [
+                                    Text(
+                                      "$price JOD",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: Color(0xFF1B8064),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    IconButton(
+                                      icon: const Icon(
+                                        Icons.delete_outline,
+                                        color: Colors.red,
+                                      ),
+                                      onPressed: () {
+                                        context.read<CartCubit>().removeItem(
+                                          index,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
 
@@ -139,7 +154,9 @@ class CartPage extends StatelessWidget {
                           if (currentState is CartSuccess) {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (_) => const SuccessOrderPage()),
+                              MaterialPageRoute(
+                                builder: (_) => const SuccessOrderPage(),
+                              ),
                             );
                           }
                         },
@@ -164,9 +181,8 @@ class CartPage extends StatelessWidget {
                   ),
                 ],
               );
-            }
-
-            return const SizedBox.shrink();
+            } else
+              return Container(width: 100, height: 100, color: Colors.red);
           },
         ),
       ),

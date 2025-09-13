@@ -18,6 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
   Future<void> login({
     required String nationalId,
     required String password,
+    bool rememberMe = false,
   }) async {
     emit(LoginLoading());
 
@@ -26,7 +27,7 @@ class LoginCubit extends Cubit<LoginState> {
     );
 
     result.fold(
-          (failure) {
+      (failure) {
         String errorMessage;
 
         if (failure.message.contains('401')) {
@@ -38,9 +39,25 @@ class LoginCubit extends Cubit<LoginState> {
 
         emit(LoginFailure(errorMessage));
       },
-          (userParams) {
+      (userParams) {
+        if (true) {
+          CacheHelper.saveData(key: TextConst.rememberMe, value: true);
+          CacheHelper.saveData(key: "national_id", value: nationalId);
+          CacheHelper.saveData(key: "password", value: password);
+        } else {
+          CacheHelper.removeData(key: TextConst.rememberMe);
+          CacheHelper.removeData(key: "national_id");
+          CacheHelper.removeData(key: "password");
+        }
         emit(LoginLoaded(userParams));
       },
     );
+  }
+
+  // remmber me
+  Future<void> checkRememberMe() async {
+    final rememberMe =
+        await CacheHelper.getData(key: TextConst.rememberMe) ?? false;
+    emit(RememberState(rememberMe));
   }
 }

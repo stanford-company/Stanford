@@ -73,36 +73,38 @@ class StorePageContent extends StatelessWidget {
             left: 16.w,
             right: 16.w,
             child: BlocBuilder<CartCubit, CartState>(
-              builder: (context, state) {
-                final cartItems = (state is CartLoaded)
-                    ? state.items
-                    : context.read<CartCubit>().cartItems;
-
-                if (cartItems.isNotEmpty) {
-                  return ElevatedButton.icon(
-                    icon: const Icon(Icons.shopping_cart, color: Colors.white,),
-                    label: const Text(
-                      "Go to Checkout",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary_color,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => const CartPage(phone: "0799999999"),
-                        ),
-                      );
-                    },
-                  );
-                }
-                return const SizedBox.shrink();
+              builder: (context, cartState) {
+                if (cartState is CartLoaded) {
+                  return cartState.items.isEmpty
+                      ? SizedBox.shrink()
+                      : ElevatedButton.icon(
+                          icon: const Icon(
+                            Icons.shopping_cart,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            "Go to Checkout",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.primary_color,
+                            padding: const EdgeInsets.symmetric(vertical: 16),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) =>
+                                    const CartPage(phone: "0799999999"),
+                              ),
+                            );
+                          },
+                        );
+                } else
+                  return Container(width: 100, height: 100, color: Colors.red);
               },
             ),
           ),

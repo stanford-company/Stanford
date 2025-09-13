@@ -32,7 +32,7 @@ class AppointmentScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: AppBar(
                 leading: ArrowBackWidget(),
-                title:   Text('book_appointment'.tr()),
+                title: Text('book_appointment'.tr()),
                 centerTitle: true,
                 elevation: 0,
                 backgroundColor: Colors.transparent,
@@ -77,7 +77,8 @@ class AppointmentScreen extends StatelessWidget {
                           CircleAvatar(
                             radius: 24,
                             backgroundImage: NetworkImage(
-                              (medicalEntity?.images != null && medicalEntity!.images!.isNotEmpty)
+                              (medicalEntity?.images != null &&
+                                      medicalEntity!.images!.isNotEmpty)
                                   ? medicalEntity!.images![0]
                                   : (medicalModel?.imageUrl ?? ""),
                             ),
@@ -88,8 +89,12 @@ class AppointmentScreen extends StatelessWidget {
                             children: [
                               Text(
                                 context.locale.languageCode == 'ar'
-                                    ? medicalEntity?.nameAr ?? medicalModel?.medicalName ?? ''
-                                    : medicalEntity?.name ?? medicalModel?.medicalName ?? '',
+                                    ? medicalEntity?.nameAr ??
+                                          medicalModel?.medicalName ??
+                                          ''
+                                    : medicalEntity?.name ??
+                                          medicalModel?.medicalName ??
+                                          '',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16,
@@ -97,10 +102,13 @@ class AppointmentScreen extends StatelessWidget {
                               ),
                               Text(
                                 context.locale.languageCode == 'ar'
-                                    ? medicalEntity?.descriptionAr ?? medicalModel?.description ?? ''
-                                    : medicalEntity?.description ?? medicalModel?.description ?? '',
+                                    ? medicalEntity?.descriptionAr ??
+                                          medicalModel?.description ??
+                                          ''
+                                    : medicalEntity?.description ??
+                                          medicalModel?.description ??
+                                          '',
                               ),
-
                             ],
                           ),
                         ],
@@ -140,8 +148,12 @@ class AppointmentScreen extends StatelessWidget {
                               onTap: () async {
                                 final picked = await showDatePicker(
                                   context: context,
-                                  initialDate: state.params.date ?? DateTime.now(),
-                                  firstDate: DateTime(2020),
+                                  initialDate:
+                                      state.params.date ??
+                                      DateTime.now().add(Duration(days: 1)),
+                                  firstDate: DateTime.now().add(
+                                    Duration(days: 1),
+                                  ),
                                   lastDate: DateTime(2100),
                                   builder: (context, child) {
                                     return Theme(
@@ -149,7 +161,8 @@ class AppointmentScreen extends StatelessWidget {
                                         colorScheme: ColorScheme.light(
                                           primary: AppColors.primary_color,
                                           onPrimary: Colors.white,
-                                          onSurface: AppColors.primary_button_color,
+                                          onSurface:
+                                              AppColors.primary_button_color,
                                         ),
                                         textButtonTheme: TextButtonThemeData(
                                           style: TextButton.styleFrom(
@@ -214,7 +227,8 @@ class AppointmentScreen extends StatelessWidget {
                                         colorScheme: ColorScheme.light(
                                           primary: AppColors.primary_color,
                                           onPrimary: Colors.white,
-                                          onSurface: AppColors.primary_button_color,
+                                          onSurface:
+                                              AppColors.primary_button_color,
                                         ),
                                         textButtonTheme: TextButtonThemeData(
                                           style: TextButton.styleFrom(
@@ -320,7 +334,10 @@ class AppointmentScreen extends StatelessWidget {
                             borderSide: BorderSide(color: AppColors.grey),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF135242), width: 2),
+                            borderSide: BorderSide(
+                              color: Color(0xFF135242),
+                              width: 2,
+                            ),
                           ),
                         ),
                       ),
@@ -339,7 +356,10 @@ class AppointmentScreen extends StatelessWidget {
                             borderSide: BorderSide(color: AppColors.grey),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF135242), width: 2),
+                            borderSide: BorderSide(
+                              color: Color(0xFF135242),
+                              width: 2,
+                            ),
                           ),
                         ),
                         onChanged: (value) => cubit.setPhone(value),
@@ -367,7 +387,10 @@ class AppointmentScreen extends StatelessWidget {
                             borderSide: BorderSide(color: AppColors.grey),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xFF135242), width: 2),
+                            borderSide: BorderSide(
+                              color: Color(0xFF135242),
+                              width: 2,
+                            ),
                           ),
                         ),
                       ),
@@ -375,24 +398,28 @@ class AppointmentScreen extends StatelessWidget {
 
                     const SizedBox(height: 24),
                     Padding(
-                      padding: EdgeInsets.only(top: 136.w, right: 22.w, left: 22.w),
+                      padding: EdgeInsets.only(
+                        top: 136.w,
+                        right: 22.w,
+                        left: 22.w,
+                      ),
                       child: BasicAppButton(
                         text: "confirm_appointment".tr(),
                         isEnabled: cubit.isFormValid(),
                         onTap: cubit.isFormValid()
                             ? () {
-                          final id = medicalEntity?.id ?? medicalModel?.id;
-                          if (id != null) {
-                            cubit.setAppointment(id);
-                          } else {
-                            print('object');
-
-                          }
-                        }
+                                final id =
+                                    medicalEntity?.id ?? medicalModel?.id;
+                                if (id != null) {
+                                  cubit.setAppointment(id);
+                                } else {
+                                  print('object');
+                                }
+                              }
                             : null,
                       ),
                     ),
-                      SizedBox(height: 24),
+                    SizedBox(height: 24),
                   ],
                 ),
               ),

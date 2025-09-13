@@ -55,9 +55,14 @@ class MedicalDetailsScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            MedicalDetailsImages(
-              images: medicalEntity?.images ?? [medicalModel?.imageUrl ?? ""] ?? [],
-            ),
+            if ((medicalEntity?.images.isNotEmpty == true ||
+                (medicalModel?.imageUrl?.isNotEmpty == true)))
+              MedicalDetailsImages(
+                images:
+                    medicalEntity?.images ??
+                    [medicalModel?.imageUrl ?? ""] ??
+                    [],
+              ),
             // Description
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -74,8 +79,10 @@ class MedicalDetailsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 8),
                   // Phone number
-                  if ((medicalEntity?.phone1 != null && medicalEntity!.phone1!.isNotEmpty) ||
-                      (medicalEntity?.phone2 != null && medicalEntity!.phone2!.isNotEmpty))
+                  if ((medicalEntity?.phone1 != null &&
+                          medicalEntity!.phone1!.isNotEmpty) ||
+                      (medicalEntity?.phone2 != null &&
+                          medicalEntity!.phone2!.isNotEmpty))
                     Row(
                       children: [
                         SvgPicture.asset(
@@ -96,22 +103,30 @@ class MedicalDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   SizedBox(height: 8),
-                  Text(
-                    'about_doctor'.tr(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16.sp,
+                  if (medicalEntity?.description != null &&
+                          medicalEntity!.description!.isNotEmpty ||
+                      medicalModel?.description != null &&
+                          medicalModel!.description!.isNotEmpty) ...[
+                    Text(
+                      'about_doctor'.tr(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.sp,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    medicalEntity?.description ?? medicalModel?.description ?? "",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.grey,
+                    SizedBox(height: 8),
+                    Text(
+                      medicalEntity?.description ??
+                          medicalModel?.description ??
+                          "",
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.grey,
+                      ),
                     ),
-                  ),
+                  ],
+
                   SizedBox(height: 16),
                   // Location
                   Text(
@@ -124,8 +139,12 @@ class MedicalDetailsScreen extends StatelessWidget {
                   SizedBox(height: 16.h),
                   Text(
                     context.locale.languageCode == 'ar'
-                        ? (medicalEntity?.addressAr ?? medicalModel?.addressAr ?? "")
-                        : (medicalEntity?.address ?? medicalModel?.address ?? ""),
+                        ? (medicalEntity?.addressAr ??
+                              medicalModel?.addressAr ??
+                              "")
+                        : (medicalEntity?.address ??
+                              medicalModel?.address ??
+                              ""),
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
@@ -139,7 +158,10 @@ class MedicalDetailsScreen extends StatelessWidget {
             // Map with Google Pin
             InkWell(
               onTap: () {
-                _launchMap(latitude, longitude); // Open the location in Google Maps
+                _launchMap(
+                  latitude,
+                  longitude,
+                ); // Open the location in Google Maps
               },
               child: SizedBox(
                 width: 450.w,
@@ -176,7 +198,6 @@ class MedicalDetailsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 80),
           ],
         ),
       ),
@@ -185,19 +206,19 @@ class MedicalDetailsScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         child: isBooking == true
             ? BasicAppButton(
-          text: "book_now",
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AppointmentScreen(
-                  medicalModel: medicalModel,
-                  medicalEntity: medicalEntity,
-                ),
-              ),
-            );
-          },
-        )
+                text: "book_now",
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AppointmentScreen(
+                        medicalModel: medicalModel,
+                        medicalEntity: medicalEntity,
+                      ),
+                    ),
+                  );
+                },
+              )
             : const SizedBox(),
       ),
     );

@@ -13,6 +13,12 @@ final class LoginLoaded extends LoginState {
   LoginLoaded(this.userParams);
 }
 
+final class RememberState extends LoginState {
+  final bool rememberMe;
+
+  RememberState(this.rememberMe);
+}
+
 final class LoginFailure extends LoginState {
   final String message;
 

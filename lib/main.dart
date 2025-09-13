@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:medapp/presentation/appointments_history/bloc/appointments_cubit.dart';
 import 'package:medapp/presentation/auth/bloc/logout_cubit.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
 import 'package:medapp/presentation/home/bloc/doctor_cubit.dart';
@@ -48,6 +49,10 @@ Future<void> main() async {
       path: 'assets/languages',
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(
+            create: (context) =>
+                AppointmentsHistoryCubit()..fetchAppointments(),
+          ),
           BlocProvider(create: (context) => RememberMeBloc()),
           BlocProvider(create: (context) => AdsCubit()),
           BlocProvider(create: (context) => ProfileCubit()..getProfile()),

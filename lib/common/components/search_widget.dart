@@ -15,26 +15,26 @@ class SearchWidget extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
         children: [
-          InkWell(
-            onTap: () => print("Filter button clicked"),
-            child: Container(
-              width: 48.w,
-              height: 48.h,
-              decoration: BoxDecoration(
-                color: const Color(0xff13434A),
-                borderRadius: BorderRadius.circular(12.r),
-              ),
-              child: Center(
-                child: SvgPicture.asset(
-                  'assets/images/svg/IC_Filter.svg',
-                  width: 24.w,
-                  height: 24.h,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(width: 12.w),
+          // InkWell(
+          //   onTap: () => print("Filter button clicked"),
+          //   child: Container(
+          //     width: 48.w,
+          //     height: 48.h,
+          //     decoration: BoxDecoration(
+          //       color: const Color(0xff13434A),
+          //       borderRadius: BorderRadius.circular(12.r),
+          //     ),
+          //     child: Center(
+          //       child: SvgPicture.asset(
+          //         'assets/images/svg/IC_Filter.svg',
+          //         width: 24.w,
+          //         height: 24.h,
+          //         color: Colors.white,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // SizedBox(width: 12.w),
           Expanded(
             child: Container(
               height: 48.h,

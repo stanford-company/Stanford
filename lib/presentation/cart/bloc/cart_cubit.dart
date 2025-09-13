@@ -46,12 +46,6 @@ class CartCubit extends Cubit<CartState> {
     try {
       final totalPrice = calculateTotalPrice(items);
 
-      final orderData = {
-        'phone_beneficiary': phone,
-        'items': items,
-        'total_price': totalPrice,
-      };
-
       final order = await getIt<CartService>().createOrder(
         phone: phone,
         items: items,

@@ -26,7 +26,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   Widget build(BuildContext context) {
     return BlocListener<CartCubit, CartState>(
       listener: (context, state) {
-        ScaffoldMessenger.of(context).clearSnackBars();
+        // ScaffoldMessenger.of(context).clearSnackBars();
 
         if (state is CartSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -34,9 +34,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
           );
           Navigator.pop(context);
         } else if (state is CartFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       child: Scaffold(
@@ -55,30 +55,35 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                 child: Center(
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: List.generate(widget.suppliesModel.images.length, (index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() => selectedImageIndex = index);
-                        },
-                        child: Container(
-                          width: 50,
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 4),
-                          padding: EdgeInsets.all(4),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: selectedImageIndex == index ? Colors.green : Colors.grey.shade300,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Image.network(
-                            widget.suppliesModel.images[index].imageUrl,
+                    children: List.generate(
+                      widget.suppliesModel.images.length,
+                      (index) {
+                        return GestureDetector(
+                          onTap: () {
+                            setState(() => selectedImageIndex = index);
+                          },
+                          child: Container(
                             width: 50,
+                            height: 50,
+                            margin: EdgeInsets.symmetric(horizontal: 4),
+                            padding: EdgeInsets.all(4),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: selectedImageIndex == index
+                                    ? Colors.green
+                                    : Colors.grey.shade300,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Image.network(
+                              widget.suppliesModel.images[index].imageUrl,
+                              width: 50,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
@@ -215,7 +220,11 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           final item = {
                             'medical_supply_id': widget.suppliesModel.id,
                             'quantity': quantity,
-                            'price': double.tryParse(widget.suppliesModel.price.toString()) ?? 0.0,
+                            'price':
+                                double.tryParse(
+                                  widget.suppliesModel.price.toString(),
+                                ) ??
+                                0.0,
                             'name_en': widget.suppliesModel.nameEn,
                             'name_ar': widget.suppliesModel.nameAr,
                             'image_url': widget.suppliesModel.images.isNotEmpty
@@ -223,28 +232,14 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                                 : '',
                           };
 
-                          final cartItems = await CartStorage.loadCartItems();
-                          cartItems.add(item);
-                          await CartStorage.saveCartItems(cartItems);
-
+                          await context.read<CartCubit>().addToCart(item);
 
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(content: Text('Item added to cart')),
                           );
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
                         },
 
-                        // onTap: () {
-                        //   final phone = '07999999999999';
-                        //   final items = [
-                        //     {
-                        //       'medical_supply_id': widget.suppliesModel.id,
-                        //       'quantity': quantity,
-                        //       'price': double.tryParse(widget.suppliesModel.price.toString()) ?? 0.0,
-                        //     }
-                        //   ];
-                        //   context.read<CartCubit>().createOrder(phone: phone, items: items);
-                        // },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                             vertical: 14,
@@ -252,7 +247,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           ),
                           child: Center(
                             child: Text(
-                              'book_now'.tr(),
+                              'add_to_cart'.tr(),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16.sp,

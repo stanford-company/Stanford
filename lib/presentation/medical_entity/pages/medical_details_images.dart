@@ -44,12 +44,23 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
             itemCount: widget.images.length,
             onPageChanged: (index) => _onPageChanged(index),
             itemBuilder: (context, index) {
-              return SizedBox(
+              return Container(
+                color: Colors.red,
                 width: double.infinity,
                 height: 300,
                 child: Image.network(
                   widget.images[index], // Replace with your image
                   fit: BoxFit.contain,
+                  errorBuilder: (context, error, stackTrace) => Container(
+                    width: 150,
+                    height: 150,
+                    color: Colors.grey[200],
+                    child: Icon(
+                      Icons.broken_image,
+                      size: 50,
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
               );
             },

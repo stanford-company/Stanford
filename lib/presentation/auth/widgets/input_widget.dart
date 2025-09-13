@@ -23,14 +23,33 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
   bool _obscurePassword = true;
 
   @override
+  void initState() {
+    _loadSavedCredentials();
+    super.initState();
+  }
+
+  void _loadSavedCredentials() async {
+    final isRemembered = await CacheHelper.getData(key: 'remember_me') ?? false;
+    if (isRemembered) {
+      final savedNationalId =
+          await CacheHelper.getData(key: 'national_id') ?? '';
+      final savedPassword = await CacheHelper.getData(key: 'password') ?? '';
+      setState(() {
+        _nationalIdController.text = savedNationalId;
+        _passwordController.text = savedPassword;
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) async {
-          if (state is LoginLoaded) {
+        if (state is LoginLoaded) {
           await CacheHelper.saveData(key: TextConst.isLogin, value: true);
           Navigator.of(context).pushNamedAndRemoveUntil(
             Routes.home,
-                (Route<dynamic> route) => false,
+            (Route<dynamic> route) => false,
           );
         }
       },
@@ -39,32 +58,42 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
         children: <Widget>[
           BlocBuilder<LoginCubit, LoginState>(
             builder: (context, state) {
-              if(state is LoginFailure && state.message.isNotEmpty) {
-              return Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 16.h),
-                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-                decoration: BoxDecoration(
-                  color: Color(0xFFFF5D5D),
-                  borderRadius: BorderRadius.circular(8.r),
-                ),
-                child: Row(
-                  children: [
-                    Icon(Icons.error_outline, color: Colors.white, size: 20.sp),
-                    SizedBox(width: 8.w),
-                    Expanded(
-                      child: Text(
-                        state.message,
-                        style: TextStyle(color: Colors.white, fontSize: 14.sp),
+              if (state is LoginFailure && state.message.isNotEmpty) {
+                return Container(
+                  width: double.infinity,
+                  margin: EdgeInsets.only(bottom: 16.h),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFF5D5D),
+                    borderRadius: BorderRadius.circular(8.r),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.error_outline,
+                        color: Colors.white,
+                        size: 20.sp,
                       ),
-                    ),
-                  ],
-                ),
-              );
-            }else{
+                      SizedBox(width: 8.w),
+                      Expanded(
+                        child: Text(
+                          state.message,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
                 return SizedBox.shrink();
               }
-              },
+            },
           ),
           LabeledTextFormField(
             title: 'national_id'.tr(),
@@ -130,14 +159,13 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                               borderRadius: BorderRadius.circular(4.r),
                             ),
                             side: MaterialStateBorderSide.resolveWith(
-                                  (states) =>
-                                  BorderSide(
-                                    color: Color(0xFF80d5b5),
-                                    width: 2,
-                                  ),
+                              (states) => BorderSide(
+                                color: Color(0xFF80d5b5),
+                                width: 2,
+                              ),
                             ),
                             fillColor: MaterialStateProperty.resolveWith<Color>(
-                                  (states) {
+                              (states) {
                                 if (states.contains(MaterialState.selected)) {
                                   return Color(0x6680D5B5);
                                 }
@@ -150,14 +178,19 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                           ),
                         ),
                         child: Checkbox(
-                          value: state.isChecked,
+                          value: CacheHelper.getData(key: 'remember_me'),
                           onChanged: (value) {
                             context.read<RememberMeBloc>().add(
                               ToggleRememberMe(value ?? false),
                             );
+
+                            CacheHelper.saveData(
+                              key: 'remember_me',
+                              value: value ?? false,
+                            );
                           },
                           materialTapTargetSize:
-                          MaterialTapTargetSize.shrinkWrap,
+                              MaterialTapTargetSize.shrinkWrap,
                           visualDensity: VisualDensity.compact,
                         ),
                       ),
@@ -198,10 +231,10 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
               }
               return CustomButton(
                 onPressed: () {
-
                   context.read<LoginCubit>().login(
                     nationalId: _nationalIdController.text.trim(),
                     password: _passwordController.text.trim(),
+                    rememberMe: context.read<RememberMeBloc>().state.isChecked,
                   );
                 },
                 text: 'login'.tr(),

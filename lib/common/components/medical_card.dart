@@ -45,15 +45,36 @@ class MedicalCard extends StatelessWidget {
         child: ListTile(
           contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
           leading: CircleAvatar(
+            backgroundColor: Colors.transparent,
             radius: 26.r,
-            backgroundImage:
-                medicalEntity?.images.isNotEmpty ??
-                    (medicalModel?.imageUrl.isNotEmpty) ??
-                    false
-                ? NetworkImage(
-                    medicalEntity?.images[0] ?? medicalModel?.imageUrl ?? "",
+
+            child:
+                (medicalEntity?.images.isNotEmpty == true ||
+                    (medicalModel?.imageUrl?.isNotEmpty == true))
+                ? ClipOval(
+                    child: Image.network(
+                      medicalEntity?.images.isNotEmpty == true
+                          ? medicalEntity!.images[0]
+                          : medicalModel!.imageUrl,
+                      width: 52.r,
+                      height: 52.r,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) =>
+                          CircleAvatar(
+                            radius: 24,
+                            backgroundColor: AppColors.primary_color,
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.white,
+                            ),
+                          ),
+                    ),
                   )
-                : null,
+                : CircleAvatar(
+                    radius: 24,
+                    backgroundColor: AppColors.primary_color,
+                    child: const Icon(Icons.person, color: Colors.white),
+                  ),
           ),
           title: Text(
             medicalEntity?.name ?? medicalModel?.medicalName ?? "",
@@ -62,9 +83,10 @@ class MedicalCard extends StatelessWidget {
           subtitle: Row(
             children: [
               if (((context.locale.languageCode == 'en'
-                  ? medicalEntity?.description
-                  : medicalEntity?.descriptionAr) ??
-                  "").isNotEmpty) ...[
+                          ? medicalEntity?.description
+                          : medicalEntity?.descriptionAr) ??
+                      "")
+                  .isNotEmpty) ...[
                 Expanded(
                   child: Text(
                     context.locale.languageCode == 'en'
@@ -84,8 +106,8 @@ class MedicalCard extends StatelessWidget {
               ],
               Text(
                 (context.locale.languageCode == 'en'
-                    ? medicalEntity?.city.nameEn
-                    : medicalEntity?.city.nameAr) ??
+                        ? medicalEntity?.city.nameEn
+                        : medicalEntity?.city.nameAr) ??
                     (context.locale.languageCode == 'en'
                         ? medicalModel?.categoryEn
                         : medicalModel?.categoryAr) ??
@@ -124,7 +146,7 @@ class MedicalCard extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primary_button_color, 
+                        backgroundColor: AppColors.primary_button_color,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.r),
                         ),
