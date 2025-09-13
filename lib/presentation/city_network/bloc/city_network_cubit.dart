@@ -15,17 +15,27 @@ class CityNetworkCubit extends Cubit<CityNetworkState> {
     final result = await getCitiesNetworkUsecase.call();
 
     result.fold(
-          (failure) => emit(CityNetworkError(failure.message)), // Handle failure
-          (cities) => emit(CityNetworkLoaded(cities, cityId)), // Pass cityId to state
+      (failure) => emit(CityNetworkError(failure.message)), // Handle failure
+      (cities) =>
+          emit(CityNetworkLoaded(cities, cityId)), // Pass cityId to state
     );
   }
 
   // Toggle city selection by cityId
   void toggleCitySelection(String selectedCityId) {
     cityId = cityId == selectedCityId ? '' : selectedCityId; // Toggle selection
-    emit(CityNetworkLoaded(
-      (state as CityNetworkLoaded).cities,
-      cityId,
-    ));
+    emit(CityNetworkLoaded((state as CityNetworkLoaded).cities, cityId));
+  }
+
+  void searchCities(String query) {
+    if (state is CityNetworkLoaded) {
+      final allCities = (state as CityNetworkLoaded).cities;
+      final filteredCities = allCities.where((city) {
+        return city.nameAr.toLowerCase().contains(query.toLowerCase()) ||
+            city.nameEn.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      emit(CityNetworkLoaded(filteredCities, cityId));
+    }
   }
 }

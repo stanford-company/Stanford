@@ -28,48 +28,18 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
   bool isDrawerOpen = false;
   int _selectedIndex = 2;
   late PageController _pageController;
-  CategoryModel? _category;
-
-  // Add search variables
-  TextEditingController _searchController = TextEditingController();
-  List<CityNetworkModel> _filteredCities = [];
-  List<CityNetworkModel> _allCities = [];
 
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _selectedIndex);
-    _searchController.addListener(_onSearchChanged); // Listen to search changes
 
     // Fetch category from navigation arguments
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final rawCategory = ModalRoute.of(context)?.settings.arguments;
-      setState(() {
-        _category = rawCategory is CategoryModel
-            ? rawCategory
-            : rawCategory is Map<String, dynamic>
-            ? CategoryModel.fromJson(rawCategory)
-            : null;
-      });
-    });
-  }
-
-  void _onSearchChanged() {
-    final query = _searchController.text.toLowerCase();
-    final isArabic = context.locale.languageCode == 'ar';
-
-    setState(() {
-      _filteredCities = _allCities.where((city) {
-        final name = isArabic ? city.nameAr : city.nameEn;
-        return name?.toLowerCase().contains(query) ?? false;
-      }).toList();
-    });
   }
 
   @override
   void dispose() {
     _pageController.dispose();
-    _searchController.dispose(); // Dispose the controller
     super.dispose();
   }
 
@@ -90,8 +60,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
         : null;
 
     return BlocProvider(
-      create: (context) => CityNetworkCubit(getIt<GetCitiesNetworkUsecase>())
-        ..fetchCities(),  // Pass GetCitiesNetworkUsecase to CityNetworkCubit
+      create: (context) =>
+          CityNetworkCubit(getIt<GetCitiesNetworkUsecase>())
+            ..fetchCities(), // Pass GetCitiesNetworkUsecase to CityNetworkCubit
       child: Scaffold(
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(92.h),
@@ -118,10 +89,6 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
         body: BlocBuilder<CityNetworkCubit, CityNetworkState>(
           builder: (context, state) {
             if (state is CityNetworkLoaded) {
-              _allCities = state.cities; // Store all cities initially
-              // If no cities have been filtered, use all cities
-              if (_filteredCities.isEmpty) _filteredCities = _allCities;
-
               return Column(
                 children: [
                   SizedBox(height: 12.h),
@@ -153,7 +120,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
-                                    controller: _searchController,
+                                    onChanged: context
+                                        .read<CityNetworkCubit>()
+                                        .searchCities,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: 'Search for cities...',
@@ -179,10 +148,10 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                         'Choose City',
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xff113f4e),
-                          fontSize: 16.sp,
-                        ),
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xff113f4e),
+                              fontSize: 16.sp,
+                            ),
                       ),
                     ),
                   ),
@@ -190,9 +159,9 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: Padding(
                       padding: EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: _filteredCities.isNotEmpty
-                            ? _filteredCities.length
-                            : state.cities.length, // Use filtered list or all cities
+                        itemCount: state
+                            .cities
+                            .length, // Use filtered list or all cities
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -200,15 +169,13 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                           childAspectRatio: 3,
                         ),
                         itemBuilder: (context, index) {
-                          final city = _filteredCities.isNotEmpty
-                              ? _filteredCities[index]
-                              : state.cities[index];
+                          final city = state.cities[index];
                           final isSelected = state.cityId == city.id.toString();
                           return InkWell(
                             onTap: () {
-                              context.read<CityNetworkCubit>().toggleCitySelection(
-                                city.id.toString(),
-                              );
+                              context
+                                  .read<CityNetworkCubit>()
+                                  .toggleCitySelection(city.id.toString());
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -228,35 +195,48 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                     data: Theme.of(context).copyWith(
                                       checkboxTheme: CheckboxThemeData(
                                         shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(4.r),
+                                          borderRadius: BorderRadius.circular(
+                                            4.r,
+                                          ),
                                         ),
-                                        side: MaterialStateBorderSide.resolveWith(
+                                        side:
+                                            MaterialStateBorderSide.resolveWith(
                                               (states) {
-                                            if (states.contains(MaterialState.selected)) {
-                                              return BorderSide(
-                                                color: AppColors.secondary_color,
-                                                width: 2,
-                                              );
-                                            }
-                                            return BorderSide(
-                                              color: isSelected
+                                                if (states.contains(
+                                                  MaterialState.selected,
+                                                )) {
+                                                  return BorderSide(
+                                                    color: AppColors
+                                                        .secondary_color,
+                                                    width: 2,
+                                                  );
+                                                }
+                                                return BorderSide(
+                                                  color: isSelected
+                                                      ? AppColors
+                                                            .secondary_color
+                                                      : AppColors
+                                                            .bold_grey_color,
+                                                  width: isSelected ? 3.w : 2.w,
+                                                );
+                                              },
+                                            ),
+                                        fillColor:
+                                            MaterialStateProperty.resolveWith<
+                                              Color
+                                            >((states) {
+                                              return states.contains(
+                                                    MaterialState.selected,
+                                                  )
                                                   ? AppColors.secondary_color
-                                                  : AppColors.bold_grey_color,
-                                              width: isSelected ? 3.w : 2.w,
-                                            );
-                                          },
-                                        ),
-                                        fillColor: MaterialStateProperty.resolveWith<Color>(
-                                              (states) {
-                                            return states.contains(MaterialState.selected)
-                                                ? AppColors.secondary_color
-                                                : Colors.transparent;
-                                          },
-                                        ),
-                                        checkColor: MaterialStateProperty.all<Color>(
-                                          AppColors.primary_color,
-                                        ),
-                                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                  : Colors.transparent;
+                                            }),
+                                        checkColor:
+                                            MaterialStateProperty.all<Color>(
+                                              AppColors.primary_color,
+                                            ),
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
                                         visualDensity: VisualDensity(
                                           horizontal: -2,
                                           vertical: -2,
@@ -269,8 +249,8 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                         context
                                             .read<CityNetworkCubit>()
                                             .toggleCitySelection(
-                                          city.id.toString(),
-                                        );
+                                              city.id.toString(),
+                                            );
                                       },
                                     ),
                                   ),
@@ -294,17 +274,17 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: ElevatedButton(
                       onPressed: state.cityId.isNotEmpty
                           ? () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ChooseDoctorPage(
-                              cityId: state.cityId,
-                              isBooking: false,
-                              categoryId: widget.categoryId,
-                            ),
-                          ),
-                        );
-                      }
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ChooseDoctorPage(
+                                    cityId: state.cityId,
+                                    isBooking: false,
+                                    categoryId: widget.categoryId,
+                                  ),
+                                ),
+                              );
+                            }
                           : null,
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48.h),
