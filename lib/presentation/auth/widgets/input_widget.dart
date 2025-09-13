@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medapp/core/utils/constants.dart';
 
 import '../../../blocks/remember_me_bloc.dart';
 import '../../../common/components/custom_button.dart';
@@ -46,11 +47,22 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
     return BlocListener<LoginCubit, LoginState>(
       listener: (context, state) async {
         if (state is LoginLoaded) {
-          await CacheHelper.saveData(key: TextConst.isLogin, value: true);
-          Navigator.of(context).pushNamedAndRemoveUntil(
-            Routes.home,
-            (Route<dynamic> route) => false,
-          );
+          if (state.userParams.data.signUpStatus == 'yes') {
+            await CacheHelper.saveData(key: TextConst.isLogin, value: true);
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.home,
+              (Route<dynamic> route) => false,
+            );
+          } else {
+            //show snackbar
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(tr('should register_first'))),
+            );
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              Routes.signup,
+              (Route<dynamic> route) => false,
+            );
+          }
         }
       },
       child: Column(

@@ -75,7 +75,7 @@ class RouteGenerator {
         return CupertinoPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => SuggestionsCubit(),
-            child: CityNetworkPage(categoryId: args,),
+            child: CityNetworkPage(categoryId: args),
           ),
         );
       case Routes.bookingStep1:
@@ -88,13 +88,14 @@ class RouteGenerator {
         final args = settings.arguments as String? ?? "";
         final isBook = settings.arguments as bool? ?? false;
         return CupertinoPageRoute(
-          builder: (_) => ChooseDoctorPage(cityId: args, isBooking: true, categoryId: 0,),
+          builder: (_) =>
+              ChooseDoctorPage(cityId: args, isBooking: true, categoryId: 0),
         );
 
       case Routes.bookingStepCity:
         final args = settings.arguments as int;
 
-        return CupertinoPageRoute(builder: (_) => CityPage(CategoryId: args,));
+        return CupertinoPageRoute(builder: (_) => CityPage(CategoryId: args));
 
       case Routes.changeLanguage:
         return CupertinoPageRoute(builder: (_) => ChangeLanguagePage());
@@ -106,10 +107,7 @@ class RouteGenerator {
         final args = settings.arguments as SuppliesModel;
 
         return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => CartCubit(),
-            child: ProductDetailsScreen(suppliesModel: args),
-          ),
+          builder: (_) => ProductDetailsScreen(suppliesModel: args),
         );
 
         return CupertinoPageRoute(
@@ -125,16 +123,17 @@ class RouteGenerator {
 
         if (model is MedicalEntityModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalEntity: model, isBooking: isBook),
+            builder: (_) =>
+                MedicalDetailsScreen(medicalEntity: model, isBooking: isBook),
           );
         } else if (model is MedicalModel) {
           return CupertinoPageRoute(
-            builder: (_) => MedicalDetailsScreen(medicalModel: model, isBooking: isBook),
+            builder: (_) =>
+                MedicalDetailsScreen(medicalModel: model, isBooking: isBook),
           );
         } else {
           throw Exception('Unexpected argument type: ${model.runtimeType}');
         }
-
 
       case Routes.notifications:
         return CupertinoPageRoute(

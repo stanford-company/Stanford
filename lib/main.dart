@@ -21,6 +21,7 @@ import 'core/utils/setup_service.dart';
 import 'core/utils/simple_bloc_observer.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
 import 'presentation/ads/bloc/ads_cubit.dart';
+import 'presentation/cart/bloc/cart_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,6 +54,7 @@ Future<void> main() async {
             create: (context) =>
                 AppointmentsHistoryCubit()..fetchAppointments(),
           ),
+          BlocProvider(create: (context) => CartCubit()..loadCart()),
           BlocProvider(create: (context) => RememberMeBloc()),
           BlocProvider(create: (context) => AdsCubit()),
           BlocProvider(create: (context) => ProfileCubit()..getProfile()),
