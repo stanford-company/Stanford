@@ -14,9 +14,6 @@ class HealthConcernPage extends StatefulWidget {
 }
 
 class _HealthConcernPageState extends State<HealthConcernPage> {
-  TextEditingController _searchController = TextEditingController();
-  List<CategoryModel> _filteredCategories = [];
-  List<CategoryModel> _allCategories = [];
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +22,10 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
       child: Scaffold(
         body: BlocBuilder<CategoryCubit, CategoryState>(
           builder: (context, state) {
+            var cubit = context.read<CategoryCubit>();
             if (state is CategoryLoaded) {
-              _allCategories = state.categories;  // Store all categories initially
-              if (_filteredCategories.isEmpty) _filteredCategories = _allCategories;  // If no filtering, show all
+              // Store all categories initially
+              // If no filtering, show all
 
               return Column(
                 children: [
@@ -64,7 +62,6 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
                                 SizedBox(width: 8.w),
                                 Expanded(
                                   child: TextField(
-                                    controller: _searchController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: 'search_for_clinics_doctors_hospitals'.tr(),
@@ -73,7 +70,7 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
                                         fontSize: 14.sp,
                                       ),
                                     ),
-                                    onChanged: _onSearchChanged,  // Call _onSearchChanged when text changes
+                                    onChanged: cubit.onSearchChanged,  // Call _onSearchChanged when text changes
                                   ),
                                 ),
                               ],
@@ -98,7 +95,7 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: GridView.builder(
-                        itemCount: _filteredCategories.length,
+                        itemCount: state.categories.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 12,
@@ -106,8 +103,7 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
                           childAspectRatio: 2.8,
                         ),
                         itemBuilder: (context, index) {
-                          final category = _filteredCategories[index];
-                          final isSelected = state.categoryId == category.id.toString();
+                          final category = state.categories[index];
                           return HealthConcernItem(
                             healthCategory: category,
                             onTap: () {
@@ -135,12 +131,4 @@ class _HealthConcernPageState extends State<HealthConcernPage> {
     );
   }
 
-  void _onSearchChanged(String query) {
-    setState(() {
-      _filteredCategories = _allCategories.where((category) {
-        return category.nameEn.toLowerCase().contains(query.toLowerCase()) ||
-            category.nameAr.toLowerCase().contains(query.toLowerCase());
-      }).toList();
-    });
-  }
 }

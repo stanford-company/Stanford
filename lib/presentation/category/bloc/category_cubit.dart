@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
  import 'package:medapp/data/category/model/category.dart';  // Updated to use CategoryModel
 import 'package:meta/meta.dart';
 
@@ -32,4 +33,15 @@ class CategoryCubit extends Cubit<CategoryState> {
 
     emit(CategoryLoaded(_categories,categoryId));
   }
+  TextEditingController searchController = TextEditingController();
+
+
+  void onSearchChanged(String query) {
+    _categories = _categories.where((category) {
+      return category.nameEn.toLowerCase().contains(query.toLowerCase()) ||
+          category.nameAr.toLowerCase().contains(query.toLowerCase());
+    }).toList();
+    emit(CategoryLoaded(_categories, ""));
+  }
+
 }
