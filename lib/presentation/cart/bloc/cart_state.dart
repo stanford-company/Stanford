@@ -8,7 +8,7 @@ class CartLoading extends CartState {}
 
 class CartLoaded extends CartState {
   final List<Map<String, dynamic>> items;
-  CartLoaded(this.items);
+  CartLoaded({required this.items});
 }
 
 class CartSuccess extends CartState {
@@ -20,4 +20,3 @@ class CartFailure extends CartState {
   final String message;
   CartFailure(this.message);
 }
-

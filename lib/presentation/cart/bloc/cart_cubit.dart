@@ -14,19 +14,29 @@ class CartCubit extends Cubit<CartState> {
   Future<void> loadCart() async {
     emit(CartLoading());
     cartItems = await CartStorage.loadCartItems();
-    emit(CartLoaded(cartItems));
+    emit(CartLoaded(items: cartItems));
   }
 
   Future<void> addToCart(Map<String, dynamic> item) async {
-    cartItems.add(item);
+    final index = cartItems.indexWhere(
+      (cartItem) => cartItem['medical_supply_id'] == item['medical_supply_id'],
+    );
+    print("Adding to cart: $item");
+    print("index: $index");
+    if (index != -1) {
+      cartItems[index]['quantity'] += item['quantity'] ?? 1;
+    } else {
+      cartItems.add({...item, 'quantity': item['quantity'] ?? 1});
+    }
     await CartStorage.saveCartItems(cartItems);
-    emit(CartLoaded(cartItems));
+    print("Cart Items: $cartItems");
+    emit(CartLoaded(items: cartItems));
   }
 
   Future<void> clearCart() async {
     await CartStorage.clearCart();
     cartItems.clear();
-    emit(CartLoaded(cartItems));
+    emit(CartLoaded(items: cartItems));
   }
 
   double calculateTotalPrice(List<Map<String, dynamic>> items) {
@@ -65,7 +75,7 @@ class CartCubit extends Cubit<CartState> {
     if (index >= 0 && index < cartItems.length) {
       cartItems.removeAt(index);
       await CartStorage.saveCartItems(cartItems);
-      emit(CartLoaded(cartItems));
+      emit(CartLoaded(items: cartItems));
     }
   }
 }

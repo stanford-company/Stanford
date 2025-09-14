@@ -17,7 +17,6 @@ class StorePage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => StoreCubit()..getMedicalSupplies()),
-        BlocProvider(create: (_) => CartCubit()..loadCart()),
       ],
       child: const StorePageContent(),
     );
@@ -104,7 +103,7 @@ class StorePageContent extends StatelessWidget {
                           },
                         );
                 } else
-                  return Container(width: 100, height: 100, color: Colors.red);
+                  return SizedBox();
               },
             ),
           ),
