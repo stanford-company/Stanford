@@ -62,7 +62,7 @@ import '../../domain/store/usecase/get_supplies_usecase.dart';
 import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
-void setUpServiceLocator() {
+void  setUpServiceLocator() {
   getIt.registerSingleton<ApiService>(ApiService(Dio()));
 
   //service
