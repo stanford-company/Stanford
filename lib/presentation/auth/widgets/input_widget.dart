@@ -190,7 +190,8 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                           ),
                         ),
                         child: Checkbox(
-                          value: CacheHelper.getData(key: 'remember_me'),
+                          value:
+                              CacheHelper.getData(key: 'remember_me') ?? false,
                           onChanged: (value) {
                             context.read<RememberMeBloc>().add(
                               ToggleRememberMe(value ?? false),
