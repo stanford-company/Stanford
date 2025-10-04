@@ -17,6 +17,7 @@ import 'common/bloc/bottom_bar_cubit.dart';
 import 'common/helper/cach_helper/cach_helper.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
+import 'core/services/navigation_service.dart';
 import 'core/utils/setup_service.dart';
 import 'core/utils/simple_bloc_observer.dart';
 import 'core/utils/themebloc/theme_bloc.dart';
@@ -82,6 +83,7 @@ class MyApp extends StatelessWidget {
         return BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
             return MaterialApp(
+              navigatorKey: NavigationService.navigatorKey,
               builder: (context, child) {
                 return AnnotatedRegion<SystemUiOverlayStyle>(
                   value: SystemUiOverlayStyle(
@@ -90,10 +92,7 @@ class MyApp extends StatelessWidget {
                     systemNavigationBarColor: Colors.white,
                     systemNavigationBarIconBrightness: Brightness.dark,
                   ),
-                  child: ScrollConfiguration(
-                    behavior: MyBehavior(),
-                    child: child!,
-                  ),
+                  child: child!,
                 );
               },
               title: 'Stanford',
@@ -130,13 +129,4 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyBehavior extends ScrollBehavior {
-  @override
-  Widget buildViewportChrome(
-    BuildContext context,
-    Widget child,
-    AxisDirection axisDirection,
-  ) {
-    return child;
-  }
-}
+

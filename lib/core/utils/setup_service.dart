@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:medapp/data/ads/service/ads_service.dart';
+import '../interceptors/auth_interceptor.dart';
 import 'package:medapp/data/app/repository/app_repo_imp.dart';
 import 'package:medapp/data/app/service/app_service.dart';
 import 'package:medapp/data/category/repository/category_repo_imp.dart';
@@ -63,7 +64,11 @@ import '../services/api_service.dart';
 
 final GetIt getIt = GetIt.instance;
 void  setUpServiceLocator() {
-  getIt.registerSingleton<ApiService>(ApiService(Dio()));
+  // Create Dio instance with interceptors
+  final dio = Dio();
+  dio.interceptors.add(AuthInterceptor());
+  
+  getIt.registerSingleton<ApiService>(ApiService(dio));
 
   //service
   getIt.registerSingleton<AuthService>(AuthServiceImp(getIt.get<ApiService>()));
