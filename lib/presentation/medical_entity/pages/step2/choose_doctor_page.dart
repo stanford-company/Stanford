@@ -1,15 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:medapp/common/components/medical_card.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../../../common/components/custom_navigation_bar.dart';
-import '../../../../core/routes/routes.dart';
-import '../../../../data/medical_entity/model/medical_entity.dart';
-import '../../../main_home/widgets/nav_bar_item_widget.dart';
 import '../../bloc/entity_cubit.dart';
 
 class ChooseDoctorPage extends StatefulWidget {
@@ -138,7 +132,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     } else if (state is EntityLoaded) {
                       if (state.entities.isEmpty) {
                         return Center(
-                          child: Text("There is no medical entity"),
+                          child: Text("no_medical_entity".tr()),
                         ); // Empty state message
                       }
 

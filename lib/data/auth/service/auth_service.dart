@@ -3,7 +3,6 @@ import '../model/check_id.dart';
 import '../model/login.dart';
 import '../model/logout.dart';
 import '../model/profile.dart';
-import '../model/register.dart';
 
 abstract class AuthService {
   Future<CheckIdModel> checkId({required String nationalId});

@@ -125,7 +125,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                         .searchCities,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Search for cities...',
+                                      hintText: 'search_for_cities'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -145,7 +145,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Choose City',
+                        'choose_city'.tr(),
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
                               fontWeight: FontWeight.bold,
@@ -199,40 +199,37 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                             4.r,
                                           ),
                                         ),
-                                        side:
-                                            MaterialStateBorderSide.resolveWith(
-                                              (states) {
-                                                if (states.contains(
-                                                  MaterialState.selected,
-                                                )) {
-                                                  return BorderSide(
-                                                    color: AppColors
-                                                        .secondary_color,
-                                                    width: 2,
-                                                  );
-                                                }
-                                                return BorderSide(
-                                                  color: isSelected
-                                                      ? AppColors
-                                                            .secondary_color
-                                                      : AppColors
-                                                            .bold_grey_color,
-                                                  width: isSelected ? 3.w : 2.w,
-                                                );
-                                              },
-                                            ),
+                                        side: WidgetStateBorderSide.resolveWith(
+                                          (states) {
+                                            if (states.contains(
+                                              WidgetState.selected,
+                                            )) {
+                                              return BorderSide(
+                                                color:
+                                                    AppColors.secondary_color,
+                                                width: 2,
+                                              );
+                                            }
+                                            return BorderSide(
+                                              color: isSelected
+                                                  ? AppColors.secondary_color
+                                                  : AppColors.bold_grey_color,
+                                              width: isSelected ? 3.w : 2.w,
+                                            );
+                                          },
+                                        ),
                                         fillColor:
-                                            MaterialStateProperty.resolveWith<
+                                            WidgetStateProperty.resolveWith<
                                               Color
                                             >((states) {
                                               return states.contains(
-                                                    MaterialState.selected,
+                                                    WidgetState.selected,
                                                   )
                                                   ? AppColors.secondary_color
                                                   : Colors.transparent;
                                             }),
                                         checkColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                               AppColors.primary_color,
                                             ),
                                         materialTapTargetSize:

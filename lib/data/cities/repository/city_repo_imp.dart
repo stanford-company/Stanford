@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medapp/core/errors/failure.dart';
-import 'package:medapp/domain/category/repository/category_repo.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../domain/city/repository/city_repo.dart';
 import '../model/city.dart';

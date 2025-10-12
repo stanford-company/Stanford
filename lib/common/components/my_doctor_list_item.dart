@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
 
 import '../../core/routes/routes.dart';
-import '../../model/doctor.dart';
 import 'custom_button.dart';
 
 class MyDoctorListItem extends StatelessWidget {

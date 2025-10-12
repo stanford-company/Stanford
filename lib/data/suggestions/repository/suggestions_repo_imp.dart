@@ -1,10 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/constants/const.dart';
 import '../../../core/errors/failure.dart';
-import '../../../core/services/api_service.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../core/utils/shared_prefs_service.dart';
 import '../../../domain/suggestions/repository/suggestions_repo.dart';

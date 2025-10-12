@@ -6,7 +6,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medapp/presentation/category/bloc/category_cubit.dart';
 import '../../../../common/components/health_concern_item.dart';
 import '../../../../core/routes/routes.dart';
-import '../../../../data/category/model/category.dart';
 
 class HealthConcernPage extends StatelessWidget {
   @override

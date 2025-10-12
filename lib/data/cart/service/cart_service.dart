@@ -1,5 +1,4 @@
 // 3. CartService
-import 'package:dio/dio.dart';
 import 'package:medapp/core/services/api_service.dart';
 
 import '../model/cart.dart';

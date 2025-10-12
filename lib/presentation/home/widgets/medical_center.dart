@@ -19,7 +19,7 @@ class MedicalCenterWidget extends StatelessWidget {
           return Center(child: CircularProgressIndicator());
 
         if (state is CenterFailure)
-          return Center(child: Text('Something went wrong'));
+          return Center(child: Text('something_went_wrong'.tr()));
 
         if (state is CenterLoaded) {
           if (state.medicalCenters.isEmpty) {

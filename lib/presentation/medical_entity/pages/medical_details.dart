@@ -24,9 +24,34 @@ class MedicalDetailsScreen extends StatelessWidget {
   });
 
   void _launchPhone() async {
-    final Uri url = Uri.parse('tel:+962790000000');
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+    final String? phoneNumber = medicalEntity?.phone1?.isNotEmpty == true
+        ? medicalEntity?.phone1
+        : medicalEntity?.phone2;
+
+    if (phoneNumber != null && phoneNumber.isNotEmpty) {
+      // Clean and format the phone number
+      String cleanPhone = phoneNumber.replaceAll(RegExp(r'[^\d+]'), '');
+
+      // Add country code if it doesn't start with + or country code
+      if (!cleanPhone.startsWith('+') && !cleanPhone.startsWith('962')) {
+        if (cleanPhone.startsWith('0')) {
+          cleanPhone = '+962${cleanPhone.substring(1)}';
+        } else {
+          cleanPhone = '+962$cleanPhone';
+        }
+      } else if (cleanPhone.startsWith('962') && !cleanPhone.startsWith('+')) {
+        cleanPhone = '+$cleanPhone';
+      }
+
+      final Uri url = Uri.parse('tel:$cleanPhone');
+      try {
+        await launchUrl(url, mode: LaunchMode.externalApplication);
+        print("Successfully launched phone dialer for: $cleanPhone");
+      } catch (e) {
+        print("Could not launch phone dialer for: $cleanPhone - Error: $e");
+      }
+    } else {
+      print("No phone number available");
     }
   }
 
@@ -56,12 +81,14 @@ class MedicalDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             if ((medicalEntity?.images.isNotEmpty == true ||
-                (medicalModel?.imageUrl?.isNotEmpty == true)))
+                (medicalModel?.imageUrl.isNotEmpty == true)))
               MedicalDetailsImages(
                 images:
                     medicalEntity?.images ??
-                    [medicalModel?.imageUrl ?? ""] ??
-                    [],
+                    (medicalModel?.imageUrl != null &&
+                            medicalModel!.imageUrl.isNotEmpty
+                        ? [medicalModel!.imageUrl]
+                        : []),
               ),
             // Description
             Padding(
@@ -90,14 +117,19 @@ class MedicalDetailsScreen extends StatelessWidget {
                           width: 13.w,
                         ),
                         SizedBox(width: 5.w),
-                        Text(
-                          medicalEntity?.phone1 ?? medicalEntity?.phone2 ?? "",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.green,
-                            decoration: TextDecoration.underline,
-                            fontSize: 14.sp,
-                            decorationColor: AppColors.green,
+                        GestureDetector(
+                          onTap: _launchPhone,
+                          child: Text(
+                            medicalEntity?.phone1 ??
+                                medicalEntity?.phone2 ??
+                                "",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.green,
+                              decoration: TextDecoration.underline,
+                              fontSize: 14.sp,
+                              decorationColor: AppColors.green,
+                            ),
                           ),
                         ),
                       ],
@@ -106,7 +138,7 @@ class MedicalDetailsScreen extends StatelessWidget {
                   if (medicalEntity?.description != null &&
                           medicalEntity!.description!.isNotEmpty ||
                       medicalModel?.description != null &&
-                          medicalModel!.description!.isNotEmpty) ...[
+                          medicalModel!.description.isNotEmpty) ...[
                     Text(
                       'about_doctor'.tr(),
                       style: TextStyle(

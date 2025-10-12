@@ -14,15 +14,18 @@ class CheckIdCubit extends Cubit<CheckIdState> {
   Future<void> checkID({required String nationalId}) async {
     emit(CheckIdLoading());
     var result = await getIt<CheckIdUsecase>().call(params: nationalId);
-    result.fold((failure) {
-      print(failure.message);
-      emit(CheckIdFailure("Your national id dosen't exist in our system , please connect with stanford company to register"));
-    }, (status) async {
-      emit(CheckIdLoaded(status));
-    });
+    result.fold(
+      (failure) {
+        print(failure.message);
+        emit(CheckIdFailure("national_id_not_registered".tr()));
+      },
+      (status) async {
+        emit(CheckIdLoaded(status));
+      },
+    );
 
     result.fold(
-          (failure) {
+      (failure) {
         String errorMessage;
 
         if (failure.message.contains('401')) {
@@ -34,11 +37,9 @@ class CheckIdCubit extends Cubit<CheckIdState> {
 
         emit(CheckIdFailure(errorMessage));
       },
-          (userParams) {
+      (userParams) {
         emit(CheckIdLoaded(userParams));
       },
     );
   }
-
-
 }

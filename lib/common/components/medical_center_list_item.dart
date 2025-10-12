@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/core/routes/routes.dart';
 import 'package:medapp/data/medical_entity/model/medical_doctor.dart';
-import 'package:medapp/model/medical_centers.dart';
 
 class MedicalCentersListItem extends StatelessWidget {
   final MedicalModel medicalCenter;

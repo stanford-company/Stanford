@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:medapp/common/components/search_widget.dart';
 
 import '../../../common/components/medical_card.dart';
 import '../../../data/medical_entity/model/medical_doctor.dart';
 import '../../main_home/widgets/app_bar_title_widget.dart';
-import '../../search/bloc/search_cubit.dart';
 
 class AllMedicalsPage extends StatelessWidget {
   final List<MedicalModel> medicalDoctors;

@@ -131,7 +131,7 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
             title: 'password'.tr(),
             controller: _passwordController,
             obscureText: _obscurePassword,
-            hintText: '* * * * * *',
+            hintText: 'password_placeholder'.tr(),
             prefixIcon: SizedBox(
               width: 48.w,
               height: 48.h,
@@ -170,21 +170,21 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(4.r),
                             ),
-                            side: MaterialStateBorderSide.resolveWith(
+                            side: WidgetStateBorderSide.resolveWith(
                               (states) => BorderSide(
                                 color: Color(0xFF80d5b5),
                                 width: 2,
                               ),
                             ),
-                            fillColor: MaterialStateProperty.resolveWith<Color>(
-                              (states) {
-                                if (states.contains(MaterialState.selected)) {
-                                  return Color(0x6680D5B5);
-                                }
-                                return Colors.transparent;
-                              },
-                            ),
-                            checkColor: MaterialStateProperty.all<Color>(
+                            fillColor: WidgetStateProperty.resolveWith<Color>((
+                              states,
+                            ) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Color(0x6680D5B5);
+                              }
+                              return Colors.transparent;
+                            }),
+                            checkColor: WidgetStateProperty.all<Color>(
                               Color(0xFF156752),
                             ),
                           ),

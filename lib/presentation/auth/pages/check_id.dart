@@ -73,7 +73,9 @@ class _CheckIdPageState extends State<CheckIdPage> {
               listener: (context, state) {
                 if (state is ForgotPasswordSuccess) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text("Password updated successfully")),
+                    SnackBar(
+                      content: Text("password_updated_successfully".tr()),
+                    ),
                   );
                   Navigator.of(
                     context,
@@ -261,6 +263,7 @@ class _CheckIdPageState extends State<CheckIdPage> {
                                             obscureText: true,
                                             decoration: InputDecoration(
                                               labelText: 'confirm_password'
+                                                  .tr()
                                                   .tr(),
                                               border: OutlineInputBorder(),
                                             ),

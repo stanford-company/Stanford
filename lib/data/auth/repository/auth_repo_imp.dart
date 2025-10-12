@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:medapp/data/auth/model/profile.dart';
 import '../../../core/errors/failure.dart';
 import '../../../core/utils/setup_service.dart';
@@ -9,7 +8,6 @@ import '../model/check_id.dart';
 import '../model/login.dart';
 import '../model/logout.dart';
 import '../service/auth_service.dart';
-import '../../../core/services/api_service.dart';
 
 class AuthRepositoryImp extends AuthRepository {
   @override

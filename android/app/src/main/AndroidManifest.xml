@@ -8,6 +8,20 @@
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 
+        <!-- Enable 16KB page size support -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+            
+        <meta-data
+            android:name="android.allow_multiple_resumed_activities"
+            android:value="true" />
+            
+        <!-- Explicit 16KB page size support -->
+        <meta-data
+            android:name="android.app.16kb_page_size"
+            android:value="true" />
+
 
         <activity
             android:name=".MainActivity"

@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
 import 'package:medapp/core/constants/const.dart';
-import 'package:medapp/domain/auth/usecase/check_id_usecase.dart';
 import 'package:meta/meta.dart';
 import 'package:easy_localization/easy_localization.dart';
 

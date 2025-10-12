@@ -10,9 +10,7 @@ class HistoryAppointmentListItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Row(
@@ -25,46 +23,32 @@ class HistoryAppointmentListItem extends StatelessWidget {
                         child: _buildColumn(
                           context: context,
                           title: 'date'.tr(),
-                          subtitle: '18 Juin 2020',
+                          subtitle: 'sample_date'.tr(),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      SizedBox(width: 10),
                       Expanded(
                         child: _buildColumn(
                           context: context,
                           title: 'time'.tr(),
-                          subtitle: '09:30',
+                          subtitle: 'sample_time'.tr(),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 CustomButton(
                   text: 'reschedule'.tr(),
                   textSize: 14,
                   onPressed: () {},
-                  padding: EdgeInsets.symmetric(
-                    vertical: 10,
-                    horizontal: 5,
-                  ),
+                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 ),
               ],
             ),
           ),
-          SizedBox(
-            height: 15,
-          ),
-          Divider(
-            height: 1,
-            thickness: 1,
-            indent: 10,
-            endIndent: 10,
-          ),
+          SizedBox(height: 15),
+          Divider(height: 1, thickness: 1, indent: 10, endIndent: 10),
           Padding(
             padding: const EdgeInsets.all(15),
             child: Row(
@@ -77,22 +61,20 @@ class HistoryAppointmentListItem extends StatelessWidget {
                         child: _buildColumn(
                           context: context,
                           title: 'doctor'.tr(),
-                          subtitle: 'Dr. Tawfiq Bahri',
+                          subtitle: 'sample_doctor'.tr(),
                         ),
                       ),
                       Expanded(
                         child: _buildColumn(
                           context: context,
                           title: 'speciality'.tr(),
-                          subtitle: 'Family Doctor',
+                          subtitle: 'sample_speciality'.tr(),
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  width: 10,
-                ),
+                SizedBox(width: 10),
                 Visibility(
                   visible: false,
                   maintainAnimation: true,
@@ -102,10 +84,7 @@ class HistoryAppointmentListItem extends StatelessWidget {
                     text: 'reschedule'.tr(),
                     textSize: 14,
                     onPressed: () {},
-                    padding: EdgeInsets.symmetric(
-                      vertical: 10,
-                      horizontal: 5,
-                    ),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                   ),
                 ),
               ],
@@ -137,10 +116,9 @@ class HistoryAppointmentListItem extends StatelessWidget {
         ),
         Text(
           subtitle,
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium!
-              .copyWith(fontWeight: FontWeight.w500),
+          style: Theme.of(
+            context,
+          ).textTheme.titleMedium!.copyWith(fontWeight: FontWeight.w500),
         ),
       ],
     );

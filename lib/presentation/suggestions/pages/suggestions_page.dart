@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:medapp/presentation/suggestions/bloc/suggestions_cubit.dart';
 import 'package:medapp/presentation/suggestions/bloc/suggestions_state.dart';
 import '../../../core/constants/app_colors.dart';
@@ -27,14 +28,14 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
               color: isSuccess ? Colors.green : Colors.red,
             ),
             const SizedBox(width: 10),
-            Text(isSuccess ? 'Success' : 'Error'),
+            Text(isSuccess ? 'success'.tr() : 'error'.tr()),
           ],
         ),
         content: Text(message),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text("OK"),
+            child: Text("ok".tr()),
           ),
         ],
       ),
@@ -61,8 +62,8 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white,),
-          onPressed: () =>  Navigator.pushReplacementNamed(context, '/home')
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
         ),
         backgroundColor: AppColors.primary_button_color,
         elevation: 0,
@@ -101,7 +102,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                     TextFormField(
                       controller: _titleController,
                       decoration: InputDecoration(
-                         hintText: 'Enter a title...',
+                        hintText: 'enter_title'.tr(),
                         filled: true,
                         fillColor: const Color(0xfff5f5f5),
                         border: OutlineInputBorder(
@@ -110,7 +111,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                         ),
                       ),
                       validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter title'
+                          ? 'please_enter_title'.tr()
                           : null,
                     ),
                     const SizedBox(height: 20),
@@ -118,7 +119,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                       controller: _descriptionController,
                       maxLines: 5,
                       decoration: InputDecoration(
-                         hintText: 'Write your suggestion or problem here...',
+                        hintText: 'write_suggestion_here'.tr(),
                         filled: true,
                         fillColor: const Color(0xfff5f5f5),
                         border: OutlineInputBorder(
@@ -127,7 +128,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                         ),
                       ),
                       validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter description'
+                          ? 'please_enter_description'.tr()
                           : null,
                     ),
                     const SizedBox(height: 30),

@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/common/components/search_widget.dart';
 import 'package:medapp/presentation/store/widget/store_card.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../../core/routes/routes.dart';
 import '../../cart/pages/cart_view.dart';
 import '../bloc/store_cubit.dart';
 import '../../cart/bloc/cart_cubit.dart';
@@ -81,8 +81,8 @@ class StorePageContent extends StatelessWidget {
                             Icons.shopping_cart,
                             color: Colors.white,
                           ),
-                          label: const Text(
-                            "Go to Checkout",
+                          label: Text(
+                            "go_to_checkout".tr(),
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

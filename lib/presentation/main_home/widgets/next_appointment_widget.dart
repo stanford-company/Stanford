@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../common/components/round_icon_button.dart';
-import '../../../../core/utils/constants.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../data/appointments_history/model/appointments_history.dart';
 import '../../appointments_history/bloc/appointments_cubit.dart';

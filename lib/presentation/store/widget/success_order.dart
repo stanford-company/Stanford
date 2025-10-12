@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/common/components/basic_app_button.dart';
@@ -18,7 +19,7 @@ class SuccessOrderPage extends StatelessWidget {
             Image.asset("assets/images/success_appointment.png"),
             SizedBox(height: 25),
             Text(
-              "Order Submitted Successfully",
+              "order_submitted_successfully".tr(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontWeight: FontWeight.w700,
@@ -28,20 +29,19 @@ class SuccessOrderPage extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "Our team will contact you soon to confirm the order and arrange delivery.",
+              "order_confirmation_message".tr(),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 16.sp),
             ),
             SizedBox(height: 10),
             BasicAppButton(
-              text: "Go to Home",
+              text: "go_to_home".tr(),
               onTap: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
           ],
         ),
-
       ),
     );
   }

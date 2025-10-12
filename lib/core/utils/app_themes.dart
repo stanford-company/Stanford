@@ -14,7 +14,7 @@ final appThemeData = {
     colorScheme: const ColorScheme.light(primary: kColorPrimary),
     appBarTheme: const AppBarTheme(
       elevation: 0,
-      color: Colors.white,
+      backgroundColor: Colors.white,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: Colors.white,
         statusBarIconBrightness: Brightness.dark,
@@ -61,7 +61,7 @@ final appThemeData = {
     scaffoldBackgroundColor: Colors.black,
     colorScheme: const ColorScheme.dark(primary: kColorPrimary),
     appBarTheme: const AppBarTheme(
-      color: Color(0xff121212),
+      backgroundColor: Color(0xff121212),
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: kColorDark,

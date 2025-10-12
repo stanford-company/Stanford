@@ -3,7 +3,7 @@ import '../../../core/errors/failure.dart';
 import '../../../core/usecase/usecase.dart';
 import '../../../core/utils/setup_service.dart';
 import '../repository/auth_repo.dart';
-import '../../../data/auth/model/login.dart'; // ✅ because we return UserParams not RegisterModel
+// ✅ because we return UserParams not RegisterModel
 
 class ForgotPasswordUsecase extends Usecase<Either<Failure, String>, Map<String, String>> {
   @override

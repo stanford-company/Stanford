@@ -1,7 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:medapp/core/services/api_service.dart';
 import 'package:medapp/data/category/model/category.dart';
-import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
+// Import SharedPreferences
 abstract class CategoryService{
   Future<List<CategoryModel>>getCategory();
 }

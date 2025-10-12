@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:medapp/presentation/auth/bloc/register_state.dart';
 import '../../../core/utils/setup_service.dart';
 import '../../../domain/auth/usecase/register_usecase.dart';
-import '../../../data/auth/model/login.dart'; // UserParams
+// UserParams
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(RegisterInitial());
