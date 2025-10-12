@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:medapp/presentation/main_home/pages/about_us.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
 
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
 import '../../data/store/model/supplies_model.dart';
-import '../../presentation/cart/bloc/cart_cubit.dart';
 import '../../presentation/category_network/pages/step1/health_concern_page.dart';
 import '../../presentation/city_network/pages/city_page.dart';
 import '../../presentation/main_home/pages/home.dart';
@@ -164,8 +164,8 @@ class RouteGenerator {
     return CupertinoPageRoute(
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(title: Text('Error')),
-          body: Center(child: Text('Error')),
+          appBar: AppBar(title: Text('error'.tr())),
+          body: Center(child: Text('error'.tr())),
         );
       },
     );

@@ -50,7 +50,7 @@ class MedicalCard extends StatelessWidget {
 
             child:
                 (medicalEntity?.images.isNotEmpty == true ||
-                    (medicalModel?.imageUrl?.isNotEmpty == true))
+                    (medicalModel?.imageUrl.isNotEmpty == true))
                 ? ClipOval(
                     child: Image.network(
                       medicalEntity?.images.isNotEmpty == true

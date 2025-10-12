@@ -2,9 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/components/round_icon_button.dart';
-import '../../../core/routes/routes.dart';
-import '../../../core/utils/constants.dart';
 import '../bloc/profile_cubit.dart';
 
 class SettingsWidget extends StatefulWidget {

@@ -95,7 +95,7 @@ class MyApp extends StatelessWidget {
                   child: child!,
                 );
               },
-              title: 'Stanford',
+              title: 'app_name'.tr(),
               initialRoute: Routes.splash,
               onGenerateRoute: RouteGenerator.generateRoute,
               localizationsDelegates: [
@@ -110,7 +110,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: state.themeData.copyWith(
                 appBarTheme: AppBarTheme(
-                  color: Colors.white,
+                  backgroundColor: Colors.white,
                   elevation: 0, // No shadow
                   iconTheme: IconThemeData(color: Colors.black),
                   titleTextStyle: TextStyle(
@@ -128,5 +128,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-

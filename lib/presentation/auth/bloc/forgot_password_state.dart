@@ -1,4 +1,3 @@
-import '../../../data/auth/model/login.dart';
 
 sealed class ForgotPasswordState {}
 

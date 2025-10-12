@@ -25,20 +25,24 @@ class ServerFailure extends Failure {
         return ServerFailure('badCertificate with api server');
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
-            statusCode: e.response?.statusCode, response: e.response!.data);
+          statusCode: e.response?.statusCode,
+          response: e.response!.data,
+        );
       case DioExceptionType.cancel:
         return ServerFailure('Request to ApiServer was canceld');
       case DioExceptionType.connectionError:
         return ServerFailure('No Internet Connection');
       case DioExceptionType.unknown:
-        return ServerFailure('Opps There was an Error, Please try again');
+        return ServerFailure('general_error_please_try_again');
     }
   }
 
   factory ServerFailure.fromResponse({int? statusCode, dynamic response}) {
     try {
       if (statusCode == 500) {
-        return ServerFailure('There is a problem with the server, please try later');
+        return ServerFailure(
+          'There is a problem with the server, please try later',
+        );
       } else if (statusCode == 429) {
         final message = response['message'];
         if (message is Map) {
@@ -72,8 +76,9 @@ class ServerFailure extends Failure {
         return ServerFailure('Unexpected error with status: $statusCode');
       }
     } catch (e) {
-      return ServerFailure('Unexpected response format: ${response.toString()}');
+      return ServerFailure(
+        'Unexpected response format: ${response.toString()}',
+      );
     }
   }
-
 }

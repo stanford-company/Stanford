@@ -32,7 +32,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
     setState(() {
       filteredCategories = allCategories.where((cat) {
         final name = isArabic ? cat.nameAr : cat.nameEn;
-        return name?.toLowerCase().contains(query) ?? false;
+        return name.toLowerCase().contains(query) ?? false;
       }).toList();
     });
   }
@@ -76,7 +76,8 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
           builder: (context, state) {
             if (state is CategoryNetworkLoaded) {
               allCategories = state.categories;
-              if (filteredCategories.isEmpty) filteredCategories = allCategories;
+              if (filteredCategories.isEmpty)
+                filteredCategories = allCategories;
               saveToPrefs(allCategories); // ✅ Save to SharedPreferences
               final isArabic = context.locale.languageCode == 'ar';
 
@@ -86,7 +87,10 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                   Divider(thickness: 1.2.h, color: const Color(0xffEAECF0)),
                   SizedBox(height: 12.h),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 16.h,
+                    ),
                     child: Row(
                       children: [
                         SizedBox(width: 12.w),
@@ -112,7 +116,8 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                     controller: searchController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Search for clinics, doctors, hospitals',
+                                      hintText:
+                                          'Search for clinics, doctors, hospitals',
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -160,12 +165,17 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                               // Navigate to City Network Page on tap
                               Navigator.pushNamed(
                                 context,
-                                Routes.bookingStepCityNetwork,  // Assuming this is your route name for CityNetworkPage
-                                arguments: category.id,  // Pass the selected category
+                                Routes
+                                    .bookingStepCityNetwork, // Assuming this is your route name for CityNetworkPage
+                                arguments:
+                                    category.id, // Pass the selected category
                               );
                             },
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 10,
+                              ),
                               decoration: BoxDecoration(
                                 color: Color(0xfff3f3f6),
                                 borderRadius: BorderRadius.circular(8.r),
@@ -187,7 +197,9 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                     child: Text(
                                       categoryName,
                                       overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -201,7 +213,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                 ],
               );
             } else if (state is CategoryNetworkFailure) {
-              return Center(child: Text('Failed: ${state.message}'));
+              return Center(child: Text('${'failed'.tr()}: ${state.message}'));
             }
             return const Center(child: CircularProgressIndicator());
           },

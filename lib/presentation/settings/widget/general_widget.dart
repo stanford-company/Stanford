@@ -6,7 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../common/helper/cach_helper/cach_helper.dart';
 import '../../../core/constants/const.dart';
 import '../../../core/routes/routes.dart';
-import '../../../../core/utils/constants.dart';
 import '../../auth/bloc/logout_cubit.dart';
 
 class GeneralWidget extends StatelessWidget {

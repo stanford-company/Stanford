@@ -3,7 +3,6 @@ import 'package:medapp/core/errors/failure.dart';
 import 'package:medapp/data/auth/model/check_id.dart';
 import 'package:medapp/data/auth/model/logout.dart';
 import 'package:medapp/data/auth/model/profile.dart';
-import 'package:medapp/data/auth/model/register.dart';
 
 import '../../../data/auth/model/login.dart';
 

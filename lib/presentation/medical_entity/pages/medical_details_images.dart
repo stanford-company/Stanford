@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../core/utils/rtl_arrow_icons.dart';
 
 class MedicalDetailsImages extends StatefulWidget {
   final List<String> images;
@@ -17,12 +18,6 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
     setState(() {
       _currentPage = index;
     });
-    // When reaching the last page, jump to the first
-    if (index == widget.images.length - 1) {
-      Future.delayed(const Duration(milliseconds: 300), () {
-        _controller.jumpToPage(0);
-      });
-    }
   }
 
   final PageController _controller = PageController();
@@ -45,7 +40,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
             onPageChanged: (index) => _onPageChanged(index),
             itemBuilder: (context, index) {
               return Container(
-                color: Colors.red,
+                color: Colors.white,
                 width: double.infinity,
                 height: 300,
                 child: Image.network(
@@ -58,7 +53,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
                     child: Icon(
                       Icons.broken_image,
                       size: 50,
-                      color: Colors.red,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -78,11 +73,7 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
               color: Colors.white24,
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.white,
-              size: 20,
-            ),
+            child: Icon(context.backArrow, color: Colors.white, size: 20),
           ),
         ),
 
@@ -100,17 +91,16 @@ class _MedicalDetailsImagesState extends State<MedicalDetailsImages> {
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                children: List.generate(
-                  widget.images.length, // includes dots and spacing
-                  (index) {
-                    if (index.isEven) {
-                      final pageIndex = index ~/ 2;
-                      return _buildDot(isActive: _currentPage == pageIndex);
-                    } else {
-                      return const SizedBox(width: 6);
-                    }
-                  },
-                ),
+                children: widget.images.asMap().entries.map((entry) {
+                  int index = entry.key;
+                  return Row(
+                    children: [
+                      _buildDot(isActive: _currentPage == index),
+                      if (index < widget.images.length - 1)
+                        const SizedBox(width: 6),
+                    ],
+                  );
+                }).toList(),
               ),
             ),
           ),

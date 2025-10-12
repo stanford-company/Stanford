@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:medapp/core/constants/app_colors.dart';
 import '../../store/widget/success_order.dart';
 import '../bloc/cart_cubit.dart';
@@ -16,7 +17,7 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         title: Padding(
           padding: EdgeInsets.only(top: 8.0.h),
-          child: const Text('Your Cart', style: TextStyle(color: Colors.white)),
+          child: Text('your_cart'.tr(), style: TextStyle(color: Colors.white)),
         ),
         centerTitle: true,
         backgroundColor: AppColors.primary_color,
@@ -29,7 +30,7 @@ class CartPage extends StatelessWidget {
           } else if (state is CartLoaded) {
             final items = state.items;
             if (items.isEmpty) {
-              return const Center(child: Text("Your cart is empty 🛒"));
+              return Center(child: Text("cart_empty".tr()));
             }
 
             return Column(
@@ -87,7 +88,7 @@ class CartPage extends StatelessWidget {
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
-                                      "Quantity: $quantity",
+                                      "${"quantity".tr()}: $quantity",
                                       style: const TextStyle(fontSize: 14),
                                     ),
                                   ],
@@ -152,7 +153,7 @@ class CartPage extends StatelessWidget {
                       },
                       icon: const Icon(Icons.check_circle_outline),
                       label: Text(
-                        "Complete Checkout",
+                        "complete_checkout".tr(),
                         style: TextStyle(
                           fontSize: 16.sp,
                           color: Colors.white,

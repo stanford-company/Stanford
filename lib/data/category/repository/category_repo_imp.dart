@@ -1,8 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:medapp/core/errors/failure.dart';
-import 'package:medapp/data/auth/model/check_id.dart';
-import 'package:medapp/domain/auth/repository/auth_repo.dart';
 import 'package:medapp/domain/category/repository/category_repo.dart';
 
 import '../../../core/utils/setup_service.dart';

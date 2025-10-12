@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medapp/core/constants/app_colors.dart';
-import 'package:medapp/domain/appointments_history/usecase/appointments_usecase.dart';
 
 import '../bloc/appointments_cubit.dart';
 
@@ -115,21 +114,27 @@ class BookedPage extends StatelessWidget {
                               : item.description;
 
                           Color statusColor;
+                          String translatedStatus;
+
                           switch (item.status) {
                             case 'confirmed':
                             case 'تم التأكيد':
                               statusColor = AppColors.secondary_color;
+                              translatedStatus = 'status_confirmed'.tr();
                               break;
                             case 'pending':
                             case 'جاري التأكيد':
                               statusColor = const Color(0x33FF9500);
+                              translatedStatus = 'status_pending'.tr();
                               break;
                             case 'rejected':
                             case 'مرفوض':
                               statusColor = Colors.red.shade200;
+                              translatedStatus = 'status_rejected'.tr();
                               break;
                             default:
                               statusColor = AppColors.secondary_color;
+                              translatedStatus = 'status_confirmed'.tr();
                           }
 
                           return Card(
@@ -154,7 +159,7 @@ class BookedPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: Text(
-                                      item.status,
+                                      translatedStatus,
                                       style: TextStyle(
                                         color: AppColors.primary_color,
                                       ),

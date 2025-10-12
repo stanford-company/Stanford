@@ -4,7 +4,6 @@ import 'package:meta/meta.dart';
 
 import '../../../core/utils/setup_service.dart';
 import '../../../data/medical_entity/model/medical_doctor.dart';
-import '../../../domain/city/usecase/city_usecase.dart';
 
 part 'doctor_state.dart';
 

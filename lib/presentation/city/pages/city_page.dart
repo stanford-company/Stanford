@@ -60,9 +60,11 @@ class _CityPageState extends State<CityPage> {
                   toolbarHeight: 60.h,
                   leading: ArrowBackWidget(),
                   title: Text(
-                    "Book an appointment",
+                    "book_an_appointment".tr(),
                     style: TextStyle(color: Color(0xff113f4e)),
                   ),
+                  centerTitle: true,
+                  iconTheme: IconThemeData(color: Color(0xff113f4e)),
                 ),
               ],
             ),
@@ -107,7 +109,7 @@ class _CityPageState extends State<CityPage> {
                                         .searchCity,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'Search for cities...',
+                                      hintText: 'search_for_cities'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -127,7 +129,7 @@ class _CityPageState extends State<CityPage> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'Choose City',
+                        'choose_city'.tr(),
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(
                               fontWeight: FontWeight.bold,
@@ -181,40 +183,37 @@ class _CityPageState extends State<CityPage> {
                                             4.r,
                                           ),
                                         ),
-                                        side:
-                                            MaterialStateBorderSide.resolveWith(
-                                              (states) {
-                                                if (states.contains(
-                                                  MaterialState.selected,
-                                                )) {
-                                                  return BorderSide(
-                                                    color: AppColors
-                                                        .secondary_color,
-                                                    width: 2,
-                                                  );
-                                                }
-                                                return BorderSide(
-                                                  color: isSelected
-                                                      ? AppColors
-                                                            .secondary_color
-                                                      : AppColors
-                                                            .bold_grey_color,
-                                                  width: isSelected ? 3.w : 2.w,
-                                                );
-                                              },
-                                            ),
+                                        side: WidgetStateBorderSide.resolveWith(
+                                          (states) {
+                                            if (states.contains(
+                                              WidgetState.selected,
+                                            )) {
+                                              return BorderSide(
+                                                color:
+                                                    AppColors.secondary_color,
+                                                width: 2,
+                                              );
+                                            }
+                                            return BorderSide(
+                                              color: isSelected
+                                                  ? AppColors.secondary_color
+                                                  : AppColors.bold_grey_color,
+                                              width: isSelected ? 3.w : 2.w,
+                                            );
+                                          },
+                                        ),
                                         fillColor:
-                                            MaterialStateProperty.resolveWith<
+                                            WidgetStateProperty.resolveWith<
                                               Color
                                             >((states) {
                                               return states.contains(
-                                                    MaterialState.selected,
+                                                    WidgetState.selected,
                                                   )
                                                   ? AppColors.secondary_color
                                                   : Colors.transparent;
                                             }),
                                         checkColor:
-                                            MaterialStateProperty.all<Color>(
+                                            WidgetStateProperty.all<Color>(
                                               AppColors.primary_color,
                                             ),
                                         materialTapTargetSize:
@@ -237,7 +236,9 @@ class _CityPageState extends State<CityPage> {
                                     ),
                                   ),
                                   Text(
-                                    city.nameEn,
+                                    context.locale.languageCode == "en"
+                                        ? city.nameEn
+                                        : city.nameAr,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
@@ -282,7 +283,7 @@ class _CityPageState extends State<CityPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Next",
+                            "next".tr(),
                             style: TextStyle(
                               color: AppColors.white_text_color,
                               fontWeight: FontWeight.bold,

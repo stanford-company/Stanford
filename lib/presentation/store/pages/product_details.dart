@@ -7,7 +7,6 @@ import 'package:medapp/core/constants/app_colors.dart';
 
 import '../../../data/store/model/supplies_model.dart';
 import '../../cart/bloc/cart_cubit.dart';
-import '../../cart/pages/cart_storage.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final SuppliesModel suppliesModel;
@@ -30,7 +29,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
         if (state is CartSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Order created successfully')),
+            SnackBar(content: Text('order_created_successfully'.tr())),
           );
           Navigator.pop(context);
         } else if (state is CartFailure) {
@@ -235,7 +234,7 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           await context.read<CartCubit>().addToCart(item);
 
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Item added to cart')),
+                            SnackBar(content: Text('item_added_to_cart'.tr())),
                           );
                           // Navigator.pop(context);
                         },

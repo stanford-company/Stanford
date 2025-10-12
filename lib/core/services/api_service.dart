@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../common/helper/cach_helper/cach_helper.dart';
 import '../constants/app_urls.dart';
-import '../constants/const.dart';
 
 class ApiService {
   final Dio _dio;

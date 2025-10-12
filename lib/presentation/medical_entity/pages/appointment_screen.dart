@@ -78,8 +78,8 @@ class AppointmentScreen extends StatelessWidget {
                             radius: 24,
                             backgroundImage: NetworkImage(
                               (medicalEntity?.images != null &&
-                                      medicalEntity!.images!.isNotEmpty)
-                                  ? medicalEntity!.images![0]
+                                      medicalEntity!.images.isNotEmpty)
+                                  ? medicalEntity!.images[0]
                                   : (medicalModel?.imageUrl ?? ""),
                             ),
                           ),

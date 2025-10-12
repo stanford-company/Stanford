@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,7 +36,9 @@ class HealthConcernItem extends StatelessWidget {
             SizedBox(width: 12.w),
             Expanded(
               child: Text(
-                healthCategory.nameEn,
+                context.locale.languageCode == "ar"
+                    ? healthCategory.nameAr
+                    : healthCategory.nameEn,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w500,
                   color: Color(0xff113f4e),
