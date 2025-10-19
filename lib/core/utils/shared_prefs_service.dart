@@ -73,6 +73,16 @@ class SharedPrefsService {
     return getData(key: _onboardingCompletedKey) ?? false;
   }
 
+  static Future<void> setOnboardingCompleted(bool completed) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_onboardingCompletedKey, completed);
+  }
+
+  static Future<bool> isOnboardingCompleted() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_onboardingCompletedKey) ?? false;
+  }
+
   static Future<void> clearAll() async {
     if (_prefs == null) {
       _prefs = await SharedPreferences.getInstance();
