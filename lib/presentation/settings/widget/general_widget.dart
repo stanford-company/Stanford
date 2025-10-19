@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../common/helper/cach_helper/cach_helper.dart';
+import '../../../core/utils/shared_prefs_service.dart';
 import '../../../core/constants/const.dart';
 import '../../../core/routes/routes.dart';
 import '../../auth/bloc/logout_cubit.dart';
@@ -53,7 +53,7 @@ class GeneralWidget extends StatelessWidget {
                 return BlocConsumer<LogoutCubit, LogoutState>(
                   listener: (context, state) {
                     if (state is LogoutLoaded) {
-                      CacheHelper.removeData(key: TextConst.isLogin);
+                      SharedPrefsService.removeData(key: TextConst.isLogin);
                       Navigator.of(
                         context,
                       ).pushNamedAndRemoveUntil(Routes.login, (route) => false);

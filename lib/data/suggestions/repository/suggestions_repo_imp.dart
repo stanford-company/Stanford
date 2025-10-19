@@ -7,7 +7,6 @@ import '../../../core/utils/shared_prefs_service.dart';
 import '../../../domain/suggestions/repository/suggestions_repo.dart';
 import '../model/suggestions.dart';
 import '../service/suggestions.dart';
-import '../../../common/helper/cach_helper/cach_helper.dart';
 
 class SuggestionsRepositoryImp extends SuggestionsRepository {
   @override
@@ -19,8 +18,11 @@ class SuggestionsRepositoryImp extends SuggestionsRepository {
       final token = await SharedPrefsService.getToken();
 
       if (token != null && token.isNotEmpty) {
-        await CacheHelper.saveData(key: TextConst.userToken, value: token);
-        print('✅ Token saved to CacheHelper');
+        await SharedPrefsService.saveData(
+          key: TextConst.userToken,
+          value: token,
+        );
+        print('✅ Token saved to SharedPrefsService');
       } else {
         print('❌ Token is null or empty. Aborting suggestion send.');
         return Left(

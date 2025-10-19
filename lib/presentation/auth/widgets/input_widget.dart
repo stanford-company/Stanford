@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:medapp/core/utils/constants.dart';
 
 import '../../../blocks/remember_me_bloc.dart';
 import '../../../common/components/custom_button.dart';
 import '../../../common/components/labeled_text_form_field.dart';
-import '../../../common/helper/cach_helper/cach_helper.dart';
+import '../../../core/utils/shared_prefs_service.dart';
 import '../../../core/constants/const.dart';
 import '../../../core/routes/routes.dart';
 import '../bloc/login_cubit.dart';
@@ -30,11 +29,13 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
   }
 
   void _loadSavedCredentials() async {
-    final isRemembered = await CacheHelper.getData(key: 'remember_me') ?? false;
+    final isRemembered =
+        await SharedPrefsService.getData(key: 'remember_me') ?? false;
     if (isRemembered) {
       final savedNationalId =
-          await CacheHelper.getData(key: 'national_id') ?? '';
-      final savedPassword = await CacheHelper.getData(key: 'password') ?? '';
+          await SharedPrefsService.getData(key: 'national_id') ?? '';
+      final savedPassword =
+          await SharedPrefsService.getData(key: 'password') ?? '';
       setState(() {
         _nationalIdController.text = savedNationalId;
         _passwordController.text = savedPassword;
@@ -48,7 +49,10 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
       listener: (context, state) async {
         if (state is LoginLoaded) {
           if (state.userParams.data.signUpStatus == 'yes') {
-            await CacheHelper.saveData(key: TextConst.isLogin, value: true);
+            await SharedPrefsService.saveData(
+              key: TextConst.isLogin,
+              value: true,
+            );
             Navigator.of(context).pushNamedAndRemoveUntil(
               Routes.home,
               (Route<dynamic> route) => false,
@@ -191,13 +195,14 @@ class _LoginInputWidgetState extends State<LoginInputWidget> {
                         ),
                         child: Checkbox(
                           value:
-                              CacheHelper.getData(key: 'remember_me') ?? false,
+                              SharedPrefsService.getData(key: 'remember_me') ??
+                              false,
                           onChanged: (value) {
                             context.read<RememberMeBloc>().add(
                               ToggleRememberMe(value ?? false),
                             );
 
-                            CacheHelper.saveData(
+                            SharedPrefsService.saveData(
                               key: 'remember_me',
                               value: value ?? false,
                             );

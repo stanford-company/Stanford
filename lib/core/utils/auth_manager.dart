@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import '../../common/helper/cach_helper/cach_helper.dart';
+import 'shared_prefs_service.dart';
 import '../constants/const.dart';
 import '../routes/routes.dart';
 import '../services/navigation_service.dart';
@@ -37,13 +37,13 @@ class AuthManager {
 
   /// Check if user is logged in
   static bool isLoggedIn() {
-    final token = CacheHelper.getData(key: TextConst.userToken);
+    final token = SharedPrefsService.getData(key: TextConst.userToken);
     return token != null && token.toString().isNotEmpty;
   }
 
   /// Get current user token
   static String? getUserToken() {
-    return CacheHelper.getData(key: TextConst.userToken);
+    return SharedPrefsService.getData(key: TextConst.userToken);
   }
 
   static void _showSessionExpiredMessage() {
@@ -75,20 +75,20 @@ class AuthManager {
 
   static Future<void> _clearUserData() async {
     // Clear user token
-    await CacheHelper.removeData(key: TextConst.userToken);
+    await SharedPrefsService.removeData(key: TextConst.userToken);
 
     // Clear other user-related data
-    await CacheHelper.removeData(key: TextConst.userId);
-    await CacheHelper.removeData(key: TextConst.userRole);
-    await CacheHelper.removeData(key: TextConst.userFName);
-    await CacheHelper.removeData(key: TextConst.userLName);
-    await CacheHelper.removeData(key: TextConst.userPhone);
-    await CacheHelper.removeData(key: TextConst.userEmail);
-    await CacheHelper.removeData(key: TextConst.userDate);
-    await CacheHelper.removeData(key: TextConst.userCategory);
-    await CacheHelper.removeData(key: TextConst.userProfileImage);
-    await CacheHelper.removeData(key: TextConst.userProviderId);
-    await CacheHelper.removeData(key: TextConst.isVerified);
+    await SharedPrefsService.removeData(key: TextConst.userId);
+    await SharedPrefsService.removeData(key: TextConst.userRole);
+    await SharedPrefsService.removeData(key: TextConst.userFName);
+    await SharedPrefsService.removeData(key: TextConst.userLName);
+    await SharedPrefsService.removeData(key: TextConst.userPhone);
+    await SharedPrefsService.removeData(key: TextConst.userEmail);
+    await SharedPrefsService.removeData(key: TextConst.userDate);
+    await SharedPrefsService.removeData(key: TextConst.userCategory);
+    await SharedPrefsService.removeData(key: TextConst.userProfileImage);
+    await SharedPrefsService.removeData(key: TextConst.userProviderId);
+    await SharedPrefsService.removeData(key: TextConst.isVerified);
 
     print('✅ User data cleared');
   }
