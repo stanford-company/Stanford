@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
 import 'package:medapp/core/constants/const.dart';
 
 import '../../../core/routes/routes.dart';
@@ -158,7 +157,9 @@ class _DrawerPageState extends State<DrawerPage> {
                           return BlocConsumer<LogoutCubit, LogoutState>(
                             listener: (context, state) {
                               if (state is LogoutLoaded) {
-                                CacheHelper.removeData(key: TextConst.isLogin);
+                                SharedPrefsService.removeData(
+                                  key: TextConst.isLogin,
+                                );
                                 Navigator.of(context).pushNamedAndRemoveUntil(
                                   Routes.login,
                                   (route) => false,

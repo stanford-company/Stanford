@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
-import '../../common/helper/cach_helper/cach_helper.dart';
+import '../utils/shared_prefs_service.dart';
 import '../constants/const.dart';
 
 abstract class Failure {
@@ -47,7 +47,7 @@ class ServerFailure extends Failure {
         final message = response['message'];
         if (message is Map) {
           return ServerFailure(
-            CacheHelper.getData(key: TextConst.language) == "English"
+            SharedPrefsService.getData(key: TextConst.language) == "English"
                 ? message['en']
                 : message['ar'],
           );
@@ -58,7 +58,7 @@ class ServerFailure extends Failure {
         try {
           final message = jsonDecode(response['message']);
           return ServerFailure(
-            CacheHelper.getData(key: TextConst.language) == "English"
+            SharedPrefsService.getData(key: TextConst.language) == "English"
                 ? message['en']
                 : message['ar'],
           );

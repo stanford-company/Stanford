@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
+import 'package:medapp/core/utils/shared_prefs_service.dart';
 import 'package:medapp/core/constants/const.dart';
 import 'package:meta/meta.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -39,14 +39,14 @@ class LoginCubit extends Cubit<LoginState> {
         emit(LoginFailure(errorMessage));
       },
       (userParams) {
-        if (true) {
-          CacheHelper.saveData(key: TextConst.rememberMe, value: true);
-          CacheHelper.saveData(key: "national_id", value: nationalId);
-          CacheHelper.saveData(key: "password", value: password);
+        if (rememberMe) {
+          SharedPrefsService.saveData(key: TextConst.rememberMe, value: true);
+          SharedPrefsService.saveData(key: "national_id", value: nationalId);
+          SharedPrefsService.saveData(key: "password", value: password);
         } else {
-          CacheHelper.removeData(key: TextConst.rememberMe);
-          CacheHelper.removeData(key: "national_id");
-          CacheHelper.removeData(key: "password");
+          SharedPrefsService.removeData(key: TextConst.rememberMe);
+          SharedPrefsService.removeData(key: "national_id");
+          SharedPrefsService.removeData(key: "password");
         }
         emit(LoginLoaded(userParams));
       },
@@ -56,7 +56,7 @@ class LoginCubit extends Cubit<LoginState> {
   // remmber me
   Future<void> checkRememberMe() async {
     final rememberMe =
-        await CacheHelper.getData(key: TextConst.rememberMe) ?? false;
+        await SharedPrefsService.getData(key: TextConst.rememberMe) ?? false;
     emit(RememberState(rememberMe));
   }
 }

@@ -14,7 +14,7 @@ import 'package:medapp/presentation/settings/bloc/profile_cubit.dart';
 
 import 'blocks/remember_me_bloc.dart';
 import 'common/bloc/bottom_bar_cubit.dart';
-import 'common/helper/cach_helper/cach_helper.dart';
+import 'core/utils/shared_prefs_service.dart';
 import 'core/routes/route_generator.dart';
 import 'core/routes/routes.dart';
 import 'core/services/navigation_service.dart';
@@ -27,7 +27,7 @@ import 'presentation/cart/bloc/cart_cubit.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  await CacheHelper.init();
+  await SharedPrefsService.init();
   Bloc.observer = SimpleBlocObserver();
   setUpServiceLocator();
 
