@@ -63,10 +63,10 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                   toolbarHeight: 60.h,
                   leading: IconButton(
                     padding: EdgeInsets.zero,
-                    icon: SvgPicture.asset(
-                      'assets/images/svg/arrow_back.svg',
-                      width: 45.w,
-                      height: 45.h,
+                    icon: Icon(
+                      Icons.arrow_back,
+                      size: 24.w,
+                      color: Colors.black,
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),

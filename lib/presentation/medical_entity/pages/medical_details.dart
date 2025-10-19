@@ -104,6 +104,21 @@ class MedicalDetailsScreen extends StatelessWidget {
                       fontSize: 16.sp,
                     ),
                   ),
+                  // Category display
+                  if (medicalEntity?.category != null)
+                    Padding(
+                      padding: EdgeInsets.only(top: 4.h),
+                      child: Text(
+                        context.locale.languageCode == 'ar'
+                            ? medicalEntity!.category.nameAr
+                            : medicalEntity!.category.nameEn,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 14.sp,
+                          color: AppColors.primary_color,
+                        ),
+                      ),
+                    ),
                   SizedBox(height: 8),
                   // Phone number
                   if ((medicalEntity?.phone1 != null &&

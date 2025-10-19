@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/common/helper/cach_helper/cach_helper.dart';
 import 'package:medapp/core/constants/const.dart';
+import 'package:medapp/core/utils/shared_prefs_service.dart';
 
 import '../core/routes/routes.dart';
 import '../core/utils/app_themes.dart';
@@ -45,10 +46,23 @@ class _SplashPageState extends State<SplashPage>
             : AppTheme.LightTheme,
       ),
     );
-    print("isLogin =${CacheHelper.getData(key: TextConst.isLogin)}");
-    await CacheHelper.getData(key: TextConst.isLogin) == true
-        ? Navigator.of(context).pushReplacementNamed(Routes.home)
-        : Navigator.of(context).pushReplacementNamed(Routes.login);
+
+    // Check onboarding status first
+    final isOnboardingCompleted =
+        await SharedPrefsService.isOnboardingCompleted();
+    final isLoggedIn =
+        await CacheHelper.getData(key: TextConst.isLogin) == true;
+
+    print("isLogin = $isLoggedIn");
+    print("isOnboardingCompleted = $isOnboardingCompleted");
+
+    if (!isOnboardingCompleted) {
+      Navigator.of(context).pushReplacementNamed(Routes.onboarding);
+    } else if (isLoggedIn) {
+      Navigator.of(context).pushReplacementNamed(Routes.home);
+    } else {
+      Navigator.of(context).pushReplacementNamed(Routes.login);
+    }
   }
 
   @override

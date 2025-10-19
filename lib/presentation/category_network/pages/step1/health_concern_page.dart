@@ -57,16 +57,22 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
             alignment: Alignment.center,
             children: [
               Align(
-                alignment: Alignment.centerLeft,
+                alignment:
+                    //check curent language direction
+                    context.locale.languageCode == 'ar'
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () => Navigator.pop(context),
                 ),
               ),
-              Center(
-                child: Image.asset(
-                  'assets/images/launcher_ic.png',
-                  height: 50.h,
+              Text(
+                'medical conditions'.tr(),
+                style: TextStyle(
+                  color: const Color(0xff113f4e),
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ],
@@ -117,7 +123,8 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText:
-                                          'Search for clinics, doctors, hospitals',
+                                          'search_for_clinics_doctors_hospitals'
+                                              .tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,

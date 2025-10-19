@@ -3,8 +3,8 @@ class MedicalModel {
   final String title;
   final String medicalName;
   final String description;
-  final String address;
-  final String addressAr;
+  final String? address;
+  final String? addressAr;
   final int status;
   final String startDate;
   final String endDate;
@@ -42,8 +42,8 @@ class MedicalModel {
       imageUrl: json['image_url'],
       categoryEn: json['category_en'],
       categoryAr: json['category_ar'],
-      address: json['address'],
-      addressAr: json['address_ar'],
+      address: json['address'] ?? "",
+      addressAr: json['address_ar'] ?? "",
     );
   }
 

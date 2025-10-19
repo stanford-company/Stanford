@@ -11,12 +11,7 @@ class ArrowBackWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       icon: Container(
         alignment: Alignment.center,
-        child: SvgPicture.asset(
-          'assets/images/svg/arrow_back.svg',
-          width: 45.w,
-          height: 45.h,
-          fit: BoxFit.contain,
-        ),
+        child: Icon(Icons.arrow_back, size: 24.w, color: Colors.black),
       ),
       onPressed: () {
         Navigator.of(context).pop();

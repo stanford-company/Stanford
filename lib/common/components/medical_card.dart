@@ -80,28 +80,16 @@ class MedicalCard extends StatelessWidget {
             medicalEntity?.name ?? medicalModel?.medicalName ?? "",
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
           ),
-          subtitle: Row(
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (((context.locale.languageCode == 'en'
-                          ? medicalEntity?.description
-                          : medicalEntity?.descriptionAr) ??
-                      "")
-                  .isNotEmpty) ...[
-                Expanded(
-                  child: Text(
-                    context.locale.languageCode == 'en'
-                        ? medicalEntity?.description ?? ""
-                        : medicalEntity?.descriptionAr ?? "",
-                    style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 4.w),
-                  child: Text(
-                    '•',
-                    style: TextStyle(fontSize: 13.sp, color: Colors.grey),
-                  ),
+              if (((medicalEntity?.category.nameAr) ?? "").isNotEmpty) ...[
+                Text(
+                  context.locale.languageCode == 'en'
+                      ? medicalEntity?.category.nameEn ?? ""
+                      : medicalEntity?.category.nameAr ?? "",
+                  style: TextStyle(fontSize: 13.sp, color: Colors.black),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
               Text(
