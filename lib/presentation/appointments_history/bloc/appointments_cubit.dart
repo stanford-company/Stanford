@@ -70,8 +70,10 @@ class AppointmentsHistoryCubit extends Cubit<AppointmentsHistoryState> {
         time.hour,
         time.minute,
       );
-      return appointmentDateTime.isAfter(now);
+      return appointmentDateTime.isAfter(now) &&
+          appointment.status == 'confirmed';
     }).toList();
+
     if (upcomingAppointments.isEmpty) {
       return Appointment(
         medicalEntityName: 'No Upcoming Appointments',
@@ -83,6 +85,38 @@ class AppointmentsHistoryCubit extends Cubit<AppointmentsHistoryState> {
         appointmentTime: '',
       );
     }
+
+    // Sort appointments by date and time to get the nearest one
+    upcomingAppointments.sort((a, b) {
+      final dateA = DateTime.parse(a.appointmentDate);
+      final timeA = TimeOfDay(
+        hour: int.parse(a.appointmentTime.split(':')[0]),
+        minute: int.parse(a.appointmentTime.split(':')[1]),
+      );
+      final appointmentDateTimeA = DateTime(
+        dateA.year,
+        dateA.month,
+        dateA.day,
+        timeA.hour,
+        timeA.minute,
+      );
+
+      final dateB = DateTime.parse(b.appointmentDate);
+      final timeB = TimeOfDay(
+        hour: int.parse(b.appointmentTime.split(':')[0]),
+        minute: int.parse(b.appointmentTime.split(':')[1]),
+      );
+      final appointmentDateTimeB = DateTime(
+        dateB.year,
+        dateB.month,
+        dateB.day,
+        timeB.hour,
+        timeB.minute,
+      );
+
+      return appointmentDateTimeA.compareTo(appointmentDateTimeB);
+    });
+
     return upcomingAppointments.first;
   }
 
@@ -142,6 +176,42 @@ class AppointmentsHistoryCubit extends Cubit<AppointmentsHistoryState> {
       AppointmentsHistoryLoaded(
         appointments: acceptedAppointments,
         filter: 'Accepted',
+      ),
+    );
+  }
+
+  void getPendingAppointments() {
+    final pendingAppointments = _allAppointments.where((appointment) {
+      return appointment.status == 'pending';
+    }).toList();
+    emit(
+      AppointmentsHistoryLoaded(
+        appointments: pendingAppointments,
+        filter: 'Pending',
+      ),
+    );
+  }
+
+  void getConfirmedAppointments() {
+    final confirmedAppointments = _allAppointments.where((appointment) {
+      return appointment.status == 'confirmed';
+    }).toList();
+    emit(
+      AppointmentsHistoryLoaded(
+        appointments: confirmedAppointments,
+        filter: 'Confirmed',
+      ),
+    );
+  }
+
+  void getCompletedAppointments() {
+    final completedAppointments = _allAppointments.where((appointment) {
+      return appointment.status == 'completed';
+    }).toList();
+    emit(
+      AppointmentsHistoryLoaded(
+        appointments: completedAppointments,
+        filter: 'Completed',
       ),
     );
   }

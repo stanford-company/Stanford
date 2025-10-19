@@ -23,246 +23,285 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CartCubit, CartState>(
-      listener: (context, state) {
-        // ScaffoldMessenger.of(context).clearSnackBars();
-
-        if (state is CartSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('order_created_successfully'.tr())),
-          );
-          Navigator.pop(context);
-        } else if (state is CartFailure) {
-          ScaffoldMessenger.of(
-            context,
-          ).showSnackBar(SnackBar(content: Text(state.message)));
-        }
-      },
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              AspectRatio(
-                aspectRatio: 1.2,
-                child: Image.network(
-                  widget.suppliesModel.images[selectedImageIndex].imageUrl,
-                  fit: BoxFit.contain,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                AspectRatio(
+                  aspectRatio: 1.2,
+                  child: Image.network(
+                    widget.suppliesModel.images[selectedImageIndex].imageUrl,
+                    fit: BoxFit.contain,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: List.generate(
-                      widget.suppliesModel.images.length,
-                      (index) {
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() => selectedImageIndex = index);
-                          },
-                          child: Container(
-                            width: 50,
-                            height: 50,
-                            margin: EdgeInsets.symmetric(horizontal: 4),
-                            padding: EdgeInsets.all(4),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: selectedImageIndex == index
-                                    ? Colors.green
-                                    : Colors.grey.shade300,
-                                width: 2,
-                              ),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Image.network(
-                              widget.suppliesModel.images[index].imageUrl,
-                              width: 50,
-                            ),
-                          ),
-                        );
-                      },
+                Positioned(
+                  top: 16,
+                  left: context.locale.languageCode == 'ar' ? null : 16,
+                  right: context.locale.languageCode == 'ar' ? 16 : null,
+                  child: Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: AppColors.primary_color,
+                      ),
                     ),
                   ),
                 ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Center(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: List.generate(widget.suppliesModel.images.length, (
+                    index,
+                  ) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() => selectedImageIndex = index);
+                      },
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        margin: EdgeInsets.symmetric(horizontal: 4),
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: selectedImageIndex == index
+                                ? Colors.green
+                                : Colors.grey.shade300,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Image.network(
+                          widget.suppliesModel.images[index].imageUrl,
+                          width: 50,
+                        ),
+                      ),
+                    );
+                  }),
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            CircleAvatar(
-                              radius: 8,
-                              backgroundColor: Color(0xff80D5B5),
-                              child: CircleAvatar(
-                                radius: 5,
-                                backgroundColor: AppColors.green,
-                              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 8,
+                            backgroundColor: Color(0xff80D5B5),
+                            child: CircleAvatar(
+                              radius: 5,
+                              backgroundColor: AppColors.green,
                             ),
-                            SizedBox(width: 4),
-                            Text(
-                              'currently_available'.tr(),
-                              style: TextStyle(
-                                color: AppColors.green,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12.sp,
-                              ),
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            'currently_available'.tr(),
+                            style: TextStyle(
+                              color: AppColors.green,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
                             ),
-                          ],
-                        ),
-                        Text(
-                          '${widget.suppliesModel.price} JOD',
-                          style: TextStyle(
-                            color: Colors.green,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Text(
-                          context.locale.languageCode == "en"
-                              ? widget.suppliesModel.nameEn ?? ""
-                              : widget.suppliesModel.nameAr ?? "",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () {
-                            if (quantity > 1) {
-                              setState(() => quantity--);
-                            }
-                          },
-                          icon: CircleAvatar(
-                            radius: 16,
-                            backgroundColor: Color(0xff13434A),
-                            child: Icon(Icons.remove),
-                          ),
-                        ),
-                        Text(
-                          '$quantity',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            setState(() => quantity++);
-                          },
-                          icon: CircleAvatar(
-                            radius: 16,
-                            backgroundColor: AppColors.green,
-                            child: Icon(Icons.add),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Divider(),
-                    const SizedBox(height: 12),
-                    Text(
-                      'product_details'.tr(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 16.sp,
-                      ),
-                    ),
-                    SizedBox(height: 6),
-                    Text(
-                      context.locale.languageCode == "en"
-                          ? widget.suppliesModel.descriptionEn ?? ""
-                          : widget.suppliesModel.descriptionAr ?? "",
-                      style: TextStyle(
-                        color: Color(0xff6A717E),
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    Container(
-                      width: 360.w,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF29A07B), Color(0xFF1B8064)],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                        ),
-                        border: Border.all(color: Color(0xFF156752), width: 1),
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Color(0x80156752),
-                            offset: Offset(0, 2),
-                            blurRadius: 4,
-                          ),
-                          BoxShadow(
-                            color: Color(0x66FFFFFF),
-                            offset: Offset(0, 2),
-                            blurRadius: 0,
-                            spreadRadius: 1,
                           ),
                         ],
                       ),
-                      child: InkWell(
-                        onTap: () async {
-                          final item = {
-                            'medical_supply_id': widget.suppliesModel.id,
-                            'quantity': quantity,
-                            'price':
-                                double.tryParse(
-                                  widget.suppliesModel.price.toString(),
-                                ) ??
-                                0.0,
-                            'name_en': widget.suppliesModel.nameEn,
-                            'name_ar': widget.suppliesModel.nameAr,
-                            'image_url': widget.suppliesModel.images.isNotEmpty
-                                ? widget.suppliesModel.images[0].imageUrl
-                                : '',
-                          };
+                      Text(
+                        '${widget.suppliesModel.price} JOD',
+                        style: TextStyle(
+                          color: Colors.green,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        context.locale.languageCode == "en"
+                            ? widget.suppliesModel.nameEn ?? ""
+                            : widget.suppliesModel.nameAr ?? "",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          if (quantity > 1) {
+                            setState(() => quantity--);
+                          }
+                        },
+                        icon: CircleAvatar(
+                          radius: 16,
+                          backgroundColor: Color(0xff13434A),
+                          child: Icon(Icons.remove),
+                        ),
+                      ),
+                      Text(
+                        '$quantity',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() => quantity++);
+                        },
+                        icon: CircleAvatar(
+                          radius: 16,
+                          backgroundColor: AppColors.green,
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Divider(),
+                  const SizedBox(height: 12),
+                  Text(
+                    'product_details'.tr(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    context.locale.languageCode == "en"
+                        ? widget.suppliesModel.descriptionEn ?? ""
+                        : widget.suppliesModel.descriptionAr ?? "",
+                    style: TextStyle(
+                      color: Color(0xff6A717E),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Container(
+                    width: 360.w,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xFF29A07B), Color(0xFF1B8064)],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                      border: Border.all(color: Color(0xFF156752), width: 1),
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x80156752),
+                          offset: Offset(0, 2),
+                          blurRadius: 4,
+                        ),
+                        BoxShadow(
+                          color: Color(0x66FFFFFF),
+                          offset: Offset(0, 2),
+                          blurRadius: 0,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: InkWell(
+                      onTap: () async {
+                        final cartCubit = context.read<CartCubit>();
 
-                          await context.read<CartCubit>().addToCart(item);
+                        // Check if product already exists in cart
+                        final currentState = cartCubit.state;
+                        bool productExists = false;
 
+                        if (currentState is CartLoaded) {
+                          productExists = currentState.items.any(
+                            (item) =>
+                                item['medical_supply_id'] ==
+                                widget.suppliesModel.id,
+                          );
+                        }
+
+                        final item = {
+                          'medical_supply_id': widget.suppliesModel.id,
+                          'quantity': quantity,
+                          'price':
+                              double.tryParse(
+                                widget.suppliesModel.price.toString(),
+                              ) ??
+                              0.0,
+                          'name_en': widget.suppliesModel.nameEn,
+                          'name_ar': widget.suppliesModel.nameAr,
+                          'image_url': widget.suppliesModel.images.isNotEmpty
+                              ? widget.suppliesModel.images[0].imageUrl
+                              : '',
+                        };
+
+                        await cartCubit.addToCart(item);
+
+                        // Show appropriate message
+                        if (productExists) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('quantity_updated_in_cart'.tr()),
+                            ),
+                          );
+                        } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('item_added_to_cart'.tr())),
                           );
-                          // Navigator.pop(context);
-                        },
+                        }
 
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 14,
-                            horizontal: 32,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'add_to_cart'.tr(),
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w700,
-                              ),
+                        // Navigate back
+                        Navigator.pop(context);
+                      },
+
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 32,
+                        ),
+                        child: Center(
+                          child: Text(
+                            'add_to_cart'.tr(),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 20.h),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 20.h),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

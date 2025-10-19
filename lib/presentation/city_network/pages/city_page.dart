@@ -252,7 +252,10 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                     ),
                                   ),
                                   Text(
-                                    city.nameEn,
+                                    //check current language
+                                    context.locale.languageCode == 'ar'
+                                        ? city.nameAr
+                                        : city.nameEn,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
@@ -296,7 +299,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Next",
+                            "next".tr(),
                             style: TextStyle(
                               color: AppColors.white_text_color,
                               fontWeight: FontWeight.bold,

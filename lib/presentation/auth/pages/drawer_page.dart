@@ -37,6 +37,36 @@ class _DrawerPageState extends State<DrawerPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Close icon above home drawer item
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: 20.w,
+                      right: 20.w,
+                      bottom: 10.h,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: context.locale.languageCode == 'ar'
+                          ? MainAxisAlignment.end
+                          : MainAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                          onTap: widget.onTap,
+                          child: Container(
+                            padding: EdgeInsets.all(8.w),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withValues(alpha: 0.2),
+                              borderRadius: BorderRadius.circular(20.r),
+                            ),
+                            child: Icon(
+                              Icons.close,
+                              color: Colors.white,
+                              size: 24.w,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   _drawerItem(
                     label: 'home',
                     icon: 'home-drawer-icon',
@@ -51,7 +81,7 @@ class _DrawerPageState extends State<DrawerPage> {
                     icon: 'contact-us-drawer-icon',
                     isSelected: selectedItem == 'contact_us',
                     onTap: () {
-                      setState(() => selectedItem = 'contact_us', );
+                      setState(() => selectedItem = 'contact_us');
                       Navigator.pushNamed(context, '/network');
                     },
                   ),

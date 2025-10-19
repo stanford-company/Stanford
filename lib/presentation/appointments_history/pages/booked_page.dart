@@ -9,13 +9,28 @@ import '../bloc/appointments_cubit.dart';
 class BookedPage extends StatelessWidget {
   const BookedPage({super.key});
 
+  bool _isFilterActive(int index, String currentFilter) {
+    switch (index) {
+      case 0:
+        return currentFilter == 'All';
+      case 1:
+        return currentFilter == 'Pending';
+      case 2:
+        return currentFilter == 'Confirmed';
+      case 3:
+        return currentFilter == 'Completed';
+      default:
+        return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final filterKeys = [
       'filter_all',
-      'filter_upcoming',
-      'filter_accepted',
-      'filter_previous',
+      'filter_pending',
+      'filter_confirmed',
+      'filter_completed',
     ];
 
     final lang = Localizations.localeOf(context).languageCode;
@@ -49,24 +64,24 @@ class BookedPage extends StatelessWidget {
                             case 1:
                               context
                                   .read<AppointmentsHistoryCubit>()
-                                  .getUpcomingAppointments();
+                                  .getPendingAppointments();
                               break;
                             case 2:
                               context
                                   .read<AppointmentsHistoryCubit>()
-                                  .getAcceptedAppointments();
+                                  .getConfirmedAppointments();
                               break;
                             case 3:
                               context
                                   .read<AppointmentsHistoryCubit>()
-                                  .getPreviousAppointments();
+                                  .getCompletedAppointments();
                               break;
                           }
                         },
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50.r),
-                            color: label == state.filter
+                            color: _isFilterActive(index, state.filter)
                                 ? AppColors.green
                                 : AppColors.light_grey_color,
                           ),
@@ -75,8 +90,8 @@ class BookedPage extends StatelessWidget {
                             child: Text(
                               label,
                               style: TextStyle(
-                                color: index == 0
-                                    ? AppColors.primary_color
+                                color: _isFilterActive(index, state.filter)
+                                    ? Colors.white
                                     : const Color(0xff6A717E),
                                 fontWeight: FontWeight.w500,
                               ),

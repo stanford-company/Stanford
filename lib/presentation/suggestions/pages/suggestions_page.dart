@@ -56,8 +56,8 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
     return Scaffold(
       backgroundColor: const Color(0xfff9f9f9),
       appBar: AppBar(
-        title: const Text(
-          "Your Suggestions",
+        title: Text(
+          "your_suggestions".tr(),
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -73,7 +73,7 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
           if (state is SuggestionsSuccess) {
             _titleController.clear();
             _descriptionController.clear();
-            _showDialog("Suggestion sent successfully!", true);
+            _showDialog("suggestion_sent_successfully".tr(), true);
           } else if (state is SuggestionsFailure) {
             _showDialog(state.message, false);
           }
@@ -148,8 +148,8 @@ class _SuggestionsPageState extends State<SuggestionsPage> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: const Text(
-                              "Submit",
+                            child: Text(
+                              "submit".tr(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,

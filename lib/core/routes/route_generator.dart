@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:medapp/presentation/main_home/pages/about_us.dart';
 import 'package:medapp/presentation/medical_entity/pages/medical_details.dart';
+import 'package:medapp/presentation/onboarding/pages/onboarding_page.dart';
 
 import '../../data/medical_entity/model/medical_doctor.dart';
 import '../../data/medical_entity/model/medical_entity.dart';
@@ -35,6 +36,9 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.splash:
         return CupertinoPageRoute(builder: (_) => SplashPage());
+
+      case Routes.onboarding:
+        return CupertinoPageRoute(builder: (_) => OnboardingPage());
 
       case Routes.login:
         return CupertinoPageRoute(builder: (_) => LoginPage());

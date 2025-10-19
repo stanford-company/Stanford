@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../core/routes/routes.dart';
-import '../../../data/pref_manager.dart';
+import '../../../common/components/language_switcher_widget.dart';
 import '../bloc/login_cubit.dart';
 import '../widgets/input_widget.dart'; // Import cubit
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final isEnglish = context.locale.languageCode == 'en';
-
     return Scaffold(
       backgroundColor: Color(0xff0c3c4c),
       body: BlocProvider(
@@ -36,81 +34,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Container(
-                      height: 40.h,
-                      width: 140.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(50.r),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.all(2.5.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Prefs.setString(Prefs.LANGUAGE, 'en');
-                                  EasyLocalization.of(context)!.setLocale(
-                                    EasyLocalization.of(
-                                      context,
-                                    )!.supportedLocales[0],
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: isEnglish
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50.r),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'English',
-                                    style: TextStyle(
-                                      color: isEnglish
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Prefs.setString(Prefs.LANGUAGE, 'ar');
-                                  EasyLocalization.of(context)!.setLocale(
-                                    EasyLocalization.of(
-                                      context,
-                                    )!.supportedLocales[4],
-                                  );
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: !isEnglish
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(50.r),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'العربية',
-                                    style: TextStyle(
-                                      color: !isEnglish
-                                          ? Colors.black
-                                          : Colors.white,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    const LanguageSwitcherWidget(),
                   ],
                 ),
               ),
@@ -135,7 +59,7 @@ class LoginPage extends StatelessWidget {
                           SizedBox(height: 30.h),
                           Center(
                             child: Column(
-                              children: [ 
+                              children: [
                                 Text(
                                   'log_in'.tr(),
                                   style: TextStyle(

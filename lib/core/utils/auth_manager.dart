@@ -6,6 +6,8 @@ import '../routes/routes.dart';
 import '../services/navigation_service.dart';
 
 class AuthManager {
+  static bool _sessionExpiredMessageShown = false;
+
   /// Handles logout when user session expires or receives 401
   static Future<void> handleSessionExpired() async {
     print('🔐 Handling session expiration');
@@ -45,17 +47,29 @@ class AuthManager {
   }
 
   static void _showSessionExpiredMessage() {
+    // Check if message has already been shown within the last minute
+    if (_sessionExpiredMessageShown) {
+      return;
+    }
+
     final context = NavigationService.context;
     if (context != null) {
+      _sessionExpiredMessageShown = true;
+
       ScaffoldMessenger.of(
         NavigationService.navigatorKey.currentContext!,
       ).showSnackBar(
         SnackBar(
           content: Text('session_expired_message'.tr()),
           backgroundColor: Colors.red,
-          duration: Duration(seconds: 3),
+          duration: Duration(seconds: 1), // Show for 1 second
         ),
       );
+
+      // Reset the flag after 1 minute to allow showing again
+      Future.delayed(Duration(minutes: 1), () {
+        _sessionExpiredMessageShown = false;
+      });
     }
   }
 
