@@ -30,7 +30,7 @@ class OnboardingPage extends StatelessWidget {
                 );
               } else if (state is OnboardingCompleted ||
                   state is OnboardingSkipped) {
-                Navigator.of(context).pushReplacementNamed(Routes.home);
+                Navigator.of(context).pushReplacementNamed(Routes.login);
               }
             },
             builder: (context, state) {
