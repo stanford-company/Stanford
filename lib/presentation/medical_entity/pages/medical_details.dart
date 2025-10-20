@@ -58,13 +58,25 @@ class MedicalDetailsScreen extends StatelessWidget {
   void _launchMap(double latitude, double longitude) async {
     final String googleMapUrl =
         'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (await canLaunchUrl(Uri.parse(googleMapUrl))) {
-      await launchUrl(Uri.parse(googleMapUrl));
-    } else {
-      // Handle error if URL can't be launched
-      print("Could not open the map.");
+    final Uri url = Uri.parse(googleMapUrl);
+
+    try {
+      final bool launched = await launchUrl(
+        url,
+        mode: LaunchMode.externalApplication,
+      );
+
+      if (!launched) {
+        await launchUrl(
+          url,
+          mode: LaunchMode.platformDefault,
+        );
+      }
+    } catch (e) {
+      print("Error launching map: $e");
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
