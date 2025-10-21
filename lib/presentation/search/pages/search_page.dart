@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:medapp/presentation/search/bloc/search_cubit.dart';
 import '../../../common/components/medical_card.dart';
 import '../../main_home/widgets/app_bar_title_widget.dart';
+import 'package:flutter/widgets.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -96,8 +98,7 @@ class _SearchPageState extends State<SearchPage> {
                               Expanded(
                                 child: TextField(
                                   controller: _searchController,
-                                  textDirection: TextDirection.rtl,
-                                  onSubmitted: (value) async {
+                                   onSubmitted: (value) async {
                                     await context
                                         .read<SearchCubit>()
                                         .medicalSearch(name: value.trim());
@@ -105,7 +106,7 @@ class _SearchPageState extends State<SearchPage> {
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText:
-                                        'Search for clinics, doctors, hospitals',
+                                    'search_for_clinics_doctors_hospitals'.tr(),
                                     hintStyle: TextStyle(
                                       color: Colors.grey.shade400,
                                       fontSize: 14.sp,
