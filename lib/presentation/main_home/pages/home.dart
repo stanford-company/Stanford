@@ -213,13 +213,19 @@ class _HomeState extends State<Home> {
                               },
                             ),
                             centerTitle: true,
-                            title: Text(
-                              _titles[_selectedIndex],
-                              style: TextStyle(
-                                color: Color(0xff113f4e),
-                                fontSize: 18.sp,
-                              ),
-                            ),
+                            title: _selectedIndex == 0
+                                ? Image.asset(
+                                    'assets/images/launcher_ic.png',
+                                    height: 60.h,
+                                    fit: BoxFit.contain,
+                                  )
+                                : Text(
+                                    _titles[_selectedIndex],
+                                    style: TextStyle(
+                                      color: Color(0xff113f4e),
+                                      fontSize: 18.sp,
+                                    ),
+                                  ),
                             actions: <Widget>[
                               _selectedIndex == 2
                                   ? IconButton(
