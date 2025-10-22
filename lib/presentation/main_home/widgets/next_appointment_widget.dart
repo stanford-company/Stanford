@@ -50,7 +50,10 @@ class NextAppointmentWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              nextAppointment.medicalEntityNameAr,
+                               context.locale.languageCode == 'ar'
+                                  ? nextAppointment.medicalEntityNameAr
+                                  : nextAppointment.medicalEntityName,
+
                               style: TextStyle(
                                 color: Color(0xff113f4e),
                                 fontSize: 16.sp,
@@ -79,7 +82,7 @@ class NextAppointmentWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 10.0.w),
                     child: Text(
-                      cubit.getFirstUpcomingAppointmentsString(),
+                      cubit.getFirstUpcomingAppointmentsString(context),
                       style: TextStyle(
                         color: Color(0xff113f4e),
                         fontWeight: FontWeight.bold,

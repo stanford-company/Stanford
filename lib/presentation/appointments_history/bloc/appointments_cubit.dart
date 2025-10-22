@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medapp/core/utils/setup_service.dart';
@@ -121,20 +122,21 @@ class AppointmentsHistoryCubit extends Cubit<AppointmentsHistoryState> {
   }
 
   // get String FirstUpcomingAppointments as tommorow or after two days or today
-  String getFirstUpcomingAppointmentsString() {
+  String getFirstUpcomingAppointmentsString(BuildContext context) {
     final now = DateTime.now();
     final firstAppointment = getFirstUpcomingAppointments();
     final date = DateTime.parse(firstAppointment.appointmentDate);
     final difference = date.difference(now).inDays;
 
     if (difference == 0) {
-      return 'Today';
+      return 'today'.tr();
     } else if (difference == 1) {
-      return 'Tomorrow';
+      return 'tomorrow'.tr();
     } else {
-      return 'After $difference days';
+      return tr('after_days', args: [difference.toString()]);
     }
   }
+
 
   void getPreviousAppointments() {
     final now = DateTime.now();

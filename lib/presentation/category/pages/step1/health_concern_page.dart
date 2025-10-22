@@ -57,7 +57,7 @@ class HealthConcernPage extends StatelessWidget {
                                   child: TextField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: 'search_for_clinics_doctors_hospitals'.tr(),
+                                      hintText: 'search_for_category'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -76,7 +76,9 @@ class HealthConcernPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: context.locale.languageCode == 'ar'
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
                       child: Text(
                         'Select medical condition'.tr(),
                         style: Theme.of(context).textTheme.titleMedium!

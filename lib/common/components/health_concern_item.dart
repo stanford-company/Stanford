@@ -43,7 +43,7 @@ class HealthConcernItem extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   color: Color(0xff113f4e),
                 ),
-                overflow: TextOverflow.ellipsis,
+                // overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

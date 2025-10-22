@@ -127,7 +127,9 @@ class _CityPageState extends State<CityPage> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment: context.locale.languageCode == 'ar'
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
                       child: Text(
                         'choose_city'.tr(),
                         style: Theme.of(context).textTheme.titleMedium!
