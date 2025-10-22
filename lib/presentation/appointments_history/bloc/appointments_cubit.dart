@@ -137,6 +137,18 @@ class AppointmentsHistoryCubit extends Cubit<AppointmentsHistoryState> {
     }
   }
 
+  void addNewAppointment(Appointment newAppointment) {
+    _allAppointments.insert(0, newAppointment); // add to top of the list (optional)
+    emit(
+      AppointmentsHistoryLoaded(
+        appointments: _allAppointments,
+        filter: state is AppointmentsHistoryLoaded
+            ? (state as AppointmentsHistoryLoaded).filter
+            : 'All',
+      ),
+    );
+  }
+
 
   void getPreviousAppointments() {
     final now = DateTime.now();

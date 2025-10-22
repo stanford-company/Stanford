@@ -411,7 +411,14 @@ class AppointmentScreen extends StatelessWidget {
                                 final id =
                                     medicalEntity?.id ?? medicalModel?.id;
                                 if (id != null) {
-                                  cubit.setAppointment(id);
+                                  cubit.setAppointment(
+                                    id,
+                                    context,
+                                    medicalEntityName: medicalEntity?.name ?? medicalModel?.medicalName ?? '',
+                                    medicalEntityNameAr: medicalEntity?.nameAr ?? medicalModel?.medicalName ?? '',
+                                  );
+
+                                  ;
                                 } else {
                                   print('object');
                                 }
