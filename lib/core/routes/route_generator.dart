@@ -75,12 +75,28 @@ class RouteGenerator {
           ),
         );
       case Routes.bookingStepCityNetwork:
-        final args = settings.arguments as int;
-        return CupertinoPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => SuggestionsCubit(),
-            child: CityNetworkPage(categoryId: args),
-          ),
+        final args = settings.arguments;
+        if (args is Map<String, dynamic>) {
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => SuggestionsCubit(),
+              child: CityNetworkPage(
+                categoryId: args['categoryId'] as int,
+                categoryName: args['categoryName'] as String?,
+              ),
+            ),
+          );
+        } else if (args is int) {
+          // Backward compatibility for old navigation
+          return CupertinoPageRoute(
+            builder: (_) => BlocProvider(
+              create: (_) => SuggestionsCubit(),
+              child: CityNetworkPage(categoryId: args),
+            ),
+          );
+        }
+        throw ArgumentError(
+          'Invalid arguments for bookingStepCityNetwork route',
         );
       case Routes.bookingStep1:
         return CupertinoPageRoute(
@@ -90,7 +106,6 @@ class RouteGenerator {
 
       case Routes.bookingStep2:
         final args = settings.arguments as String? ?? "";
-        final isBook = settings.arguments as bool? ?? false;
         return CupertinoPageRoute(
           builder: (_) =>
               ChooseDoctorPage(cityId: args, isBooking: true, categoryId: 0),

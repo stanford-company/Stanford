@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:medapp/presentation/appointments_history/bloc/appointments_cubit.dart';
 import 'package:medapp/presentation/auth/bloc/logout_cubit.dart';
 import 'package:medapp/presentation/home/bloc/center_cubit.dart';
@@ -109,11 +110,14 @@ class MyApp extends StatelessWidget {
               locale: EasyLocalization.of(context)!.locale,
               debugShowCheckedModeBanner: false,
               theme: state.themeData.copyWith(
+                textTheme: GoogleFonts.almaraiTextTheme(
+                  state.themeData.textTheme,
+                ),
                 appBarTheme: AppBarTheme(
                   backgroundColor: Colors.white,
                   elevation: 0, // No shadow
                   iconTheme: IconThemeData(color: Colors.black),
-                  titleTextStyle: TextStyle(
+                  titleTextStyle: GoogleFonts.almarai(
                     color: Colors.black,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,

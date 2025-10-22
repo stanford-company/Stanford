@@ -10,12 +10,14 @@ class ChooseDoctorPage extends StatefulWidget {
   final String cityId;
   final int categoryId;
   final bool isBooking;
+  final String? categoryName;
 
   const ChooseDoctorPage({
     super.key,
     required this.cityId,
     required this.isBooking,
     required this.categoryId,
+    this.categoryName,
   });
 
   @override
@@ -26,7 +28,6 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
   int _selectedIndex = 2;
   late PageController _pageController;
   int? cityId;
-  bool _didFetch = false;
 
   @override
   void initState() {
@@ -71,7 +72,7 @@ class _ChooseDoctorPageState extends State<ChooseDoctorPage> {
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                   title: Text(
-                    "book_an_appointment".tr(),
+                    widget.categoryName ?? "book_an_appointment".tr(),
                     style: TextStyle(color: Color(0xff113f4e), fontSize: 18.sp),
                   ),
                 ),

@@ -17,8 +17,13 @@ import '../bloc/city_network_state.dart';
 
 class CityNetworkPage extends StatefulWidget {
   final int categoryId;
+  final String? categoryName;
 
-  const CityNetworkPage({super.key, required this.categoryId});
+  const CityNetworkPage({
+    super.key,
+    required this.categoryId,
+    this.categoryName,
+  });
 
   @override
   State<CityNetworkPage> createState() => _CityNetworkPageState();
@@ -283,6 +288,7 @@ class _CityNetworkPageState extends State<CityNetworkPage> {
                                     cityId: state.cityId,
                                     isBooking: false,
                                     categoryId: widget.categoryId,
+                                    categoryName: widget.categoryName,
                                   ),
                                 ),
                               );

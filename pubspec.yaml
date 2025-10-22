@@ -42,7 +42,7 @@ dependencies:
   dio: ^5.8.0+1
   flutter_screenutil: ^5.5.4
   flutter_svg: ^1.1.6
-  http: ^0.13.5
+  http: ^1.5.0
   carousel_slider: ^5.0.0
   cached_network_image: ^3.2.3
   dartz: ^0.10.1
@@ -50,10 +50,7 @@ dependencies:
   flutter_cached_pdfview: ^0.4.2
   get_it:
   another_flushbar: ^1.10.30
-
-
-
-
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -61,10 +58,9 @@ dev_dependencies:
   flutter_launcher_icons: ^0.11.0
   change_app_package_name:
 flutter_icons:
-  image_path: 'assets/images/launcher_ic.png'
+  image_path: "assets/images/launcher_ic.png"
   android: true
   ios: true
-
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -78,7 +74,6 @@ flutter_icons:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

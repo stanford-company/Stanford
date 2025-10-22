@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 
@@ -12,7 +13,7 @@ final appThemeData = {
     platform: TargetPlatform.iOS,
     scaffoldBackgroundColor: Colors.white,
     colorScheme: const ColorScheme.light(primary: kColorPrimary),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.white,
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -22,9 +23,8 @@ final appThemeData = {
       ),
       iconTheme: IconThemeData(color: kColorPrimary),
       actionsIconTheme: IconThemeData(color: kColorPrimary),
-      titleTextStyle: TextStyle(
+      titleTextStyle: GoogleFonts.almarai(
         color: kColorDarkBlue,
-        fontFamily: 'NunitoSans',
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
@@ -36,15 +36,17 @@ final appThemeData = {
       indent: 10,
       endIndent: 10,
     ),
-    textTheme: TextTheme(
-      labelLarge: kTextStyleButton,
-      titleMedium: kTextStyleSubtitle1.copyWith(color: kColorPrimaryDark),
-      titleSmall: kTextStyleSubtitle2.copyWith(color: kColorPrimaryDark),
-      bodyMedium: kTextStyleBody2.copyWith(color: kColorPrimaryDark),
-      titleLarge: kTextStyleHeadline6.copyWith(color: kColorPrimaryDark),
+    textTheme: GoogleFonts.almaraiTextTheme(
+      TextTheme(
+        labelLarge: kTextStyleButton,
+        titleMedium: kTextStyleSubtitle1.copyWith(color: kColorPrimaryDark),
+        titleSmall: kTextStyleSubtitle2.copyWith(color: kColorPrimaryDark),
+        bodyMedium: kTextStyleBody2.copyWith(color: kColorPrimaryDark),
+        titleLarge: kTextStyleHeadline6.copyWith(color: kColorPrimaryDark),
+      ),
     ),
     iconTheme: const IconThemeData(color: kColorPrimary),
-    fontFamily: 'NunitoSans',
+    fontFamily: GoogleFonts.almarai().fontFamily,
     cardTheme: CardThemeData(
       elevation: 0,
       color: Color(0xffEBF2F5),
@@ -60,7 +62,7 @@ final appThemeData = {
     platform: TargetPlatform.iOS,
     scaffoldBackgroundColor: Colors.black,
     colorScheme: const ColorScheme.dark(primary: kColorPrimary),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: Color(0xff121212),
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
@@ -70,9 +72,8 @@ final appThemeData = {
       ),
       iconTheme: IconThemeData(color: kColorPrimary),
       actionsIconTheme: IconThemeData(color: kColorPrimary),
-      titleTextStyle: TextStyle(
+      titleTextStyle: GoogleFonts.almarai(
         color: Colors.white,
-        fontFamily: 'NunitoSans',
         fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
@@ -84,23 +85,25 @@ final appThemeData = {
       indent: 10,
       endIndent: 10,
     ),
-    textTheme: TextTheme(
-      labelLarge: kTextStyleButton,
-      titleMedium: kTextStyleSubtitle1.copyWith(
-        color: Colors.white.withOpacity(0.87),
-      ),
-      titleSmall: kTextStyleSubtitle2.copyWith(
-        color: Colors.white.withOpacity(0.87),
-      ),
-      bodyMedium: kTextStyleBody2.copyWith(
-        color: Colors.white.withOpacity(0.87),
-      ),
-      titleLarge: kTextStyleHeadline6.copyWith(
-        color: Colors.white.withOpacity(0.87),
+    textTheme: GoogleFonts.almaraiTextTheme(
+      TextTheme(
+        labelLarge: kTextStyleButton,
+        titleMedium: kTextStyleSubtitle1.copyWith(
+          color: Colors.white.withOpacity(0.87),
+        ),
+        titleSmall: kTextStyleSubtitle2.copyWith(
+          color: Colors.white.withOpacity(0.87),
+        ),
+        bodyMedium: kTextStyleBody2.copyWith(
+          color: Colors.white.withOpacity(0.87),
+        ),
+        titleLarge: kTextStyleHeadline6.copyWith(
+          color: Colors.white.withOpacity(0.87),
+        ),
       ),
     ),
     iconTheme: IconThemeData(color: Colors.white.withOpacity(0.87)),
-    fontFamily: 'NunitoSans',
+    fontFamily: GoogleFonts.almarai().fontFamily,
     cardTheme: CardThemeData(
       elevation: 0,
       color: kColorDark,

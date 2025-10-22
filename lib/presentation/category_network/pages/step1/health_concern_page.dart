@@ -122,9 +122,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                     controller: searchController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText:
-                                          'search_for_category'
-                                              .tr(),
+                                      hintText: 'search_for_category'.tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
                                         fontSize: 14.sp,
@@ -142,8 +140,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Align(
-                      alignment:
-                      context.locale.languageCode == 'ar'
+                      alignment: context.locale.languageCode == 'ar'
                           ? Alignment.centerRight
                           : Alignment.centerLeft,
                       child: Text(
@@ -177,8 +174,10 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                 context,
                                 Routes
                                     .bookingStepCityNetwork, // Assuming this is your route name for CityNetworkPage
-                                arguments:
-                                    category.id, // Pass the selected category
+                                arguments: {
+                                  'categoryId': category.id,
+                                  'categoryName': categoryName,
+                                }, // Pass both category ID and name
                               );
                             },
                             child: Container(
