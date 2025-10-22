@@ -57,7 +57,7 @@ class StoreCard extends StatelessWidget {
                       ),
                       textAlign: TextAlign.center,
                       maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
+                      // overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   Text(

@@ -123,7 +123,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText:
-                                          'search_for_clinics_doctors_hospitals'
+                                          'search_for_category'
                                               .tr(),
                                       hintStyle: TextStyle(
                                         color: Colors.grey.shade400,
@@ -142,7 +142,10 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Align(
-                      alignment: Alignment.centerLeft,
+                      alignment:
+                      context.locale.languageCode == 'ar'
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
                       child: Text(
                         'Select medical condition'.tr(),
                         style: Theme.of(context).textTheme.titleMedium!
@@ -203,7 +206,7 @@ class _CategoryNetworkPageState extends State<CategoryNetworkPage> {
                                   Expanded(
                                     child: Text(
                                       categoryName,
-                                      overflow: TextOverflow.ellipsis,
+                                      // overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                       ),

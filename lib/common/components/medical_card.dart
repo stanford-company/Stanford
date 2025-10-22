@@ -89,7 +89,7 @@ class MedicalCard extends StatelessWidget {
                       ? medicalEntity?.category.nameEn ?? ""
                       : medicalEntity?.category.nameAr ?? "",
                   style: TextStyle(fontSize: 13.sp, color: Colors.black),
-                  overflow: TextOverflow.ellipsis,
+                  // overflow: TextOverflow.ellipsis,
                 ),
               ],
               Text(

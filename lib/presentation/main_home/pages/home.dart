@@ -380,7 +380,7 @@ class _HomeState extends State<Home> {
                           NavBarItemWidget(
                             onTap: () => _selectPage(1),
                             image: 'assets/images/svg/calendar-nav-bar.svg',
-                            label: 'booked'.tr(),
+                            label: 'booked_appointments'.tr(),
                             isSelected: _selectedIndex == 1,
                           ),
                           NavBarItemWidget(

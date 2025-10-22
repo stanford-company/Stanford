@@ -485,5 +485,8 @@
     "search_medical_supplies": "Search medical supplies...",
     "no_ads_available": "No ads available",
     "your_suggestions": "Your Suggestions",
-    "suggestion_sent_successfully": "Suggestion sent successfully!"
+    "suggestion_sent_successfully": "Suggestion sent successfully!",
+    "search_for_category": "search for category",
+    "after_days": "After {} days",
+    "booked_appointments": "Booked"
 }

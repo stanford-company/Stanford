@@ -200,7 +200,8 @@
   "please_enter_your_email": "يرجى إدخال البريد الإلكتروني",
   "please_enter_a_valid_email": "يرجى إدخال بريد إلكتروني صالح",
   "please_enter_password": "يرجى إدخال كلمة المرور",
-  "booked": "محجوز",
+  "booked": "المواعيد المحجوزة",
+  "booked_appointments": "محجوز",
   "book_now": "احجز الآن",
   "store": "المتجر",
   "search_for_clinics_doctors_hospitals": "ابحث عن عيادات، أطباء، مستشفيات",
@@ -233,7 +234,7 @@
   "Select medical condition": "اختر الفئة الطبية",
   "logout_confirmation": "هل انت متأكد من تسجيل الخروج",
   "cancel": "الغاء",
-  "choose_city": "اختر مدينة",
+  "choose_city": "اختر المدينة",
   
   "session_expired_message": "انتهت صلاحية الجلسة. يرجى تسجيل الدخول مرة أخرى.",
   "auth_test": "اختبار المصادقة",
@@ -313,7 +314,7 @@
   "email_example": "example@email.com",
   "password_placeholder": "* * * * * *",
   "search_hint": "اكتب للبحث...",
-  "select_city": "اختر مدينة",
+  "select_city": "اختر المدينة",
   "select_category": "اختر فئة",
   "select_doctor": "اختر طبيباً",
   "enter_notes": "أدخل ملاحظاتك هنا...",
@@ -443,7 +444,7 @@
   "onboarding_subtitle_2": "ابحث بذكاء عن الجهات الطبية حسب المحافظة أو التخصص، مع تفاصيل دقيقة ومحدثة لكل جهة.",
   "onboarding_title_3": "احجز موعدك الطبي بسهولة",
   "onboarding_subtitle_3": "استعرض الأطباء والمراكز الطبية واحجز موعدك في ثوانٍ دون الحاجة للاتصال أو الانتظار.",
-  "medical conditions": "الحالات الطبية",
+  "medical conditions": "الشبكة الطبية",
   "condition_cardiology": "أمراض القلب",
   "condition_dermatology": "الأمراض الجلدية",
   "condition_neurology": "الأمراض العصبية",
@@ -484,6 +485,8 @@
   "search_medical_supplies": "البحث عن المستلزمات الطبية...",
   "no_ads_available": "لا توجد إعلانات متاحة",
   "your_suggestions": "اقتراحاتكم",
-  "suggestion_sent_successfully": "تم إرسال الاقتراح بنجاح!"
+  "suggestion_sent_successfully": "تم إرسال الاقتراح بنجاح!",
+  "search_for_category": "البحث عن نوع الجهة الطبية",
+  "after_days": "بعد {} أيام"
 
 }
